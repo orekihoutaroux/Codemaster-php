@@ -1,0 +1,40 @@
+<!-- ========================================================================
+     OVERLAY 1: ACCOUNT INFORMATION
+     Purpose: Shows the current player's profile and live game statistics.
+     Functions: toggleAccountInfo(), updateAccountInfo(), closeAccountInfo()
+     ======================================================================== -->
+<div id="account-info-overlay" class="account-info-overlay" style="display:none;" role="dialog" aria-labelledby="account-info-title">
+    <div class="account-info-card">
+        <div class="account-info-topbar">
+            <div class="account-info-heading" id="account-info-title">PLAYER ACCOUNT</div>
+            <button type="button" class="account-info-close" id="account-info-close" onclick="closeAccountInfo()" aria-label="Close account information">×</button>
+        </div>
+        <div class="account-info-profile">
+            <canvas id="account-info-avatar" class="account-info-avatar" width="80" height="80"></canvas>
+            <div class="account-info-profile-copy">
+                <div class="account-info-name" id="account-info-name">PLAYER</div>
+                <div class="account-info-title-badge" id="account-info-player-title">PHP NOVICE</div>
+                <div class="account-info-meta" id="account-info-meta">Student</div>
+                <div class="account-info-hero" id="account-info-hero">No hero selected</div>
+            </div>
+        </div>
+        <div class="account-info-grid">
+            <div class="account-info-stat"><span>LEVEL</span><strong id="account-info-level">1</strong></div>
+            <div class="account-info-stat"><span>FLOOR</span><strong id="account-info-floor">1</strong></div>
+            <div class="account-info-stat"><span>HP</span><strong id="account-info-hp">100/100</strong></div>
+            <div class="account-info-stat"><span>POINTS</span><strong id="account-info-score">0</strong></div>
+            <div class="account-info-stat"><span>GOLD</span><strong id="account-info-gold">0</strong></div>
+            <div class="account-info-stat"><span>POTIONS</span><strong id="account-info-potions">0</strong></div>
+            <div class="account-info-stat"><span>MONSTERS</span><strong id="account-info-monsters">0</strong></div>
+            <div class="account-info-stat"><span>BOSSES</span><strong id="account-info-bosses">0</strong></div>
+        </div>
+        <div class="account-info-ability" id="account-info-ability">Hero ability information appears here.</div>
+        <div class="account-achievement-heading">
+            <span>ACHIEVEMENTS</span>
+            <span id="account-achievement-count">0 / 12 UNLOCKED</span>
+        </div>
+        <div class="account-achievement-list" id="account-achievement-list">
+            <div class="account-achievement-empty">Loading achievements from MongoDB...</div>
+        </div>
+    </div>
+</div>

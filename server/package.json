@@ -1,0 +1,20 @@
+{
+  "name": "codemaster-php-server",
+  "version": "1.0.0",
+  "description": "Express + MongoDB backend for CodeMaster PHP",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node seed.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongodb": "^6.8.0",
+    "dotenv": "^16.4.5",
+    "cors": "^2.8.5"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

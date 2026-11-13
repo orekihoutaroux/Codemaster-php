@@ -1,0 +1,12 @@
+# Dependencies - reinstalled by the host with "npm install"
+node_modules/
+
+# Secrets: the real connection string lives here, never in the repository.
+.env
+server/.env
+
+# Logs and OS clutter
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db

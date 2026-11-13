@@ -1,0 +1,86 @@
+/* ===== GAME TYPOGRAPHY POLISH ===== */
+/* Keep adventure headings pixel-styled while making reading text comfortable. */
+.title-desc{font-size:17px;line-height:1.8;}
+.select-title,.learn-title,.shop-title,.admin-login-title,.admin-title,.leaderboard-header h1{font-family:var(--pixel-font);letter-spacing:1px;}
+.select-title{font-size:21px;line-height:1.5;}
+.select-section-title{font-size:14px;line-height:1.6;}
+.select-profile label,.profile-field label,.admin-login-field label,.admin-field label{font-size:13px;}
+.select-profile input,.select-profile select,.profile-field input,.profile-field select,.admin-login-field input,.admin-field input,.admin-field select,.admin-field textarea{font-size:16px;}
+.select-profile .profile-hint,.add-user-card .add-user-subtitle,.admin-login-subtitle,.admin-subtitle{font-size:15px;line-height:1.65;}
+.char-card .char-name{font-size:13px;line-height:1.6;}
+.char-card .char-desc,.char-card .char-stats{font-size:14px;line-height:1.55;}
+.start-btn,.confirm-btn,.learn-back,.shop-close,.admin-btn,.admin-tab,.lex-attack-btn,.lex-special-skill-btn{letter-spacing:.5px;}
+#title-screen .start-btn[onclick*="learn-screen"],#title-screen .start-btn[onclick*="showLeaderboard"]{font-size:12px!important;}
+.start-btn,.confirm-btn{line-height:1.5;}
+.learn-title{font-size:19px;line-height:1.5;}
+.learn-back{font-size:11px;}
+.learn-tab{font-size:15px;padding:9px 15px;}
+.learn-card h3{font-size:13px;line-height:1.6;}
+.learn-card h4{font-size:17px;}
+.learn-card p,.learn-card li{font-size:16px;line-height:1.8;}
+.learn-card .learn-code{font-size:15px;}
+.learn-card .tip-box,.learn-card .warn-box{font-size:15px;}
+.shop-item-name{font-size:16px;}
+.shop-item-desc,.shop-item-cost{font-size:14px;}
+.shop-buffs{font-size:15px;}
+.shop-close,.admin-btn,.admin-tab{font-size:11px;line-height:1.5;}
+.admin-login-subtitle,.admin-subtitle{font-size:14px;}
+.admin-login-status,.admin-status,.admin-empty,.admin-question-snippet,.admin-confirm-message{font-size:15px;}
+.admin-question-id,.admin-user-score,.admin-confirm-message span{font-size:13px;}
+.admin-user-name{font-size:16px;}
+.admin-user-meta{font-size:12px;}
+.lex-floor-badge,.lex-monster-stats-title,.lex-best-title,.lex-character-stats-title{font-size:10px;line-height:1.6;}
+.lex-panel-row,.lex-monster-stat-row,.lex-best-row,.btn-menu,.diff-btn{font-size:14px;line-height:1.5;}
+.lex-monster-stat-row span,.lex-monster-stat-note,.lex-character-stat span,.lex-level-progress-label,.lex-character-special-desc,.lex-boss-special-desc{font-size:11px;line-height:1.5;}
+.lex-character-stat strong,.lex-monster-stat-row strong,.lex-character-special-label,.lex-boss-special-label,.lex-boss-special-ready{font-size:9px;}
+.lex-special-skill-btn{font-size:9px;}
+.lex-speech-bubble{font-size:11px;line-height:1.7;}
+.lex-hero-label{font-size:10px;}
+.lex-enemy-label{font-size:12px;}
+.q-category,.q-difficulty{font-size:14px;}
+.q-number{font-size:14px;}
+.q-text{font-size:20px;line-height:1.65;}
+.choice-btn{font-size:18px;line-height:1.45;}
+.explanation{font-size:16px;}
+.explanation .exp-label{font-size:13px;}
+.lex-attack-btn{font-size:12px;}
+.leaderboard-subtitle{font-size:18px;}
+.stat-item,.stat-value{font-size:16px;}
+.stat-label{font-size:17px;}
+.leaderboard-row{font-size:17px;}
+.col.character,.col.role{font-size:15px;}
+@media(max-width:700px){
+    .select-title{font-size:18px;}
+    .learn-title{font-size:15px;}
+    .learn-tab{font-size:13px;padding:8px 10px;}
+    .learn-card p,.learn-card li{font-size:15px;}
+    .lex-panel-row,.lex-monster-stat-row,.lex-best-row,.btn-menu,.diff-btn{font-size:12px;}
+    .lex-character-stat span,.lex-level-progress-label,.lex-character-special-desc,.lex-boss-special-desc,.lex-monster-stat-note{font-size:10px;}
+    .lex-speech-bubble{font-size:9px;}
+    .q-text{font-size:17px;}
+    .choice-btn{font-size:15px;}
+    .leaderboard-header h1{font-size:clamp(22px,6vw,32px);}
+}
+
+.char-special-preview{font-size:12px;line-height:1.6;}.char-special-preview strong{font-size:12px;}
+
+.death-overlay .sub2{color:#c2a9a9;}
+.death-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:26px;width:min(100%,720px);}
+.death-btn{min-width:190px;padding:14px 18px;border:3px solid #f5c842;background:linear-gradient(180deg,#3a1930,#1b1026);color:#fff;font-family:var(--pixel-font);font-size:11px;line-height:1.7;letter-spacing:.4px;cursor:pointer;box-shadow:0 5px 0 #3d111b,0 0 15px rgba(245,200,66,.12);transition:transform .12s,filter .12s,box-shadow .12s;}
+.death-btn:hover{transform:translateY(-3px);filter:brightness(1.2);box-shadow:0 8px 0 #3d111b,0 0 22px rgba(245,200,66,.28);}
+.death-btn:active{transform:translateY(2px);box-shadow:0 2px 0 #3d111b;}
+.death-btn.restart{background:linear-gradient(180deg,#dc3d5b,#92203d);border-color:#ff8799;}
+.death-btn.leaderboard{background:linear-gradient(180deg,#87651c,#49330b);border-color:#f5c842;}
+.death-btn.home{background:linear-gradient(180deg,#245779,#153349);border-color:#6bd9ff;}
+@media(max-width:560px){.death-overlay .text{font-size:clamp(19px,7vw,26px);text-align:center;}.death-overlay .sub{font-size:15px;text-align:center;}.death-actions{width:min(100%,360px);gap:10px;margin-top:20px;}.death-btn{width:100%;min-width:0;padding:12px;font-size:10px;}}
+
+.returning-player-prompt{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:2px;padding-top:14px;border-top:1px solid rgba(245,200,66,.22);color:#c8c8e2;font-size:14px;}
+.returning-login-btn{padding:9px 16px;border:2px solid #79c8ff;background:linear-gradient(180deg,#174d79,#0d2a4a);color:#fff;font-family:var(--pixel-font);font-size:10px;line-height:1.6;cursor:pointer;box-shadow:0 3px 0 #071d32;}
+.returning-login-btn:hover{filter:brightness(1.25);transform:translateY(-1px);}
+#add-user-screen.login-mode #role-field,#add-user-screen.login-mode #student-extra,#add-user-screen.login-mode #add-user-next-btn,#add-user-screen.login-mode #returning-player-prompt{display:none;}
+#add-user-screen.login-mode #add-user-login-btn{display:inline-block;}
+#add-user-screen:not(.login-mode) #add-user-login-btn{display:none;}
+#add-user-screen.login-mode .add-user-card{border-color:#79c8ff;box-shadow:0 18px 55px rgba(0,0,0,.58),0 0 34px rgba(61,160,230,.22);}
+#add-user-screen.login-mode .add-user-title{color:#9bdcff;text-shadow:2px 2px 0 #16436a;}
+#add-user-screen.login-mode .add-user-actions .login-btn{background:linear-gradient(180deg,#267eb3,#14517b);box-shadow:0 4px 0 #0a2a4a,0 0 14px rgba(65,177,255,.35);}
+

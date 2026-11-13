@@ -1,0 +1,36 @@
+<!-- ========================================================================
+     OVERLAY 3: SETTINGS
+     Purpose: Controls volume and font size, or restarts/exits the game.
+     Functions: openSettings(), closeSettings(), saveSettings(), restartGame(),
+     exitGame()
+     ======================================================================== -->
+<div id="settings-overlay" class="admin-login-overlay settings-overlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+    <div class="admin-login-card settings-card">
+        <div class="admin-login-title" id="settings-title">SETTINGS</div>
+        <div class="admin-login-subtitle">Adjust audio, font size, or control the game.</div>
+        <div class="admin-login-field">
+            <label for="settings-volume-slider">Audio Volume</label>
+            <input id="settings-volume-slider" type="range" min="0" max="100" value="100" oninput="onSettingsVolumeChange(this.value)">
+            <div class="settings-volume-value" id="settings-volume-value">100%</div>
+        </div>
+        <div class="admin-login-field">
+            <label for="settings-font-size">Font Size</label>
+            <select id="settings-font-size" onchange="onSettingsFontSizeChange(this.value)">
+                <option value="small">Small (13px)</option>
+                <option value="medium">Medium (16px)</option>
+                <option value="large" selected>Large (18px)</option>
+            </select>
+        </div>
+        <div class="admin-login-actions">
+            <button type="button" class="admin-btn ghost" onclick="cancelSettings()">CANCEL</button>
+            <button type="button" class="admin-btn primary" onclick="saveSettings()">SAVE CHANGES</button>
+        </div>
+        <div class="settings-run-actions">
+            <div class="settings-run-label">CURRENT RUN</div>
+            <div class="admin-login-actions">
+                <button type="button" class="admin-btn secondary" onclick="restartGame()">RESTART GAME</button>
+                <button type="button" class="admin-btn ghost" onclick="exitGame()">EXIT TO TITLE</button>
+            </div>
+        </div>
+    </div>
+</div>

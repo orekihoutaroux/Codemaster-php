@@ -1,0 +1,45 @@
+<!-- ========================================================================
+     OVERLAY 2: DUNGEON SHOP
+     Purpose: Purchases healing items and temporary battle improvements.
+     Functions: openShop(), closeShop(), buyShopItem(), refreshShopGold()
+     ======================================================================== -->
+<div id="shop-overlay" class="shop-overlay" style="display:none;">
+    <div class="shop-box">
+        <div class="shop-title">DUNGEON SHOP</div>
+        <div class="shop-gold">Your Gold: <span id="shop-gold-display">0</span>g</div>
+        <div class="shop-items">
+            <div class="shop-item" onclick="buyShopItem('buy_potion',15)">
+                <div class="shop-item-icon" style="color:#4ecca3;">&#9829;</div>
+                <div class="shop-item-name">HP Potion</div>
+                <div class="shop-item-desc">Heal +30 HP instantly</div>
+                <div class="shop-item-cost">15g</div>
+            </div>
+            <div class="shop-item" onclick="buyShopItem('buy_def_potion',20)">
+                <div class="shop-item-icon" style="color:#5599ff;">&#9730;</div>
+                <div class="shop-item-name">DEF Potion</div>
+                <div class="shop-item-desc">-50% damage for 3 turns</div>
+                <div class="shop-item-cost">20g</div>
+            </div>
+            <div class="shop-item" onclick="buyShopItem('buy_gold_potion',25)">
+                <div class="shop-item-icon" style="color:#f5c842;">&#9733;</div>
+                <div class="shop-item-name">Gold Potion</div>
+                <div class="shop-item-desc">+100% gold for 3 turns</div>
+                <div class="shop-item-cost">25g</div>
+            </div>
+            <div class="shop-item" onclick="buyShopItem('buy_crit_potion',30)">
+                <div class="shop-item-icon" style="color:#e94560;">&#9889;</div>
+                <div class="shop-item-name">Crit Potion</div>
+                <div class="shop-item-desc">+40% crit chance for 3 turns</div>
+                <div class="shop-item-cost">30g</div>
+            </div>
+            <div class="shop-item" onclick="buyShopItem('buy_time_potion',20)">
+                <div class="shop-item-icon" style="color:#aa88ff;">&#9202;</div>
+                <div class="shop-item-name">Time Potion</div>
+                <div class="shop-item-desc">+10s timer for 3 turns</div>
+                <div class="shop-item-cost">20g</div>
+            </div>
+        </div>
+        <div class="shop-buffs" id="shop-buffs"></div>
+        <button class="shop-close" onclick="closeShop()">CLOSE</button>
+    </div>
+</div>

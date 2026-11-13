@@ -1,0 +1,8 @@
+/* ===== 10. QUESTION TIMER ===== */
+.timer-container{display:flex;align-items:center;gap:4px;}
+.timer-bar-wrap{width:150px;height:16px;background:#331111;border:2px solid #444;position:relative;}
+.timer-bar-fill{height:100%;background:var(--green);transition:width 0.3s linear;}
+.timer-bar-fill.warning{background:var(--gold);}
+.timer-bar-fill.danger{background:var(--accent);animation:hpPulse 0.4s infinite;}
+.timer-text{font-size:18px;font-weight:700;color:#aaa;min-width:50px;text-align:right;}
+.timer-text.danger{color:var(--accent);animation:hpPulse 0.4s infinite;}

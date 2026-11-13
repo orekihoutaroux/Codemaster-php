@@ -1,0 +1,349 @@
+<!-- ========================================================================
+     PAGE 5: PHP STUDY MATERIALS
+     Purpose: Provides lessons for all PHP topics used by the questionnaire.
+     Function: showLearnTab(topic) switches between the lesson cards.
+     ======================================================================== -->
+<div id="learn-screen" class="screen">
+    <div class="learn-header">
+        <div class="learn-title">PHP STUDY GRIMOIRE</div>
+        <button class="learn-back" onclick="showScreen('title-screen')">BACK</button>
+    </div>
+    <div class="learn-tabs">
+        <div class="learn-tab active" onclick="showLearnTab('basics')">BASICS</div>
+        <div class="learn-tab" onclick="showLearnTab('variables')">VARIABLES</div>
+        <div class="learn-tab" onclick="showLearnTab('strings')">STRINGS</div>
+        <div class="learn-tab" onclick="showLearnTab('arrays')">ARRAYS</div>
+        <div class="learn-tab" onclick="showLearnTab('control')">CONTROL</div>
+        <div class="learn-tab" onclick="showLearnTab('functions')">FUNCTIONS</div>
+        <div class="learn-tab" onclick="showLearnTab('oop')">OOP</div>
+        <div class="learn-tab" onclick="showLearnTab('advanced')">ADVANCED</div>
+    </div>
+    <div class="learn-content">
+        <div class="learn-card active" id="learn-basics">
+            <h3>PHP BASICS</h3>
+            <p>PHP (PHP: Hypertext Preprocessor) is a server-side scripting language designed for web development.</p>
+            <h4>Getting Started</h4>
+            <p>PHP code is written between special tags:</p>
+            <div class="learn-code">&lt;?php
+  echo "Hello, World!";
+?&gt;</div>
+            <h4>Key Rules</h4>
+            <ul>
+                <li>Every statement ends with a semicolon <b>;</b></li>
+                <li>PHP is case-sensitive for variables but NOT for functions</li>
+                <li>PHP files use the <b>.php</b> extension</li>
+                <li>PHP runs on the <b>server</b>, not the browser</li>
+            </ul>
+            <h4>Output</h4>
+            <div class="learn-code">echo "Hello";    // Most common way to output
+print "Hello";   // Also works, returns 1
+var_dump($x);    // Shows value AND type (great for debugging)</div>
+            <h4>Comments</h4>
+            <div class="learn-code">// Single line comment
+# Also a single line comment
+/* This is a
+   multi-line comment */</div>
+            <div class="tip-box">TIP: Use var_dump() instead of echo when debugging - it shows the data type too!</div>
+        </div>
+
+        <div class="learn-card" id="learn-variables">
+            <h3>VARIABLES &amp; DATA TYPES</h3>
+            <p>Variables in PHP start with the <b>$</b> symbol and don't need type declarations.</p>
+            <h4>Variable Declaration</h4>
+            <div class="learn-code">$name = "PHP";        // string
+$age = 28;            // integer
+$price = 9.99;        // float
+$isActive = true;     // boolean
+$data = null;         // null</div>
+            <h4>Type Checking</h4>
+            <div class="learn-code">gettype($x);      // Returns type as string
+is_string($x);    // Returns true/false
+is_int($x);       // Check if integer
+is_array($x);     // Check if array
+isset($x);        // Check if set and not null
+empty($x);        // Check if empty/null/0/false</div>
+            <h4>Type Casting</h4>
+            <div class="learn-code">$str = "42";
+$num = (int) $str;     // Cast to integer: 42
+$flt = (float) $str;   // Cast to float: 42.0
+$bool = (bool) $str;   // Cast to boolean: true</div>
+            <h4>Constants</h4>
+            <div class="learn-code">define("MAX_SIZE", 100);  // Function way
+const PI = 3.14159;       // Keyword way
+echo MAX_SIZE;   // 100
+echo PI;         // 3.14159</div>
+            <div class="warn-box">WARNING: Variables are case-sensitive! $Name and $name are different variables.</div>
+        </div>
+
+        <div class="learn-card" id="learn-strings">
+            <h3>STRING FUNCTIONS</h3>
+            <p>PHP has powerful built-in string functions for text manipulation.</p>
+            <h4>Common Functions</h4>
+            <div class="learn-code">strlen("Hello");           // 5 - string length
+strtoupper("hello");       // "HELLO"
+strtolower("HELLO");       // "hello"
+ucfirst("hello world");    // "Hello world"
+ucwords("hello world");    // "Hello World"
+trim("  hello  ");         // "hello" - removes whitespace</div>
+            <h4>Search &amp; Replace</h4>
+            <div class="learn-code">strpos("Hello World", "World");    // 6 (position)
+str_replace("old", "new", $str);  // Replace text
+substr("Hello World", 6);         // "World" (substring)
+str_contains("Hello", "ell");     // true (PHP 8+)</div>
+            <h4>String Concatenation</h4>
+            <div class="learn-code">$a = "Hello";
+$b = "World";
+echo $a . " " . $b;   // "Hello World" (dot operator)
+echo "$a $b";          // "Hello World" (double quotes parse vars)
+echo '$a $b';          // "$a $b" (single quotes are literal!)</div>
+            <h4>Useful Functions</h4>
+            <div class="learn-code">str_word_count("Hello World PHP");  // 3
+strrev("Hello");                    // "olleH"
+str_pad("42", 5, "0", STR_PAD_LEFT); // "00042"
+number_format(1234.5, 2);           // "1,234.50"
+explode(",", "a,b,c");              // ["a","b","c"]
+implode("-", ["a","b","c"]);        // "a-b-c"</div>
+            <div class="tip-box">TIP: Double quotes parse variables ($name) but single quotes don't!</div>
+        </div>
+
+        <div class="learn-card" id="learn-arrays">
+            <h3>ARRAYS</h3>
+            <p>Arrays store multiple values in a single variable. PHP supports indexed and associative arrays.</p>
+            <h4>Creating Arrays</h4>
+            <div class="learn-code">// Indexed array
+$fruits = ["apple", "banana", "cherry"];
+echo $fruits[0];  // "apple" (0-indexed!)
+
+// Associative array
+$person = ["name" => "John", "age" => 25];
+echo $person["name"];  // "John"</div>
+            <h4>Array Functions</h4>
+            <div class="learn-code">count($arr);              // Number of elements
+array_push($arr, "new");  // Add to end
+array_pop($arr);          // Remove from end
+array_shift($arr);        // Remove from start
+array_unshift($arr, "x"); // Add to start
+sort($arr);               // Sort ascending
+rsort($arr);              // Sort descending
+array_merge($a, $b);      // Combine arrays</div>
+            <h4>Searching</h4>
+            <div class="learn-code">in_array("apple", $arr);         // true/false
+array_search("apple", $arr);     // Returns key
+array_key_exists("name", $arr);  // Check key exists
+array_unique($arr);              // Remove duplicates</div>
+            <h4>Looping Arrays</h4>
+            <div class="learn-code">foreach ($fruits as $fruit) {
+    echo $fruit;  // Prints each fruit
+}
+
+foreach ($person as $key => $value) {
+    echo "$key: $value";
+}</div>
+            <h4>Advanced Array Functions</h4>
+            <div class="learn-code">array_map(fn($n) => $n * 2, [1,2,3]);   // [2,4,6]
+array_filter([1,2,3,4], fn($n) => $n%2==0); // [2,4]
+array_reduce([1,2,3], fn($c,$i) => $c+$i, 0); // 6
+array_sum([1,2,3,4,5]);    // 15
+array_chunk([1,2,3,4,5], 2); // [[1,2],[3,4],[5]]</div>
+            <div class="tip-box">TIP: PHP arrays are 0-indexed! The first element is at index 0, not 1.</div>
+        </div>
+
+        <div class="learn-card" id="learn-control">
+            <h3>CONTROL STRUCTURES</h3>
+            <p>Control flow determines which code runs and how many times.</p>
+            <h4>If / Else</h4>
+            <div class="learn-code">if ($age >= 18) {
+    echo "Adult";
+} elseif ($age >= 13) {
+    echo "Teen";
+} else {
+    echo "Child";
+}</div>
+            <h4>Ternary Operator</h4>
+            <div class="learn-code">$status = ($age >= 18) ? "Adult" : "Minor";
+$name = $input ?? "default";  // Null coalescing (PHP 7+)</div>
+            <h4>Switch</h4>
+            <div class="learn-code">switch ($color) {
+    case "red":   echo "Stop"; break;
+    case "green": echo "Go"; break;
+    default:      echo "Wait";
+}</div>
+            <h4>Match (PHP 8+)</h4>
+            <div class="learn-code">$result = match($status) {
+    1 => 'active',
+    2 => 'pending',
+    default => 'unknown'
+};</div>
+            <h4>Loops</h4>
+            <div class="learn-code">// For loop - known iterations
+for ($i = 0; $i < 5; $i++) { echo $i; } // 01234
+
+// While loop - unknown iterations
+while ($count > 0) { $count--; }
+
+// Foreach - best for arrays
+foreach ($arr as $item) { echo $item; }
+
+// Break & Continue
+for ($i = 0; $i < 10; $i++) {
+    if ($i == 3) continue; // Skip 3
+    if ($i == 7) break;    // Stop at 7
+    echo $i; // Outputs: 012456
+}</div>
+            <div class="tip-box">TIP: Use 'foreach' for arrays - it's simpler and less error-prone than 'for'!</div>
+        </div>
+
+        <div class="learn-card" id="learn-functions">
+            <h3>FUNCTIONS</h3>
+            <p>Functions are reusable blocks of code. PHP has thousands of built-in functions and you can create your own.</p>
+            <h4>Creating Functions</h4>
+            <div class="learn-code">function greet($name) {
+    return "Hello, $name!";
+}
+echo greet("PHP");  // "Hello, PHP!"</div>
+            <h4>Default Parameters</h4>
+            <div class="learn-code">function greet($name = "World") {
+    return "Hello, $name!";
+}
+echo greet();       // "Hello, World!"
+echo greet("PHP");  // "Hello, PHP!"</div>
+            <h4>Arrow Functions (PHP 7.4+)</h4>
+            <div class="learn-code">$double = fn($x) => $x * 2;
+echo $double(5);  // 10</div>
+            <h4>Variable Scope</h4>
+            <div class="learn-code">$x = 10;  // Global scope
+
+function test() {
+    // $x is NOT available here!
+    global $x;  // Now $x is available
+    echo $x;
+}</div>
+            <h4>Useful Built-in Functions</h4>
+            <div class="learn-code">// Math
+abs(-5);        // 5
+ceil(4.3);      // 5
+floor(4.7);     // 4
+round(4.5);     // 5
+max(1,5,3);     // 5
+min(1,5,3);     // 1
+rand(1, 100);   // Random number 1-100
+
+// Type checking
+isset($var);    // Is set and not null?
+empty($var);    // Is empty?
+is_array($var); // Is an array?</div>
+            <div class="warn-box">WARNING: Variables inside functions are LOCAL by default. Use 'global' or pass as parameters!</div>
+        </div>
+
+        <div class="learn-card" id="learn-oop">
+            <h3>OBJECT-ORIENTED PHP</h3>
+            <p>OOP organizes code into classes (blueprints) and objects (instances).</p>
+            <h4>Classes &amp; Objects</h4>
+            <div class="learn-code">class Car {
+    public $brand;
+    private $speed = 0;
+    
+    public function __construct($brand) {
+        $this->brand = $brand;
+    }
+    
+    public function accelerate() {
+        $this->speed += 10;
+        return $this->speed;
+    }
+}
+
+$car = new Car("Toyota");
+echo $car->brand;        // "Toyota"
+echo $car->accelerate(); // 10</div>
+            <h4>Visibility</h4>
+            <ul>
+                <li><b>public</b> - Accessible from anywhere</li>
+                <li><b>protected</b> - Accessible from the class and its children</li>
+                <li><b>private</b> - Only accessible within the class</li>
+            </ul>
+            <h4>Inheritance</h4>
+            <div class="learn-code">class Animal {
+    public function speak() { return "..."; }
+}
+
+class Dog extends Animal {
+    public function speak() { return "Woof!"; }
+}
+
+$dog = new Dog();
+echo $dog->speak(); // "Woof!" (overridden method)</div>
+            <h4>Static Methods &amp; Properties</h4>
+            <div class="learn-code">class Counter {
+    private static $count = 0;
+    public static function increment() { self::$count++; }
+    public static function getCount() { return self::$count; }
+}
+Counter::increment(); // Called without creating an object</div>
+            <h4>Interfaces &amp; Abstract Classes</h4>
+            <div class="learn-code">interface Printable {
+    public function print(): string;
+}
+
+abstract class Shape {
+    abstract public function area(): float;
+    public function describe() { return "I am a shape"; }
+}</div>
+            <div class="tip-box">TIP: Use interfaces to define contracts. Use abstract classes for shared code + contracts!</div>
+        </div>
+
+        <div class="learn-card" id="learn-advanced">
+            <h3>ADVANCED PHP</h3>
+            <p>Level up your PHP skills with these advanced concepts.</p>
+            <h4>Error Handling (Try/Catch)</h4>
+            <div class="learn-code">try {
+    $result = 10 / 0;
+} catch (DivisionByZeroError $e) {
+    echo "Cannot divide by zero!";
+} finally {
+    echo "This always runs";
+}</div>
+            <h4>Type Juggling</h4>
+            <div class="learn-code">// PHP auto-converts types:
+"5" + 3;     // 8 (string to int)
+true + true; // 2 (bool to int)
+"hello" + 1; // 1 (non-numeric string = 0)
+
+// ALWAYS use === for strict comparison!
+0 == false;   // true (loose)
+0 === false;  // false (strict - different types)</div>
+            <h4>Null Coalescing &amp; Spaceship</h4>
+            <div class="learn-code">// Null coalescing (??)
+$name = $_GET['name'] ?? 'Guest';
+
+// Spaceship operator (<=>)
+1 <=> 2;  // -1 (left < right)
+2 <=> 2;  //  0 (equal)
+3 <=> 2;  //  1 (left > right)</div>
+            <h4>JSON Handling</h4>
+            <div class="learn-code">// Encode PHP to JSON
+$data = ["name" => "PHP", "version" => 8];
+$json = json_encode($data);
+// '{"name":"PHP","version":8}'
+
+// Decode JSON to PHP
+$obj = json_decode($json);
+echo $obj->name;  // "PHP"</div>
+            <h4>Generators (yield)</h4>
+            <div class="learn-code">function fibonacci() {
+    $a = 0; $b = 1;
+    while (true) {
+        yield $a;
+        [$a, $b] = [$b, $a + $b];
+    }
+}
+// Memory efficient - generates values one at a time!</div>
+            <h4>Named Arguments (PHP 8+)</h4>
+            <div class="learn-code">function createUser(string $name, int $age, string $role = 'user') {
+    // ...
+}
+createUser(name: 'John', age: 25);  // Clear and readable!</div>
+            <div class="tip-box">TIP: Always use === (strict comparison) instead of == to avoid type juggling bugs!</div>
+        </div>
+    </div>
+</div>

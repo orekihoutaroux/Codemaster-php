@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CODEMASTER PHP - PHP Roguelike Quest</title>
+
+<!-- STYLES (loaded in order; one file per section of the old styles.css) -->
+<link rel="stylesheet" href="css/01-foundation.css">
+<link rel="stylesheet" href="css/02-home.css">
+<link rel="stylesheet" href="css/03-character-select.css">
+<link rel="stylesheet" href="css/04-account.css">
+<link rel="stylesheet" href="css/05-game-hud.css">
+<link rel="stylesheet" href="css/06-floor-backgrounds.css">
+<link rel="stylesheet" href="css/07-question-panel.css">
+<link rel="stylesheet" href="css/08-overlays-account-shop.css">
+<link rel="stylesheet" href="css/09-overlays-settings-admin.css">
+<link rel="stylesheet" href="css/10-timer.css">
+<link rel="stylesheet" href="css/11-study-materials.css">
+<link rel="stylesheet" href="css/12-battle-animations.css">
+<link rel="stylesheet" href="css/13-accessibility.css">
+<link rel="stylesheet" href="css/14-leaderboard.css">
+<link rel="stylesheet" href="css/19-immersive-combat.css">
+<link rel="stylesheet" href="css/20-typography-extras.css">
+<link rel="stylesheet" href="css/21-layout-polish.css">
+
+<style>
+    /* Shell-only: hidden until the page partials and game scripts finish loading. */
+    #app-root { width: 100%; min-height: 100vh; }
+    body.app-loading #app-root { visibility: hidden; }
+    .app-boot-error {
+        position: fixed; inset: 0; z-index: 9999;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        gap: 10px; padding: 24px; text-align: center;
+        background: #070719; color: #fff; font-family: 'Exo 2', sans-serif;
+    }
+    .app-boot-error small { color: #9aa0c8; }
+</style>
+</head>
+<body class="app-loading">
+<!--
+===============================================================================
+CODEMASTER PHP - PAGE MAP
+===============================================================================
+This is a single-page application assembled at runtime. index.html is only the
+shell. js/loader.js fetches the partials below, injects them into #app-root,
+then loads the ordered game scripts in js/.
+
+PAGES      (public/pages/)
+  title.html                PAGE 1  Home page and main navigation
+  leaderboard.html          PAGE 2  Player rankings
+  add-user.html             PAGE 3  Account creation and login
+  select.html               PAGE 4  Character selection
+  learn.html                PAGE 5  PHP study materials
+  game.html                 PAGE 6  Battle, questions, statistics, progression
+
+OVERLAYS   (public/overlays/)
+  account-info.html         Current player account information
+  shop.html                 Item shop
+  settings.html             Audio, text, restart, and exit controls
+  admin-login.html          Administrator authentication
+  admin.html                Question and user management
+  admin-reset-confirm.html  Reset confirmation dialog
+
+LOGIC      (public/js/, loaded in numeric order — see loader.js)
+STYLES     (public/css/, one file per former styles.css section)
+===============================================================================
+-->
+
+<!-- SHARED BACKGROUND
+     Function: createStars() builds the star field used behind every page. -->
+<div class="stars" id="stars"></div>
+
+<div class="title-atmosphere global-atmosphere" aria-hidden="true">
+    <div class="title-sky-glow"></div>
+    <div class="title-starscape"></div>
+    <div class="title-silhouette title-silhouette-back"></div>
+    <div class="title-silhouette title-silhouette-front"></div>
+    <div class="title-mist title-mist-one"></div>
+    <div class="title-mist title-mist-two"></div>
+    <div class="title-embers"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+</div>
+
+<!-- Pages + overlays are injected here by js/loader.js before any game module runs. -->
+<div id="app-root"></div>
+
+<script src="js/loader.js"></script>
+</body>
+</html>

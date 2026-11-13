@@ -1,0 +1,24 @@
+<!-- ========================================================================
+     OVERLAY 4: ADMIN LOGIN
+     Purpose: Authenticates the administrator before opening management tools.
+     Functions: openAdminLogin(), closeAdminLogin(), submitAdminLogin()
+     ======================================================================== -->
+<div id="admin-login-overlay" class="admin-login-overlay" style="display:none;">
+    <form class="admin-login-card" onsubmit="return submitAdminLogin(event);">
+        <div class="admin-login-title">ADMIN LOGIN</div>
+        <div class="admin-login-subtitle">Enter admin credentials to open the questionnaire editor.</div>
+        <div class="admin-login-field">
+            <label for="admin-login-user">Username</label>
+            <input id="admin-login-user" type="text" autocomplete="off" placeholder="admin">
+        </div>
+        <div class="admin-login-field">
+            <label for="admin-login-pass">Password</label>
+            <input id="admin-login-pass" type="password" autocomplete="off" placeholder="Enter password">
+        </div>
+        <div class="admin-login-status" id="admin-login-status"></div>
+        <div class="admin-login-actions">
+            <button type="button" class="admin-btn ghost" onclick="closeAdminLogin()">CANCEL</button>
+            <button type="submit" class="admin-btn primary">LOGIN</button>
+        </div>
+    </form>
+</div>

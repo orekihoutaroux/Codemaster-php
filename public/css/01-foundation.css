@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Exo+2:wght@400;600;700&display=swap');
+
+/* ===== 01. GLOBAL FOUNDATION AND SHARED VARIABLES ===== */
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+    --bg-dark:#0a0a1a;--bg-mid:#12122a;--accent:#e94560;--accent2:#0f3460;
+    --gold:#f5c842;--green:#4ecca3;--tile-bg:#1a1a3a;--tile-hover:#2a2a5a;
+    --correct:#2ecc71;--wrong:#e74c3c;--code-bg:#0d1117;
+    --hp-red:#cc2222;--hp-bg:#331111;--dungeon:#181828;
+    --ui-font:'Exo 2',sans-serif;
+    --pixel-font:'Press Start 2P',monospace;
+}
+html,body{height:100%;overflow:hidden;}
+body{position:relative;isolation:isolate;font-family:var(--ui-font);background:radial-gradient(circle at 50% 35%,#17173f 0%,#0d0d2d 32%,#070719 68%,#03030c 100%);color:#fff;min-height:100vh;overflow-x:hidden;overflow-y:hidden;}
+.screen{position:relative;z-index:1;isolation:isolate;display:none;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;height:100vh;padding:20px;overflow:hidden;}
+.screen.active{display:flex;}
+.screen,.screen *{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}
+input,select,textarea,button{-webkit-user-select:text;-moz-user-select:text;-ms-user-select:text;user-select:text;}

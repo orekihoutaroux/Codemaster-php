@@ -1,0 +1,19 @@
+<!-- ========================================================================
+     PAGE 1: HOME / TITLE
+     Purpose: Introduces the game and links to the dungeon, lessons, and scores.
+     Functions: drawTitleAnim(), enterDungeon(), showScreen(), showLeaderboard()
+     ======================================================================== -->
+<div id="title-screen" class="screen active">
+    <div class="game-logo" aria-label="CodeMaster PHP - PHP Roguelike Quest">
+        <div class="logo-crown" aria-hidden="true"><span></span></div>
+        <div class="game-title" role="button" tabindex="0" aria-label="CodeMaster PHP logo"><span class="logo-main">CODEMASTER</span> <span class="logo-php">PHP</span></div>
+        <div class="logo-ribbon"><span class="logo-sword" aria-hidden="true">⚔</span><span>PHP ROGUELIKE QUEST</span><span class="logo-sword logo-sword-right" aria-hidden="true">⚔</span></div>
+    </div>
+    <canvas id="title-canvas" class="dungeon-canvas" width="360" height="180"></canvas>
+    <button class="start-btn" id="enter-dungeon-btn" onclick="enterDungeon()">ENTER DUNGEON</button>
+    <div class="title-desc">Battle programming monsters!<br>Answer PHP trivia to attack!<br>Defeat bosses to descend deeper!</div>
+    <div class="title-secondary-actions">
+        <button class="start-btn title-secondary-btn study" onclick="showScreen('learn-screen')">STUDY MATERIALS</button>
+        <button class="start-btn title-secondary-btn scores" onclick="showLeaderboard()">LEADERBOARD</button>
+    </div>
+</div>

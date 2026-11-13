@@ -1,0 +1,39 @@
+<!-- ========================================================================
+     PAGE 2: LEADERBOARD
+     Purpose: Displays player scores, heroes, roles, and highest floors.
+     Functions: showLeaderboard(), renderLeaderboard(), showScreen()
+     ======================================================================== -->
+<div id="leaderboard-screen" class="screen">
+    <div class="leaderboard-container">
+        <div class="leaderboard-header">
+            <h1>TOP PLAYERS</h1>
+            <p class="leaderboard-subtitle">Champions of PHP Mastery</p>
+        </div>
+        <div class="leaderboard-stats">
+            <div class="stat-item">
+                <span class="stat-label">Points</span>
+                <span class="stat-value">Easy 10 &middot; Medium 25 &middot; Hard 50</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Streak Bonus</span>
+                <span class="stat-value">Easy +5 per streak &middot; others +2 (max +20)</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Ranking</span>
+                <span class="stat-value">Each player's best finished run</span>
+            </div>
+        </div>
+        <div class="leaderboard-table">
+            <div class="leaderboard-row header-row">
+                <div class="col rank">RANK</div>
+                <div class="col name">PLAYER</div>
+                <div class="col character">HERO</div>
+                <div class="col role">ROLE</div>
+                <div class="col score">SCORE</div>
+                <div class="col floor">FLOOR</div>
+            </div>
+            <div id="leaderboard-list"></div>
+        </div>
+        <button class="confirm-btn leaderboard-back" onclick="showScreen('title-screen')">BACK TO HOME</button>
+    </div>
+</div>

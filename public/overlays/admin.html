@@ -1,0 +1,156 @@
+<!-- ========================================================================
+     OVERLAY 5: ADMIN DASHBOARD
+     Purpose: Adds/edits questions and manages saved player accounts.
+     Functions: openAdminDashboard(), switchAdminTab(), saveAdminQuestion(),
+     saveAdminUser(), resetAdminUserProgress(), deleteAdminUser()
+     ======================================================================== -->
+<div id="admin-overlay" class="admin-overlay" style="display:none;">
+    <div class="admin-panel">
+        <div class="admin-header">
+            <div>
+                <div class="admin-title" id="admin-panel-title">QUESTION EDITOR</div>
+                <div class="admin-subtitle" id="admin-panel-subtitle">Changes are stored in the database and immediately affect the quiz question pool.</div>
+            </div>
+            <div class="admin-actions" id="admin-questions-actions">
+                <button type="button" class="admin-btn ghost" onclick="createNewQuestion()">NEW QUESTION</button>
+                <button type="button" class="admin-btn secondary" onclick="reloadAdminQuestions()">RELOAD</button>
+                <button type="button" class="admin-btn ghost" onclick="resetAdminQuestions()">RESET BUILT-IN EDITS</button>
+                <button type="button" class="admin-btn primary" onclick="closeAdminDashboard()">CLOSE</button>
+            </div>
+            <div class="admin-actions" id="admin-users-actions" style="display:none;">
+                <button type="button" class="admin-btn secondary" onclick="reloadAdminUsers()">RELOAD</button>
+                <button type="button" class="admin-btn primary" onclick="closeAdminDashboard()">CLOSE</button>
+            </div>
+        </div>
+        <div class="admin-tabs">
+            <button type="button" class="admin-tab active" id="admin-tab-questions" onclick="switchAdminTab('questions')">QUESTIONS</button>
+            <button type="button" class="admin-tab" id="admin-tab-users" onclick="switchAdminTab('users')">MANAGE USERS</button>
+        </div>
+        <div class="admin-grid" id="admin-questions-panel">
+            <div class="admin-list" id="admin-question-list">
+                <div class="admin-empty">Loading questions...</div>
+            </div>
+            <form class="admin-form" id="admin-question-form" onsubmit="return false;">
+                <div class="admin-field">
+                    <label>ID</label>
+                    <input id="admin-question-id" type="text" readonly>
+                </div>
+                <div class="admin-field">
+                    <label>Category</label>
+                    <input id="admin-cat" type="text" placeholder="basics">
+                </div>
+                <div class="admin-field">
+                    <label>Difficulty</label>
+                    <select id="admin-diff">
+                        <option value="easy">easy</option>
+                        <option value="medium">medium</option>
+                        <option value="hard">hard</option>
+                    </select>
+                </div>
+                <div class="admin-field">
+                    <label>Type</label>
+                    <select id="admin-type">
+                        <option value="multiple">multiple</option>
+                        <option value="code">code</option>
+                    </select>
+                </div>
+                <div class="admin-field full">
+                    <label>Question</label>
+                    <textarea id="admin-q"></textarea>
+                </div>
+                <div class="admin-field">
+                    <label>Choice A</label>
+                    <input id="admin-choice-0" type="text">
+                </div>
+                <div class="admin-field">
+                    <label>Choice B</label>
+                    <input id="admin-choice-1" type="text">
+                </div>
+                <div class="admin-field">
+                    <label>Choice C</label>
+                    <input id="admin-choice-2" type="text">
+                </div>
+                <div class="admin-field">
+                    <label>Choice D</label>
+                    <input id="admin-choice-3" type="text">
+                </div>
+                <div class="admin-field">
+                    <label>Correct Answer</label>
+                    <select id="admin-answer">
+                        <option value="0">A</option>
+                        <option value="1">B</option>
+                        <option value="2">C</option>
+                        <option value="3">D</option>
+                    </select>
+                </div>
+                <div class="admin-field full">
+                    <label>Explanation</label>
+                    <textarea id="admin-explain"></textarea>
+                </div>
+                <div class="admin-footer">
+                    <div class="admin-status" id="admin-status">Select a question to edit it.</div>
+                    <button type="button" class="admin-btn primary" onclick="saveAdminQuestion()">SAVE QUESTION</button>
+                </div>
+            </form>
+        </div>
+        <div class="admin-grid" id="admin-users-panel" style="display:none;">
+            <div class="admin-list" id="admin-user-list">
+                <div class="admin-empty">Loading users...</div>
+            </div>
+            <form class="admin-form" id="admin-user-form" onsubmit="return false;">
+                <div class="admin-field">
+                    <label>Username</label>
+                    <input id="admin-user-username" type="text" readonly>
+                </div>
+                <div class="admin-field">
+                    <label>Last Updated</label>
+                    <input id="admin-user-updated" type="text" readonly>
+                </div>
+                <div class="admin-field">
+                    <label>Score</label>
+                    <input id="admin-user-score" type="number" min="0">
+                </div>
+                <div class="admin-field">
+                    <label>Level (from score)</label>
+                    <input id="admin-user-level" type="number" readonly>
+                </div>
+                <div class="admin-field">
+                    <label>Floor</label>
+                    <input id="admin-user-floor" type="number">
+                </div>
+                <div class="admin-field">
+                    <label>Gold</label>
+                    <input id="admin-user-gold" type="number">
+                </div>
+                <div class="admin-field">
+                    <label>HP</label>
+                    <input id="admin-user-hp" type="number">
+                </div>
+                <div class="admin-field">
+                    <label>Max HP</label>
+                    <input id="admin-user-maxhp" type="number">
+                </div>
+                <div class="admin-field">
+                    <label>Potions</label>
+                    <input id="admin-user-potions" type="number">
+                </div>
+                <div class="admin-field">
+                    <label>Monsters Defeated</label>
+                    <input id="admin-user-monsters" type="number">
+                </div>
+                <div class="admin-field">
+                    <label>Bosses Defeated</label>
+                    <input id="admin-user-bosses" type="number">
+                </div>
+                <div class="admin-footer">
+                    <div class="admin-status" id="admin-user-status">Select a user to manage them.</div>
+                    <div class="admin-actions">
+                        <button type="button" class="admin-btn ghost" id="admin-user-reset" onclick="resetAdminUserProgress()">RESET PROGRESS</button>
+                        <button type="button" class="admin-btn ghost" id="admin-user-delete" onclick="deleteAdminUser()">DELETE USER</button>
+                        <button type="button" class="admin-btn primary" id="admin-user-save" onclick="saveAdminUser()">SAVE CHANGES</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

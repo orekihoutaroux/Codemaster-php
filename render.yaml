@@ -1,0 +1,17 @@
+# Render blueprint: New > Blueprint on https://render.com picks this up.
+# MONGODB_URI is marked sync:false so Render asks you for it instead of
+# keeping your Atlas password in this file.
+services:
+  - type: web
+    name: codemaster-php
+    runtime: node
+    plan: free
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: MONGODB_URI
+        sync: false
+      - key: DB_NAME
+        value: codemaster_php

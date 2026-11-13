@@ -1,0 +1,20 @@
+<!-- ========================================================================
+     OVERLAY 6: RESET BUILT-IN QUESTION EDITS
+     Purpose: Requires confirmation before restoring edited built-in questions.
+     Functions: resetAdminQuestions(), cancelResetAdminQuestions(),
+     confirmResetAdminQuestions()
+     ======================================================================== -->
+<div id="admin-reset-confirm-overlay" class="admin-confirm-overlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="admin-reset-confirm-title" aria-describedby="admin-reset-confirm-message">
+    <div class="admin-confirm-card">
+        <div class="admin-confirm-icon" aria-hidden="true">!</div>
+        <div class="admin-confirm-title" id="admin-reset-confirm-title">RESET BUILT-IN EDITS?</div>
+        <div class="admin-confirm-message" id="admin-reset-confirm-message">
+            Would you like to reset all changes made to the built-in questions?
+            <span>Your added custom questions will stay permanently saved in MongoDB.</span>
+        </div>
+        <div class="admin-confirm-actions">
+            <button type="button" class="admin-btn ghost" id="admin-reset-cancel-btn" onclick="cancelResetAdminQuestions()">CANCEL</button>
+            <button type="button" class="admin-btn danger" id="admin-reset-confirm-btn" onclick="confirmResetAdminQuestions()">CONFIRM RESET</button>
+        </div>
+    </div>
+</div>

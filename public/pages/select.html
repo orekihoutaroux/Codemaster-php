@@ -1,0 +1,16 @@
+<!-- ========================================================================
+     PAGE 4: CHARACTER SELECT
+     Purpose: Lets the player choose a hero before starting or resuming a run.
+     Functions: renderCharacterSelect(), updateEnterButtonState(), startGame()
+     ======================================================================== -->
+<div id="select-screen" class="screen">
+    <div class="select-title">PICK A HERO</div>
+    <div class="select-subtitle">Each hero has a passive bonus and a special skill charged by correct answers.</div>
+    <div class="select-section">
+        <div class="characters-grid" id="characters-grid"></div>
+    </div>
+    <div class="select-actions">
+        <button type="button" class="start-btn select-back-btn" onclick="showScreen('add-user-screen')">BACK</button>
+        <button class="confirm-btn" id="confirm-btn" disabled onclick="startGame()">ENTER DUNGEON</button>
+    </div>
+</div>

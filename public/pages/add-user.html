@@ -1,0 +1,57 @@
+<!-- ========================================================================
+     PAGE 3: ACCOUNT / LOGIN
+     Purpose: Creates a player profile or resumes an existing saved profile.
+     Functions: updateAddUserState(), loginUser(), goToHeroSelection()
+     ======================================================================== -->
+<div id="add-user-screen" class="screen">
+    <div class="add-user-card">
+        <div class="add-user-title" id="add-user-title">ADD USER</div>
+        <div class="add-user-subtitle" id="add-user-subtitle">Create an account to pick a hero, or log in to resume your dungeon.</div>
+        <div class="profile-field">
+            <label for="username-input">Username</label>
+            <input id="username-input" type="text" maxlength="24" autocomplete="off" placeholder="Enter your name">
+        </div>
+        <div class="profile-field">
+            <label for="password-input">Password</label>
+            <input id="password-input" type="password" minlength="6" maxlength="128" autocomplete="new-password" placeholder="At least 6 characters">
+        </div>
+        <div class="profile-field" id="role-field">
+            <label for="role-select">Role</label>
+            <select id="role-select">
+                <option value="Student">Student</option>
+                <option value="Faculty">Faculty</option>
+                <option value="Guest">Guest</option>
+            </select>
+        </div>
+        <div id="student-extra" class="student-extra">
+            <div class="profile-field">
+                <label for="year-level-select">Year Level</label>
+                <select id="year-level-select">
+                    <option value="">Select year level</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+            <div class="profile-field">
+                <label for="block-select">Block</label>
+                <select id="block-select">
+                    <option value="">Select block</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+        </div>
+        <div class="add-user-actions">
+            <button id="add-user-back-btn" class="start-btn" onclick="backFromAccountEntry()">BACK</button>
+            <button id="add-user-login-btn" class="start-btn login-btn" onclick="loginUser()" disabled>LOG IN</button>
+            <button id="add-user-next-btn" class="start-btn" onclick="goToHeroSelection()" disabled>NEXT: PICK HERO</button>
+        </div>
+        <div class="add-user-status" id="add-user-status"></div>
+        <div class="returning-player-prompt" id="returning-player-prompt"><span>Already have an account?</span><button type="button" class="returning-login-btn" onclick="showLoginScreen()">LOG IN</button></div>
+    </div>
+</div>
