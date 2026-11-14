@@ -194,3 +194,5 @@ body.large-text .code-block{font-size:16px;}
 .admin-category-add[hidden]{display:none;}
 .admin-category-add input{flex:1;min-width:0;}
 .admin-category-add .admin-btn{flex:0 0 auto;padding:0 12px;}
+.admin-category-delete{flex:0 0 auto;white-space:nowrap;padding:0 12px;color:#ff9aa9;}
+.admin-category-delete:hover{color:#fff;border-color:var(--accent);}

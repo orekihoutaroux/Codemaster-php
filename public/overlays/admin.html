@@ -48,6 +48,7 @@
                     <div class="admin-category-row">
                         <select id="admin-cat"></select>
                         <button type="button" class="admin-btn ghost admin-category-new" id="admin-cat-new-btn" onclick="showNewCategoryInput()" aria-expanded="false" aria-controls="admin-cat-new">+ NEW</button>
+                        <button type="button" class="admin-btn ghost admin-category-delete" id="admin-cat-delete-btn" onclick="deleteSelectedCategory()" title="Delete the selected category">DELETE</button>
                     </div>
                     <div class="admin-category-add" id="admin-cat-new" hidden>
                         <input id="admin-cat-new-input" type="text" maxlength="24" placeholder="e.g. sessions" aria-label="New category name">

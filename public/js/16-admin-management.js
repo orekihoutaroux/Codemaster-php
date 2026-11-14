@@ -134,7 +134,7 @@ function createNewQuestion(){
         renderAdminQuestionList();
     }
     document.getElementById('admin-question-id').value=id;
-    setAdminCategory('basics');
+    setAdminCategory(getDefaultAdminCategory());
     document.getElementById('admin-diff').value='easy';
     document.getElementById('admin-type').value='multiple';
     document.getElementById('admin-q').value='';
@@ -482,6 +482,10 @@ function removeSelectedAdmin(){
 var DEFAULT_ADMIN_CATEGORIES=['basics','variables','strings','arrays','control','functions','oop','coding','advanced','modern php','traits','references'];
 var adminCategories=DEFAULT_ADMIN_CATEGORIES.slice();
 
+function getDefaultAdminCategory(){
+    return adminCategories.indexOf('basics')!==-1?'basics':(adminCategories.slice().sort()[0]||'basics');
+}
+
 function formatCategoryLabel(name){
     return String(name||'').split(' ').map(function(word){
         if(word==='oop'||word==='php')return word.toUpperCase();
@@ -562,6 +566,39 @@ function submitNewCategory(){
             if(status)status.textContent='Category "'+formatCategoryLabel(data.category)+'" added and selected. Save the question to use it.';
         }else{
             showToast((data&&data.message)||'Could not add category','error');
+        }
+    });
+}
+
+// Deletes the category selected in the dropdown. The server refuses one that
+// questions still use and says how many, so nothing is left uncategorised.
+function deleteSelectedCategory(){
+    var select=document.getElementById('admin-cat');
+    var name=select?select.value:'';
+    if(!name)return;
+    var label=formatCategoryLabel(name);
+    var inUse=QUESTIONS.filter(function(q){return String(q.cat||'').toLowerCase()===name;}).length;
+    if(inUse>0){
+        var msg=inUse+' question'+(inUse===1?'':'s')+' still use "'+label+'". Move '+(inUse===1?'it':'them')+' to another category first.';
+        showToast(msg,'error');
+        var status=document.getElementById('admin-status');if(status)status.textContent=msg;
+        return;
+    }
+    if(adminCategories.length<=1){showToast('At least one category must remain','error');return;}
+    if(!confirm('Delete the category "'+label+'"? No questions use it.'))return;
+    apiAdminDeleteCategory(name).then(function(data){
+        if(data&&data.status==='ok'){
+            if(Array.isArray(data.categories))adminCategories=data.categories.slice();
+            else adminCategories=adminCategories.filter(function(c){return c!==name;});
+            var editingId=document.getElementById('admin-question-id');
+            var editing=editingId&&editingId.value?QUESTIONS.find(function(q){return String(q.id)===String(editingId.value);}):null;
+            renderAdminCategoryOptions(editing&&adminCategories.indexOf(editing.cat)!==-1?editing.cat:getDefaultAdminCategory());
+            showToast('Category "'+label+'" deleted','info');
+            var st=document.getElementById('admin-status');if(st)st.textContent='Category "'+label+'" deleted.';
+        }else{
+            var m=(data&&data.message)||'Could not delete category';
+            showToast(m,'error');
+            var st2=document.getElementById('admin-status');if(st2)st2.textContent=m;
         }
     });
 }

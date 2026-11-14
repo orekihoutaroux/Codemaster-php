@@ -1,5 +1,5 @@
 const express = require('express');
-const { listCategories, addCategory } = require('../lib/categories');
+const { listCategories, addCategory, removeCategory } = require('../lib/categories');
 
 // Mounted after the admin-session check in server.js, so both routes need an
 // admin login.
@@ -23,6 +23,19 @@ module.exports = function categoriesRoutes(db) {
     } catch (err) {
       console.error(err);
       res.status(500).json({ status: 'error', message: 'Failed to add category' });
+    }
+  });
+
+  router.delete('/admin/categories/:name', async (req, res) => {
+    try {
+      const result = await removeCategory(db, req.params.name);
+      if (result.error) {
+        return res.status(result.status).json({ status: 'error', message: result.error, inUse: result.inUse || 0 });
+      }
+      res.json({ status: 'ok', removed: result.removed, categories: await listCategories(db) });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ status: 'error', message: 'Failed to delete category' });
     }
   });
 
