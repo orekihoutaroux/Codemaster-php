@@ -24,8 +24,14 @@
 .tutorial-back{background:#2b2b44;box-shadow:0 4px 0 #17172a;}
 .tutorial-back:hover{box-shadow:0 6px 0 #17172a;}
 .tutorial-next.final{background:var(--green);color:#04261b;box-shadow:0 4px 0 #2a9966;}
-.select-help-btn{background:var(--accent2);box-shadow:0 4px 0 #0a2a4a;}
-.select-help-btn:hover{box-shadow:0 6px 0 #0a2a4a;}
+.title-secondary-btn.howto{background:var(--gold);color:#2a1a00;box-shadow:0 4px 0 #7a5800;}
+.title-secondary-btn.howto:hover{box-shadow:0 6px 0 #7a5800,0 0 22px rgba(245,200,66,.4);}
+.tut-hero-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;}
+.tut-hero-row{display:flex;align-items:center;gap:10px;padding:8px;background:#151532;border:2px solid #2c2c48;}
+.tut-hero-row canvas{width:48px;height:48px;flex:0 0 48px;image-rendering:pixelated;background:#0f1020;}
+.tut-hero-row b{display:block;font-family:var(--pixel-font);font-size:9px;color:var(--gold);margin-bottom:3px;}
+.tut-hero-row span{display:block;font-size:13px;line-height:1.35;color:#d8d8ee;}
+.tut-hero-row em{display:block;font-style:normal;font-size:12px;color:var(--green);margin-top:2px;}
 
 /* Step visuals */
 .tut-path{display:flex;align-items:center;flex-wrap:wrap;justify-content:center;gap:6px;}
@@ -82,6 +88,5 @@
     .tutorial-actions .start-btn{flex:1;min-width:0;padding:14px 8px;font-size:11px;}
     .tut-path i{width:10px;}
     .tut-node{min-width:34px;height:34px;font-size:9px;padding:0 7px;}
-    .select-actions{display:grid;grid-template-columns:1fr 1fr;width:100%;}
-    .select-actions .confirm-btn{grid-column:1 / -1;}
+    .tut-hero-list{grid-template-columns:1fr;}
 }

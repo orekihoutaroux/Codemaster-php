@@ -1,6 +1,7 @@
 <!-- ========================================================================
      PAGE 1: HOME / TITLE
-     Purpose: Introduces the game and links to the dungeon, lessons, and scores.
+     Purpose: Introduces the game and links to the dungeon, lessons, scores,
+     and the How to Play tutorial.
      Functions: drawTitleAnim(), enterDungeon(), showScreen(), showLeaderboard()
      ======================================================================== -->
 <div id="title-screen" class="screen active">
@@ -15,5 +16,6 @@
     <div class="title-secondary-actions">
         <button class="start-btn title-secondary-btn study" onclick="showScreen('learn-screen')">STUDY MATERIALS</button>
         <button class="start-btn title-secondary-btn scores" onclick="showLeaderboard()">LEADERBOARD</button>
+        <button class="start-btn title-secondary-btn howto" onclick="openTutorialFromTitle()">HOW TO PLAY</button>
     </div>
 </div>

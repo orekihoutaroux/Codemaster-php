@@ -5,9 +5,12 @@
 var tutorialIndex=0;
 var tutorialOnFinish=null;   // what happens when the player finishes or skips
 var tutorialFinishLabel='START BATTLE';
+var tutorialHeroOverview=false; // true when opened from the title page (no hero picked yet)
 
+// One setting per browser: the tutorial can be opened from the title page,
+// before anyone has logged in.
 function tutorialPrefKey(){
-    return 'codemaster_tutorial_hidden:'+String(playerUsername||'guest').toLowerCase();
+    return 'codemaster_tutorial_hidden';
 }
 
 function isTutorialHidden(){
@@ -22,7 +25,8 @@ function setTutorialHidden(hidden){
 }
 
 function tutorialHeroStep(){
-    var hero=selectedChar;
+    var hero=tutorialHeroOverview?null:selectedChar;
+    if(!hero)return tutorialAllHeroesStep();
     var special=hero&&typeof CHARACTER_SPECIALS!=='undefined'?CHARACTER_SPECIALS[hero.id]:null;
     var heroName=hero?hero.name:'YOUR HERO';
     return {
@@ -36,6 +40,23 @@ function tutorialHeroStep(){
             '<b>Passive:</b> your hero\'s bonus works on every question, automatically.',
             special?'<b>Special skill &ndash; '+escapeHtml(special.name)+':</b> '+escapeHtml(special.desc):'<b>Special skill:</b> each hero has one powerful move.',
             'Every correct answer charges the skill <b>+25%</b>. After <b>4 correct answers</b> it\'s ready &ndash; press the skill button under your hero before you answer.'
+        ]
+    };
+}
+
+// Hero step when nobody has picked a hero yet: a short line per hero.
+function tutorialAllHeroesStep(){
+    var heroes=(typeof CHARACTERS!=='undefined')?CHARACTERS:[];
+    return {
+        title:'PICK YOUR HERO',
+        visual:'<div class="tut-hero-list">'+heroes.map(function(h){
+            var sp=(typeof CHARACTER_SPECIALS!=='undefined')?CHARACTER_SPECIALS[h.id]:null;
+            return '<div class="tut-hero-row"><canvas width="48" height="48" data-hero="'+escapeHtml(h.id)+'" aria-hidden="true"></canvas>'+
+                '<div><b>'+escapeHtml(h.name)+'</b><span>'+escapeHtml(h.desc)+'</span>'+(sp?'<em>'+escapeHtml(sp.name)+'</em>':'')+'</div></div>';
+        }).join('')+'</div>',
+        points:[
+            'You pick a hero after you enter the dungeon. Each one has a <b>passive</b> bonus that works on every question.',
+            'Each hero also has a <b>special skill</b>. Every correct answer charges it <b>+25%</b>; after <b>4 correct answers</b> it\'s ready &ndash; press the skill button under your hero before you answer.'
         ]
     };
 }
@@ -56,7 +77,7 @@ function getTutorialSteps(){
             visual:'<div class="tut-timer" aria-hidden="true"><div class="tut-timer-fill"></div><span>30s</span></div>'+
                 '<div class="tut-choices" aria-hidden="true"><div class="tut-choice good"><b>A</b>Correct &rarr; you strike</div><div class="tut-choice bad"><b>B</b>Wrong &rarr; you get hit</div></div>',
             points:[
-                'You have <b>30 seconds</b> per question'+(selectedChar&&selectedChar.ability==='addTime'?' (<b>35</b> as the Scholar)':'')+'. Running out of time counts as a wrong answer.',
+                'You have <b>30 seconds</b> per question'+(tutorialHeroOverview?' (<b>35</b> for the Scholar)':(selectedChar&&selectedChar.ability==='addTime'?' (<b>35</b> as the Scholar)':''))+'. Running out of time counts as a wrong answer.',
                 '<b>Correct:</b> you attack the monster. Its DEF blocks part of your damage.',
                 '<b>Wrong:</b> the monster attacks you and your streak resets. Each wrong answer in a row hits <b>2 harder</b> than the last.',
                 'Tap an answer, or press <kbd>A</kbd>&ndash;<kbd>D</kbd> / <kbd>1</kbd>&ndash;<kbd>4</kbd>. Press <kbd>Enter</kbd> for the next encounter.'
@@ -108,6 +129,12 @@ function renderTutorialStep(){
             '<div class="tutorial-visual">'+step.visual+'</div>'+
             '<ul class="tutorial-points">'+step.points.map(function(p){return '<li>'+p+'</li>';}).join('')+'</ul>';
         body.scrollTop=0;
+    }
+    if(body&&typeof CHARACTERS!=='undefined'){
+        body.querySelectorAll('canvas[data-hero]').forEach(function(c){
+            var h=CHARACTERS.find(function(x){return x.id===c.getAttribute('data-hero');});
+            if(!h)return;var cx=c.getContext('2d');cx.imageSmoothingEnabled=false;cx.clearRect(0,0,48,48);h.sprite.call(h,cx,8,12,4,0);
+        });
     }
     var heroCanvas=document.getElementById('tutorial-hero-canvas');
     if(heroCanvas&&selectedChar){
@@ -170,13 +197,16 @@ function skipTutorial(){finishTutorial();}
 // Called by startGame() once the account is saved: shows the tutorial first
 // unless this player turned it off.
 function enterDungeonWithTutorial(message){
+    tutorialHeroOverview=false;
     if(isTutorialHidden()){launchDungeon(message);return;}
     openTutorial(function(){launchDungeon(message);},false);
 }
 
-// HOW TO PLAY button on the hero screen: read it, then come back.
-function openTutorialFromHeroSelect(){
-    openTutorial(function(){showScreen('select-screen');},true);
+// HOW TO PLAY button on the title page: read it, then come back. Shows the
+// general hero overview, since nobody has picked a hero yet.
+function openTutorialFromTitle(){
+    tutorialHeroOverview=true;
+    openTutorial(function(){showScreen('title-screen');},true);
 }
 
 document.addEventListener('keydown',function(e){
