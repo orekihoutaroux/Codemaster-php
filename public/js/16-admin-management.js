@@ -2,41 +2,39 @@
 function openAdminDashboard(){
     var overlay=document.getElementById('admin-overlay');
     if(!overlay)return;
+    if(!adminToken){openAdminLogin();return;}
+    // Confirm the saved session is still valid; adminFetch sends the admin
+    // back to the login if it has expired or the account was removed.
+    adminFetch('/api/admin/admins').then(function(res){
+        if(res.ok)return res.json().then(function(data){if(data&&data.you)adminUsername=data.you;});
+    }).catch(function(){});
     overlay.style.display='flex';
     switchAdminTab('questions');
 }
 
+var ADMIN_TABS={
+    questions:{title:'QUESTION EDITOR',subtitle:'Changes are stored in the database and immediately affect the quiz question pool.',reload:function(){reloadAdminQuestions();}},
+    users:{title:'MANAGE USERS',subtitle:'Saved players and leaderboard entries in one list. Edit a save, or create a profile from a leaderboard entry.',reload:function(){reloadAdminUsers();}},
+    admins:{title:'MANAGE ADMINS',subtitle:'Accounts that can open this dashboard. Passwords are stored hashed in MongoDB.',reload:function(){reloadAdminAdmins();}}
+};
+
 function switchAdminTab(tab){
+    if(!ADMIN_TABS[tab])tab='questions';
     adminActiveTab=tab;
-    var qTab=document.getElementById('admin-tab-questions');
-    var uTab=document.getElementById('admin-tab-users');
-    var qPanel=document.getElementById('admin-questions-panel');
-    var uPanel=document.getElementById('admin-users-panel');
-    var qActions=document.getElementById('admin-questions-actions');
-    var uActions=document.getElementById('admin-users-actions');
+    Object.keys(ADMIN_TABS).forEach(function(name){
+        var on=name===tab;
+        var tabBtn=document.getElementById('admin-tab-'+name);
+        var panel=document.getElementById('admin-'+name+'-panel');
+        var actions=document.getElementById('admin-'+name+'-actions');
+        if(tabBtn)tabBtn.classList.toggle('active',on);
+        if(panel)panel.style.display=on?'grid':'none';
+        if(actions)actions.style.display=on?'flex':'none';
+    });
     var title=document.getElementById('admin-panel-title');
     var subtitle=document.getElementById('admin-panel-subtitle');
-    if(tab==='users'){
-        if(qTab)qTab.classList.remove('active');
-        if(uTab)uTab.classList.add('active');
-        if(qPanel)qPanel.style.display='none';
-        if(uPanel)uPanel.style.display='grid';
-        if(qActions)qActions.style.display='none';
-        if(uActions)uActions.style.display='flex';
-        if(title)title.textContent='MANAGE USERS';
-        if(subtitle)subtitle.textContent='Saved players and leaderboard entries in one list. Edit a save, or create a profile from a leaderboard entry.';
-        reloadAdminUsers();
-    }else{
-        if(uTab)uTab.classList.remove('active');
-        if(qTab)qTab.classList.add('active');
-        if(uPanel)uPanel.style.display='none';
-        if(qPanel)qPanel.style.display='grid';
-        if(uActions)uActions.style.display='none';
-        if(qActions)qActions.style.display='flex';
-        if(title)title.textContent='QUESTION EDITOR';
-        if(subtitle)subtitle.textContent='Changes are stored in the database and immediately affect the quiz question pool.';
-        reloadAdminQuestions();
-    }
+    if(title)title.textContent=ADMIN_TABS[tab].title;
+    if(subtitle){subtitle.textContent=ADMIN_TABS[tab].subtitle;subtitle.classList.remove('admin-subtitle-warning');}
+    ADMIN_TABS[tab].reload();
 }
 
 // Says where the questions on screen came from, so a database that is not
@@ -330,7 +328,7 @@ function saveAdminUser(){
 function resetAdminUserProgress(){
     if(!adminCurrentUsername)return;
     if(!confirm('Reset '+adminCurrentUsername+'\'s progress back to defaults?'))return;
-    fetch('/api/players/'+encodeURIComponent(adminCurrentUsername)+'/reset',{method:'POST'})
+    adminFetch('/api/players/'+encodeURIComponent(adminCurrentUsername)+'/reset',{method:'POST'})
     .then(function(res){return res.json();})
     .then(function(data){
         if(data.status==='ok'){
@@ -357,3 +355,120 @@ function deleteAdminUser(){
     }).catch(function(){showToast('Could not delete user','error');});
 }
 
+
+// ===== MANAGE ADMINS =====
+var adminAdminsCache=[];
+var adminSelectedAdmin='';
+
+function reloadAdminAdmins(){
+    var list=document.getElementById('admin-admin-list');
+    if(list)list.innerHTML='<div class="admin-empty">Loading admins...</div>';
+    apiAdminListAdmins().then(function(data){
+        adminAdminsCache=(data&&Array.isArray(data.admins))?data.admins:[];
+        if(data&&data.you)adminUsername=data.you;
+        if(adminSelectedAdmin&&!adminAdminsCache.some(function(a){return a.username===adminSelectedAdmin;}))adminSelectedAdmin='';
+        renderAdminAdminList();
+        updateAdminRemoveButton();
+    });
+}
+
+function renderAdminAdminList(){
+    var list=document.getElementById('admin-admin-list');
+    if(!list)return;
+    if(!adminAdminsCache.length){list.innerHTML='<div class="admin-empty">No admins found.</div>';return;}
+    list.innerHTML=adminAdminsCache.map(function(admin){
+        var isYou=admin.username===adminUsername;
+        var meta=(isYou?'YOU | ':'')+'Added '+formatAdminDate(admin.createdAt)+(admin.createdBy?' by '+admin.createdBy:'');
+        var last=admin.lastLoginAt?'Last login '+formatAdminDate(admin.lastLoginAt):'Never logged in';
+        return '<button type="button" class="admin-list-item'+(admin.username===adminSelectedAdmin?' active':'')+'" data-username="'+escapeHtml(admin.username)+'">'+
+            '<div class="admin-question-id">'+escapeHtml(meta)+'</div>'+
+            '<div class="admin-question-snippet">'+escapeHtml(admin.username)+'</div>'+
+            '<div class="admin-question-id">'+escapeHtml(last)+'</div></button>';
+    }).join('');
+    Array.prototype.forEach.call(list.querySelectorAll('.admin-list-item'),function(btn){
+        btn.onclick=function(){selectAdminAdmin(btn.getAttribute('data-username'));};
+    });
+}
+
+function selectAdminAdmin(username){
+    adminSelectedAdmin=adminSelectedAdmin===username?'':username;
+    renderAdminAdminList();
+    updateAdminRemoveButton();
+}
+
+function updateAdminRemoveButton(){
+    var btn=document.getElementById('admin-admin-remove');
+    var status=document.getElementById('admin-admin-status');
+    if(!btn)return;
+    var canRemove=!!adminSelectedAdmin&&adminSelectedAdmin!==adminUsername&&adminAdminsCache.length>1;
+    btn.disabled=!canRemove;
+    btn.textContent=adminSelectedAdmin?'REMOVE '+adminSelectedAdmin.toUpperCase():'REMOVE SELECTED';
+    if(status&&adminSelectedAdmin===adminUsername)status.textContent='That is you. Log in as another admin to remove this account.';
+}
+
+function startAddAdmin(){
+    adminSelectedAdmin='';
+    renderAdminAdminList();
+    updateAdminRemoveButton();
+    ['admin-new-username','admin-new-password','admin-new-password-confirm'].forEach(function(id){
+        var el=document.getElementById(id);if(el)el.value='';
+    });
+    var status=document.getElementById('admin-admin-status');
+    if(status)status.textContent='Choose a username and password for the new admin.';
+    var user=document.getElementById('admin-new-username');
+    if(user)user.focus();
+}
+
+function submitAddAdmin(evt){
+    if(evt)evt.preventDefault();
+    var userEl=document.getElementById('admin-new-username');
+    var passEl=document.getElementById('admin-new-password');
+    var confirmEl=document.getElementById('admin-new-password-confirm');
+    var status=document.getElementById('admin-admin-status');
+    var username=(userEl?userEl.value:'').trim();
+    var password=passEl?passEl.value:'';
+    var confirmPass=confirmEl?confirmEl.value:'';
+    var problem='';
+    if(!/^[A-Za-z0-9_.-]{3,24}$/.test(username))problem='Username must be 3-24 letters, numbers, dots, dashes or underscores.';
+    else if(password.length<6)problem='Password must be at least 6 characters.';
+    else if(password!==confirmPass)problem='The two passwords do not match.';
+    if(problem){if(status)status.textContent=problem;showToast(problem,'error');return false;}
+    var addBtn=document.getElementById('admin-admin-add');
+    if(addBtn)addBtn.disabled=true;
+    if(status)status.textContent='Adding '+username+'...';
+    apiAdminAddAdmin(username,password).then(function(data){
+        if(addBtn)addBtn.disabled=false;
+        if(data&&data.status==='ok'){
+            if(passEl)passEl.value='';
+            if(confirmEl)confirmEl.value='';
+            if(userEl)userEl.value='';
+            if(status)status.textContent='Admin '+data.admin.username+' added. They can log in now.';
+            showToast('Admin '+data.admin.username+' added','success');
+            reloadAdminAdmins();
+        }else{
+            var msg=(data&&data.message)||'Could not add admin';
+            if(status)status.textContent=msg;
+            showToast(msg,'error');
+        }
+    });
+    return false;
+}
+
+function removeSelectedAdmin(){
+    var username=adminSelectedAdmin;
+    if(!username||username===adminUsername)return;
+    if(!confirm('Remove admin "'+username+'"? They will be logged out and can no longer open the dashboard.'))return;
+    var status=document.getElementById('admin-admin-status');
+    apiAdminRemoveAdmin(username).then(function(data){
+        if(data&&data.status==='ok'){
+            adminSelectedAdmin='';
+            if(status)status.textContent='Admin '+username+' removed.';
+            showToast('Admin '+username+' removed','info');
+            reloadAdminAdmins();
+        }else{
+            var msg=(data&&data.message)||'Could not remove admin';
+            if(status)status.textContent=msg;
+            showToast(msg,'error');
+        }
+    });
+}

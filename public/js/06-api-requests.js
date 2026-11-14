@@ -271,7 +271,7 @@ function apiAdminSaveQuestion(body){
     if(id<=0||choices.indexOf('')!==-1||answer<0||answer>3){
         return Promise.resolve({status:'error',message:'Invalid question data'});
     }
-    return fetch('/api/admin/questions',{
+    return adminFetch('/api/admin/questions',{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify(body)
@@ -291,7 +291,7 @@ function apiAdminSaveQuestion(body){
 }
 
 function apiAdminResetQuestions(){
-    return fetch('/api/admin/questions/reset',{method:'POST'})
+    return adminFetch('/api/admin/questions/reset',{method:'POST'})
     .then(function(res){return res.json();})
     .then(function(data){
         return loadQuestionsFromServer().then(function(){return data;});
@@ -303,7 +303,7 @@ function apiAdminResetQuestions(){
 }
 
 function apiAdminListUsers(){
-    return fetch('/api/admin/users')
+    return adminFetch('/api/admin/users')
     .then(function(res){return res.json();})
     .catch(function(err){
         console.error('apiAdminListUsers failed:',err);
@@ -312,7 +312,7 @@ function apiAdminListUsers(){
 }
 
 function apiAdminSaveUser(username,state){
-    return fetch('/api/players/'+encodeURIComponent(username),{
+    return adminFetch('/api/players/'+encodeURIComponent(username),{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({state:state})
@@ -324,8 +324,30 @@ function apiAdminSaveUser(username,state){
     });
 }
 
+function apiAdminListAdmins(){
+    return adminFetch('/api/admin/admins')
+    .then(function(res){return res.json();})
+    .catch(function(){return {status:'error',admins:[]};});
+}
+
+function apiAdminAddAdmin(username,password){
+    return adminFetch('/api/admin/admins',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({username:username,password:password})
+    })
+    .then(function(res){return res.json();})
+    .catch(function(){return {status:'error',message:'Network error adding admin'};});
+}
+
+function apiAdminRemoveAdmin(username){
+    return adminFetch('/api/admin/admins/'+encodeURIComponent(username),{method:'DELETE'})
+    .then(function(res){return res.json();})
+    .catch(function(){return {status:'error',message:'Network error removing admin'};});
+}
+
 function apiAdminDeleteUser(username){
-    return fetch('/api/players/'+encodeURIComponent(username),{method:'DELETE'})
+    return adminFetch('/api/players/'+encodeURIComponent(username),{method:'DELETE'})
     .then(function(res){return res.json();})
     .catch(function(err){
         console.error('apiAdminDeleteUser failed:',err);

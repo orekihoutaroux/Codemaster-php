@@ -179,3 +179,9 @@ body.large-text .code-block{font-size:16px;}
 
 /* Admin: the question editor says where its questions are stored. */
 .admin-subtitle-warning{color:#ff9aa9;}
+
+/* Admin: MANAGE ADMINS tab */
+.admin-form-heading{font-family:var(--pixel-font,'Press Start 2P',monospace);font-size:11px;letter-spacing:1px;color:var(--gold);padding-bottom:4px;border-bottom:1px solid rgba(245,200,66,.22);}
+.admin-btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none;transform:none;}
+.admin-tabs{flex-wrap:wrap;}
+#admin-admin-list .admin-list-item{width:100%;}

@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const { connectDB } = require('./db');
 const { ensureQuestionsSeeded, migrateQuestionEditsIntoQuestions } = require('./lib/questions');
+const { ensureDefaultAdmin, requireAdmin } = require('./lib/admins');
 
 const healthRoutes = require('./routes/health');
 const questionsRoutes = require('./routes/questions');
@@ -11,6 +12,7 @@ const playersRoutes = require('./routes/players');
 const progressionRoutes = require('./routes/progression');
 const authRoutes = require('./routes/auth');
 const leaderboardRoutes = require('./routes/leaderboard');
+const adminsRoutes = require('./routes/admins');
 
 const PORT = process.env.PORT || 3000;
 
@@ -26,8 +28,16 @@ async function main() {
   // edits an older version left in the separate "question_edits" collection.
   await migrateQuestionEditsIntoQuestions(db);
   await ensureQuestionsSeeded(db);
+  await ensureDefaultAdmin(db);
 
   app.use('/api', healthRoutes(db));
+  // Admin login/logout and admin management. Everything else under /api/admin
+  // (question edits, the user list) and deleting a player now needs a valid
+  // admin session; the routes the game itself uses stay open.
+  app.use('/api', adminsRoutes(db));
+  const adminOnly = requireAdmin(db);
+  app.use('/api/admin', adminOnly);
+  app.delete('/api/players/:username', adminOnly);
   app.use('/api', questionsRoutes(db));
   app.use('/api', playersRoutes(db));
   app.use('/api', progressionRoutes(db));

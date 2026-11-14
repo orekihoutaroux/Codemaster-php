@@ -258,3 +258,21 @@ Checking it yourself: in `mongosh`, `use codemaster_php` then
 
 Not done: there is still no way to delete a question from the admin panel, and
 the `/api/admin/*` routes remain unprotected on the server.
+
+## Changelog — admin accounts
+
+- **MANAGE ADMINS tab** next to MANAGE USERS: lists every admin (who added
+  them, last login), **ADD ADMIN** creates one (username + password, typed
+  twice), and **REMOVE** deletes another admin. You cannot remove yourself or
+  the last admin. LOG OUT ends your session.
+- **Logins are checked by the server.** Admins are stored in the `admins`
+  collection with scrypt-hashed passwords; a login creates a 12-hour session in
+  `admin_sessions` (only a hash of the token is stored). The old hardcoded
+  `admin` / `admin123` check in the browser is gone.
+- **Admin routes are protected.** `/api/admin/*` (question edits, the user
+  list, admin management) and `DELETE /api/players/:username` now answer 401
+  without a valid session. The routes the game itself uses are unchanged.
+- **First admin:** created on first boot from `ADMIN_USERNAME` /
+  `ADMIN_PASSWORD`, or `admin` / `admin123` if those are not set. Replace it.
+- Removing an admin logs them out immediately; an expired session sends you
+  back to the login.

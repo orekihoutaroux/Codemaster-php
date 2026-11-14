@@ -19,8 +19,15 @@ var adminLogoClicks=0,adminLogoTimer=null,adminQuestionsCache=[],adminCurrentQue
 var adminUsersCache=[],adminCurrentUsername=null,adminActiveTab='questions';
 var adminResetFocusReturn=null;
 var adminAuthenticated=false;
-var ADMIN_LOGIN_USER='admin';
-var ADMIN_LOGIN_PASS='admin123';
+// Admin login is checked by the server against the "admins" collection. The
+// session token lives only for this browser tab (sessionStorage).
+var adminToken='';
+var adminUsername='';
+try{
+    adminToken=sessionStorage.getItem('codemaster_admin_token')||'';
+    adminUsername=sessionStorage.getItem('codemaster_admin_user')||'';
+    adminAuthenticated=!!adminToken;
+}catch(e){}
 var largeTextMode=(localStorage.getItem('largeTextMode')==='1');
 var audioCtx=null;
 var audioMasterGain=null;

@@ -100,12 +100,17 @@ and `players` and `leaderboard` filling up as people play.
 - Atlas M0 never expires. (Render's own free *Postgres* expires after 30 days -
   that does not apply here, the data is in Atlas.)
 
-## Before you share the link
+## Admin accounts
 
-The admin dashboard is **not protected on the server**. The login (click the
-logo 5 times, `admin` / `admin123`) is only a check inside the browser, and the
-`/api/admin/*` routes answer anyone who calls them directly. On your own
-laptop that does not matter. On a public address, anyone who finds it can edit
-the questions or delete player saves.
+The admin dashboard (click the logo 5 times) checks logins on the server
+against the `admins` collection, and the admin-only API routes refuse requests
+without a valid admin session.
 
-Ask Claude for "real admin auth on the server" before you hand the link around.
+On the first boot, when there are no admins yet, the server creates one:
+
+- with `ADMIN_USERNAME` / `ADMIN_PASSWORD` if you set them as environment
+  variables on Render, or
+- otherwise `admin` / `admin123`, and the log says so.
+
+**Before you share the link:** log in, open **MANAGE ADMINS**, add an admin
+with your own password, log out, log back in as that admin, and remove `admin`.
