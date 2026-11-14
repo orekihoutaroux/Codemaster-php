@@ -7,6 +7,14 @@ services:
     runtime: node
     plan: free
     rootDir: server
+    # With rootDir set, Render only auto-deploys when something under server/
+    # changes. The game's pages, scripts and styles live in public/, so list
+    # both folders here or front-end-only pushes are silently skipped.
+    # (Paths are relative to the repository root.)
+    buildFilter:
+      paths:
+        - server/**
+        - public/**
     buildCommand: npm install
     startCommand: npm start
     healthCheckPath: /api/health
