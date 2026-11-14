@@ -69,6 +69,7 @@ function closeAdminDashboard(){
 }
 
 function reloadAdminQuestions(){
+    reloadAdminCategories();
     var list=document.getElementById('admin-question-list');
     if(list)list.innerHTML='<div class="admin-empty">Loading questions...</div>';
     apiAdminListQuestions()
@@ -109,7 +110,7 @@ function selectAdminQuestion(id,updateList){
     var question=adminQuestionsCache.find(function(q){return String(q.id)===String(id);});
     if(!question)return;
     document.getElementById('admin-question-id').value=question.id;
-    document.getElementById('admin-cat').value=question.cat||'';
+    setAdminCategory(question.cat||'basics');
     document.getElementById('admin-diff').value=question.diff||'easy';
     document.getElementById('admin-type').value=question.type||'multiple';
     document.getElementById('admin-q').value=question.q||'';
@@ -133,7 +134,7 @@ function createNewQuestion(){
         renderAdminQuestionList();
     }
     document.getElementById('admin-question-id').value=id;
-    document.getElementById('admin-cat').value='basics';
+    setAdminCategory('basics');
     document.getElementById('admin-diff').value='easy';
     document.getElementById('admin-type').value='multiple';
     document.getElementById('admin-q').value='';
@@ -474,3 +475,102 @@ function removeSelectedAdmin(){
         }
     });
 }
+
+// ===== QUESTION CATEGORIES =====
+// The category box is a dropdown filled from MongoDB ("categories" collection
+// plus any category a question already uses). "+ NEW" adds one.
+var DEFAULT_ADMIN_CATEGORIES=['basics','variables','strings','arrays','control','functions','oop','coding','advanced','modern php','traits','references'];
+var adminCategories=DEFAULT_ADMIN_CATEGORIES.slice();
+
+function formatCategoryLabel(name){
+    return String(name||'').split(' ').map(function(word){
+        if(word==='oop'||word==='php')return word.toUpperCase();
+        return word.charAt(0).toUpperCase()+word.slice(1);
+    }).join(' ');
+}
+
+function renderAdminCategoryOptions(selected){
+    var select=document.getElementById('admin-cat');
+    if(!select)return;
+    var current=selected!=null?selected:select.value;
+    var list=adminCategories.slice();
+    if(current&&list.indexOf(current)===-1)list.push(current);
+    list.sort();
+    select.innerHTML=list.map(function(name){
+        return '<option value="'+escapeHtml(name)+'">'+escapeHtml(formatCategoryLabel(name))+'</option>';
+    }).join('');
+    select.value=current&&list.indexOf(current)!==-1?current:(list.indexOf('basics')!==-1?'basics':list[0]);
+}
+
+// Selects a category, adding it to the list first if a question uses one
+// the dropdown does not know yet.
+function setAdminCategory(name){
+    var value=String(name||'').trim().toLowerCase()||'basics';
+    if(adminCategories.indexOf(value)===-1)adminCategories.push(value);
+    renderAdminCategoryOptions(value);
+}
+
+function reloadAdminCategories(){
+    var keep=document.getElementById('admin-cat');
+    var current=keep?keep.value:'';
+    return apiAdminListCategories().then(function(data){
+        if(data&&data.status==='ok'&&Array.isArray(data.categories)&&data.categories.length){
+            adminCategories=data.categories.slice();
+        }
+        renderAdminCategoryOptions(current||null);
+    });
+}
+
+function showNewCategoryInput(){
+    var box=document.getElementById('admin-cat-new');
+    var btn=document.getElementById('admin-cat-new-btn');
+    var input=document.getElementById('admin-cat-new-input');
+    if(!box)return;
+    box.hidden=false;
+    if(btn)btn.setAttribute('aria-expanded','true');
+    if(input){input.value='';input.focus();}
+}
+
+function hideNewCategoryInput(){
+    var box=document.getElementById('admin-cat-new');
+    var btn=document.getElementById('admin-cat-new-btn');
+    if(box)box.hidden=true;
+    if(btn){btn.setAttribute('aria-expanded','false');btn.focus();}
+}
+
+function submitNewCategory(){
+    var input=document.getElementById('admin-cat-new-input');
+    var name=String(input?input.value:'').trim().toLowerCase().replace(/\s+/g,' ');
+    if(!/^[a-z0-9][a-z0-9 -]{0,22}[a-z0-9]$/.test(name)){
+        showToast('Category must be 2-24 letters, numbers, spaces or dashes','error');
+        if(input)input.focus();
+        return;
+    }
+    if(adminCategories.indexOf(name)!==-1){
+        setAdminCategory(name);
+        hideNewCategoryInput();
+        showToast('"'+formatCategoryLabel(name)+'" already exists - selected it','info');
+        return;
+    }
+    apiAdminAddCategory(name).then(function(data){
+        if(data&&data.status==='ok'){
+            if(Array.isArray(data.categories))adminCategories=data.categories.slice();
+            setAdminCategory(data.category);
+            hideNewCategoryInput();
+            showToast('Category "'+formatCategoryLabel(data.category)+'" added','success');
+            var status=document.getElementById('admin-status');
+            if(status)status.textContent='Category "'+formatCategoryLabel(data.category)+'" added and selected. Save the question to use it.';
+        }else{
+            showToast((data&&data.message)||'Could not add category','error');
+        }
+    });
+}
+
+document.addEventListener('keydown',function(e){
+    if(!e.target||e.target.id!=='admin-cat-new-input')return;
+    if(e.key==='Enter'){e.preventDefault();submitNewCategory();}
+    else if(e.key==='Escape'){e.preventDefault();e.stopPropagation();hideNewCategoryInput();}
+});
+
+// The dropdown is filled each time the question editor loads
+// (reloadAdminQuestions -> reloadAdminCategories).

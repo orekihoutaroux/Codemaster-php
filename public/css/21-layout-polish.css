@@ -185,3 +185,12 @@ body.large-text .code-block{font-size:16px;}
 .admin-btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none;transform:none;}
 .admin-tabs{flex-wrap:wrap;}
 #admin-admin-list .admin-list-item{width:100%;}
+
+/* Admin: category dropdown + add new */
+.admin-category-row{display:flex;gap:8px;align-items:stretch;}
+.admin-category-row select{flex:1;min-width:0;}
+.admin-category-new{flex:0 0 auto;white-space:nowrap;padding:0 14px;}
+.admin-category-add{display:flex;gap:8px;margin-top:8px;align-items:stretch;}
+.admin-category-add[hidden]{display:none;}
+.admin-category-add input{flex:1;min-width:0;}
+.admin-category-add .admin-btn{flex:0 0 auto;padding:0 12px;}

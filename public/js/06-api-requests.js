@@ -324,6 +324,22 @@ function apiAdminSaveUser(username,state){
     });
 }
 
+function apiAdminListCategories(){
+    return adminFetch('/api/admin/categories')
+    .then(function(res){return res.json();})
+    .catch(function(){return {status:'error',categories:[]};});
+}
+
+function apiAdminAddCategory(name){
+    return adminFetch('/api/admin/categories',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({name:name})
+    })
+    .then(function(res){return res.json();})
+    .catch(function(){return {status:'error',message:'Network error adding category'};});
+}
+
 function apiAdminListAdmins(){
     return adminFetch('/api/admin/admins')
     .then(function(res){return res.json();})

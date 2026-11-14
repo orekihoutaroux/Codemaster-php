@@ -1,5 +1,6 @@
 const express = require('express');
 const { getStoredQuestions, saveQuestion, restoreBuiltInQuestions } = require('../lib/questions');
+const { normalizeCategory, rememberCategory } = require('../lib/categories');
 
 module.exports = function questionsRoutes(db) {
   const router = express.Router();
@@ -25,7 +26,7 @@ module.exports = function questionsRoutes(db) {
       }
       const questionFields = {
         id,
-        cat: String(body.cat || '').trim() || 'basics',
+        cat: normalizeCategory(body.cat).slice(0, 24) || 'basics',
         diff: ['easy', 'medium', 'hard'].includes(String(body.diff || '').trim()) ? String(body.diff).trim() : 'easy',
         type: String(body.type || '').trim() === 'code' ? 'code' : 'multiple',
         q: String(body.q || '').trim(),
@@ -38,6 +39,7 @@ module.exports = function questionsRoutes(db) {
       }
 
       const saved = await saveQuestion(db, questionFields);
+      await rememberCategory(db, questionFields.cat, req.adminUsername);
       res.json({ status: 'ok', storage: 'mongodb', ...saved });
     } catch (err) {
       console.error(err);

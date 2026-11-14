@@ -43,9 +43,17 @@
                     <label>ID</label>
                     <input id="admin-question-id" type="text" readonly>
                 </div>
-                <div class="admin-field">
-                    <label>Category</label>
-                    <input id="admin-cat" type="text" placeholder="basics">
+                <div class="admin-field admin-category-field">
+                    <label for="admin-cat">Category</label>
+                    <div class="admin-category-row">
+                        <select id="admin-cat"></select>
+                        <button type="button" class="admin-btn ghost admin-category-new" id="admin-cat-new-btn" onclick="showNewCategoryInput()" aria-expanded="false" aria-controls="admin-cat-new">+ NEW</button>
+                    </div>
+                    <div class="admin-category-add" id="admin-cat-new" hidden>
+                        <input id="admin-cat-new-input" type="text" maxlength="24" placeholder="e.g. sessions" aria-label="New category name">
+                        <button type="button" class="admin-btn primary" onclick="submitNewCategory()">ADD</button>
+                        <button type="button" class="admin-btn ghost" onclick="hideNewCategoryInput()">CANCEL</button>
+                    </div>
                 </div>
                 <div class="admin-field">
                     <label>Difficulty</label>
