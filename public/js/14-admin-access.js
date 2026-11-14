@@ -20,6 +20,7 @@ function openAdminLogin(){
     if(status)status.textContent='';
     if(user)user.value='';
     if(pass)pass.value='';
+    if(typeof hideAllPasswords==='function')hideAllPasswords();
     overlay.style.display='flex';
     if(user)user.focus();
 }
@@ -52,6 +53,7 @@ function submitAdminLogin(evt){
             setAdminSession(data.token,data.username);
             if(status)status.textContent='';
             if(passEl)passEl.value='';
+            hideAllPasswords();
             closeAdminLogin();
             openAdminDashboard();
             showToast('Logged in as '+data.username,'success');

@@ -413,6 +413,7 @@ function startAddAdmin(){
     ['admin-new-username','admin-new-password','admin-new-password-confirm'].forEach(function(id){
         var el=document.getElementById(id);if(el)el.value='';
     });
+    hideAllPasswords();
     var status=document.getElementById('admin-admin-status');
     if(status)status.textContent='Choose a username and password for the new admin.';
     var user=document.getElementById('admin-new-username');
@@ -442,6 +443,7 @@ function submitAddAdmin(evt){
             if(passEl)passEl.value='';
             if(confirmEl)confirmEl.value='';
             if(userEl)userEl.value='';
+            hideAllPasswords();
             if(status)status.textContent='Admin '+data.admin.username+' added. They can log in now.';
             showToast('Admin '+data.admin.username+' added','success');
             reloadAdminAdmins();

@@ -220,6 +220,7 @@ function backFromAccountEntry(){
 function showScreen(id){
     document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
     document.getElementById(id).classList.add('active');
+    if(typeof hideAllPasswords==='function')hideAllPasswords();
     if(id!=='game-screen'){
         closeAccountInfo();
         // Leaving the battle: stop the question timer and sprite loops so a

@@ -70,7 +70,8 @@ APP.JS MAP (one file each, loaded in this order)
     'js/17-feedback-utilities.js',
     'js/18-events.js',
     'js/19-leaderboard.js',
-    'js/20-startup.js'
+    'js/20-startup.js',
+    'js/21-password-visibility.js'
   ];
 
   var root = document.getElementById('app-root');

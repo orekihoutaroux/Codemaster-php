@@ -1,0 +1,103 @@
+/* ===== 22. PASSWORD FIELDS + MOBILE =====
+   Loaded last. The eye toggle for password fields, then phone-size layout. */
+
+/* ---------- Show / hide password ---------- */
+.password-field{position:relative;display:block;width:100%;}
+.password-field input{width:100%;padding-right:48px!important;}
+.password-field input::-ms-reveal,.password-field input::-ms-clear{display:none;}
+.password-toggle{position:absolute;top:2px;right:2px;bottom:2px;width:44px;display:flex;align-items:center;justify-content:center;padding:0;margin:0;border:0;border-left:1px solid rgba(255,255,255,.08);background:transparent;color:#9a9ab8;cursor:pointer;transition:color .12s,background .12s;}
+.password-toggle:hover{color:#fff;background:rgba(255,255,255,.05);}
+.password-toggle[aria-pressed="true"]{color:var(--gold);}
+.password-toggle:focus-visible{outline:2px solid var(--gold);outline-offset:-3px;}
+.password-toggle svg{display:block;pointer-events:none;}
+
+/* Toasts never block a tap, and inputs never trigger iPhone zoom (< 16px). */
+.toast{pointer-events:none;}
+#settings-font-size,.admin-login-field select{font-size:16px;}
+
+/* Settings button turns into a gear icon when space is short. */
+.hud-settings-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;}
+
+/* ---------- Phones ---------- */
+@media(max-width:560px){
+    body{-webkit-tap-highlight-color:transparent;}
+    .screen{padding-left:max(12px,env(safe-area-inset-left));padding-right:max(12px,env(safe-area-inset-right));}
+
+    /* Toasts: smaller, and below the battle HUD instead of on top of it. */
+    .toast{top:max(10px,env(safe-area-inset-top));font-size:13px;padding:8px 14px;min-width:0;width:calc(100vw - 24px);}
+    body:has(#game-screen.active) .toast{top:98px;}
+
+    /* HUD: gear icon instead of the SETTINGS label, so the name has room. */
+    .lex-hud{padding:6px 10px;gap:6px;}
+    .lex-hud{flex-wrap:wrap;}
+    .lex-hud-left{flex:1 1 0;min-width:0;overflow:hidden;}
+    .lex-hud-left .lex-player-identity{overflow:hidden;}
+    .lex-hud-right{flex:0 0 auto;gap:8px;}
+    .lex-player-identity{min-width:0;max-width:100%;}
+    .lex-player-name,.lex-player-title{max-width:none;}
+    .lex-player-identity>*:last-child{min-width:0;overflow:hidden;}
+    .lex-player-identity .lex-player-name{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .hud-settings-btn{width:40px;height:40px;padding:0!important;margin-right:0!important;flex:0 0 40px;}
+    .hud-settings-btn .hud-settings-label{display:none;}
+    .hud-settings-btn::before{content:'';width:20px;height:20px;background:currentColor;
+        -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3Cpath d='M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z'/%3E%3C/svg%3E") center/contain no-repeat;
+                mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3Cpath d='M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z'/%3E%3C/svg%3E") center/contain no-repeat;}
+    .lex-hud-right-stats{gap:8px;}
+
+    /* Battle scene: the monster blurb and buff badges stay on screen. */
+    .lex-monster-desc-panel{left:auto;right:0;transform:none;width:min(220px,52vw);font-size:11px;}
+    .lex-hero-hp-wrap>.buff-indicators{left:0;transform:none;width:min(184px,46vw);justify-content:start;}
+
+    /* Shop: description gets its own line instead of a narrow middle column. */
+    .shop-item{display:grid;grid-template-columns:34px 1fr auto;grid-template-areas:"icon name cost" "icon desc cost";column-gap:10px;row-gap:2px;padding:10px 12px;}
+    .shop-item:hover{transform:none;}
+    .shop-item-icon{grid-area:icon;align-self:center;}
+    .shop-item-name{grid-area:name;min-width:0;}
+    .shop-item-desc{grid-area:desc;line-height:1.4;}
+    .shop-item-cost{grid-area:cost;align-self:center;min-width:0;}
+
+    /* Account form */
+    .add-user-card{padding:18px 14px;}
+    .add-user-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+    .add-user-actions .start-btn{min-width:0;width:100%;padding:14px 8px;}
+    #add-user-screen:not(.login-mode) .add-user-actions{grid-template-columns:1fr 2fr;}
+    #add-user-screen.login-mode .add-user-actions{grid-template-columns:1fr 1fr;}
+    .returning-player-prompt{flex-wrap:wrap;justify-content:center;}
+
+    /* Hero select: room above the title. */
+    #select-screen{padding-top:20px;}
+
+    /* Admin dashboard: tabs in one swipeable row, compact action buttons. */
+    .admin-panel{width:100vw;max-width:100vw;max-height:100dvh;height:100dvh;border-width:0;padding:12px max(12px,env(safe-area-inset-left)) calc(12px + env(safe-area-inset-bottom));}
+    .admin-overlay{padding:0;}
+    .admin-header{gap:8px;}
+    .admin-header > div:first-child{min-width:0;flex-basis:100%;}
+    .admin-title{font-size:15px;}
+    .admin-subtitle{font-size:12px;line-height:1.45;}
+    .admin-actions{gap:6px;}
+    .admin-header .admin-actions .admin-btn{padding:8px 10px;font-size:9px;}
+    .admin-header,.admin-tabs{flex-shrink:0;}
+    .admin-tabs{flex-wrap:nowrap;overflow-x:auto;gap:6px;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+    .admin-tab-prefix{display:none;}
+    .admin-tabs::-webkit-scrollbar{display:none;}
+    .admin-tab{flex:1 1 0;min-width:0;padding:10px 6px;font-size:9px;white-space:nowrap;text-align:center;}
+    .admin-list{max-height:34vh;}
+    .admin-footer{flex-direction:column;align-items:stretch;gap:10px;}
+    .admin-footer .admin-actions{display:grid;grid-template-columns:1fr 1fr;}
+    .admin-footer .admin-actions .admin-btn{width:100%;}
+    .admin-footer .admin-actions .admin-btn:last-child:nth-child(odd){grid-column:1 / -1;}
+    .admin-footer > .admin-btn{width:100%;}
+
+    /* Overlays fit the screen and scroll inside. */
+    .admin-login-card,.settings-card{width:calc(100vw - 24px);max-height:calc(100dvh - 24px);overflow-y:auto;padding:18px 16px;}
+    .admin-login-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+    .admin-login-actions .admin-btn{width:100%;min-width:0;padding:12px 6px;font-size:9px;white-space:nowrap;}
+    .shop-box{width:calc(100vw - 24px);max-height:calc(100dvh - 24px);}
+}
+
+@media(max-width:400px){
+    .student-extra{grid-template-columns:1fr;}
+    .lex-hud-right{gap:6px;}
+    .lex-hud-right-stats{gap:6px;}
+    .hud-settings-btn{width:36px;height:36px;flex-basis:36px;}
+}
