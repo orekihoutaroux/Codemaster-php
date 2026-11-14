@@ -142,7 +142,7 @@ function startGame(){
     .then(function(){return apiProgressionEvent('progress_sync',getProgressionMetrics(),false);})
     .then(function(){
         if(passwordField)passwordField.value='';
-        launchDungeon('Account saved to MongoDB');
+        enterDungeonWithTutorial('Account saved to MongoDB');
     })
     .catch(function(err){
         console.error('startGame failed:',err);

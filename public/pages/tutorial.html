@@ -1,0 +1,28 @@
+<!-- ========================================================================
+     PAGE 7: HOW TO PLAY
+     Purpose: Explains the game's rules after ENTER DUNGEON, before the first
+     battle. The steps are filled in by js/22-tutorial.js (the hero step uses
+     the hero the player just picked).
+     Functions: openTutorial(), tutorialStep(), finishTutorial(), skipTutorial()
+     ======================================================================== -->
+<div id="tutorial-screen" class="screen" role="dialog" aria-modal="false" aria-labelledby="tutorial-heading">
+    <div class="tutorial-card">
+        <div class="tutorial-top">
+            <div>
+                <div class="tutorial-kicker">HOW TO PLAY</div>
+                <div class="tutorial-count" id="tutorial-count" aria-live="polite">STEP 1 OF 6</div>
+            </div>
+            <button type="button" class="tutorial-skip" id="tutorial-skip" onclick="skipTutorial()">SKIP</button>
+        </div>
+        <div class="tutorial-body" id="tutorial-body"></div>
+        <div class="tutorial-dots" id="tutorial-dots" role="tablist" aria-label="Tutorial steps"></div>
+        <label class="tutorial-optout" id="tutorial-optout">
+            <input type="checkbox" id="tutorial-hide-next">
+            <span>Don't show this when I enter the dungeon</span>
+        </label>
+        <div class="tutorial-actions">
+            <button type="button" class="start-btn tutorial-back" id="tutorial-back" onclick="tutorialStep(-1)">BACK</button>
+            <button type="button" class="start-btn tutorial-next" id="tutorial-next" onclick="tutorialStep(1)">NEXT</button>
+        </div>
+    </div>
+</div>

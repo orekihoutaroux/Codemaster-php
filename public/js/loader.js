@@ -38,7 +38,8 @@ APP.JS MAP (one file each, loaded in this order)
     'pages/add-user.html',
     'pages/select.html',
     'pages/learn.html',
-    'pages/game.html'
+    'pages/game.html',
+    'pages/tutorial.html'
   ];
 
   var OVERLAYS = [
@@ -71,7 +72,8 @@ APP.JS MAP (one file each, loaded in this order)
     'js/18-events.js',
     'js/19-leaderboard.js',
     'js/20-startup.js',
-    'js/21-password-visibility.js'
+    'js/21-password-visibility.js',
+    'js/22-tutorial.js'
   ];
 
   var root = document.getElementById('app-root');
