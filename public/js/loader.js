@@ -11,6 +11,9 @@ index.html is only a shell. This loader:
 APP.JS MAP (one file each, loaded in this order)
   01  Drawing helpers and character data
   02  Monsters, dungeon encounters, and bosses
+  02a Sprite engine (draws heroes and monsters from shapes, with poses)
+  02b Hero sprites
+  02c Monster and boss sprites
   03  Question data and offline fallback
   04  Runtime game state
   05  Player persistence and state synchronization
@@ -54,6 +57,9 @@ APP.JS MAP (one file each, loaded in this order)
   var SCRIPTS = [
     'js/01-drawing-characters.js',
     'js/02-monsters-bosses.js',
+    'js/02a-sprite-engine.js',
+    'js/02b-hero-sprites.js',
+    'js/02c-monster-sprites.js',
     'js/03-question-data.js',
     'js/04-runtime-state.js',
     'js/05-persistence.js',

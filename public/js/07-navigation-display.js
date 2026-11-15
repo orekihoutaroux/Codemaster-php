@@ -155,10 +155,8 @@ function updateAccountInfo(){
 
     var avatar=document.getElementById('account-info-avatar');
     if(avatar){
-        var avatarCtx=avatar.getContext('2d');
-        avatarCtx.clearRect(0,0,avatar.width,avatar.height);
-        avatarCtx.imageSmoothingEnabled=false;
-        if(selectedChar)selectedChar.sprite.call(selectedChar,avatarCtx,20,22,5,0);
+        if(selectedChar)SPR.drawTo(avatar,'hero',selectedChar.id,{crop:'bust'});
+        else avatar.getContext('2d').clearRect(0,0,avatar.width,avatar.height);
     }
 }
 

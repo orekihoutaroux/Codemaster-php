@@ -1,19 +1,71 @@
 // ===== 12. BATTLE, QUESTIONNAIRE, AND PROGRESSION =====
+// Both battle sprites are redrawn about 30 times a second. SPR.frame() says
+// which pose (attack, hurt, defeat ...) each one is in right now.
+var SPRITE_FRAME_MS=33;
+function spriteCanvasVisible(canvas){return !!canvas&&!document.hidden&&canvas.offsetParent!==null;}
+
 function startCharacterAnimation(){
     if(characterAnimId)cancelAnimationFrame(characterAnimId);
-    function animate(){animFrame++;var canvas=document.getElementById('game-character');if(!canvas)return;
-    var ctx=canvas.getContext('2d');ctx.clearRect(0,0,96,96);
-    if(!selectedChar)return;
-    selectedChar.sprite.call(selectedChar,ctx,20,23,7,Math.floor(animFrame/30));
-    characterAnimId=requestAnimationFrame(animate);}animate();
+    SPR.clearPose('hero');
+    var last=0;
+    function animate(now){
+        var canvas=document.getElementById('game-character');if(!canvas)return;
+        characterAnimId=requestAnimationFrame(animate);
+        if(!selectedChar||!spriteCanvasVisible(canvas))return;
+        if(now-last<SPRITE_FRAME_MS)return;last=now;animFrame++;
+        SPR.drawTo(canvas,'hero',selectedChar.id,{t:now/1000,pose:SPR.frame('hero')});
+    }
+    characterAnimId=requestAnimationFrame(animate);
 }
 
 function startMonsterAnimation(){
-    if(monsterAnimId)cancelAnimationFrame(monsterAnimId);var mFrame=0;
-    function animate(){mFrame++;var canvas=document.getElementById('monster-canvas');if(!canvas)return;
-    var ctx=canvas.getContext('2d');ctx.clearRect(0,0,160,160);
-    if(currentMonster)currentMonster.draw(ctx,20,10,14,Math.floor(mFrame/20));
-    monsterAnimId=requestAnimationFrame(animate);}animate();
+    if(monsterAnimId)cancelAnimationFrame(monsterAnimId);
+    var canvas=document.getElementById('monster-canvas');
+    if(canvas&&canvas.parentNode)canvas.parentNode.classList.toggle('is-boss',!!isBossFight);
+    // every new enemy materialises out of pixels
+    SPR.pose('enemy','spawn',{dur:isBossFight?800:480});
+    var last=0;
+    function animate(now){
+        var canvas=document.getElementById('monster-canvas');if(!canvas)return;
+        monsterAnimId=requestAnimationFrame(animate);
+        if(!currentMonster||!spriteCanvasVisible(canvas))return;
+        if(now-last<SPRITE_FRAME_MS)return;last=now;
+        SPR.drawTo(canvas,'enemy',currentMonster.id,{t:now/1000,pose:SPR.frame('enemy')});
+    }
+    monsterAnimId=requestAnimationFrame(animate);
+}
+
+// Enemies that fight from range only step part of the way toward the hero.
+const ENEMY_DASH_FACTORS={null_ghost:0.45,regex_spider:0.5,exception_wraith:0.45,cache_cinder:0.5,deadlock_dragon:0.6,memory_leak:0.7};
+
+// Measure the gap between the two fighters and hand it to the CSS lunge
+// keyframes (see 24-sprites.css) so a melee attack reaches its target.
+function measureCombatDash(){
+    var scene=document.getElementById('battle-scene');
+    var heroEl=document.getElementById('game-character'),monsterEl=document.getElementById('monster-canvas');
+    if(!scene||!heroEl||!monsterEl)return;
+    var h=heroEl.getBoundingClientRect(),m=monsterEl.getBoundingClientRect();
+    if(!h.width||!m.width)return;
+    var unit=h.width/64;
+    var gap=(m.left+m.width*34/64)-(h.left+h.width*28/64);
+    var heroDash=Math.max(40,gap-(isBossFight?46:40)*unit);
+    var factor=currentMonster?(ENEMY_DASH_FACTORS[currentMonster.id]||1):1;
+    var enemyDash=Math.max(40,(gap-(isBossFight?42:36)*unit)*factor);
+    scene.style.setProperty('--hdash',Math.round(heroDash)+'px');
+    scene.style.setProperty('--edash',(-Math.round(enemyDash))+'px');
+}
+
+// The moment an attack connects: the target flinches, or falls if it has no HP left.
+function poseTargetHit(side){
+    if(side==='enemy'){
+        if(monsterHp<=0){
+            SPR.pose('enemy','die',{dur:isBossFight?1300:800,hold:true});
+            SPR.pose('hero','win',{dur:1100,delay:520});
+        }else SPR.pose('enemy','hurt',{dur:420});
+    }else{
+        if(hp<=0)SPR.pose('hero','die',{dur:900,hold:true});
+        else SPR.pose('hero','hurt',{dur:420});
+    }
 }
 
 function spawnMonster(){
@@ -211,8 +263,17 @@ function playAttackSequence(attackerEl,targetEl,attackerClass,targetClass,effect
     },200);
 }
 
-const CHARACTER_ATTACK_TIMINGS={scholar:330,wizard:390,knight:280,rogue:230,healer:390,pirate:350};
+// Milliseconds until the hit lands. For the ranged heroes this is when their
+// projectile reaches the monster, so the flinch happens on contact.
+const CHARACTER_ATTACK_TIMINGS={scholar:600,wizard:590,knight:280,rogue:230,healer:660,pirate:500};
 const CHARACTER_SKILL_TIMINGS={scholar:620,wizard:560,knight:450,rogue:360,healer:650,pirate:520};
+// How long each hero's attack pose lasts. Fighters who run in (knight, hacker)
+// land their swing on the impact; casters and the gunner release early (k) so
+// the shot is already in the air when the effect flies across the scene.
+const CHARACTER_ATTACK_POSES={
+    scholar:{dur:900,k:0.2},wizard:{dur:900,k:0.24},knight:{dur:900},
+    rogue:{dur:800},healer:{dur:960,k:0.22},pirate:{dur:820,k:0.16}
+};
 
 const CHARACTER_ATTACK_NAMES={
     scholar:'SYNTAX BOLT',wizard:'ARCANE MISSILE',knight:'VANGUARD SLASH',
@@ -413,13 +474,17 @@ function playCharacterAttackAnimation(charId,damageValue,isCritical){
     clearCharacterCombatAnimation();
     heroEl.classList.remove('hero-hit-anim');
     monsterEl.classList.remove('monster-hit-anim');
+    measureCombatDash();
     void heroEl.offsetWidth;
     heroEl.classList.add('hero-normal-'+id);
     var profile=getCharacterCombatProfile(id);
     beginCombatPresentation('hero','attack',CHARACTER_ATTACK_NAMES[id]||'HERO ATTACK','NORMAL ATTACK',profile,980);
     var visual=createCharacterAttackVisual(id);
     var impactDelay=CHARACTER_ATTACK_TIMINGS[id]||330;
+    var swing=CHARACTER_ATTACK_POSES[id]||CHARACTER_ATTACK_POSES.knight;
+    SPR.pose('hero','attack',{dur:swing.dur,k:swing.k||impactDelay/swing.dur});
     setTimeout(function(){
+        poseTargetHit('enemy');
         monsterEl.classList.remove('monster-hit-anim');
         void monsterEl.offsetWidth;
         monsterEl.classList.add('monster-hit-anim');
@@ -443,6 +508,7 @@ function playCharacterSkillAnimation(charId,damageValue,skillName){
     clearCharacterCombatAnimation();
     heroEl.classList.remove('hero-hit-anim');
     monsterEl.classList.remove('monster-hit-anim');
+    measureCombatDash();
     void heroEl.offsetWidth;
     heroEl.classList.add('hero-skill-'+id);
     var profile=getCharacterCombatProfile(id);
@@ -450,7 +516,9 @@ function playCharacterSkillAnimation(charId,damageValue,skillName){
     beginCombatPresentation('hero','skill',skillName||(special?special.name:'HERO SKILL'),'ACTIVE SKILL',profile,1480);
     var effect=createCharacterSkillVisual(id);
     var impactDelay=CHARACTER_SKILL_TIMINGS[id]||520;
+    SPR.pose('hero','skill',{dur:1400,k:impactDelay/1400});
     setTimeout(function(){
+        poseTargetHit('enemy');
         monsterEl.classList.remove('monster-hit-anim');
         void monsterEl.offsetWidth;
         monsterEl.classList.add('monster-hit-anim');
@@ -523,13 +591,17 @@ function playEnemyAttackAnimation(monsterId,damageValue){
     clearCharacterCombatAnimation();
     clearEnemyCombatAnimation();
     heroEl.classList.remove('hero-hit-anim');
+    measureCombatDash();
     void monsterEl.offsetWidth;
     monsterEl.classList.add('enemy-normal-'+id);
     var profile=getEnemyCombatProfile(id);
     beginCombatPresentation('enemy','attack',ENEMY_ATTACK_NAMES[id]||'MONSTER ATTACK','ENEMY ATTACK',profile,1040);
-    var visual=createEnemyAttackVisual(id);
+    // Melee monsters run in themselves; only ranged ones send a projectile across.
+    var visual=ENEMY_DASH_FACTORS[id]?createEnemyAttackVisual(id):null;
     var impactDelay=ENEMY_ATTACK_TIMINGS[id]||330;
+    SPR.pose('enemy','attack',{dur:1000,k:impactDelay/1000});
     setTimeout(function(){
+        poseTargetHit('hero');
         heroEl.classList.remove('hero-hit-anim');
         void heroEl.offsetWidth;
         heroEl.classList.add('hero-hit-anim');
@@ -551,6 +623,7 @@ function playBossSkillAnimation(bossId,damageValue,skillName){
     clearCharacterCombatAnimation();
     clearEnemyCombatAnimation();
     heroEl.classList.remove('hero-hit-anim');
+    measureCombatDash();
     void monsterEl.offsetWidth;
     monsterEl.classList.add('enemy-skill-'+id);
     var profile=getEnemyCombatProfile(id);
@@ -558,7 +631,9 @@ function playBossSkillAnimation(bossId,damageValue,skillName){
     beginCombatPresentation('enemy','boss',skillName||(special?special.name:'BOSS SKILL'),'BOSS SPECIAL',profile,1640);
     var effect=createBossSkillVisual(id);
     var impactDelay=BOSS_SKILL_TIMINGS[id]||620;
+    SPR.pose('enemy','skill',{dur:1600,k:impactDelay/1600});
     setTimeout(function(){
+        poseTargetHit('hero');
         heroEl.classList.remove('hero-hit-anim');
         void heroEl.offsetWidth;
         heroEl.classList.add('hero-hit-anim');

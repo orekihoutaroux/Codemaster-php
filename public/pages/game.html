@@ -10,7 +10,7 @@
     <div class="lex-hud">
         <div class="lex-hud-left">
             <button type="button" id="account-info-trigger" class="lex-player-identity lex-account-trigger" onclick="toggleAccountInfo()" aria-controls="account-info-overlay" aria-expanded="false" title="View account information">
-                <canvas id="header-avatar" class="lex-avatar" width="48" height="48"></canvas>
+                <canvas id="header-avatar" class="lex-avatar" width="24" height="24"></canvas>
                 <span class="lex-player-copy">
                     <span class="lex-player-name" id="player-name">HERO</span>
                     <span class="lex-player-title" id="player-title">PHP NOVICE</span>
@@ -60,7 +60,7 @@
         <!-- Player hero (left side) -->
         <div class="lex-hero-side" id="hero-side">
             <div class="lex-hero-label" id="player-level">LVL 1</div>
-            <canvas id="game-character" class="char-game-canvas" width="96" height="96"></canvas>
+            <canvas id="game-character" class="char-game-canvas" width="64" height="64"></canvas>
             <div class="lex-hero-hp-wrap">
                 <div class="hp-bar-container">
                     <div class="hp-bar">
@@ -82,7 +82,7 @@
         <!-- Enemy / monster (right side) -->
         <div class="lex-enemy-side">
             <div class="lex-enemy-label" id="monster-name">Bug Sprite</div>
-            <canvas id="monster-canvas" class="monster-canvas" width="160" height="160"></canvas>
+            <canvas id="monster-canvas" class="monster-canvas" width="64" height="64"></canvas>
             <div class="lex-monster-hp-wrap">
                 <div class="lex-monster-hp-bar">
                     <div class="monster-hp-fill" id="monster-hp-fill" style="width:100%"></div>

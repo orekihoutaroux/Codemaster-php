@@ -133,13 +133,12 @@ function renderTutorialStep(){
     if(body&&typeof CHARACTERS!=='undefined'){
         body.querySelectorAll('canvas[data-hero]').forEach(function(c){
             var h=CHARACTERS.find(function(x){return x.id===c.getAttribute('data-hero');});
-            if(!h)return;var cx=c.getContext('2d');cx.imageSmoothingEnabled=false;cx.clearRect(0,0,48,48);h.sprite.call(h,cx,8,12,4,0);
+            if(!h)return;SPR.drawTo(c,'hero',h.id,{crop:'bust'});
         });
     }
     var heroCanvas=document.getElementById('tutorial-hero-canvas');
     if(heroCanvas&&selectedChar){
-        var ctx=heroCanvas.getContext('2d');ctx.imageSmoothingEnabled=false;
-        ctx.clearRect(0,0,96,96);selectedChar.sprite.call(selectedChar,ctx,20,23,7,0);
+        SPR.drawTo(heroCanvas,'hero',selectedChar.id,{crop:'full'});
     }
     var count=document.getElementById('tutorial-count');
     if(count)count.textContent='STEP '+(tutorialIndex+1)+' OF '+steps.length;

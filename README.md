@@ -118,7 +118,10 @@ codemaster-php/
 │   │   └── admin-reset-confirm.html
 │   ├── js/                     # game logic, one file per former app.js section
 │   │   ├── loader.js           # fetches partials, then loads 01..20 in order
-│   │   └── 01-drawing-characters.js ... 20-startup.js
+│   │   ├── 02a-sprite-engine.js  # draws heroes and monsters from shapes, with poses
+│   │   ├── 02b-hero-sprites.js   # the six heroes
+│   │   ├── 02c-monster-sprites.js # 15 monsters and 5 bosses
+│   │   └── 01-drawing-characters.js ... 22-tutorial.js
 │   └── css/                    # one stylesheet per former styles.css section
 │       └── 01-foundation.css ... 20-typography-extras.css
 └── server/
@@ -290,3 +293,22 @@ the `/api/admin/*` routes remain unprotected on the server.
   question was executed with PHP 8.3 to confirm its answer.
 - New seed questions are added to MongoDB automatically on the next server
   start. Questions you edited or added in the admin panel are left untouched.
+
+## Changelog — new heroes, monsters and attack animations
+
+- **All 26 sprites were redrawn** (6 heroes, 15 monsters, 5 bosses). They are
+  no longer 8x10 blocks: each one is drawn from shapes into a 64x64 pixel
+  canvas with outlines and shading, and shown at exactly 3x (2x on phones).
+- **They move on their own**: breathing, blinking, capes and beards swaying,
+  ghosts floating, flames flickering, wings flapping.
+- **Real attack poses**: wind-up, strike and recovery. The knight swings his
+  sword with a slash trail, the wizard and mentor raise glowing staffs, the
+  debugger fires a pistol with a muzzle flash, monsters bite, slam and breathe.
+- **Hits land**: melee fighters now run all the way to their target on any
+  screen width, the target flinches and flashes, a defeated monster breaks
+  into pixels, the hero cheers, and the next monster materialises.
+- The hero cards on the character-select screen are animated, and the one you
+  pick shows its attack.
+- New files: `js/02a-sprite-engine.js`, `js/02b-hero-sprites.js`,
+  `js/02c-monster-sprites.js`, `css/24-sprites.css`. To change how a hero or
+  monster looks, edit its block in 02b or 02c.

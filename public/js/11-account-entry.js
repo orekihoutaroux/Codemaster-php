@@ -61,8 +61,7 @@ function launchDungeon(message){
     showScreen('game-screen');
     document.getElementById('player-name').textContent=playerUsername+' | '+playerRole;
     updatePlayerTitleUI();
-    var hCtx=document.getElementById('header-avatar').getContext('2d');hCtx.clearRect(0,0,48,48);
-    selectedChar.sprite.call(selectedChar,hCtx,8,12,4,0);
+    SPR.drawTo(document.getElementById('header-avatar'),'hero',selectedChar.id,{crop:'bust'});
     if(selectedChar.ability==='addTime')TIMER_MAX=35;else TIMER_MAX=30;
     var progEl=document.getElementById('lex-progress-fill');if(progEl)progEl.style.width='5%';
     document.getElementById('player-level').textContent='LVL '+level;
