@@ -58,10 +58,6 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 /* ---------- Leaderboard ---------- */
 .leaderboard-container{padding:22px;min-height:0;max-height:calc(100vh - 40px);}
 .leaderboard-header h1{font-size:26px;line-height:1.4;}
-.leaderboard-stats{grid-template-columns:repeat(3,1fr);gap:10px;padding:12px;margin-bottom:16px;border-width:2px;}
-.stat-item{flex-direction:column;align-items:flex-start;gap:4px;padding:10px 12px;}
-.stat-label{font-size:13px;text-transform:uppercase;letter-spacing:.6px;}
-.stat-item .stat-value{font-size:14px;line-height:1.4;}
 .leaderboard-table{min-height:160px;margin-bottom:16px;border-width:3px;}
 #leaderboard-list{flex:1;overflow-y:auto;min-height:0;}
 #leaderboard-list .admin-empty{padding:28px 16px;text-align:center;}
@@ -128,7 +124,6 @@ body.large-text .code-block{font-size:16px;}
 }
 @media(max-width:900px){
     .characters-grid{grid-template-columns:repeat(2,1fr);}
-    .leaderboard-stats{grid-template-columns:1fr;}
     .leaderboard-row,.leaderboard-row.header-row{grid-template-columns:44px 1.4fr 1fr 70px 48px;gap:8px;padding:10px;}
     .leaderboard-row .col.role{display:none;}
 }
