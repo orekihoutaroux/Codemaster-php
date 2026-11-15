@@ -1,349 +1,782 @@
 <!-- ========================================================================
      PAGE 5: PHP STUDY MATERIALS
-     Purpose: Provides lessons for all PHP topics used by the questionnaire.
-     Function: showLearnTab(topic) switches between the lesson cards.
+     Purpose: A 13-lesson PHP course that covers every topic used by the
+              questions in the game. Every example was run with PHP 8.3 and
+              the OUTPUT boxes show the real result.
+     Function: showLearnTab(topic) switches lessons (07-navigation-display.js).
      ======================================================================== -->
 <div id="learn-screen" class="screen">
     <div class="learn-header">
         <div class="learn-title">PHP STUDY GRIMOIRE</div>
         <button class="learn-back" onclick="showScreen('title-screen')">BACK</button>
     </div>
-    <div class="learn-tabs">
-        <div class="learn-tab active" onclick="showLearnTab('basics')">BASICS</div>
-        <div class="learn-tab" onclick="showLearnTab('variables')">VARIABLES</div>
-        <div class="learn-tab" onclick="showLearnTab('strings')">STRINGS</div>
-        <div class="learn-tab" onclick="showLearnTab('arrays')">ARRAYS</div>
-        <div class="learn-tab" onclick="showLearnTab('control')">CONTROL</div>
-        <div class="learn-tab" onclick="showLearnTab('functions')">FUNCTIONS</div>
-        <div class="learn-tab" onclick="showLearnTab('oop')">OOP</div>
-        <div class="learn-tab" onclick="showLearnTab('advanced')">ADVANCED</div>
+    <div class="learn-tabs" role="tablist">
+        <button type="button" class="learn-tab active" data-topic="intro" onclick="showLearnTab('intro')"><span class="learn-tab-num">1</span>INTRO</button>
+        <button type="button" class="learn-tab" data-topic="variables" onclick="showLearnTab('variables')"><span class="learn-tab-num">2</span>VARIABLES</button>
+        <button type="button" class="learn-tab" data-topic="operators" onclick="showLearnTab('operators')"><span class="learn-tab-num">3</span>OPERATORS</button>
+        <button type="button" class="learn-tab" data-topic="strings" onclick="showLearnTab('strings')"><span class="learn-tab-num">4</span>STRINGS</button>
+        <button type="button" class="learn-tab" data-topic="arrays" onclick="showLearnTab('arrays')"><span class="learn-tab-num">5</span>ARRAYS</button>
+        <button type="button" class="learn-tab" data-topic="control" onclick="showLearnTab('control')"><span class="learn-tab-num">6</span>CONTROL FLOW</button>
+        <button type="button" class="learn-tab" data-topic="functions" onclick="showLearnTab('functions')"><span class="learn-tab-num">7</span>FUNCTIONS</button>
+        <button type="button" class="learn-tab" data-topic="oop" onclick="showLearnTab('oop')"><span class="learn-tab-num">8</span>CLASSES</button>
+        <button type="button" class="learn-tab" data-topic="inheritance" onclick="showLearnTab('inheritance')"><span class="learn-tab-num">9</span>INHERITANCE</button>
+        <button type="button" class="learn-tab" data-topic="errors" onclick="showLearnTab('errors')"><span class="learn-tab-num">10</span>ERRORS</button>
+        <button type="button" class="learn-tab" data-topic="web" onclick="showLearnTab('web')"><span class="learn-tab-num">11</span>PHP ON THE WEB</button>
+        <button type="button" class="learn-tab" data-topic="database" onclick="showLearnTab('database')"><span class="learn-tab-num">12</span>DATABASES</button>
+        <button type="button" class="learn-tab" data-topic="modern" onclick="showLearnTab('modern')"><span class="learn-tab-num">13</span>MODERN PHP</button>
     </div>
     <div class="learn-content">
-        <div class="learn-card active" id="learn-basics">
-            <h3>PHP BASICS</h3>
-            <p>PHP (PHP: Hypertext Preprocessor) is a server-side scripting language designed for web development.</p>
-            <h4>Getting Started</h4>
-            <p>PHP code is written between special tags:</p>
-            <div class="learn-code">&lt;?php
-  echo "Hello, World!";
-?&gt;</div>
-            <h4>Key Rules</h4>
-            <ul>
-                <li>Every statement ends with a semicolon <b>;</b></li>
-                <li>PHP is case-sensitive for variables but NOT for functions</li>
-                <li>PHP files use the <b>.php</b> extension</li>
-                <li>PHP runs on the <b>server</b>, not the browser</li>
-            </ul>
-            <h4>Output</h4>
-            <div class="learn-code">echo "Hello";    // Most common way to output
-print "Hello";   // Also works, returns 1
-var_dump($x);    // Shows value AND type (great for debugging)</div>
-            <h4>Comments</h4>
-            <div class="learn-code">// Single line comment
-# Also a single line comment
-/* This is a
-   multi-line comment */</div>
-            <div class="tip-box">TIP: Use var_dump() instead of echo when debugging - it shows the data type too!</div>
-        </div>
+<section class="learn-card active" id="learn-intro" data-topic="intro">
+<div class="learn-lesson-num">LESSON 1 OF 13</div>
+<h3>WHAT IS PHP?</h3>
+<p class="learn-intro">PHP is a server-side programming language. The web server runs your PHP code and sends only the result (usually HTML) to the browser. Visitors never see your PHP source.</p>
+<h4>How a PHP page works</h4>
+<ul><li>The browser asks the server for <code>page.php</code>.</li><li>The server runs the PHP code inside the file.</li><li>Whatever the code outputs (with <code>echo</code>) is sent back to the browser as HTML.</li></ul>
+<h4>Your first script</h4>
+<p>PHP code goes between <code>&lt;?php</code> and <code>?&gt;</code>. Every statement ends with a semicolon.</p>
+<pre class="learn-code">echo "Hello, World!";</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>Hello, World!</pre></div>
+<h4>Mixing PHP and HTML</h4>
+<p>A .php file can contain normal HTML. Only the parts inside PHP tags are run. <code>&lt;?= ... ?&gt;</code> is a short way to write <code>&lt;?php echo ... ?&gt;</code>.</p>
+<pre class="learn-code">&lt;h1&gt;Welcome&lt;/h1&gt;
+&lt;p&gt;Today is &lt;?= date("l") ?&gt;.&lt;/p&gt;
+&lt;?php if (date("H") &lt; 12): ?&gt;
+    &lt;p&gt;Good morning!&lt;/p&gt;
+&lt;?php endif; ?&gt;</pre>
+<h4>Output and comments</h4>
+<pre class="learn-code">// A single-line comment
+# Also a single-line comment
+/* A comment that
+   spans several lines */
+echo "A", "B";   // echo can print several values
+print "C";       // print prints one value
+echo "\n";
+var_dump(42);    // shows the type and the value</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>ABC
+int(42)</pre></div>
+<div class="tip-box"><b>TIP:</b> Use <code>var_dump()</code> while debugging: it shows both the type and the value, so you can tell <code>"5"</code> (string) from <code>5</code> (int).</div>
+<div class="warn-box"><b>COMMON MISTAKE:</b> A file that contains only PHP should leave out the closing <code>?&gt;</code>. Any blank line after it would be sent to the browser by accident.</div>
+<div class="learn-remember"><h4>REMEMBER</h4><ul><li>PHP runs on the server; the browser only receives the output.</li><li>Code goes inside <code>&lt;?php ... ?&gt;</code> and statements end with <code>;</code>.</li><li><code>echo</code> / <code>print</code> output text; <code>var_dump()</code> is for debugging.</li></ul></div>
+<div class="learn-nav"><span></span><button type="button" class="learn-nav-btn next" onclick="showLearnTab('variables')">VARIABLES &rarr;</button></div></section>
+<section class="learn-card" id="learn-variables" data-topic="variables">
+<div class="learn-lesson-num">LESSON 2 OF 13</div>
+<h3>VARIABLES & DATA TYPES</h3>
+<p class="learn-intro">A variable stores a value so you can use it later. In PHP every variable name starts with <code>$</code>, and you do not declare a type: PHP works it out from the value.</p>
+<h4>Creating variables</h4>
+<pre class="learn-code">$name = "Ana";      // string
+$age = 20;          // int
+$height = 1.65;     // float
+$isStudent = true;  // bool
+$nothing = null;    // null
 
-        <div class="learn-card" id="learn-variables">
-            <h3>VARIABLES &amp; DATA TYPES</h3>
-            <p>Variables in PHP start with the <b>$</b> symbol and don't need type declarations.</p>
-            <h4>Variable Declaration</h4>
-            <div class="learn-code">$name = "PHP";        // string
-$age = 28;            // integer
-$price = 9.99;        // float
-$isActive = true;     // boolean
-$data = null;         // null</div>
-            <h4>Type Checking</h4>
-            <div class="learn-code">gettype($x);      // Returns type as string
-is_string($x);    // Returns true/false
-is_int($x);       // Check if integer
-is_array($x);     // Check if array
-isset($x);        // Check if set and not null
-empty($x);        // Check if empty/null/0/false</div>
-            <h4>Type Casting</h4>
-            <div class="learn-code">$str = "42";
-$num = (int) $str;     // Cast to integer: 42
-$flt = (float) $str;   // Cast to float: 42.0
-$bool = (bool) $str;   // Cast to boolean: true</div>
-            <h4>Constants</h4>
-            <div class="learn-code">define("MAX_SIZE", 100);  // Function way
-const PI = 3.14159;       // Keyword way
-echo MAX_SIZE;   // 100
-echo PI;         // 3.14159</div>
-            <div class="warn-box">WARNING: Variables are case-sensitive! $Name and $name are different variables.</div>
-        </div>
-
-        <div class="learn-card" id="learn-strings">
-            <h3>STRING FUNCTIONS</h3>
-            <p>PHP has powerful built-in string functions for text manipulation.</p>
-            <h4>Common Functions</h4>
-            <div class="learn-code">strlen("Hello");           // 5 - string length
-strtoupper("hello");       // "HELLO"
-strtolower("HELLO");       // "hello"
-ucfirst("hello world");    // "Hello world"
-ucwords("hello world");    // "Hello World"
-trim("  hello  ");         // "hello" - removes whitespace</div>
-            <h4>Search &amp; Replace</h4>
-            <div class="learn-code">strpos("Hello World", "World");    // 6 (position)
-str_replace("old", "new", $str);  // Replace text
-substr("Hello World", 6);         // "World" (substring)
-str_contains("Hello", "ell");     // true (PHP 8+)</div>
-            <h4>String Concatenation</h4>
-            <div class="learn-code">$a = "Hello";
-$b = "World";
-echo $a . " " . $b;   // "Hello World" (dot operator)
-echo "$a $b";          // "Hello World" (double quotes parse vars)
-echo '$a $b';          // "$a $b" (single quotes are literal!)</div>
-            <h4>Useful Functions</h4>
-            <div class="learn-code">str_word_count("Hello World PHP");  // 3
-strrev("Hello");                    // "olleH"
-str_pad("42", 5, "0", STR_PAD_LEFT); // "00042"
-number_format(1234.5, 2);           // "1,234.50"
-explode(",", "a,b,c");              // ["a","b","c"]
-implode("-", ["a","b","c"]);        // "a-b-c"</div>
-            <div class="tip-box">TIP: Double quotes parse variables ($name) but single quotes don't!</div>
-        </div>
-
-        <div class="learn-card" id="learn-arrays">
-            <h3>ARRAYS</h3>
-            <p>Arrays store multiple values in a single variable. PHP supports indexed and associative arrays.</p>
-            <h4>Creating Arrays</h4>
-            <div class="learn-code">// Indexed array
-$fruits = ["apple", "banana", "cherry"];
-echo $fruits[0];  // "apple" (0-indexed!)
-
-// Associative array
-$person = ["name" => "John", "age" => 25];
-echo $person["name"];  // "John"</div>
-            <h4>Array Functions</h4>
-            <div class="learn-code">count($arr);              // Number of elements
-array_push($arr, "new");  // Add to end
-array_pop($arr);          // Remove from end
-array_shift($arr);        // Remove from start
-array_unshift($arr, "x"); // Add to start
-sort($arr);               // Sort ascending
-rsort($arr);              // Sort descending
-array_merge($a, $b);      // Combine arrays</div>
-            <h4>Searching</h4>
-            <div class="learn-code">in_array("apple", $arr);         // true/false
-array_search("apple", $arr);     // Returns key
-array_key_exists("name", $arr);  // Check key exists
-array_unique($arr);              // Remove duplicates</div>
-            <h4>Looping Arrays</h4>
-            <div class="learn-code">foreach ($fruits as $fruit) {
-    echo $fruit;  // Prints each fruit
-}
-
-foreach ($person as $key => $value) {
-    echo "$key: $value";
-}</div>
-            <h4>Advanced Array Functions</h4>
-            <div class="learn-code">array_map(fn($n) => $n * 2, [1,2,3]);   // [2,4,6]
-array_filter([1,2,3,4], fn($n) => $n%2==0); // [2,4]
-array_reduce([1,2,3], fn($c,$i) => $c+$i, 0); // 6
-array_sum([1,2,3,4,5]);    // 15
-array_chunk([1,2,3,4,5], 2); // [[1,2],[3,4],[5]]</div>
-            <div class="tip-box">TIP: PHP arrays are 0-indexed! The first element is at index 0, not 1.</div>
-        </div>
-
-        <div class="learn-card" id="learn-control">
-            <h3>CONTROL STRUCTURES</h3>
-            <p>Control flow determines which code runs and how many times.</p>
-            <h4>If / Else</h4>
-            <div class="learn-code">if ($age >= 18) {
-    echo "Adult";
-} elseif ($age >= 13) {
-    echo "Teen";
+echo "$name is $age years old.";</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>Ana is 20 years old.</pre></div>
+<ul><li>Names start with a letter or underscore after the <code>$</code>: <code>$user_name</code> is valid, <code>$2user</code> is not.</li><li>Names are case-sensitive: <code>$Age</code> and <code>$age</code> are different variables.</li></ul>
+<h4>The data types</h4>
+<pre class="learn-code">var_dump("hi", 7, 3.5, false, null, [1, 2]);</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>string(2) "hi"
+int(7)
+float(3.5)
+bool(false)
+NULL
+array(2) {
+  [0]=&gt;
+  int(1)
+  [1]=&gt;
+  int(2)
+}</pre></div>
+<p>Check a type with <code>gettype()</code> or with the <code>is_*</code> functions: <code>is_int()</code>, <code>is_string()</code>, <code>is_array()</code>, <code>is_null()</code> and so on.</p>
+<h4>Type juggling and casting</h4>
+<p>PHP converts types automatically when it needs to. You can also convert explicitly with a cast.</p>
+<pre class="learn-code">echo "10" + 5, "\n";        // 15: the string becomes a number
+echo (int) "42abc", "\n";   // 42
+echo (string) 3.0, "\n";    // 3
+var_dump((bool) "0");       // false</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>15
+42
+3
+bool(false)</pre></div>
+<p>These values are treated as <b>false</b>: <code>false</code>, <code>0</code>, <code>0.0</code>, <code>""</code>, <code>"0"</code>, <code>[]</code> and <code>null</code>. Everything else is true.</p>
+<h4>isset() and empty()</h4>
+<pre class="learn-code">$a = 0;
+$b = null;
+var_dump(isset($a), isset($b), empty($a));</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>bool(true)
+bool(false)
+bool(true)</pre></div>
+<h4>Constants</h4>
+<p>A constant holds a value that never changes. It has no <code>$</code> and is usually written in capitals.</p>
+<pre class="learn-code">define("SITE_NAME", "CodeMaster");
+const MAX_HP = 100;
+echo SITE_NAME, " ", MAX_HP;</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>CodeMaster 100</pre></div>
+<div class="warn-box"><b>COMMON MISTAKE:</b> Using a variable that was never set gives an "Undefined variable" warning. Check it with <code>isset()</code> or give a default with <code>??</code>.</div>
+<div class="learn-remember"><h4>REMEMBER</h4><ul><li>Variables start with <code>$</code>; constants do not.</li><li>Types: string, int, float, bool, array, object, null.</li><li><code>"0"</code>, <code>""</code>, <code>0</code>, <code>[]</code> and <code>null</code> are all false.</li></ul></div>
+<div class="learn-nav"><button type="button" class="learn-nav-btn" onclick="showLearnTab('intro')">&larr; INTRO</button><button type="button" class="learn-nav-btn next" onclick="showLearnTab('operators')">OPERATORS &rarr;</button></div></section>
+<section class="learn-card" id="learn-operators" data-topic="operators">
+<div class="learn-lesson-num">LESSON 3 OF 13</div>
+<h3>OPERATORS</h3>
+<p class="learn-intro">Operators do work on values: arithmetic, comparing, combining conditions and joining strings.</p>
+<h4>Arithmetic</h4>
+<pre class="learn-code">echo 7 + 2, " ", 7 - 2, " ", 7 * 2, " ", 7 / 2, " ", 7 % 2, " ", 2 ** 3;</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>9 5 14 3.5 1 8</pre></div>
+<p><code>%</code> is the remainder (modulo) and <code>**</code> is the power. <code>intdiv(7, 2)</code> gives the whole-number result 3.</p>
+<h4>Assignment shortcuts</h4>
+<pre class="learn-code">$hp = 50;
+$hp += 10;   // 60
+$hp -= 5;    // 55
+$hp *= 2;    // 110
+$name = "Code";
+$name .= "Master";
+echo $hp, " ", $name;</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>110 CodeMaster</pre></div>
+<h4>Increment and decrement</h4>
+<pre class="learn-code">$i = 5;
+echo $i++, " ";  // prints 5, then $i becomes 6
+echo ++$i;       // $i becomes 7, then prints 7</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>5 7</pre></div>
+<h4>Comparison: == vs ===</h4>
+<p><code>==</code> compares values after converting types. <code>===</code> also requires the same type. Prefer <code>===</code>.</p>
+<pre class="learn-code">var_dump(5 == "5", 5 === "5", 5 != 6, 5 &lt;=&gt; 9);</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>bool(true)
+bool(false)
+bool(true)
+int(-1)</pre></div>
+<p>The spaceship operator <code>&lt;=&gt;</code> returns -1, 0 or 1. It is handy for sorting.</p>
+<h4>Logical operators</h4>
+<pre class="learn-code">$hasKey = true;
+$isBoss = false;
+var_dump($hasKey &amp;&amp; !$isBoss, $hasKey || $isBoss);</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>bool(true)
+bool(true)</pre></div>
+<h4>Ternary and null coalescing</h4>
+<pre class="learn-code">$score = 75;
+echo $score &gt;= 50 ? "Pass" : "Fail", "\n";
+$data = [];
+echo $data["name"] ?? "Guest";   // default when the key is missing or null</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>Pass
+Guest</pre></div>
+<div class="warn-box"><b>COMMON MISTAKE:</b> <code>=</code> assigns, <code>==</code> compares. Writing <code>if ($x = 5)</code> sets $x to 5 and is always true.</div>
+<div class="learn-remember"><h4>REMEMBER</h4><ul><li><code>%</code> = remainder, <code>**</code> = power, <code>.</code> = join strings.</li><li>Use <code>===</code> unless you really want type conversion.</li><li><code>??</code> gives a default for missing or null values.</li></ul></div>
+<div class="learn-nav"><button type="button" class="learn-nav-btn" onclick="showLearnTab('variables')">&larr; VARIABLES</button><button type="button" class="learn-nav-btn next" onclick="showLearnTab('strings')">STRINGS &rarr;</button></div></section>
+<section class="learn-card" id="learn-strings" data-topic="strings">
+<div class="learn-lesson-num">LESSON 4 OF 13</div>
+<h3>STRINGS</h3>
+<p class="learn-intro">Strings are text. PHP has many built-in functions for working with them.</p>
+<h4>Single vs double quotes</h4>
+<pre class="learn-code">$hero = "Knight";
+echo "Hello $hero\n";      // variables and \n are expanded
+echo 'Hello $hero\n';      // printed exactly as written
+echo "\n";
+echo "Level {$hero}s";     // braces mark where the variable ends</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>Hello Knight
+Hello $hero\n
+Level Knights</pre></div>
+<h4>Joining strings</h4>
+<pre class="learn-code">$first = "Code";
+$last = "Master";
+echo $first . " " . $last;</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>Code Master</pre></div>
+<h4>Common string functions</h4>
+<pre class="learn-code">$s = "Hello World";
+echo strlen($s), "\n";               // 11
+echo strtoupper($s), "\n";
+echo strtolower($s), "\n";
+echo ucfirst("php"), "\n";            // Php
+echo substr($s, 0, 5), "\n";         // Hello
+echo strpos($s, "World"), "\n";      // 6
+echo str_replace("World", "PHP", $s), "\n";
+echo trim("  spaced  "), "|";</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>11
+HELLO WORLD
+hello world
+Php
+Hello
+6
+Hello PHP
+spaced|</pre></div>
+<h4>Splitting and joining</h4>
+<pre class="learn-code">$parts = explode(",", "red,green,blue");
+echo count($parts), "\n";
+echo implode(" | ", $parts);</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>3
+red | green | blue</pre></div>
+<h4>Formatting</h4>
+<pre class="learn-code">printf("%s has %d HP (%.1f%%)\n", "Mage", 45, 45 / 60 * 100);
+echo number_format(1234567.891, 2), "\n";
+echo str_pad("7", 3, "0", STR_PAD_LEFT);</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>Mage has 45 HP (75.0%)
+1,234,567.89
+007</pre></div>
+<h4>PHP 8 helpers</h4>
+<pre class="learn-code">var_dump(str_contains("dungeon", "geo"));
+var_dump(str_starts_with("dungeon", "dun"));
+var_dump(str_ends_with("dungeon", "on"));</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>bool(true)
+bool(true)
+bool(true)</pre></div>
+<div class="warn-box"><b>COMMON MISTAKE:</b> <code>strpos()</code> returns <code>0</code> when the text is at the start, and 0 is falsy. Always compare with <code>!== false</code>, or use <code>str_contains()</code>.</div>
+<div class="learn-remember"><h4>REMEMBER</h4><ul><li>Double quotes expand variables; single quotes do not.</li><li>String positions start at 0.</li><li><code>explode()</code> splits a string into an array; <code>implode()</code> joins an array into a string.</li></ul></div>
+<div class="learn-nav"><button type="button" class="learn-nav-btn" onclick="showLearnTab('operators')">&larr; OPERATORS</button><button type="button" class="learn-nav-btn next" onclick="showLearnTab('arrays')">ARRAYS &rarr;</button></div></section>
+<section class="learn-card" id="learn-arrays" data-topic="arrays">
+<div class="learn-lesson-num">LESSON 5 OF 13</div>
+<h3>ARRAYS</h3>
+<p class="learn-intro">An array holds many values in one variable. PHP arrays can use numbers (indexed) or names (associative) as keys.</p>
+<h4>Indexed arrays</h4>
+<pre class="learn-code">$items = ["Sword", "Shield", "Potion"];
+echo $items[0], "\n";      // first item
+$items[] = "Map";          // add to the end
+echo count($items);</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>Sword
+4</pre></div>
+<h4>Associative arrays</h4>
+<pre class="learn-code">$hero = ["name" =&gt; "Ana", "hp" =&gt; 100, "class" =&gt; "Mage"];
+echo $hero["name"], "\n";
+$hero["hp"] -= 20;
+foreach ($hero as $key =&gt; $value) {
+    echo "$key: $value\n";
+}</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>Ana
+name: Ana
+hp: 80
+class: Mage</pre></div>
+<h4>Multidimensional arrays</h4>
+<pre class="learn-code">$party = [
+    ["name" =&gt; "Ana", "hp" =&gt; 80],
+    ["name" =&gt; "Ben", "hp" =&gt; 65],
+];
+echo $party[1]["name"];</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>Ben</pre></div>
+<h4>Adding, removing and searching</h4>
+<pre class="learn-code">$q = [2, 3];
+array_push($q, 4);      // end
+array_unshift($q, 1);   // start
+$last = array_pop($q);  // removes 4
+echo implode(",", $q), " | ", $last, "\n";
+var_dump(in_array(3, $q), array_search(3, $q), array_key_exists(0, $q));</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>1,2,3 | 4
+bool(true)
+int(2)
+bool(true)</pre></div>
+<h4>Sorting</h4>
+<pre class="learn-code">$n = [5, 2, 9];
+sort($n);   echo implode(",", $n), "\n";   // low to high
+rsort($n);  echo implode(",", $n), "\n";   // high to low
+$ages = ["Ana" =&gt; 30, "Ben" =&gt; 20];
+asort($ages);  echo implode(",", array_keys($ages)), "\n";  // by value
+ksort($ages);  echo implode(",", array_keys($ages));          // by key</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>2,5,9
+9,5,2
+Ben,Ana
+Ana,Ben</pre></div>
+<h4>Transforming arrays</h4>
+<pre class="learn-code">$nums = [1, 2, 3, 4, 5];
+$doubled = array_map(fn($n) =&gt; $n * 2, $nums);
+$evens = array_filter($nums, fn($n) =&gt; $n % 2 === 0);
+$total = array_reduce($nums, fn($sum, $n) =&gt; $sum + $n, 0);
+echo implode(",", $doubled), " | ", implode(",", $evens), " | ", $total;</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>2,4,6,8,10 | 2,4 | 15</pre></div>
+<h4>Merging and destructuring</h4>
+<pre class="learn-code">$a = ["x" =&gt; 1];
+$b = ["y" =&gt; 2];
+print_r(array_merge($a, $b));
+[$first, $second] = ["gold", "silver"];
+echo $second;</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>Array
+(
+    [x] =&gt; 1
+    [y] =&gt; 2
+)
+silver</pre></div>
+<div class="tip-box"><b>TIP:</b> <code>print_r()</code> is the easiest way to look inside an array while debugging.</div>
+<div class="learn-remember"><h4>REMEMBER</h4><ul><li>Indexes start at 0; <code>$arr[] = x</code> appends.</li><li>Use <code>foreach ($arr as $key =&gt; $value)</code> to loop through any array.</li><li><code>array_map</code> transforms, <code>array_filter</code> keeps some, <code>array_reduce</code> combines.</li></ul></div>
+<div class="learn-nav"><button type="button" class="learn-nav-btn" onclick="showLearnTab('strings')">&larr; STRINGS</button><button type="button" class="learn-nav-btn next" onclick="showLearnTab('control')">CONTROL FLOW &rarr;</button></div></section>
+<section class="learn-card" id="learn-control" data-topic="control">
+<div class="learn-lesson-num">LESSON 6 OF 13</div>
+<h3>CONTROL FLOW</h3>
+<p class="learn-intro">Control structures decide which code runs and how many times.</p>
+<h4>if / elseif / else</h4>
+<pre class="learn-code">$score = 82;
+if ($score &gt;= 90) {
+    echo "A";
+} elseif ($score &gt;= 80) {
+    echo "B";
 } else {
-    echo "Child";
-}</div>
-            <h4>Ternary Operator</h4>
-            <div class="learn-code">$status = ($age >= 18) ? "Adult" : "Minor";
-$name = $input ?? "default";  // Null coalescing (PHP 7+)</div>
-            <h4>Switch</h4>
-            <div class="learn-code">switch ($color) {
-    case "red":   echo "Stop"; break;
-    case "green": echo "Go"; break;
-    default:      echo "Wait";
-}</div>
-            <h4>Match (PHP 8+)</h4>
-            <div class="learn-code">$result = match($status) {
-    1 => 'active',
-    2 => 'pending',
-    default => 'unknown'
-};</div>
-            <h4>Loops</h4>
-            <div class="learn-code">// For loop - known iterations
-for ($i = 0; $i < 5; $i++) { echo $i; } // 01234
-
-// While loop - unknown iterations
-while ($count > 0) { $count--; }
-
-// Foreach - best for arrays
-foreach ($arr as $item) { echo $item; }
-
-// Break & Continue
-for ($i = 0; $i < 10; $i++) {
-    if ($i == 3) continue; // Skip 3
-    if ($i == 7) break;    // Stop at 7
-    echo $i; // Outputs: 012456
-}</div>
-            <div class="tip-box">TIP: Use 'foreach' for arrays - it's simpler and less error-prone than 'for'!</div>
-        </div>
-
-        <div class="learn-card" id="learn-functions">
-            <h3>FUNCTIONS</h3>
-            <p>Functions are reusable blocks of code. PHP has thousands of built-in functions and you can create your own.</p>
-            <h4>Creating Functions</h4>
-            <div class="learn-code">function greet($name) {
-    return "Hello, $name!";
+    echo "C";
+}</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>B</pre></div>
+<h4>switch</h4>
+<pre class="learn-code">$day = "Sat";
+switch ($day) {
+    case "Sat":
+    case "Sun":
+        echo "Weekend";
+        break;
+    default:
+        echo "Weekday";
+}</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>Weekend</pre></div>
+<div class="warn-box"><b>COMMON MISTAKE:</b> Forgetting <code>break</code> in a switch makes PHP "fall through" and run the next case too.</div>
+<h4>match (PHP 8)</h4>
+<p><code>match</code> is a stricter switch: it uses <code>===</code>, returns a value and needs no break.</p>
+<pre class="learn-code">$code = 404;
+echo match ($code) {
+    200 =&gt; "OK",
+    301, 302 =&gt; "Redirect",
+    404 =&gt; "Not Found",
+    default =&gt; "Unknown",
+};</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>Not Found</pre></div>
+<h4>Loops</h4>
+<pre class="learn-code">for ($i = 1; $i &lt;= 3; $i++) {
+    echo "for $i\n";
 }
-echo greet("PHP");  // "Hello, PHP!"</div>
-            <h4>Default Parameters</h4>
-            <div class="learn-code">function greet($name = "World") {
-    return "Hello, $name!";
+$hp = 3;
+while ($hp &gt; 0) {
+    echo "while $hp\n";
+    $hp--;
 }
-echo greet();       // "Hello, World!"
-echo greet("PHP");  // "Hello, PHP!"</div>
-            <h4>Arrow Functions (PHP 7.4+)</h4>
-            <div class="learn-code">$double = fn($x) => $x * 2;
-echo $double(5);  // 10</div>
-            <h4>Variable Scope</h4>
-            <div class="learn-code">$x = 10;  // Global scope
+do {
+    echo "do runs at least once\n";
+} while (false);
+foreach (["a", "b"] as $i =&gt; $letter) {
+    echo "foreach $i=$letter\n";
+}</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>for 1
+for 2
+for 3
+while 3
+while 2
+while 1
+do runs at least once
+foreach 0=a
+foreach 1=b</pre></div>
+<h4>break and continue</h4>
+<pre class="learn-code">for ($i = 1; $i &lt;= 10; $i++) {
+    if ($i % 2 === 0) continue;  // skip even numbers
+    if ($i &gt; 7) break;           // stop the loop
+    echo $i, " ";
+}</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>1 3 5 7 </pre></div>
+<div class="tip-box"><b>TIP:</b> <code>break 2</code> and <code>continue 2</code> act on the outer loop when loops are nested.</div>
+<div class="learn-remember"><h4>REMEMBER</h4><ul><li><code>match</code> is strict (<code>===</code>) and returns a value.</li><li><code>do...while</code> always runs once; <code>foreach</code> is the best loop for arrays.</li><li><code>continue</code> skips one iteration; <code>break</code> leaves the loop.</li></ul></div>
+<div class="learn-nav"><button type="button" class="learn-nav-btn" onclick="showLearnTab('arrays')">&larr; ARRAYS</button><button type="button" class="learn-nav-btn next" onclick="showLearnTab('functions')">FUNCTIONS &rarr;</button></div></section>
+<section class="learn-card" id="learn-functions" data-topic="functions">
+<div class="learn-lesson-num">LESSON 7 OF 13</div>
+<h3>FUNCTIONS</h3>
+<p class="learn-intro">A function is a named block of code you can reuse. It can take inputs (parameters) and give back a result with <code>return</code>.</p>
+<h4>Defining and calling</h4>
+<pre class="learn-code">function greet(string $name, string $greeting = "Hello"): string {
+    return "$greeting, $name!";
+}
+echo greet("Ana"), "\n";
+echo greet("Ben", "Welcome");</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>Hello, Ana!
+Welcome, Ben!</pre></div>
+<p>Type declarations (<code>string</code>, <code>int</code>, <code>?int</code> for "int or null") and return types make bugs easier to catch.</p>
+<h4>Named arguments and variadics</h4>
+<pre class="learn-code">function damage(int $base, int $bonus = 0, bool $crit = false): int {
+    return ($base + $bonus) * ($crit ? 2 : 1);
+}
+echo damage(10, crit: true), "\n";   // named argument skips $bonus
 
-function test() {
-    // $x is NOT available here!
-    global $x;  // Now $x is available
-    echo $x;
-}</div>
-            <h4>Useful Built-in Functions</h4>
-            <div class="learn-code">// Math
-abs(-5);        // 5
-ceil(4.3);      // 5
-floor(4.7);     // 4
-round(4.5);     // 5
-max(1,5,3);     // 5
-min(1,5,3);     // 1
-rand(1, 100);   // Random number 1-100
+function total(int ...$nums): int {
+    return array_sum($nums);
+}
+echo total(1, 2, 3);</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>20
+6</pre></div>
+<h4>Variable scope</h4>
+<p>Variables outside a function are not visible inside it. Pass them in as parameters. A <code>static</code> variable keeps its value between calls.</p>
+<pre class="learn-code">$gold = 50;
+function showGold() {
+    return isset($gold) ? "visible" : "not visible";
+}
+echo showGold(), "\n";
 
-// Type checking
-isset($var);    // Is set and not null?
-empty($var);    // Is empty?
-is_array($var); // Is an array?</div>
-            <div class="warn-box">WARNING: Variables inside functions are LOCAL by default. Use 'global' or pass as parameters!</div>
-        </div>
+function nextId() {
+    static $id = 0;
+    return ++$id;
+}
+nextId(); nextId();
+echo nextId();</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>not visible
+3</pre></div>
+<h4>Passing by reference</h4>
+<pre class="learn-code">function heal(int &amp;$hp, int $amount): void {
+    $hp += $amount;
+}
+$hp = 40;
+heal($hp, 30);
+echo $hp;</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>70</pre></div>
+<h4>Anonymous functions and arrow functions</h4>
+<pre class="learn-code">$multiplier = 3;
+$triple = function ($n) use ($multiplier) {
+    return $n * $multiplier;
+};
+$double = fn($n) =&gt; $n * 2;   // arrow functions capture outer variables automatically
+echo $triple(5), " ", $double(5);</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>15 10</pre></div>
+<h4>Recursion</h4>
+<pre class="learn-code">function factorial(int $n): int {
+    return $n &lt;= 1 ? 1 : $n * factorial($n - 1);
+}
+echo factorial(5);</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>120</pre></div>
+<div class="tip-box"><b>TIP:</b> Add <code>declare(strict_types=1);</code> at the very top of a file to stop PHP from silently converting argument types.</div>
+<div class="learn-remember"><h4>REMEMBER</h4><ul><li>Use <code>return</code> to give a value back; <code>echo</code> only displays it.</li><li>Functions cannot see outside variables unless passed in (or captured with <code>use</code> / <code>fn</code>).</li><li><code>&amp;$param</code> lets a function change the caller's variable.</li></ul></div>
+<div class="learn-nav"><button type="button" class="learn-nav-btn" onclick="showLearnTab('control')">&larr; CONTROL FLOW</button><button type="button" class="learn-nav-btn next" onclick="showLearnTab('oop')">CLASSES &rarr;</button></div></section>
+<section class="learn-card" id="learn-oop" data-topic="oop">
+<div class="learn-lesson-num">LESSON 8 OF 13</div>
+<h3>CLASSES & OBJECTS</h3>
+<p class="learn-intro">Object-oriented programming groups data (properties) and behaviour (methods) together. A class is the blueprint; an object is one thing built from it.</p>
+<h4>A first class</h4>
+<pre class="learn-code">class Hero {
+    public string $name;
+    private int $hp = 100;
 
-        <div class="learn-card" id="learn-oop">
-            <h3>OBJECT-ORIENTED PHP</h3>
-            <p>OOP organizes code into classes (blueprints) and objects (instances).</p>
-            <h4>Classes &amp; Objects</h4>
-            <div class="learn-code">class Car {
-    public $brand;
-    private $speed = 0;
-    
-    public function __construct($brand) {
-        $this->brand = $brand;
+    public function __construct(string $name) {
+        $this-&gt;name = $name;
     }
-    
-    public function accelerate() {
-        $this->speed += 10;
-        return $this->speed;
+
+    public function takeDamage(int $amount): void {
+        $this-&gt;hp = max(0, $this-&gt;hp - $amount);
+    }
+
+    public function getHp(): int {
+        return $this-&gt;hp;
     }
 }
 
-$car = new Car("Toyota");
-echo $car->brand;        // "Toyota"
-echo $car->accelerate(); // 10</div>
-            <h4>Visibility</h4>
-            <ul>
-                <li><b>public</b> - Accessible from anywhere</li>
-                <li><b>protected</b> - Accessible from the class and its children</li>
-                <li><b>private</b> - Only accessible within the class</li>
-            </ul>
-            <h4>Inheritance</h4>
-            <div class="learn-code">class Animal {
-    public function speak() { return "..."; }
+$h = new Hero("Ana");
+$h-&gt;takeDamage(30);
+echo $h-&gt;name, " has ", $h-&gt;getHp(), " HP";</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>Ana has 70 HP</pre></div>
+<h4>Visibility</h4>
+<ul><li><code>public</code>: usable from anywhere.</li><li><code>protected</code>: usable inside the class and its child classes.</li><li><code>private</code>: usable only inside the class that declares it.</li></ul>
+<h4>Constructor property promotion (PHP 8)</h4>
+<pre class="learn-code">class Item {
+    public function __construct(
+        public string $name,
+        public int $price = 10,
+    ) {}
 }
+$potion = new Item("Potion");
+echo $potion-&gt;name, " costs ", $potion-&gt;price;</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>Potion costs 10</pre></div>
+<h4>Static members and constants</h4>
+<pre class="learn-code">class Game {
+    const VERSION = "1.0";
+    public static int $players = 0;
 
-class Dog extends Animal {
-    public function speak() { return "Woof!"; }
+    public static function join(): void {
+        self::$players++;
+    }
 }
-
-$dog = new Dog();
-echo $dog->speak(); // "Woof!" (overridden method)</div>
-            <h4>Static Methods &amp; Properties</h4>
-            <div class="learn-code">class Counter {
-    private static $count = 0;
-    public static function increment() { self::$count++; }
-    public static function getCount() { return self::$count; }
+Game::join();
+Game::join();
+echo Game::VERSION, " ", Game::$players;</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>1.0 2</pre></div>
+<p>Use <code>-&gt;</code> for objects (<code>$obj-&gt;method()</code>) and <code>::</code> for static members and constants (<code>Class::CONST</code>).</p>
+<h4>Objects are handles</h4>
+<pre class="learn-code">class Box { public int $v = 1; }
+$a = new Box();
+$b = $a;         // same object
+$c = clone $a;   // a copy
+$b-&gt;v = 5;
+echo $a-&gt;v, " ", $c-&gt;v;</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>5 1</pre></div>
+<div class="learn-remember"><h4>REMEMBER</h4><ul><li><code>new</code> creates an object; <code>$this</code> is the current object.</li><li>Keep data <code>private</code> and expose it through methods.</li><li>Assigning an object does not copy it; use <code>clone</code> for a copy.</li></ul></div>
+<div class="learn-nav"><button type="button" class="learn-nav-btn" onclick="showLearnTab('functions')">&larr; FUNCTIONS</button><button type="button" class="learn-nav-btn next" onclick="showLearnTab('inheritance')">INHERITANCE &rarr;</button></div></section>
+<section class="learn-card" id="learn-inheritance" data-topic="inheritance">
+<div class="learn-lesson-num">LESSON 9 OF 13</div>
+<h3>INHERITANCE, INTERFACES & TRAITS</h3>
+<p class="learn-intro">These tools let classes share and reuse code.</p>
+<h4>Inheritance with extends</h4>
+<pre class="learn-code">class Monster {
+    public function __construct(protected string $name) {}
+    public function attack(): string {
+        return "{$this-&gt;name} attacks";
+    }
 }
-Counter::increment(); // Called without creating an object</div>
-            <h4>Interfaces &amp; Abstract Classes</h4>
-            <div class="learn-code">interface Printable {
-    public function print(): string;
+class Boss extends Monster {
+    public function attack(): string {
+        return parent::attack() . " with fire!";
+    }
 }
-
-abstract class Shape {
+echo (new Boss("Dragon"))-&gt;attack();</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>Dragon attacks with fire!</pre></div>
+<h4>Abstract classes</h4>
+<p>An abstract class cannot be created with <code>new</code>. Its abstract methods must be written by the child classes.</p>
+<pre class="learn-code">abstract class Shape {
     abstract public function area(): float;
-    public function describe() { return "I am a shape"; }
-}</div>
-            <div class="tip-box">TIP: Use interfaces to define contracts. Use abstract classes for shared code + contracts!</div>
-        </div>
-
-        <div class="learn-card" id="learn-advanced">
-            <h3>ADVANCED PHP</h3>
-            <p>Level up your PHP skills with these advanced concepts.</p>
-            <h4>Error Handling (Try/Catch)</h4>
-            <div class="learn-code">try {
-    $result = 10 / 0;
-} catch (DivisionByZeroError $e) {
-    echo "Cannot divide by zero!";
-} finally {
-    echo "This always runs";
-}</div>
-            <h4>Type Juggling</h4>
-            <div class="learn-code">// PHP auto-converts types:
-"5" + 3;     // 8 (string to int)
-true + true; // 2 (bool to int)
-"hello" + 1; // 1 (non-numeric string = 0)
-
-// ALWAYS use === for strict comparison!
-0 == false;   // true (loose)
-0 === false;  // false (strict - different types)</div>
-            <h4>Null Coalescing &amp; Spaceship</h4>
-            <div class="learn-code">// Null coalescing (??)
-$name = $_GET['name'] ?? 'Guest';
-
-// Spaceship operator (<=>)
-1 <=> 2;  // -1 (left < right)
-2 <=> 2;  //  0 (equal)
-3 <=> 2;  //  1 (left > right)</div>
-            <h4>JSON Handling</h4>
-            <div class="learn-code">// Encode PHP to JSON
-$data = ["name" => "PHP", "version" => 8];
-$json = json_encode($data);
-// '{"name":"PHP","version":8}'
-
-// Decode JSON to PHP
-$obj = json_decode($json);
-echo $obj->name;  // "PHP"</div>
-            <h4>Generators (yield)</h4>
-            <div class="learn-code">function fibonacci() {
-    $a = 0; $b = 1;
-    while (true) {
-        yield $a;
-        [$a, $b] = [$b, $a + $b];
+    public function describe(): string {
+        return static::class . " with area " . round($this-&gt;area(), 2);
     }
 }
-// Memory efficient - generates values one at a time!</div>
-            <h4>Named Arguments (PHP 8+)</h4>
-            <div class="learn-code">function createUser(string $name, int $age, string $role = 'user') {
-    // ...
+class Circle extends Shape {
+    public function __construct(private float $r) {}
+    public function area(): float { return M_PI * $this-&gt;r ** 2; }
 }
-createUser(name: 'John', age: 25);  // Clear and readable!</div>
-            <div class="tip-box">TIP: Always use === (strict comparison) instead of == to avoid type juggling bugs!</div>
-        </div>
+echo (new Circle(2))-&gt;describe();</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>Circle with area 12.57</pre></div>
+<h4>Interfaces</h4>
+<p>An interface is a contract: a list of methods a class promises to have. A class can implement several interfaces.</p>
+<pre class="learn-code">interface Healable {
+    public function heal(int $amount): void;
+}
+class Player implements Healable {
+    public int $hp = 50;
+    public function heal(int $amount): void { $this-&gt;hp += $amount; }
+}
+$p = new Player();
+$p-&gt;heal(25);
+echo $p-&gt;hp, " ";
+var_dump($p instanceof Healable);</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>75 bool(true)</pre></div>
+<h4>Traits</h4>
+<p>A trait is a bundle of methods you can paste into any class with <code>use</code>. It solves "I need the same methods in unrelated classes".</p>
+<pre class="learn-code">trait Loggable {
+    private array $log = [];
+    public function log(string $msg): static {
+        $this-&gt;log[] = $msg;
+        return $this;
+    }
+    public function history(): string {
+        return implode(", ", $this-&gt;log);
+    }
+}
+class Quest { use Loggable; }
+echo (new Quest)-&gt;log("start")-&gt;log("win")-&gt;history();</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>start, win</pre></div>
+<div class="tip-box"><b>TIP:</b> Method priority: the class's own method beats a trait method, and a trait method beats an inherited one.</div>
+<h4>Late static binding</h4>
+<pre class="learn-code">class Model {
+    public static function create(): static { return new static(); }
+}
+class User extends Model {}
+echo get_class(User::create());</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>User</pre></div>
+<div class="warn-box"><b>COMMON MISTAKE:</b> PHP has single inheritance: a class can <code>extends</code> only one parent. Use interfaces and traits for the rest.</div>
+<div class="learn-remember"><h4>REMEMBER</h4><ul><li><code>extends</code> = inherit from a class; <code>implements</code> = follow an interface; <code>use</code> = include a trait.</li><li><code>parent::method()</code> calls the parent version of an overridden method.</li><li><code>static</code> refers to the class that was actually called.</li></ul></div>
+<div class="learn-nav"><button type="button" class="learn-nav-btn" onclick="showLearnTab('oop')">&larr; CLASSES</button><button type="button" class="learn-nav-btn next" onclick="showLearnTab('errors')">ERRORS &rarr;</button></div></section>
+<section class="learn-card" id="learn-errors" data-topic="errors">
+<div class="learn-lesson-num">LESSON 10 OF 13</div>
+<h3>ERRORS & EXCEPTIONS</h3>
+<p class="learn-intro">Exceptions let you stop when something goes wrong and handle the problem in one place.</p>
+<h4>try, catch, finally</h4>
+<pre class="learn-code">function withdraw(int $balance, int $amount): int {
+    if ($amount &gt; $balance) {
+        throw new InvalidArgumentException("Not enough gold");
+    }
+    return $balance - $amount;
+}
+
+try {
+    echo withdraw(50, 80);
+} catch (InvalidArgumentException $e) {
+    echo "Error: ", $e-&gt;getMessage();
+} finally {
+    echo "\nfinally always runs";
+}</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>Error: Not enough gold
+finally always runs</pre></div>
+<h4>Catching several types</h4>
+<pre class="learn-code">try {
+    echo intdiv(1, 0);
+} catch (DivisionByZeroError | TypeError $e) {
+    echo get_class($e), ": ", $e-&gt;getMessage();
+}</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>DivisionByZeroError: Division by zero</pre></div>
+<h4>Your own exceptions</h4>
+<pre class="learn-code">class QuestFailed extends Exception {}
+
+try {
+    throw new QuestFailed("Boss escaped", 7);
+} catch (Exception $e) {   // also catches subclasses
+    echo get_class($e), " #", $e-&gt;getCode(), ": ", $e-&gt;getMessage();
+}</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>QuestFailed #7: Boss escaped</pre></div>
+<h4>Error vs Exception</h4>
+<ul><li><code>Exception</code>: problems your code expects and throws on purpose.</li><li><code>Error</code>: problems from PHP itself, e.g. <code>TypeError</code>, <code>DivisionByZeroError</code>, calling an undefined function.</li><li>Both implement <code>Throwable</code>, so <code>catch (Throwable $e)</code> catches everything.</li></ul>
+<div class="tip-box"><b>TIP:</b> During development turn on <code>error_reporting(E_ALL)</code> and <code>display_errors</code>. On a live site, log errors instead of showing them to visitors.</div>
+<div class="learn-remember"><h4>REMEMBER</h4><ul><li><code>throw</code> raises an exception; <code>catch</code> handles it.</li><li><code>finally</code> runs whether or not an exception happened.</li><li>Catch the most specific type you can.</li></ul></div>
+<div class="learn-nav"><button type="button" class="learn-nav-btn" onclick="showLearnTab('inheritance')">&larr; INHERITANCE</button><button type="button" class="learn-nav-btn next" onclick="showLearnTab('web')">PHP ON THE WEB &rarr;</button></div></section>
+<section class="learn-card" id="learn-web" data-topic="web">
+<div class="learn-lesson-num">LESSON 11 OF 13</div>
+<h3>FORMS, SESSIONS & SECURITY</h3>
+<p class="learn-intro">PHP was built for the web. It can read form data, remember users between pages and talk to the browser with cookies.</p>
+<h4>Superglobals</h4>
+<ul><li><code>$_GET</code>: values from the URL, e.g. <code>page.php?id=5</code>.</li><li><code>$_POST</code>: values sent by a form with <code>method="post"</code>.</li><li><code>$_SESSION</code>: data kept on the server for one visitor.</li><li><code>$_COOKIE</code>: small values stored in the browser.</li><li><code>$_SERVER</code>: request info, e.g. <code>$_SERVER["REQUEST_METHOD"]</code>.</li></ul>
+<h4>Handling a form</h4>
+<pre class="learn-code">&lt;form method="post" action="login.php"&gt;
+    &lt;input name="username"&gt;
+    &lt;input name="password" type="password"&gt;
+    &lt;button&gt;Log in&lt;/button&gt;
+&lt;/form&gt;
+&lt;?php
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $username = trim($_POST["username"] ?? "");
+    if ($username === "") {
+        echo "Username is required";
+    }
+}</pre>
+<div class="tip-box"><b>TIP:</b> Use POST for passwords and anything that changes data. GET puts values in the URL, where they end up in history and logs.</div>
+<h4>Validating input</h4>
+<pre class="learn-code">var_dump(filter_var("ana@example.com", FILTER_VALIDATE_EMAIL));
+var_dump(filter_var("42abc", FILTER_VALIDATE_INT));
+var_dump(filter_var("18", FILTER_VALIDATE_INT));</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>string(15) "ana@example.com"
+bool(false)
+int(18)</pre></div>
+<h4>Escaping output (prevent XSS)</h4>
+<p>Never print user input straight into HTML. <code>htmlspecialchars()</code> turns special characters into safe entities.</p>
+<pre class="learn-code">$comment = "&lt;script&gt;alert(1)&lt;/script&gt;";
+echo htmlspecialchars($comment, ENT_QUOTES, "UTF-8");</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>&amp;lt;script&amp;gt;alert(1)&amp;lt;/script&amp;gt;</pre></div>
+<h4>Sessions</h4>
+<pre class="learn-code">session_start();                 // call before any output
+$_SESSION["user"] = "Ana";       // remember the user
+
+// on another page:
+session_start();
+echo $_SESSION["user"] ?? "Guest";
+
+// logging out:
+session_unset();
+session_destroy();</pre>
+<h4>Cookies</h4>
+<pre class="learn-code">setcookie("theme", "dark", time() + 86400 * 30, "/");  // 30 days
+echo $_COOKIE["theme"] ?? "light";</pre>
+<h4>Storing passwords</h4>
+<pre class="learn-code">$hash = password_hash("secret123", PASSWORD_DEFAULT);
+var_dump(password_verify("secret123", $hash));
+var_dump(password_verify("wrong", $hash));</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>bool(true)
+bool(false)</pre></div>
+<div class="warn-box"><b>COMMON MISTAKE:</b> Never store plain-text passwords, and never use <code>md5()</code> for them. Always use <code>password_hash()</code> and <code>password_verify()</code>.</div>
+<div class="learn-remember"><h4>REMEMBER</h4><ul><li>Validate input on the way in; escape it with <code>htmlspecialchars()</code> on the way out.</li><li>Call <code>session_start()</code> before using <code>$_SESSION</code>.</li><li>Hash passwords with <code>password_hash()</code>.</li></ul></div>
+<div class="learn-nav"><button type="button" class="learn-nav-btn" onclick="showLearnTab('errors')">&larr; ERRORS</button><button type="button" class="learn-nav-btn next" onclick="showLearnTab('database')">DATABASES &rarr;</button></div></section>
+<section class="learn-card" id="learn-database" data-topic="database">
+<div class="learn-lesson-num">LESSON 12 OF 13</div>
+<h3>DATABASES WITH PDO</h3>
+<p class="learn-intro">PDO (PHP Data Objects) is the standard way to talk to databases such as MySQL, PostgreSQL and SQLite from PHP.</p>
+<h4>Connecting</h4>
+<pre class="learn-code">$pdo = new PDO(
+    "mysql:host=localhost;dbname=game;charset=utf8mb4",
+    "db_user",
+    "db_password",
+    [PDO::ATTR_ERRMODE =&gt; PDO::ERRMODE_EXCEPTION]
+);</pre>
+<h4>Prepared statements</h4>
+<p>Put placeholders (<code>?</code> or <code>:name</code>) in the SQL and send the values separately with <code>execute()</code>. The values can never change the query, which blocks SQL injection.</p>
+<pre class="learn-code">$pdo = new PDO("sqlite::memory:");
+$pdo-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$pdo-&gt;exec("CREATE TABLE players (id INTEGER PRIMARY KEY, name TEXT, score INT)");
+
+$insert = $pdo-&gt;prepare("INSERT INTO players (name, score) VALUES (:name, :score)");
+$insert-&gt;execute(["name" =&gt; "Ana", "score" =&gt; 120]);
+$insert-&gt;execute(["name" =&gt; "Ben", "score" =&gt; 90]);
+echo "New id: ", $pdo-&gt;lastInsertId(), "\n";
+
+$stmt = $pdo-&gt;prepare("SELECT name, score FROM players WHERE score &gt; ? ORDER BY score DESC");
+$stmt-&gt;execute([50]);
+foreach ($stmt-&gt;fetchAll(PDO::FETCH_ASSOC) as $row) {
+    echo $row["name"], ": ", $row["score"], "\n";
+}</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>New id: 2
+Ana: 120
+Ben: 90</pre></div>
+<h4>Fetching results</h4>
+<ul><li><code>fetch()</code>: the next row (or false when there are no more).</li><li><code>fetchAll()</code>: every row as an array.</li><li><code>fetchColumn()</code>: a single value, e.g. from <code>SELECT COUNT(*)</code>.</li><li><code>PDO::FETCH_ASSOC</code>: rows keyed by column name.</li></ul>
+<h4>Updating and deleting</h4>
+<pre class="learn-code">$pdo = new PDO("sqlite::memory:");
+$pdo-&gt;exec("CREATE TABLE items (name TEXT, qty INT)");
+$pdo-&gt;exec("INSERT INTO items VALUES ('potion', 3), ('ether', 1)");
+$stmt = $pdo-&gt;prepare("UPDATE items SET qty = qty - 1 WHERE name = ?");
+$stmt-&gt;execute(["potion"]);
+echo "Rows changed: ", $stmt-&gt;rowCount(), "\n";
+echo $pdo-&gt;query("SELECT SUM(qty) FROM items")-&gt;fetchColumn();</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>Rows changed: 1
+3</pre></div>
+<div class="warn-box"><b>COMMON MISTAKE:</b> Never build SQL by joining user input: <code>"... WHERE name = '$name'"</code> lets an attacker rewrite your query. Always use placeholders.</div>
+<div class="learn-remember"><h4>REMEMBER</h4><ul><li>Create a <code>PDO</code> object to connect; turn on exception mode.</li><li><code>prepare()</code> + <code>execute([...])</code> for every query that uses outside data.</li><li>Pick a fetch method: <code>fetch</code>, <code>fetchAll</code> or <code>fetchColumn</code>.</li></ul></div>
+<div class="learn-nav"><button type="button" class="learn-nav-btn" onclick="showLearnTab('web')">&larr; PHP ON THE WEB</button><button type="button" class="learn-nav-btn next" onclick="showLearnTab('modern')">MODERN PHP &rarr;</button></div></section>
+<section class="learn-card" id="learn-modern" data-topic="modern">
+<div class="learn-lesson-num">LESSON 13 OF 13</div>
+<h3>MODERN PHP 8 FEATURES</h3>
+<p class="learn-intro">PHP 8 added many features that make code shorter and safer. Here are the ones you will see most.</p>
+<h4>Nullsafe operator ?-&gt;</h4>
+<pre class="learn-code">$user = null;
+echo $user?-&gt;profile?-&gt;email ?? "no email";</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>no email</pre></div>
+<h4>Enums (PHP 8.1)</h4>
+<pre class="learn-code">enum Difficulty: string {
+    case Easy = "easy";
+    case Hard = "hard";
+
+    public function points(): int {
+        return match ($this) {
+            Difficulty::Easy =&gt; 10,
+            Difficulty::Hard =&gt; 50,
+        };
+    }
+}
+$d = Difficulty::from("hard");
+echo $d-&gt;name, " = ", $d-&gt;points(), "\n";
+var_dump(Difficulty::tryFrom("medium"));</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>Hard = 50
+NULL</pre></div>
+<h4>Readonly properties</h4>
+<pre class="learn-code">class Point {
+    public function __construct(public readonly int $x, public readonly int $y) {}
+}
+$p = new Point(1, 2);
+try {
+    $p-&gt;x = 9;
+} catch (Error $e) {
+    echo $e-&gt;getMessage();
+}</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>Cannot modify readonly property Point::$x</pre></div>
+<h4>Union types and mixed</h4>
+<pre class="learn-code">function format(int|float $n): string {
+    return number_format($n, 1);
+}
+echo format(3), " ", format(2.75);</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>3.0 2.8</pre></div>
+<h4>First-class callables and the spread operator</h4>
+<pre class="learn-code">$upper = strtoupper(...);
+echo implode(" ", array_map($upper, ["php", "rocks"])), "\n";
+
+$base = ["hp" =&gt; 100, "mp" =&gt; 20];
+$buffed = [...$base, "mp" =&gt; 50];
+echo json_encode($buffed);</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>PHP ROCKS
+{"hp":100,"mp":50}</pre></div>
+<h4>Generators</h4>
+<p>A generator uses <code>yield</code> to hand back values one at a time, so it can loop over huge data without building the whole array in memory.</p>
+<pre class="learn-code">function countdown(int $from) {
+    for ($i = $from; $i &gt; 0; $i--) {
+        yield $i;
+    }
+    return "Liftoff!";
+}
+$gen = countdown(3);
+foreach ($gen as $n) {
+    echo $n, " ";
+}
+echo $gen-&gt;getReturn();</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>3 2 1 Liftoff!</pre></div>
+<h4>Working with JSON</h4>
+<pre class="learn-code">$json = json_encode(["name" =&gt; "Ana", "skills" =&gt; ["fire", "ice"]]);
+echo $json, "\n";
+$data = json_decode($json, true);   // true = associative arrays
+echo $data["skills"][1];</pre>
+<div class="learn-output"><span>OUTPUT</span><pre>{"name":"Ana","skills":["fire","ice"]}
+ice</pre></div>
+<div class="tip-box"><b>TIP:</b> You can check your PHP version with <code>php -v</code> on the command line or <code>echo PHP_VERSION;</code> in a script.</div>
+<div class="learn-remember"><h4>REMEMBER</h4><ul><li><code>?-&gt;</code> stops on null instead of crashing.</li><li>Enums give a fixed set of named values; <code>tryFrom()</code> returns null for unknown ones.</li><li><code>readonly</code> properties can be set only once.</li></ul></div>
+<div class="learn-nav"><button type="button" class="learn-nav-btn" onclick="showLearnTab('database')">&larr; DATABASES</button><button type="button" class="learn-nav-btn next" onclick="showScreen('title-screen')">FINISH &rarr;</button></div></section>
     </div>
-</div>
+</div>

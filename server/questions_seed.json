@@ -373,5 +373,1505 @@
     ],
     "answer": 0,
     "explain": "The reference from the first loop remains attached to the final element. The second loop repeatedly writes through it, leaving the last value as 2."
+  },
+  {
+    "id": 1001,
+    "cat": "basics",
+    "diff": "easy",
+    "type": "multiple",
+    "q": "Which function shows both the type and the value of a variable, which makes it handy for debugging?",
+    "choices": [
+      "print",
+      "strlen()",
+      "echo",
+      "var_dump()"
+    ],
+    "answer": 3,
+    "explain": "var_dump() prints the type and value, e.g. int(5) or string(3) \"abc\". echo and print only show the value."
+  },
+  {
+    "id": 1002,
+    "cat": "basics",
+    "diff": "easy",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\necho \"Hello\" . \" \" . \"World\";",
+    "choices": [
+      "Hello World",
+      "Error",
+      "HelloWorld",
+      "Hello.World"
+    ],
+    "answer": 0,
+    "explain": "The dot (.) joins strings together, so \"Hello\" . \" \" . \"World\" becomes \"Hello World\"."
+  },
+  {
+    "id": 1003,
+    "cat": "basics",
+    "diff": "easy",
+    "type": "multiple",
+    "q": "What file extension do PHP files normally use?",
+    "choices": [
+      ".php",
+      ".html",
+      ".ph",
+      ".script"
+    ],
+    "answer": 0,
+    "explain": "PHP files end in .php so the web server knows to run them through the PHP engine."
+  },
+  {
+    "id": 1004,
+    "cat": "basics",
+    "diff": "easy",
+    "type": "multiple",
+    "q": "Which of these is NOT a valid PHP comment?",
+    "choices": [
+      "/* comment */",
+      "# comment",
+      "<!-- comment -->",
+      "// comment"
+    ],
+    "answer": 2,
+    "explain": "<!-- --> is an HTML comment. Inside PHP code it is a syntax error. PHP uses //, # and /* */."
+  },
+  {
+    "id": 1005,
+    "cat": "basics",
+    "diff": "easy",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\nprint \"A\";\necho \"B\", \"C\";",
+    "choices": [
+      "AB",
+      "Error: echo takes one argument",
+      "A B C",
+      "ABC"
+    ],
+    "answer": 3,
+    "explain": "print outputs \"A\". echo can take several comma-separated values and outputs them one after another: \"B\" then \"C\"."
+  },
+  {
+    "id": 1006,
+    "cat": "basics",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$x = 5;\necho \"Value: $x\";\necho 'Value: $x';",
+    "choices": [
+      "Value: $xValue: $x",
+      "Value: 5Value: 5",
+      "Value: 5Value: $x",
+      "Value: $xValue: 5"
+    ],
+    "answer": 2,
+    "explain": "Double quotes replace $x with its value. Single quotes keep the text exactly as written, so the second echo prints $x literally."
+  },
+  {
+    "id": 1007,
+    "cat": "basics",
+    "diff": "medium",
+    "type": "multiple",
+    "q": "Which statement stops the script immediately and outputs a message?",
+    "choices": [
+      "break('message')",
+      "stop('message')",
+      "die('message')",
+      "halt('message')"
+    ],
+    "answer": 2,
+    "explain": "die() (an alias of exit()) prints the message and ends the script. break only leaves a loop or switch."
+  },
+  {
+    "id": 1008,
+    "cat": "variables",
+    "diff": "easy",
+    "type": "multiple",
+    "q": "Which is a valid PHP variable name?",
+    "choices": [
+      "$user_name",
+      "user_name",
+      "$2user",
+      "$user-name"
+    ],
+    "answer": 0,
+    "explain": "Variable names start with $ followed by a letter or underscore. They cannot start with a digit or contain a dash."
+  },
+  {
+    "id": 1009,
+    "cat": "variables",
+    "diff": "easy",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$a = \"10\";\n$b = 5;\necho $a + $b;",
+    "choices": [
+      "105",
+      "15",
+      "10 5",
+      "Error"
+    ],
+    "answer": 1,
+    "explain": "The + operator adds numbers. PHP converts the numeric string \"10\" to 10, so 10 + 5 = 15. (Use . to join strings.)"
+  },
+  {
+    "id": 1010,
+    "cat": "variables",
+    "diff": "easy",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\nvar_dump(is_int(\"42\"));",
+    "choices": [
+      "string(2) \"42\"",
+      "bool(true)",
+      "bool(false)",
+      "int(42)"
+    ],
+    "answer": 2,
+    "explain": "is_int() checks the actual type. \"42\" is a string, so it returns false, even though it looks like a number."
+  },
+  {
+    "id": 1011,
+    "cat": "variables",
+    "diff": "easy",
+    "type": "multiple",
+    "q": "Which function checks that a variable exists and is not null?",
+    "choices": [
+      "defined()",
+      "isset()",
+      "empty()",
+      "is_null()"
+    ],
+    "answer": 1,
+    "explain": "isset() returns true only when the variable exists and is not null. defined() is for constants."
+  },
+  {
+    "id": 1012,
+    "cat": "variables",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\ndefine('MAX', 10);\nconst MIN = 1;\necho MAX - MIN;",
+    "choices": [
+      "Error: constants cannot be subtracted",
+      "11",
+      "9",
+      "MAXMIN"
+    ],
+    "answer": 2,
+    "explain": "define() and const both create constants. MAX is 10 and MIN is 1, so MAX - MIN is 9. Constants are used without a $."
+  },
+  {
+    "id": 1013,
+    "cat": "variables",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\necho var_export((bool) \"0\", true), \" \", var_export((bool) \"0.0\", true);",
+    "choices": [
+      "false true",
+      "true false",
+      "false false",
+      "true true"
+    ],
+    "answer": 0,
+    "explain": "Only the string \"0\" (and the empty string) convert to false. \"0.0\" is a non-empty string that is not \"0\", so it is true."
+  },
+  {
+    "id": 1014,
+    "cat": "variables",
+    "diff": "hard",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$x = null;\necho gettype($x ?? 0.0), \" \", gettype(empty(\"0\"));",
+    "choices": [
+      "NULL boolean",
+      "double bool",
+      "float boolean",
+      "double boolean"
+    ],
+    "answer": 3,
+    "explain": "$x is null, so ?? uses 0.0. gettype() reports floats as \"double\" for historical reasons. empty(\"0\") returns a boolean (true)."
+  },
+  {
+    "id": 1015,
+    "cat": "operators",
+    "diff": "easy",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\necho 10 % 3;",
+    "choices": [
+      "3.33",
+      "0",
+      "3",
+      "1"
+    ],
+    "answer": 3,
+    "explain": "% is the modulo operator: the remainder after division. 10 divided by 3 is 3 remainder 1."
+  },
+  {
+    "id": 1016,
+    "cat": "operators",
+    "diff": "easy",
+    "type": "multiple",
+    "q": "Which operator checks that two values are equal AND of the same type?",
+    "choices": [
+      "===",
+      "==",
+      "=",
+      "!="
+    ],
+    "answer": 0,
+    "explain": "=== is strict comparison: 5 === \"5\" is false. == compares after converting types. = assigns a value."
+  },
+  {
+    "id": 1017,
+    "cat": "operators",
+    "diff": "easy",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$i = 5;\n$i += 3;\necho $i;",
+    "choices": [
+      "8",
+      "5",
+      "3",
+      "53"
+    ],
+    "answer": 0,
+    "explain": "$i += 3 is shorthand for $i = $i + 3, so 5 becomes 8."
+  },
+  {
+    "id": 1018,
+    "cat": "operators",
+    "diff": "hard",
+    "type": "code",
+    "q": "In PHP 8, what does this output?\n\n<?php\necho json_encode([0 == \"a\", \"1\" == \"01\", 100 == \"1e2\"]);",
+    "choices": [
+      "[true,true,true]",
+      "[true,false,false]",
+      "[false,false,true]",
+      "[false,true,true]"
+    ],
+    "answer": 3,
+    "explain": "Since PHP 8, comparing a number with a non-numeric string compares them as strings, so 0 == \"a\" is false. \"1\" == \"01\" and 100 == \"1e2\" are numeric comparisons, so both are true."
+  },
+  {
+    "id": 1019,
+    "cat": "operators",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\necho 2 ** 3 ** 2;",
+    "choices": [
+      "2^9",
+      "18",
+      "512",
+      "64"
+    ],
+    "answer": 2,
+    "explain": "** (power) is right-associative: 3 ** 2 is worked out first (9), then 2 ** 9 = 512."
+  },
+  {
+    "id": 1020,
+    "cat": "operators",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\necho 5 <=> 3, 3 <=> 3, 1 <=> 3;",
+    "choices": [
+      "true false false",
+      "10-1",
+      "1 0 -1",
+      "2 0 -2"
+    ],
+    "answer": 1,
+    "explain": "The spaceship operator <=> returns 1 if the left side is bigger, 0 if equal and -1 if smaller. echo prints them with no spaces."
+  },
+  {
+    "id": 1021,
+    "cat": "operators",
+    "diff": "hard",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$x = 5;\necho $x++ + ++$x;",
+    "choices": [
+      "11",
+      "10",
+      "12",
+      "13"
+    ],
+    "answer": 2,
+    "explain": "$x++ returns 5 then makes $x 6. ++$x makes $x 7 and returns 7. 5 + 7 = 12."
+  },
+  {
+    "id": 1022,
+    "cat": "strings",
+    "diff": "easy",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\necho strtoupper(\"php\");",
+    "choices": [
+      "PHP",
+      "php",
+      "Php",
+      "pHP"
+    ],
+    "answer": 0,
+    "explain": "strtoupper() turns every letter of a string into upper case."
+  },
+  {
+    "id": 1023,
+    "cat": "strings",
+    "diff": "easy",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\necho strlen(\"Hello World\");",
+    "choices": [
+      "11",
+      "10",
+      "2",
+      "12"
+    ],
+    "answer": 0,
+    "explain": "strlen() counts every character, including the space: \"Hello\" (5) + \" \" (1) + \"World\" (5) = 11."
+  },
+  {
+    "id": 1024,
+    "cat": "strings",
+    "diff": "easy",
+    "type": "multiple",
+    "q": "Which function replaces every occurrence of some text inside a string?",
+    "choices": [
+      "str_replace()",
+      "str_swap()",
+      "strrepl()",
+      "replace_str()"
+    ],
+    "answer": 0,
+    "explain": "str_replace($search, $replace, $subject) returns a new string with every match replaced."
+  },
+  {
+    "id": 1025,
+    "cat": "strings",
+    "diff": "easy",
+    "type": "multiple",
+    "q": "Which kind of quotes lets you put a variable directly inside a string, like \"Hi $name\"?",
+    "choices": [
+      "Both work the same",
+      "Double quotes",
+      "Single quotes",
+      "Neither, you must use ."
+    ],
+    "answer": 1,
+    "explain": "Double-quoted strings expand variables. Single-quoted strings keep $name as plain text."
+  },
+  {
+    "id": 1026,
+    "cat": "strings",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\necho substr(\"CodeMaster\", 4, 3);",
+    "choices": [
+      "Master",
+      "Mas",
+      "Mast",
+      "eMa"
+    ],
+    "answer": 1,
+    "explain": "substr($string, 4, 3) starts at position 4 (counting from 0) and takes 3 characters: C0 o1 d2 e3 M4 a5 s6."
+  },
+  {
+    "id": 1027,
+    "cat": "strings",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\necho str_pad(\"7\", 3, \"0\", STR_PAD_LEFT);",
+    "choices": [
+      "7",
+      "700",
+      "0007",
+      "007"
+    ],
+    "answer": 3,
+    "explain": "str_pad() pads \"7\" to a length of 3 using \"0\". STR_PAD_LEFT adds the padding on the left."
+  },
+  {
+    "id": 1028,
+    "cat": "strings",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$s = \"a,b,,c\";\necho count(explode(\",\", $s));",
+    "choices": [
+      "5",
+      "4",
+      "3",
+      "2"
+    ],
+    "answer": 1,
+    "explain": "explode() splits on every comma, including the empty piece between \",,\": [\"a\", \"b\", \"\", \"c\"] has 4 items."
+  },
+  {
+    "id": 1029,
+    "cat": "strings",
+    "diff": "hard",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\nprintf(\"%05.1f\", 3.14159);",
+    "choices": [
+      "003.1",
+      "3.1",
+      "0003.1",
+      "03.14"
+    ],
+    "answer": 0,
+    "explain": "%05.1f means: a float with 1 decimal place, at least 5 characters wide, padded with zeros. 3.1 is 3 characters, so two zeros are added: 003.1."
+  },
+  {
+    "id": 1030,
+    "cat": "strings",
+    "diff": "hard",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\necho ucwords(strtolower(\"hELLO wORLD\")), \"|\", strrev(\"abc\");",
+    "choices": [
+      "Hello World|cba",
+      "HELLO WORLD|cba",
+      "hello world|abc",
+      "Hello world|cba"
+    ],
+    "answer": 0,
+    "explain": "strtolower() makes \"hello world\", then ucwords() capitalises the first letter of each word. strrev() reverses \"abc\"."
+  },
+  {
+    "id": 1031,
+    "cat": "arrays",
+    "diff": "easy",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$colors = [\"red\", \"green\", \"blue\"];\necho $colors[1];",
+    "choices": [
+      "red",
+      "green",
+      "blue",
+      "1"
+    ],
+    "answer": 1,
+    "explain": "Array indexes start at 0, so [1] is the second item: \"green\"."
+  },
+  {
+    "id": 1032,
+    "cat": "arrays",
+    "diff": "easy",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$nums = [1, 2, 3];\n$nums[] = 4;\necho count($nums);",
+    "choices": [
+      "4",
+      "1234",
+      "3",
+      "5"
+    ],
+    "answer": 0,
+    "explain": "$nums[] = 4 appends a new item to the end of the array. It now has 4 items."
+  },
+  {
+    "id": 1033,
+    "cat": "arrays",
+    "diff": "easy",
+    "type": "multiple",
+    "q": "Which function adds one or more items to the END of an array?",
+    "choices": [
+      "array_shift()",
+      "array_pop()",
+      "array_unshift()",
+      "array_push()"
+    ],
+    "answer": 3,
+    "explain": "array_push() adds to the end. array_unshift() adds to the start; array_pop() and array_shift() remove items."
+  },
+  {
+    "id": 1034,
+    "cat": "arrays",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$user = [\"name\" => \"Ana\", \"age\" => 20];\necho implode(\",\", array_keys($user));",
+    "choices": [
+      "0,1",
+      "Ana,20",
+      "name,age",
+      "name=Ana,age=20"
+    ],
+    "answer": 2,
+    "explain": "array_keys() returns the keys of an associative array. implode() joins them with a comma."
+  },
+  {
+    "id": 1035,
+    "cat": "arrays",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$a = [3, 1, 2];\nsort($a);\necho implode(\"\", $a);",
+    "choices": [
+      "321",
+      "312",
+      "123",
+      "Array"
+    ],
+    "answer": 2,
+    "explain": "sort() sorts the array in place from lowest to highest. implode(\"\", ...) joins the values with nothing between them."
+  },
+  {
+    "id": 1036,
+    "cat": "arrays",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\necho in_array(\"5\", [1, 5, 9], true) ? \"yes\" : \"no\";",
+    "choices": [
+      "1",
+      "no",
+      "yes",
+      "Error"
+    ],
+    "answer": 1,
+    "explain": "The third argument true makes in_array() strict: the string \"5\" is not the integer 5, so it is not found."
+  },
+  {
+    "id": 1037,
+    "cat": "arrays",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$total = array_sum(array_map(fn($n) => $n * $n, [1, 2, 3]));\necho $total;",
+    "choices": [
+      "14",
+      "123",
+      "36",
+      "6"
+    ],
+    "answer": 0,
+    "explain": "array_map() squares each value: [1, 4, 9]. array_sum() adds them: 14."
+  },
+  {
+    "id": 1038,
+    "cat": "arrays",
+    "diff": "hard",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$a = [\"x\" => 1, \"y\" => 2];\n$b = [\"y\" => 3, \"z\" => 4];\necho json_encode($a + $b), json_encode(array_merge($a, $b));",
+    "choices": [
+      "{\"x\":1,\"y\":2,\"z\":4}{\"x\":1,\"y\":2,\"z\":4}",
+      "{\"x\":1,\"y\":2,\"z\":4}{\"x\":1,\"y\":3,\"z\":4}",
+      "{\"x\":1,\"y\":3,\"z\":4}{\"x\":1,\"y\":2,\"z\":4}",
+      "{\"x\":1,\"y\":3,\"z\":4}{\"x\":1,\"y\":3,\"z\":4}"
+    ],
+    "answer": 1,
+    "explain": "The + operator keeps the LEFT value when a key exists in both arrays (y stays 2). array_merge() lets the later array win for string keys (y becomes 3)."
+  },
+  {
+    "id": 1039,
+    "cat": "arrays",
+    "diff": "hard",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$arr = [5 => \"a\", \"b\", \"c\"];\necho implode(\",\", array_keys($arr));",
+    "choices": [
+      "5,0,1",
+      "0,1,2",
+      "5,1,2",
+      "5,6,7"
+    ],
+    "answer": 3,
+    "explain": "When you add items without keys, PHP uses the highest integer key so far plus 1. After key 5, the next items get 6 and 7."
+  },
+  {
+    "id": 1040,
+    "cat": "control",
+    "diff": "easy",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$age = 18;\nif ($age >= 18) {\n    echo \"Adult\";\n} else {\n    echo \"Minor\";\n}",
+    "choices": [
+      "Minor",
+      "Nothing",
+      "AdultMinor",
+      "Adult"
+    ],
+    "answer": 3,
+    "explain": "$age >= 18 is true (18 is equal to 18), so the if branch runs."
+  },
+  {
+    "id": 1041,
+    "cat": "control",
+    "diff": "easy",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\nfor ($i = 1; $i <= 3; $i++) {\n    echo $i;\n}",
+    "choices": [
+      "12",
+      "012",
+      "123",
+      "1234"
+    ],
+    "answer": 2,
+    "explain": "The loop starts at 1 and runs while $i <= 3, printing 1, 2 and 3."
+  },
+  {
+    "id": 1042,
+    "cat": "control",
+    "diff": "easy",
+    "type": "multiple",
+    "q": "Which loop always runs its body at least once?",
+    "choices": [
+      "do...while",
+      "while",
+      "foreach",
+      "for"
+    ],
+    "answer": 0,
+    "explain": "do...while checks its condition AFTER running the body, so the body always runs at least once."
+  },
+  {
+    "id": 1043,
+    "cat": "control",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\nforeach ([1, 2, 3, 4, 5] as $n) {\n    if ($n === 2) continue;\n    if ($n === 4) break;\n    echo $n;\n}",
+    "choices": [
+      "1",
+      "1345",
+      "13",
+      "135"
+    ],
+    "answer": 2,
+    "explain": "continue skips 2 and moves to the next item. break stops the loop completely at 4, so only 1 and 3 are printed."
+  },
+  {
+    "id": 1044,
+    "cat": "control",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$x = 2;\nswitch ($x) {\n    case 1: echo \"one\";\n    case 2: echo \"two\";\n    case 3: echo \"three\";\n        break;\n    default: echo \"other\";\n}",
+    "choices": [
+      "two",
+      "twothree",
+      "twothreeother",
+      "onetwothree"
+    ],
+    "answer": 1,
+    "explain": "Without a break, switch \"falls through\" into the next case. Case 2 runs, then case 3, which finally has a break."
+  },
+  {
+    "id": 1045,
+    "cat": "control",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$i = 0;\nwhile ($i < 10) {\n    $i += 3;\n}\necho $i;",
+    "choices": [
+      "10",
+      "12",
+      "3",
+      "9"
+    ],
+    "answer": 1,
+    "explain": "$i goes 0, 3, 6, 9, 12. At 12 the condition $i < 10 is false, so the loop stops and 12 is printed."
+  },
+  {
+    "id": 1046,
+    "cat": "control",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\necho match(true) {\n    5 > 10 => \"a\",\n    \"5\" == 5 => \"b\",\n    default => \"c\",\n};",
+    "choices": [
+      "Error",
+      "a",
+      "b",
+      "c"
+    ],
+    "answer": 2,
+    "explain": "match(true) runs the first arm whose condition is true. 5 > 10 is false; \"5\" == 5 is true, so it returns \"b\"."
+  },
+  {
+    "id": 1047,
+    "cat": "control",
+    "diff": "hard",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\nfor ($i = 1; $i <= 3; $i++) {\n    for ($j = 1; $j <= 3; $j++) {\n        if ($j === 2) continue 2;\n        echo \"$i$j|\";\n    }\n}",
+    "choices": [
+      "11|21|22|31|",
+      "11|",
+      "11|21|31|",
+      "11|12|13|"
+    ],
+    "answer": 2,
+    "explain": "continue 2 skips to the next iteration of the OUTER loop. So for each $i only $j = 1 is printed before $j reaches 2."
+  },
+  {
+    "id": 1048,
+    "cat": "functions",
+    "diff": "easy",
+    "type": "multiple",
+    "q": "Which keyword declares a function in PHP?",
+    "choices": [
+      "func",
+      "function",
+      "def",
+      "method"
+    ],
+    "answer": 1,
+    "explain": "Functions are declared with the function keyword: function greet() { ... }."
+  },
+  {
+    "id": 1049,
+    "cat": "functions",
+    "diff": "easy",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\nfunction greet($name = \"Guest\") {\n    return \"Hi, $name\";\n}\necho greet();",
+    "choices": [
+      "Hi, $name",
+      "Hi, Guest",
+      "Error: missing argument",
+      "Hi, "
+    ],
+    "answer": 1,
+    "explain": "$name has a default value of \"Guest\", which is used when no argument is passed."
+  },
+  {
+    "id": 1050,
+    "cat": "functions",
+    "diff": "easy",
+    "type": "multiple",
+    "q": "Which keyword sends a value back from a function to the code that called it?",
+    "choices": [
+      "print",
+      "break",
+      "echo",
+      "return"
+    ],
+    "answer": 3,
+    "explain": "return ends the function and hands a value back. echo only displays something."
+  },
+  {
+    "id": 1051,
+    "cat": "functions",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$count = 5;\nfunction show() {\n    return isset($count) ? \"set\" : \"unset\";\n}\necho show();",
+    "choices": [
+      "Error",
+      "5",
+      "set",
+      "unset"
+    ],
+    "answer": 3,
+    "explain": "Functions have their own scope. $count from outside is not visible inside show() unless you pass it in or use global."
+  },
+  {
+    "id": 1052,
+    "cat": "functions",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\nfunction counter() {\n    static $n = 0;\n    return ++$n;\n}\ncounter();\ncounter();\necho counter();",
+    "choices": [
+      "0",
+      "1",
+      "2",
+      "3"
+    ],
+    "answer": 3,
+    "explain": "A static variable keeps its value between calls. $n becomes 1, then 2, then 3."
+  },
+  {
+    "id": 1053,
+    "cat": "functions",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\nfunction total(...$nums) {\n    return array_sum($nums);\n}\necho total(1, 2, 3, 4);",
+    "choices": [
+      "10",
+      "4",
+      "Error",
+      "1234"
+    ],
+    "answer": 0,
+    "explain": "...$nums collects all arguments into an array: [1, 2, 3, 4]. array_sum() adds them up."
+  },
+  {
+    "id": 1054,
+    "cat": "functions",
+    "diff": "hard",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$x = 1;\n$f = function () use ($x) { return $x; };\n$x = 2;\n$g = fn() => $x;\n$x = 3;\necho $f(), $g();",
+    "choices": [
+      "13",
+      "12",
+      "33",
+      "22"
+    ],
+    "answer": 1,
+    "explain": "use ($x) copies $x (1) when the closure is created. An arrow function also captures by value at creation, when $x was 2. Changing $x later affects neither."
+  },
+  {
+    "id": 1055,
+    "cat": "functions",
+    "diff": "hard",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\ndeclare(strict_types=1);\nfunction double(int $n): int {\n    return $n * 2;\n}\ntry {\n    echo double(\"4\");\n} catch (TypeError $e) {\n    echo \"TypeError\";\n}",
+    "choices": [
+      "4",
+      "TypeError",
+      "8",
+      "44"
+    ],
+    "answer": 1,
+    "explain": "With strict_types=1, PHP will not convert the string \"4\" to an int, so calling double(\"4\") throws a TypeError."
+  },
+  {
+    "id": 1056,
+    "cat": "references",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\nfunction addOne(&$n) {\n    $n++;\n}\n$x = 5;\naddOne($x);\necho $x;",
+    "choices": [
+      "Error",
+      "6",
+      "7",
+      "5"
+    ],
+    "answer": 1,
+    "explain": "The & before $n passes the variable by reference, so the function changes the original $x."
+  },
+  {
+    "id": 1057,
+    "cat": "references",
+    "diff": "hard",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$a = [1, 2, 3];\nforeach ($a as &$v) {}\nforeach ($a as $v) {}\necho implode(\",\", $a);",
+    "choices": [
+      "1,2,2",
+      "1,2,3",
+      "3,3,3",
+      "1,1,1"
+    ],
+    "answer": 0,
+    "explain": "After the first loop, $v is still a reference to the last item. The second loop writes each value into that last item, so it ends up as 2."
+  },
+  {
+    "id": 1058,
+    "cat": "oop",
+    "diff": "easy",
+    "type": "multiple",
+    "q": "Which keyword creates an object from a class?",
+    "choices": [
+      "create",
+      "new",
+      "make",
+      "object"
+    ],
+    "answer": 1,
+    "explain": "$dog = new Dog(); creates a new Dog object."
+  },
+  {
+    "id": 1059,
+    "cat": "oop",
+    "diff": "easy",
+    "type": "multiple",
+    "q": "Inside a class method, which variable refers to the current object?",
+    "choices": [
+      "this",
+      "self",
+      "$self",
+      "$this"
+    ],
+    "answer": 3,
+    "explain": "$this is the current object, e.g. $this->name. self (no $) refers to the class itself, for static members."
+  },
+  {
+    "id": 1060,
+    "cat": "oop",
+    "diff": "easy",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\nclass Dog {\n    public $name = \"Rex\";\n}\n$d = new Dog();\necho $d->name;",
+    "choices": [
+      "name",
+      "Dog",
+      "Error",
+      "Rex"
+    ],
+    "answer": 3,
+    "explain": "The -> operator reads a property of an object. $d->name is \"Rex\"."
+  },
+  {
+    "id": 1061,
+    "cat": "oop",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\nclass Point {\n    public function __construct(public int $x = 0, public int $y = 0) {}\n}\n$p = new Point(y: 5);\necho $p->x . \",\" . $p->y;",
+    "choices": [
+      "5,0",
+      "Error",
+      "5,5",
+      "0,5"
+    ],
+    "answer": 3,
+    "explain": "Constructor promotion declares the properties from the parameters. The named argument y: 5 sets only $y; $x keeps its default 0."
+  },
+  {
+    "id": 1062,
+    "cat": "oop",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\nclass Animal {\n    public function speak() { return \"...\"; }\n}\nclass Cat extends Animal {\n    public function speak() { return \"Meow \" . parent::speak(); }\n}\necho (new Cat)->speak();",
+    "choices": [
+      "Meow",
+      "Meow ...",
+      "...",
+      "... Meow"
+    ],
+    "answer": 1,
+    "explain": "Cat overrides speak(). parent::speak() calls the version from Animal, which returns \"...\"."
+  },
+  {
+    "id": 1063,
+    "cat": "oop",
+    "diff": "medium",
+    "type": "multiple",
+    "q": "A property declared as protected can be accessed from...",
+    "choices": [
+      "anywhere in the program",
+      "the class itself and its child classes",
+      "only the class itself",
+      "only outside the class"
+    ],
+    "answer": 1,
+    "explain": "public: anywhere. protected: the class and classes that extend it. private: only the class that declares it."
+  },
+  {
+    "id": 1064,
+    "cat": "oop",
+    "diff": "medium",
+    "type": "multiple",
+    "q": "Which keyword makes a class follow an interface?",
+    "choices": [
+      "inherits",
+      "implements",
+      "use",
+      "extends"
+    ],
+    "answer": 1,
+    "explain": "class Car implements Vehicle. extends is for inheriting from a class; use is for traits."
+  },
+  {
+    "id": 1065,
+    "cat": "oop",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\nabstract class Shape {\n    abstract public function area(): float;\n}\ntry {\n    $s = new Shape();\n    echo \"created\";\n} catch (Error $e) {\n    echo \"Error\";\n}",
+    "choices": [
+      "Nothing",
+      "Shape",
+      "Error",
+      "created"
+    ],
+    "answer": 2,
+    "explain": "An abstract class cannot be instantiated. new Shape() throws an Error, which the catch block handles."
+  },
+  {
+    "id": 1066,
+    "cat": "oop",
+    "diff": "hard",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\nclass A {\n    public static function create() { return new static(); }\n    public function name() { return static::class; }\n}\nclass B extends A {}\necho B::create()->name();",
+    "choices": [
+      "B",
+      "static",
+      "A",
+      "Error"
+    ],
+    "answer": 0,
+    "explain": "new static() and static::class use late static binding: they refer to the class that was actually called, B, not the class where the code is written."
+  },
+  {
+    "id": 1067,
+    "cat": "traits",
+    "diff": "medium",
+    "type": "multiple",
+    "q": "Which keyword adds a trait's methods to a class?",
+    "choices": [
+      "implements",
+      "include",
+      "use",
+      "trait"
+    ],
+    "answer": 2,
+    "explain": "Inside the class body you write use TraitName; to copy the trait's methods into the class."
+  },
+  {
+    "id": 1068,
+    "cat": "traits",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\ntrait Counts {\n    private int $count = 0;\n    public function add(): static { $this->count++; return $this; }\n    public function total(): int { return $this->count; }\n}\nclass Cart { use Counts; }\necho (new Cart)->add()->add()->total();",
+    "choices": [
+      "Error",
+      "1",
+      "2",
+      "0"
+    ],
+    "answer": 2,
+    "explain": "The trait adds the $count property and both methods to Cart. add() returns $this, so the calls can be chained."
+  },
+  {
+    "id": 1069,
+    "cat": "traits",
+    "diff": "hard",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\nclass Base {\n    public function hi() { return \"Base\"; }\n}\ntrait Hello {\n    public function hi() { return \"Trait\"; }\n}\nclass Child extends Base {\n    use Hello;\n}\necho (new Child)->hi();",
+    "choices": [
+      "Trait",
+      "BaseTrait",
+      "Error: method conflict",
+      "Base"
+    ],
+    "answer": 0,
+    "explain": "Precedence: methods in the class itself win, then trait methods, then inherited methods. The trait's hi() overrides the one from Base."
+  },
+  {
+    "id": 1070,
+    "cat": "errors",
+    "diff": "easy",
+    "type": "multiple",
+    "q": "Which block wraps code that might throw an exception?",
+    "choices": [
+      "try",
+      "finally",
+      "catch",
+      "throw"
+    ],
+    "answer": 0,
+    "explain": "Put risky code in try { }. A matching catch block handles the exception if one is thrown."
+  },
+  {
+    "id": 1071,
+    "cat": "errors",
+    "diff": "easy",
+    "type": "multiple",
+    "q": "Which keyword raises an exception?",
+    "choices": [
+      "error",
+      "raise",
+      "throw",
+      "except"
+    ],
+    "answer": 2,
+    "explain": "throw new Exception(\"message\"); stops normal execution and jumps to the nearest matching catch."
+  },
+  {
+    "id": 1072,
+    "cat": "errors",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\nfunction test() {\n    try {\n        return \"try\";\n    } finally {\n        echo \"finally \";\n    }\n}\necho test();",
+    "choices": [
+      "try",
+      "finally try",
+      "try finally",
+      "finally"
+    ],
+    "answer": 1,
+    "explain": "The finally block always runs, even when try returns. Its echo happens before the returned value is printed by the outer echo."
+  },
+  {
+    "id": 1073,
+    "cat": "errors",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\ntry {\n    echo intdiv(10, 0);\n} catch (DivisionByZeroError $e) {\n    echo \"Cannot divide by zero\";\n}",
+    "choices": [
+      "0",
+      "Warning: Division by zero",
+      "Cannot divide by zero",
+      "INF"
+    ],
+    "answer": 2,
+    "explain": "intdiv() throws a DivisionByZeroError when dividing by zero, which the catch block handles."
+  },
+  {
+    "id": 1074,
+    "cat": "errors",
+    "diff": "hard",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\nclass AppException extends Exception {}\ntry {\n    throw new AppException(\"Oops\", 42);\n} catch (Exception $e) {\n    echo get_class($e), \":\", $e->getCode();\n}",
+    "choices": [
+      "Oops:42",
+      "AppException:0",
+      "AppException:42",
+      "Exception:42"
+    ],
+    "answer": 2,
+    "explain": "catch (Exception $e) also catches subclasses. get_class() gives the real class, AppException, and getCode() returns 42."
+  },
+  {
+    "id": 1075,
+    "cat": "web",
+    "diff": "easy",
+    "type": "multiple",
+    "q": "Which superglobal holds values from the URL query string, as in page.php?id=5?",
+    "choices": [
+      "$_GET",
+      "$_POST",
+      "$_URL",
+      "$_QUERY"
+    ],
+    "answer": 0,
+    "explain": "$_GET[\"id\"] reads id=5 from the URL. $_POST holds data sent in a POST request body, usually from a form."
+  },
+  {
+    "id": 1076,
+    "cat": "web",
+    "diff": "easy",
+    "type": "multiple",
+    "q": "Which function must be called before you use $_SESSION?",
+    "choices": [
+      "session_open()",
+      "session_start()",
+      "start_session()",
+      "session_begin()"
+    ],
+    "answer": 1,
+    "explain": "session_start() starts or resumes the session. Call it before any output is sent."
+  },
+  {
+    "id": 1077,
+    "cat": "web",
+    "diff": "medium",
+    "type": "multiple",
+    "q": "Before printing user input into an HTML page, which function should you use to prevent XSS?",
+    "choices": [
+      "urlencode()",
+      "trim()",
+      "addslashes()",
+      "htmlspecialchars()"
+    ],
+    "answer": 3,
+    "explain": "htmlspecialchars() turns < > & \" into HTML entities so the browser shows them as text instead of running them as code."
+  },
+  {
+    "id": 1078,
+    "cat": "web",
+    "diff": "medium",
+    "type": "multiple",
+    "q": "Which function sends a cookie to the browser?",
+    "choices": [
+      "cookie_set()",
+      "setcookie()",
+      "$_COOKIE()",
+      "make_cookie()"
+    ],
+    "answer": 1,
+    "explain": "setcookie(\"name\", \"value\", ...) sends a cookie. Read it on later requests with $_COOKIE[\"name\"]."
+  },
+  {
+    "id": 1079,
+    "cat": "web",
+    "diff": "medium",
+    "type": "multiple",
+    "q": "By default, where is $_SESSION data stored?",
+    "choices": [
+      "In the database automatically",
+      "Inside the browser cookie",
+      "In the URL",
+      "On the server"
+    ],
+    "answer": 3,
+    "explain": "Session data stays on the server. The browser only keeps a cookie with the session ID."
+  },
+  {
+    "id": 1080,
+    "cat": "web",
+    "diff": "medium",
+    "type": "multiple",
+    "q": "Which HTTP method should a login form use to send a password?",
+    "choices": [
+      "POST",
+      "LINK",
+      "HEAD",
+      "GET"
+    ],
+    "answer": 0,
+    "explain": "GET puts data in the URL, where it can be saved in history and logs. POST sends it in the request body."
+  },
+  {
+    "id": 1081,
+    "cat": "web",
+    "diff": "hard",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$_GET = [\"page\" => \"2\"];\n$page = (int) ($_GET[\"page\"] ?? 1);\n$sort = $_GET[\"sort\"] ?? \"name\";\necho $page + 1, $sort;",
+    "choices": [
+      "2name",
+      "3name",
+      "Error: undefined key",
+      "3sort"
+    ],
+    "answer": 1,
+    "explain": "\"2\" is cast to the integer 2, so $page + 1 is 3. \"sort\" is missing, so ?? falls back to \"name\" without a warning."
+  },
+  {
+    "id": 1082,
+    "cat": "web",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\nvar_export(filter_var(\"42abc\", FILTER_VALIDATE_INT));",
+    "choices": [
+      "true",
+      "0",
+      "42",
+      "false"
+    ],
+    "answer": 3,
+    "explain": "filter_var() with FILTER_VALIDATE_INT returns the integer only if the whole string is a valid integer. \"42abc\" is not, so it returns false."
+  },
+  {
+    "id": 1083,
+    "cat": "database",
+    "diff": "easy",
+    "type": "multiple",
+    "q": "What does PDO stand for?",
+    "choices": [
+      "PHP Database Operator",
+      "Persistent Data Output",
+      "PHP Data Objects",
+      "Public Data Object"
+    ],
+    "answer": 2,
+    "explain": "PDO (PHP Data Objects) is one interface for talking to many databases: MySQL, PostgreSQL, SQLite and more."
+  },
+  {
+    "id": 1084,
+    "cat": "database",
+    "diff": "medium",
+    "type": "multiple",
+    "q": "Why should you use prepared statements with PDO?",
+    "choices": [
+      "To encrypt the database",
+      "So the connection never closes",
+      "To make queries case-insensitive",
+      "To prevent SQL injection"
+    ],
+    "answer": 3,
+    "explain": "Prepared statements send the values separately from the SQL, so user input can never change the query itself."
+  },
+  {
+    "id": 1085,
+    "cat": "database",
+    "diff": "medium",
+    "type": "multiple",
+    "q": "After $stmt = $pdo->prepare(\"SELECT * FROM users WHERE id = ?\"), how do you supply the value for the ? placeholder?",
+    "choices": [
+      "Join it into the SQL string",
+      "$pdo->fill($id)",
+      "$stmt->replace($id)",
+      "$stmt->execute([$id])"
+    ],
+    "answer": 3,
+    "explain": "execute() takes an array of values that fill the placeholders in order."
+  },
+  {
+    "id": 1086,
+    "cat": "database",
+    "diff": "medium",
+    "type": "multiple",
+    "q": "Which PDO fetch mode returns each row as an array keyed by column name?",
+    "choices": [
+      "PDO::FETCH_NUM",
+      "PDO::FETCH_ASSOC",
+      "PDO::FETCH_BOUND",
+      "PDO::FETCH_COLUMN"
+    ],
+    "answer": 1,
+    "explain": "FETCH_ASSOC gives [\"id\" => 1, \"name\" => \"Ana\"]. FETCH_NUM uses numeric indexes instead."
+  },
+  {
+    "id": 1087,
+    "cat": "database",
+    "diff": "hard",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$pdo = new PDO(\"sqlite::memory:\");\n$pdo->exec(\"CREATE TABLE t (n INTEGER)\");\n$stmt = $pdo->prepare(\"INSERT INTO t VALUES (?)\");\nforeach ([3, 4, 5] as $n) {\n    $stmt->execute([$n]);\n}\necho $pdo->query(\"SELECT SUM(n) FROM t\")->fetchColumn();",
+    "choices": [
+      "Error",
+      "12",
+      "345",
+      "3"
+    ],
+    "answer": 1,
+    "explain": "The prepared INSERT runs three times with 3, 4 and 5. SUM(n) is 12, and fetchColumn() returns that single value."
+  },
+  {
+    "id": 1088,
+    "cat": "modern php",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$user = null;\necho $user?->profile?->name ?? \"anonymous\";",
+    "choices": [
+      "profile",
+      "anonymous",
+      "Error",
+      "null"
+    ],
+    "answer": 1,
+    "explain": "The nullsafe operator ?-> stops and returns null when $user is null instead of throwing an error. ?? then supplies \"anonymous\"."
+  },
+  {
+    "id": 1089,
+    "cat": "modern php",
+    "diff": "easy",
+    "type": "multiple",
+    "q": "Which PHP 8 function checks whether a string contains another string?",
+    "choices": [
+      "str_has()",
+      "contains()",
+      "strcontains()",
+      "str_contains()"
+    ],
+    "answer": 3,
+    "explain": "str_contains($haystack, $needle) returns true or false. Before PHP 8 you had to use strpos() !== false."
+  },
+  {
+    "id": 1090,
+    "cat": "modern php",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\necho str_pad(string: \"5\", length: 3, pad_type: STR_PAD_LEFT, pad_string: \"*\");",
+    "choices": [
+      "5**",
+      "*5*",
+      "**5",
+      "5"
+    ],
+    "answer": 2,
+    "explain": "Named arguments can be given in any order. pad_type: STR_PAD_LEFT puts the \"*\" padding on the left to reach length 3."
+  },
+  {
+    "id": 1091,
+    "cat": "modern php",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$up = strtoupper(...);\necho $up(\"ok\");",
+    "choices": [
+      "ok",
+      "Ok",
+      "Error",
+      "OK"
+    ],
+    "answer": 3,
+    "explain": "strtoupper(...) is first-class callable syntax (PHP 8.1): it creates a Closure that calls strtoupper."
+  },
+  {
+    "id": 1092,
+    "cat": "modern php",
+    "diff": "hard",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\nenum Suit: string {\n    case Hearts = \"H\";\n    case Spades = \"S\";\n}\necho Suit::from(\"S\")->name, \"/\", Suit::tryFrom(\"X\")?->name ?? \"none\";",
+    "choices": [
+      "S/none",
+      "S/X",
+      "Spades/none",
+      "Spades/Error"
+    ],
+    "answer": 2,
+    "explain": "Suit::from(\"S\") finds the case whose value is \"S\"; ->name is \"Spades\". tryFrom(\"X\") returns null instead of throwing, so ?-> and ?? give \"none\"."
+  },
+  {
+    "id": 1093,
+    "cat": "modern php",
+    "diff": "hard",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\nclass Money {\n    public function __construct(public readonly int $amount) {}\n}\n$m = new Money(5);\ntry {\n    $m->amount = 10;\n} catch (Error $e) {\n    echo \"Error: \" . $m->amount;\n}",
+    "choices": [
+      "Error: 5",
+      "5",
+      "Error: 10",
+      "10"
+    ],
+    "answer": 0,
+    "explain": "A readonly property can only be set once, in the constructor. Changing it later throws an Error, and the value stays 5."
+  },
+  {
+    "id": 1094,
+    "cat": "advanced",
+    "diff": "hard",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\nfunction gen() {\n    yield 1;\n    yield 2;\n    return 3;\n}\n$g = gen();\n$sum = 0;\nforeach ($g as $v) {\n    $sum += $v;\n}\necho $sum + $g->getReturn();",
+    "choices": [
+      "Error",
+      "1",
+      "3",
+      "6"
+    ],
+    "answer": 3,
+    "explain": "foreach collects the yielded values 1 and 2 (sum 3). getReturn() gives the generator's return value, 3. 3 + 3 = 6."
+  },
+  {
+    "id": 1095,
+    "cat": "advanced",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$data = json_decode('{\"a\":{\"b\":7}}', true);\necho $data[\"a\"][\"b\"];",
+    "choices": [
+      "7",
+      "Error",
+      "Array",
+      "{\"b\":7}"
+    ],
+    "answer": 0,
+    "explain": "json_decode() with true as the second argument returns nested associative arrays, so [\"a\"][\"b\"] is 7."
+  },
+  {
+    "id": 1096,
+    "cat": "advanced",
+    "diff": "hard",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$a = [\"x\" => 1, \"y\" => 2];\n$b = [...$a, \"y\" => 9];\necho json_encode($b);",
+    "choices": [
+      "{\"x\":1,\"y\":2}",
+      "{\"x\":1,\"y\":9}",
+      "{\"x\":1,\"y\":2,\"y\":9}",
+      "Error"
+    ],
+    "answer": 1,
+    "explain": "The spread operator ... unpacks $a (string keys are allowed since PHP 8.1). The later \"y\" => 9 overwrites y."
+  },
+  {
+    "id": 1097,
+    "cat": "coding",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\n$out = [];\nfor ($i = 13; $i <= 15; $i++) {\n    if ($i % 15 === 0) $out[] = \"FizzBuzz\";\n    elseif ($i % 3 === 0) $out[] = \"Fizz\";\n    elseif ($i % 5 === 0) $out[] = \"Buzz\";\n    else $out[] = $i;\n}\necho implode(\" \", $out);",
+    "choices": [
+      "13 14 FizzBuzz",
+      "13 14 Fizz",
+      "Fizz Buzz FizzBuzz",
+      "13 14 Buzz"
+    ],
+    "answer": 0,
+    "explain": "15 is divisible by both 3 and 5, so the first check (% 15) matches. 13 and 14 are printed as numbers."
+  },
+  {
+    "id": 1098,
+    "cat": "coding",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\nfunction fact(int $n): int {\n    return $n <= 1 ? 1 : $n * fact($n - 1);\n}\necho fact(5);",
+    "choices": [
+      "120",
+      "15",
+      "24",
+      "5"
+    ],
+    "answer": 0,
+    "explain": "The function calls itself with a smaller number each time: 5 * 4 * 3 * 2 * 1 = 120. The $n <= 1 check stops the recursion."
+  },
+  {
+    "id": 1099,
+    "cat": "coding",
+    "diff": "medium",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\necho implode(\" \", array_reverse(explode(\" \", \"I love PHP\")));",
+    "choices": [
+      "PHPloveI",
+      "I love PHP",
+      "PHP evol I",
+      "PHP love I"
+    ],
+    "answer": 3,
+    "explain": "explode() splits into words, array_reverse() flips their order, and implode() joins them back with spaces."
+  },
+  {
+    "id": 1100,
+    "cat": "coding",
+    "diff": "hard",
+    "type": "code",
+    "q": "What does this output?\n\n<?php\necho preg_match_all('/[aeiou]/i', \"CodeMaster PHP\");",
+    "choices": [
+      "2",
+      "5",
+      "3",
+      "4"
+    ],
+    "answer": 3,
+    "explain": "preg_match_all() returns how many matches it found. The /i flag ignores case. Vowels in \"CodeMaster PHP\": o, e, a, e = 4."
   }
 ]

@@ -325,11 +325,18 @@ function updateAddUserState(){
 }
 
 function showLearnTab(tab){
+    var card=document.getElementById('learn-'+tab);
+    if(!card)return;
     document.querySelectorAll('.learn-card').forEach(function(c){c.classList.remove('active');});
-    document.querySelectorAll('.learn-tab').forEach(function(t){t.classList.remove('active');});
-    document.getElementById('learn-'+tab).classList.add('active');
-    var tabs=document.querySelectorAll('.learn-tab');
-    tabs.forEach(function(t){if(t.textContent.toLowerCase()===tab||t.textContent.toLowerCase().replace(' ','')===tab)t.classList.add('active');});
+    document.querySelectorAll('.learn-tab').forEach(function(t){
+        var on=t.getAttribute('data-topic')===tab;
+        t.classList.toggle('active',on);
+        t.setAttribute('aria-selected',on?'true':'false');
+        if(on&&t.scrollIntoView)t.scrollIntoView({block:'nearest',inline:'center'});
+    });
+    card.classList.add('active');
+    var screen=document.getElementById('learn-screen');
+    if(screen)screen.scrollTop=0;
 }
 
 function applyLargeTextMode(){

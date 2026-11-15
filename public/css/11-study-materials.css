@@ -43,3 +43,32 @@
     .lex-hero-side{left:30px;}
     .lex-enemy-side{right:30px;}
 }
+/* ===== 11b. STUDY COURSE (13 lessons) ===== */
+.learn-header,.learn-tabs{flex-shrink:0;}
+.learn-tabs{flex-wrap:wrap;}
+.learn-tab{flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;font-family:var(--ui-font);border-radius:0;}
+.learn-tab-num{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 4px;font-size:11px;background:#2a2a3d;color:#aaa;}
+.learn-tab.active .learn-tab-num{background:var(--green);color:#06121a;}
+.learn-lesson-num{font-family:var(--pixel-font);font-size:8px;color:var(--green);letter-spacing:1px;margin-bottom:8px;}
+.learn-card .learn-intro{font-size:16px;color:#dcdcdc;border-left:3px solid var(--gold);padding-left:12px;margin-bottom:6px;}
+.learn-card code{font-family:'Courier New',monospace;background:rgba(255,255,255,0.07);color:#e6db74;padding:1px 5px;font-size:.92em;}
+.learn-card pre.learn-code{margin-bottom:0;}
+.learn-output{border:2px solid #333;border-top:none;background:#05080f;margin:0 0 14px;padding:6px 14px 8px;}
+.learn-output span{display:block;font-family:var(--pixel-font);font-size:7px;color:var(--green);letter-spacing:1px;margin-bottom:4px;}
+.learn-output pre{margin:0;font-family:'Courier New',monospace;font-size:14px;line-height:1.6;color:#9fe8c8;white-space:pre-wrap;word-break:break-word;}
+.learn-remember{margin-top:16px;border:2px solid var(--gold);background:rgba(255,215,0,0.06);padding:8px 14px;}
+.learn-remember h4{margin-top:4px!important;font-family:var(--pixel-font);font-size:10px!important;}
+.learn-nav{display:flex;justify-content:space-between;gap:10px;margin-top:16px;}
+.learn-nav-btn{font-family:var(--pixel-font);font-size:9px;padding:10px 14px;background:#1a1a2a;color:var(--gold);border:2px solid var(--gold);cursor:pointer;}
+.learn-nav-btn.next{background:var(--green);color:#06121a;border-color:var(--green);}
+.learn-nav-btn:hover{transform:translateY(-2px);}
+@media(max-width:700px){
+    .learn-tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin;padding-bottom:6px;-webkit-overflow-scrolling:touch;}
+}
+@media(max-width:600px){
+    #learn-screen{padding:12px 10px;}
+    .learn-card{padding:12px 10px;}
+    .learn-card .learn-code{font-size:13px;padding:8px 10px;white-space:pre;}
+    .learn-output pre{font-size:13px;}
+    .learn-nav-btn{font-size:8px;padding:9px 10px;}
+}

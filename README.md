@@ -276,3 +276,17 @@ the `/api/admin/*` routes remain unprotected on the server.
   `ADMIN_PASSWORD`, or `admin` / `admin123` if those are not set. Replace it.
 - Removing an admin logs them out immediately; an expired session sends you
   back to the login.
+
+## Changelog — PHP course and bigger question bank
+
+- **Study Materials** is now a 13-lesson PHP course: Intro, Variables & Types,
+  Operators, Strings, Arrays, Control Flow, Functions, Classes & Objects,
+  Inheritance/Interfaces/Traits, Errors & Exceptions, PHP on the Web (forms,
+  sessions, cookies, XSS, password hashing), Databases with PDO, and Modern
+  PHP 8. Every example was run with PHP 8.3 and its OUTPUT box shows the real
+  result. Lessons have PREV/NEXT buttons; on phones the tab row scrolls sideways.
+- **100 new questions** (ids 1001–1100), bringing the bank to 125. New
+  categories: operators, errors, web, database. Every "What does this output?"
+  question was executed with PHP 8.3 to confirm its answer.
+- New seed questions are added to MongoDB automatically on the next server
+  start. Questions you edited or added in the admin panel are left untouched.
