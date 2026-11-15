@@ -52,6 +52,7 @@ function apiLoginPlayer(username,password){
 function launchDungeon(message){
     localStorage.setItem(ACTIVE_PLAYER_SESSION_KEY,playerUsername);
     document.body.setAttribute('data-active-player',playerUsername);
+    returningPlayerName=playerUsername;
     if(hp<=0){
         hp=maxHp;
         streak=0;
@@ -82,6 +83,7 @@ function loginUser(){
         return;
     }
     if(loginBtn){loginBtn.disabled=true;loginBtn.textContent='LOGGING IN...';}
+    var loginError='';
 
     apiLoginPlayer(username,password)
     .then(function(data){
@@ -107,12 +109,14 @@ function loginUser(){
     })
     .catch(function(err){
         console.error('loginUser failed:',err);
-        if(status)status.textContent=err.message||'Invalid username or password.';
+        loginError=err.message||'Invalid username or password.';
         showToast('Login failed','error');
     })
     .finally(function(){
         if(loginBtn)loginBtn.textContent='LOG IN';
         updateAddUserState();
+        // updateAddUserState() clears the status line, so show the reason last.
+        if(loginError&&status)status.textContent=loginError;
     });
 }
 

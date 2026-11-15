@@ -209,9 +209,37 @@ function showAccountCreateScreen(){
     updateAddUserState();
 }
 
+// Set once a player has entered the dungeon in this tab. If they come back to
+// the account screen later (after EXIT TO TITLE, a restart or a death), they
+// are shown the login form with their name filled in instead of ADD USER,
+// which would only tell them their own username is already taken.
+var returningPlayerName='';
+
+function showReturningPlayerLogin(){
+    showLoginScreen();
+    var nameEl=document.getElementById('username-input');
+    var passwordEl=document.getElementById('password-input');
+    var status=document.getElementById('add-user-status');
+    if(nameEl)nameEl.value=returningPlayerName;
+    if(passwordEl){passwordEl.value='';passwordEl.focus();}
+    document.getElementById('add-user-subtitle').textContent='Welcome back, '+returningPlayerName+'. Enter your password to continue your dungeon.';
+    if(status)status.textContent='';
+    updateAddUserState();
+}
+
 function backFromAccountEntry(){
     var screen=document.getElementById('add-user-screen');
-    if(screen&&screen.classList.contains('login-mode'))showAccountCreateScreen();
+    if(screen&&screen.classList.contains('login-mode')){
+        // Switching to "create account": do not leave the returning player's
+        // own name in the box, because that name is taken (by them).
+        var nameEl=document.getElementById('username-input');
+        var passwordEl=document.getElementById('password-input');
+        if(returningPlayerName&&nameEl&&nameEl.value.trim()===returningPlayerName){
+            nameEl.value='';
+            if(passwordEl)passwordEl.value='';
+        }
+        showAccountCreateScreen();
+    }
     else showScreen('title-screen');
 }
 
@@ -229,7 +257,10 @@ function showScreen(id){
         if(monsterAnimId){cancelAnimationFrame(monsterAnimId);monsterAnimId=null;}
     }
     if(id==='select-screen')renderCharacterSelect();
-    if(id==='add-user-screen')showAccountCreateScreen();
+    if(id==='add-user-screen'){
+        if(returningPlayerName)showReturningPlayerLogin();
+        else showAccountCreateScreen();
+    }
     syncBackgroundMusic(id);
 }
 
@@ -259,12 +290,13 @@ function goToHeroSelection(){
         var currentUsername=(input?input.value:'').trim().slice(0,24);
         if(currentUsername!==username)return;
         if(!available){
-            if(status)status.textContent='Username is already taken. Please log in or choose another username.';
+            // The name belongs to an existing account. Offer the login form
+            // right away (the typed password is kept) instead of a dead end.
+            showLoginScreen();
+            if(status)status.textContent='Username is already taken. If it is your account, press LOG IN. Otherwise go BACK and choose another username.';
             showToast('Username is already taken','error');
-            if(input){
-                input.focus();
-                input.select();
-            }
+            var passwordEl=document.getElementById('password-input');
+            if(passwordEl)passwordEl.focus();
             return;
         }
         if(status)status.textContent='';

@@ -312,3 +312,14 @@ the `/api/admin/*` routes remain unprotected on the server.
 - New files: `js/02a-sprite-engine.js`, `js/02b-hero-sprites.js`,
   `js/02c-monster-sprites.js`, `css/24-sprites.css`. To change how a hero or
   monster looks, edit its block in 02b or 02c.
+
+## Changelog — coming back after EXIT TO TITLE
+
+- After **EXIT TO TITLE** (Settings), **ENTER DUNGEON** now opens the login
+  form with your username filled in. It used to open ADD USER with your own
+  name in it, which could only answer "Username is already taken".
+- Typing an existing username into ADD USER now switches to the login form
+  (keeping the password you typed) instead of stopping with an error.
+- A wrong password now shows its reason under the form; the message used to be
+  wiped as soon as it appeared.
+- Exiting saves your progress first.

@@ -63,10 +63,14 @@ function restartGame(){
 }
 
 function exitGame(){
+    // Save first, then sign out of the run. Progress stays in MongoDB; the
+    // player logs back in from ENTER DUNGEON (their name is remembered).
+    if(playerUsername&&typeof saveState==='function')saveState();
     localStorage.removeItem(ACTIVE_PLAYER_SESSION_KEY);
+    document.body.removeAttribute('data-active-player');
     closeSettings();
     showScreen('title-screen');
-    showToast('Exited to title','info');
+    showToast('Progress saved. Exited to title','info');
 }
 
 function saveSettings(){
