@@ -79,7 +79,8 @@ APP.JS MAP (one file each, loaded in this order)
     'js/19-leaderboard.js',
     'js/20-startup.js',
     'js/21-password-visibility.js',
-    'js/22-tutorial.js'
+    'js/22-tutorial.js',
+    'js/23-home.js'
   ];
 
   var root = document.getElementById('app-root');

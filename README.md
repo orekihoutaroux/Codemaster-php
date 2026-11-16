@@ -323,3 +323,17 @@ the `/api/admin/*` routes remain unprotected on the server.
 - A wrong password now shows its reason under the form; the message used to be
   wiped as soon as it appeared.
 - Exiting saves your progress first.
+
+## Changelog — refreshed home page
+
+- A short battle now plays in front of the dungeon door: each hero in turn
+  fights a different monster (floor 1 monsters first, then the rest and the
+  bosses), with names underneath. The knight and the hacker run in to strike.
+- **ENTER DUNGEON** is bigger and gently glows; a "Welcome back" line appears
+  after you exit to the title.
+- The three description lines are replaced by live numbers: PHP questions (from
+  the question bank), monsters & bosses, heroes and lessons.
+- A **Top Coders** strip shows the top three players; click it for the full
+  leaderboard. It stays hidden until someone has a score.
+- Laid out to fit a laptop screen without scrolling, and stacked for phones.
+- New files: `public/js/23-home.js`, `public/css/25-home.css`.
