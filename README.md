@@ -2,8 +2,8 @@
 
 A roguelike quiz game for learning PHP. Pick a hero, enter the dungeon and
 answer PHP questions to attack monsters; wrong answers let them hit back.
-Includes a 13-lesson PHP course, a leaderboard and an admin dashboard for
-questions, categories, players and admins.
+Includes a PHP course (13 lessons to start with), a leaderboard and an admin
+dashboard for questions, study lessons, categories, players and admins.
 
 - **Frontend:** plain HTML, CSS and JavaScript in `public/` (no build step).
 - **Backend:** Node.js + Express in `server/`, storing everything in MongoDB.
@@ -97,7 +97,7 @@ codemaster-php/
 │   │   ├── hero-select.html     pick a hero
 │   │   ├── tutorial.html        How to Play
 │   │   ├── game.html            the dungeon
-│   │   ├── study.html           13 PHP lessons
+│   │   ├── study.html           Study Materials (lessons come from the database)
 │   │   └── leaderboard.html
 │   ├── overlays/              pop-up panels shown over a screen
 │   │   ├── settings.html  shop.html  account-info.html
@@ -107,28 +107,30 @@ codemaster-php/
 │   │   ├── data/              game content: heroes, monsters, offline questions
 │   │   ├── sprites/           how heroes and monsters are drawn and animated
 │   │   ├── core/              shared plumbing: state, saving, server calls,
-│   │   │                      navigation, sound, music, startup
+│   │   │                      navigation, sound, music, startup, lesson format
 │   │   ├── game/              the dungeon: battle, timer, shop
 │   │   ├── screens/           home, account, hero select, tutorial,
-│   │   │                      leaderboard, settings
-│   │   └── admin/             admin login and dashboard
+│   │   │                      study materials, leaderboard, settings
+│   │   └── admin/             admin login, dashboard, lesson editor
 │   └── css/
 │       ├── base/              colours, fonts, shared layout, mobile, accessibility
 │       ├── screens/           one file per screen
 │       ├── game/              dungeon HUD, question panel, battle effects, sprites
-│       └── overlays/          settings, shop, account and admin panels
+│       └── overlays/          settings, shop, account and admin panels (incl. lesson editor)
 │
 └── server/                    THE API AND DATABASE
     ├── server.js              starts Express, mounts the routes, serves public/
     ├── db.js                  MongoDB connection and indexes
     ├── seed.js                optional: fill the question bank by hand
     ├── data/
-    │   └── questions_seed.json  the 125 built-in questions
+    │   ├── questions_seed.json  the 125 built-in questions
+    │   └── lessons_seed.json    the 13 built-in lessons
     ├── routes/                one file per group of /api URLs
-    │   ├── questions.js  categories.js  players.js  progression.js
+    │   ├── questions.js  lessons.js  categories.js  players.js  progression.js
     │   ├── auth.js  admins.js  leaderboard.js  health.js
     ├── lib/                   logic shared by the routes
     │   ├── questions.js       loads the seed file, saves admin edits
+    │   ├── lessons.js         study lessons: built-ins, edits, order
     │   ├── categories.js      question categories
     │   ├── admins.js          admin accounts and sessions
     │   ├── passwords.js       password hashing
@@ -149,7 +151,8 @@ codemaster-php/
 | The question time limit                      | `TIMER_MAX` in `public/js/core/state.js` (countdown in `public/js/game/timer.js`) |
 | Shop items and prices                        | `public/overlays/shop.html`, `buyShopItem()` in `public/js/core/feedback.js` and the prices in `public/js/core/api.js` |
 | The built-in questions                       | `server/data/questions_seed.json` (new ids are added to the database on the next start) |
-| The lessons in Study Materials               | `public/pages/study.html`                                    |
+| The lessons in Study Materials               | Admin dashboard → **STUDY MATERIALS** tab (no code needed). Built-in originals: `server/data/lessons_seed.json` |
+| How lessons are drawn / the lesson text format | `public/js/core/lesson-format.js`                          |
 | The home page                                | `public/pages/home.html`, `public/js/screens/home.js`, `public/css/screens/home*.css` |
 | Account creation and login                   | `public/pages/account.html`, `public/js/screens/account.js`  |
 | Moving between screens                       | `showScreen()` in `public/js/core/navigation.js`             |
@@ -178,6 +181,37 @@ they first run, and for styles the later file wins when two rules clash. So:
 Functions are global on purpose so the `onclick="..."` attributes in the HTML
 files can call them.
 
+## Writing lessons
+
+Admins open the dashboard (click the logo 5 times), choose **STUDY
+MATERIALS**, then pick a lesson to edit or press **NEW LESSON**. The preview
+under the form shows exactly what players will see. Lesson content uses a
+small text format (the buttons above the box insert each part):
+
+````
+## A section heading
+
+A paragraph. Leave a blank line to start a new one. Use `code` and **bold**.
+
+- a bullet point
+- another one
+
+```php
+<?php
+echo "An example";
+```
+```output
+An example
+```
+
+> TIP: A green tip box.
+> MISTAKE: A red "common mistake" box.
+````
+
+**Position** sets the lesson's place in the tab row; the others move to make
+room. **RESTORE BUILT-IN LESSONS** puts the 13 original lessons back the way
+they were and keeps lessons that admins added.
+
 ## API reference
 
 All routes start with `/api`. Routes marked *admin* need an admin session
@@ -189,6 +223,11 @@ All routes start with `/api`. Routes marked *admin* need an admin session
 | GET    | `/questions`                               | The question bank                         |
 | POST   | `/admin/questions`                         | Add or edit a question (*admin*)          |
 | POST   | `/admin/questions/reset`                   | Restore built-in questions (*admin*)      |
+| GET    | `/lessons`                                 | Study Materials lessons, in order         |
+| POST   | `/admin/lessons`                           | Add a lesson (*admin*)                    |
+| POST   | `/admin/lessons/:id`                       | Edit a lesson or move it (*admin*)        |
+| DELETE | `/admin/lessons/:id`                       | Delete a lesson (*admin*)                 |
+| POST   | `/admin/lessons/reset`                     | Restore built-in lessons (*admin*)        |
 | GET    | `/admin/categories`                        | List categories (*admin*)                 |
 | POST   | `/admin/categories`                        | Add a category (*admin*)                  |
 | DELETE | `/admin/categories/:name`                  | Delete an unused category (*admin*)       |

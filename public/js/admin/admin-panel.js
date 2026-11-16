@@ -1,4 +1,5 @@
-// ===== ADMIN QUESTION AND USER MANAGEMENT =====
+// ===== ADMIN DASHBOARD: QUESTIONS, USERS, ADMINS, CATEGORIES =====
+// The STUDY MATERIALS tab lives in admin/admin-lessons.js.
 function openAdminDashboard(){
     var overlay=document.getElementById('admin-overlay');
     if(!overlay)return;
@@ -14,6 +15,7 @@ function openAdminDashboard(){
 
 var ADMIN_TABS={
     questions:{title:'QUESTION EDITOR',subtitle:'Changes are stored in the database and immediately affect the quiz question pool.',reload:function(){reloadAdminQuestions();}},
+    lessons:{title:'STUDY MATERIALS',subtitle:'The lessons players read in Study Materials. Edit a lesson or add a new one; saved changes appear for everyone right away.',reload:function(){reloadAdminLessons();}},
     users:{title:'MANAGE USERS',subtitle:'Saved players and leaderboard entries in one list. Edit a save, or create a profile from a leaderboard entry.',reload:function(){reloadAdminUsers();}},
     admins:{title:'MANAGE ADMINS',subtitle:'Accounts that can open this dashboard. Passwords are stored hashed in MongoDB.',reload:function(){reloadAdminAdmins();}}
 };

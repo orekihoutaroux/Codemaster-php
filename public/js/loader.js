@@ -49,6 +49,7 @@ first runs. To add a file, put it in the right folder and add it to SCRIPTS.
     'js/sprites/hero-sprites.js',     // the look of each hero
     'js/sprites/monster-sprites.js',  // the look of each monster and boss
     'js/data/questions-fallback.js',  // questions used when the server cannot be reached
+    'js/core/lesson-format.js',       // turns lesson text into the Study Materials page
     'js/core/state.js',               // the variables that make up a run (HP, score, floor ...)
     'js/core/persistence.js',         // saving and loading a player's progress
     'js/core/api.js',                 // every call to the server (/api/...)
@@ -70,7 +71,9 @@ first runs. To add a file, put it in the right folder and add it to SCRIPTS.
     'js/core/startup.js',             // runs once everything above has loaded
     'js/core/password-visibility.js', // eye buttons on password fields
     'js/screens/tutorial.js',         // How to Play
-    'js/screens/home.js'              // home page: live battle, numbers, top coders
+    'js/screens/home.js',             // home page: live battle, numbers, top coders
+    'js/screens/study.js',            // Study Materials: loads and shows the lessons
+    'js/admin/admin-lessons.js'       // admin dashboard: STUDY MATERIALS tab
   ];
 
   var root = document.getElementById('app-root');

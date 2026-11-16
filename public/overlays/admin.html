@@ -1,8 +1,10 @@
 <!-- ========================================================================
      OVERLAY 5: ADMIN DASHBOARD
-     Purpose: Adds/edits questions and manages saved player accounts.
+     Purpose: Adds/edits questions and study lessons, and manages saved
+     player accounts and admin accounts.
      Functions: openAdminDashboard(), switchAdminTab(), saveAdminQuestion(),
-     saveAdminUser(), resetAdminUserProgress(), deleteAdminUser(),
+     createNewLesson(), saveAdminLesson(), deleteAdminLesson(),
+     restoreBuiltInLessons(), saveAdminUser(), resetAdminUserProgress(), deleteAdminUser(),
      startAddAdmin(), submitAddAdmin(), removeSelectedAdmin(), logoutAdmin()
      ======================================================================== -->
 <div id="admin-overlay" class="admin-overlay" style="display:none;">
@@ -18,6 +20,12 @@
                 <button type="button" class="admin-btn ghost" onclick="resetAdminQuestions()">RESET BUILT-IN EDITS</button>
                 <button type="button" class="admin-btn primary" onclick="closeAdminDashboard()">CLOSE</button>
             </div>
+            <div class="admin-actions" id="admin-lessons-actions" style="display:none;">
+                <button type="button" class="admin-btn ghost" onclick="createNewLesson()">NEW LESSON</button>
+                <button type="button" class="admin-btn secondary" onclick="reloadAdminLessons()">RELOAD</button>
+                <button type="button" class="admin-btn ghost" onclick="restoreBuiltInLessons()">RESTORE BUILT-IN LESSONS</button>
+                <button type="button" class="admin-btn primary" onclick="closeAdminDashboard()">CLOSE</button>
+            </div>
             <div class="admin-actions" id="admin-users-actions" style="display:none;">
                 <button type="button" class="admin-btn secondary" onclick="reloadAdminUsers()">RELOAD</button>
                 <button type="button" class="admin-btn primary" onclick="closeAdminDashboard()">CLOSE</button>
@@ -31,6 +39,7 @@
         </div>
         <div class="admin-tabs">
             <button type="button" class="admin-tab active" id="admin-tab-questions" onclick="switchAdminTab('questions')">QUESTIONS</button>
+            <button type="button" class="admin-tab" id="admin-tab-lessons" onclick="switchAdminTab('lessons')">STUDY<span class="admin-tab-prefix"> MATERIALS</span></button>
             <button type="button" class="admin-tab" id="admin-tab-users" onclick="switchAdminTab('users')"><span class="admin-tab-prefix">MANAGE </span>USERS</button>
             <button type="button" class="admin-tab" id="admin-tab-admins" onclick="switchAdminTab('admins')"><span class="admin-tab-prefix">MANAGE </span>ADMINS</button>
         </div>
@@ -107,6 +116,65 @@
                 <div class="admin-footer">
                     <div class="admin-status" id="admin-status">Select a question to edit it.</div>
                     <button type="button" class="admin-btn primary" onclick="saveAdminQuestion()">SAVE QUESTION</button>
+                </div>
+            </form>
+        </div>
+        <div class="admin-grid" id="admin-lessons-panel" style="display:none;">
+            <div class="admin-list" id="admin-lesson-list">
+                <div class="admin-empty">Loading lessons...</div>
+            </div>
+            <form class="admin-form admin-lesson-form" id="admin-lesson-form" onsubmit="return false;">
+                <div class="admin-field full admin-form-heading" id="admin-lesson-heading">EDIT LESSON</div>
+                <div class="admin-field">
+                    <label for="admin-lesson-title">Title</label>
+                    <input id="admin-lesson-title" type="text" maxlength="80" placeholder="e.g. Working with Dates">
+                </div>
+                <div class="admin-field admin-lesson-small">
+                    <div>
+                        <label for="admin-lesson-tab">Tab label</label>
+                        <input id="admin-lesson-tab" type="text" maxlength="18" placeholder="e.g. DATES">
+                    </div>
+                    <div>
+                        <label for="admin-lesson-order">Position</label>
+                        <input id="admin-lesson-order" type="number" min="1" step="1">
+                    </div>
+                </div>
+                <div class="admin-field full">
+                    <label for="admin-lesson-intro">Introduction (one or two sentences)</label>
+                    <textarea id="admin-lesson-intro" maxlength="600" rows="2"></textarea>
+                </div>
+                <div class="admin-field full">
+                    <div class="admin-lesson-content-head">
+                        <label for="admin-lesson-body">Lesson content</label>
+                        <div class="admin-lesson-toolbar" role="toolbar" aria-label="Insert">
+                            <button type="button" class="admin-mini-btn" onclick="insertLessonSnippet('heading')">HEADING</button>
+                            <button type="button" class="admin-mini-btn" onclick="insertLessonSnippet('code')">CODE</button>
+                            <button type="button" class="admin-mini-btn" onclick="insertLessonSnippet('output')">OUTPUT</button>
+                            <button type="button" class="admin-mini-btn" onclick="insertLessonSnippet('list')">LIST</button>
+                            <button type="button" class="admin-mini-btn" onclick="insertLessonSnippet('tip')">TIP</button>
+                            <button type="button" class="admin-mini-btn" onclick="insertLessonSnippet('mistake')">MISTAKE</button>
+                        </div>
+                    </div>
+                    <textarea id="admin-lesson-body" class="admin-lesson-body" rows="14" spellcheck="false"></textarea>
+                    <div class="admin-lesson-help"><code>## Heading</code> &middot; blank line = new paragraph &middot; <code>- item</code> &middot; <code>```php</code> &hellip; <code>```</code> code &middot; <code>```output</code> &hellip; <code>```</code> result &middot; <code>&gt; TIP:</code> / <code>&gt; MISTAKE:</code> boxes &middot; <code>`code`</code> &middot; <code>**bold**</code></div>
+                </div>
+                <div class="admin-field full">
+                    <label for="admin-lesson-remember">Remember (one point per line, shown at the end)</label>
+                    <textarea id="admin-lesson-remember" rows="3"></textarea>
+                </div>
+                <div class="admin-field full admin-lesson-preview-wrap">
+                    <div class="admin-lesson-preview-head">
+                        <span>PREVIEW</span>
+                        <small>Updates as you type. Players see it after you save.</small>
+                    </div>
+                    <div class="admin-lesson-preview" id="admin-lesson-preview"></div>
+                </div>
+                <div class="admin-footer">
+                    <div class="admin-status" id="admin-lesson-status">Select a lesson to edit it, or press NEW LESSON.</div>
+                    <div class="admin-actions">
+                        <button type="button" class="admin-btn ghost" id="admin-lesson-delete" onclick="deleteAdminLesson()">DELETE LESSON</button>
+                        <button type="button" class="admin-btn primary" id="admin-lesson-save" onclick="saveAdminLesson()">SAVE LESSON</button>
+                    </div>
                 </div>
             </form>
         </div>

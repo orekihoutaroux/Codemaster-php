@@ -6,6 +6,7 @@ const { connectDB } = require('./db');
 const { ensureQuestionsSeeded, migrateQuestionEditsIntoQuestions } = require('./lib/questions');
 const { ensureDefaultAdmin, requireAdmin } = require('./lib/admins');
 const { ensureDefaultCategories } = require('./lib/categories');
+const { ensureLessonsSeeded } = require('./lib/lessons');
 
 const healthRoutes = require('./routes/health');
 const questionsRoutes = require('./routes/questions');
@@ -15,6 +16,7 @@ const authRoutes = require('./routes/auth');
 const leaderboardRoutes = require('./routes/leaderboard');
 const adminsRoutes = require('./routes/admins');
 const categoriesRoutes = require('./routes/categories');
+const lessonsRoutes = require('./routes/lessons');
 
 const PORT = process.env.PORT || 3000;
 
@@ -32,6 +34,7 @@ async function main() {
   await ensureQuestionsSeeded(db);
   await ensureDefaultAdmin(db);
   await ensureDefaultCategories(db);
+  await ensureLessonsSeeded(db);
 
   app.use('/api', healthRoutes(db));
   // Admin login/logout and admin management. Everything else under /api/admin
@@ -43,6 +46,7 @@ async function main() {
   app.delete('/api/players/:username', adminOnly);
   app.use('/api', categoriesRoutes(db));
   app.use('/api', questionsRoutes(db));
+  app.use('/api', lessonsRoutes(db));
   app.use('/api', playersRoutes(db));
   app.use('/api', progressionRoutes(db));
   app.use('/api', authRoutes(db));

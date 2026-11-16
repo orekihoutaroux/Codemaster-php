@@ -110,7 +110,8 @@ window.updateHomeCounts=function(){
     if(Array.isArray(QUESTIONS)&&QUESTIONS.length)set('home-count-questions',QUESTIONS.length);
     set('home-count-monsters',MONSTERS.length+BOSSES.length);
     set('home-count-heroes',CHARACTERS.length);
-    set('home-count-lessons',document.querySelectorAll('#learn-screen .learn-card').length||13);
+    var lessons=document.querySelectorAll('#learn-screen .learn-card').length;
+    if(lessons)set('home-count-lessons',lessons);
 };
 
 window.renderHomeTopCoders=function(){

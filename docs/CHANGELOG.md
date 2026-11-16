@@ -226,3 +226,22 @@ the `/api/admin/*` routes remain unprotected on the server.
 - Removed the empty `package-lock.json` at the top of the repository (there is
   no `package.json` there; the real one is in `server/`).
 - No behaviour changed.
+
+## Changelog — editable study materials
+
+- Lessons are now stored in MongoDB (collection `lessons`) instead of being
+  written into `study.html`. The 13 built-in lessons are added automatically on
+  the next server start, from `server/data/lessons_seed.json`; they look exactly
+  as before.
+- New **STUDY MATERIALS** tab in the admin dashboard, right after QUESTIONS:
+  edit any lesson, add new ones, change their order, delete them, and restore
+  the built-in lessons. A live preview shows the lesson as players will see it,
+  and the dashboard warns before throwing away unsaved changes.
+- Lessons use a small text format (headings, paragraphs, lists, PHP code,
+  output, tip and mistake boxes). Anything that looks like HTML is shown as
+  plain text, so a lesson can never run code in players' browsers.
+- Only signed-in admins can change lessons; anyone can read them.
+- New files: `server/lib/lessons.js`, `server/routes/lessons.js`,
+  `server/data/lessons_seed.json`, `public/js/core/lesson-format.js`,
+  `public/js/screens/study.js`, `public/js/admin/admin-lessons.js`,
+  `public/css/overlays/admin-lessons.css`.
