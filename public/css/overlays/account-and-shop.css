@@ -1,0 +1,62 @@
+/* ===== ACCOUNT INFORMATION AND SHOP OVERLAYS ===== */
+.account-info-overlay{position:fixed;top:68px;left:14px;width:min(500px,calc(100vw - 28px));z-index:310;animation:fadeIn .18s ease-out;}
+.account-info-card{position:relative;max-height:calc(100vh - 82px);overflow-y:auto;background:linear-gradient(180deg,#17172f 0%,#0d0d1e 100%);border:3px solid var(--gold);box-shadow:0 0 0 3px #513800,0 18px 45px rgba(0,0,0,.65),0 0 24px rgba(245,200,66,.14);padding:14px;}
+.account-info-card::before{content:'';position:absolute;inset:5px;pointer-events:none;border:1px solid rgba(245,200,66,.22);}
+.account-info-topbar{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:10px;border-bottom:2px solid rgba(245,200,66,.35);}
+.account-info-heading{font-family:var(--pixel-font);font-size:12px;color:var(--gold);text-shadow:2px 2px 0 #6b4800;}
+.account-info-close{width:30px;height:30px;display:flex;align-items:center;justify-content:center;background:#2b2b44;color:#fff;border:2px solid #555574;font-size:22px;line-height:1;cursor:pointer;}
+.account-info-close:hover,.account-info-close:focus-visible{border-color:var(--accent);background:#3b2034;outline:none;}
+.account-info-profile{position:relative;z-index:1;display:flex;align-items:center;gap:14px;padding:14px 2px 12px;}
+.account-info-avatar{width:80px;height:80px;flex:0 0 80px;image-rendering:pixelated;background:rgba(0,0,0,.48);border:3px solid var(--gold);box-shadow:inset 0 0 18px rgba(0,0,0,.55),0 0 12px rgba(245,200,66,.22);}
+.account-info-profile-copy{min-width:0;display:flex;flex-direction:column;gap:6px;}
+.account-info-name{font-family:var(--pixel-font);font-size:14px;line-height:1.5;color:#fff;overflow-wrap:anywhere;}
+.account-info-title-badge{align-self:flex-start;padding:4px 7px;background:linear-gradient(180deg,#563d08,#2e2106);border:1px solid var(--gold);font-family:var(--pixel-font);font-size:8px;line-height:1.4;color:#fff0a1;text-shadow:1px 1px 0 #5b3b00;}
+.account-info-meta{font-size:12px;font-weight:700;color:var(--green);line-height:1.5;}
+.account-info-hero{font-size:12px;color:#c4c4e6;line-height:1.5;}
+.account-info-grid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;}
+.account-info-stat{min-width:0;padding:8px 5px;text-align:center;background:rgba(0,0,0,.38);border:1px solid #373750;}
+.account-info-stat span{display:block;margin-bottom:6px;font-size:9px;font-weight:700;color:#9c9cba;letter-spacing:.4px;}
+.account-info-stat strong{display:block;color:var(--gold);font-family:var(--pixel-font);font-size:10px;line-height:1.4;overflow-wrap:anywhere;}
+.account-info-ability{position:relative;z-index:1;margin-top:10px;padding:9px 10px;background:rgba(78,204,163,.08);border-left:3px solid var(--green);color:#d8fff2;font-size:11px;font-weight:600;line-height:1.6;}
+.account-achievement-heading{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:13px;padding:8px 2px 7px;border-bottom:2px solid rgba(245,200,66,.34);font-family:var(--pixel-font);font-size:8px;line-height:1.5;color:var(--gold);}
+.account-achievement-heading span:last-child{color:#a9a9c8;font-size:7px;text-align:right;}
+.account-achievement-list{position:relative;z-index:1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:8px;}
+.account-achievement-card{display:grid;grid-template-columns:38px 1fr;gap:8px;min-width:0;padding:8px;background:rgba(0,0,0,.38);border:1px solid #383850;transition:border-color .15s ease,background .15s ease;}
+.account-achievement-card.unlocked{border-color:rgba(245,200,66,.68);background:linear-gradient(135deg,rgba(245,200,66,.12),rgba(78,204,163,.07));}
+.account-achievement-card.locked{filter:saturate(.55);opacity:.68;}
+.account-achievement-icon{grid-row:1/4;width:38px;height:38px;display:flex;align-items:center;justify-content:center;background:#15152a;border:2px solid #4b4b68;color:#7e7e9a;font-family:var(--pixel-font);font-size:8px;line-height:1.2;text-align:center;overflow:hidden;}
+.account-achievement-card.unlocked .account-achievement-icon{border-color:var(--gold);color:var(--gold);box-shadow:0 0 9px rgba(245,200,66,.22);}
+.account-achievement-name{min-width:0;font-size:11px;font-weight:800;line-height:1.35;color:#f4f4ff;}
+.account-achievement-desc{min-width:0;font-size:9px;line-height:1.4;color:#a9a9c3;}
+.account-achievement-reward{grid-column:2;font-size:8px;font-weight:700;line-height:1.35;color:var(--green);}
+.account-achievement-progress{grid-column:1/-1;height:5px;margin-top:2px;background:#24243a;border:1px solid #3f3f59;overflow:hidden;}
+.account-achievement-progress-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--gold));}
+.account-achievement-empty{grid-column:1/-1;padding:14px;text-align:center;color:#9292ad;font-size:11px;line-height:1.6;border:1px dashed #44445d;}
+.achievement-unlock-popup{position:fixed;z-index:380;top:84px;left:50%;width:min(430px,90vw);transform:translateX(-50%);padding:13px 16px;background:linear-gradient(180deg,#302107,#17120a);border:3px solid var(--gold);box-shadow:0 0 0 3px #5d3c00,0 16px 45px rgba(0,0,0,.72),0 0 28px rgba(245,200,66,.34);text-align:center;animation:achievementUnlock 4.2s ease forwards;pointer-events:none;}
+.achievement-unlock-label{font-family:var(--pixel-font);font-size:9px;color:var(--gold);line-height:1.5;}
+.achievement-unlock-name{margin-top:7px;font-size:16px;font-weight:800;color:#fff;}
+.achievement-unlock-title{margin-top:5px;font-size:12px;font-weight:700;color:var(--green);}
+@keyframes achievementUnlock{0%{opacity:0;transform:translate(-50%,-18px) scale(.94)}10%,82%{opacity:1;transform:translate(-50%,0) scale(1)}100%{opacity:0;transform:translate(-50%,-10px) scale(.98)}}
+@media(max-width:520px){
+    .account-info-overlay{top:64px;left:8px;width:calc(100vw - 16px);}
+    .account-info-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .account-info-avatar{width:66px;height:66px;flex-basis:66px;}
+    .account-info-name{font-size:11px;}
+    .account-achievement-list{grid-template-columns:1fr;}
+}
+
+.shop-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;z-index:250;animation:fadeIn 0.3s;}
+.shop-box{background:#12122a;border:3px solid var(--gold);padding:20px;max-width:520px;width:90%;max-height:80vh;overflow-y:auto;}
+.shop-title{font-family:var(--pixel-font);font-size:16px;color:var(--gold);text-shadow:2px 2px 0 #886600;text-align:center;margin-bottom:8px;}
+.shop-gold{font-size:15px;font-weight:700;color:var(--gold);text-align:center;margin-bottom:14px;}
+.shop-items{display:flex;flex-direction:column;gap:8px;}
+.shop-item{display:flex;align-items:center;gap:12px;background:rgba(0,0,0,0.5);border:2px solid #333;padding:12px;cursor:pointer;transition:all 0.15s;}
+.shop-item:hover{border-color:var(--gold);background:rgba(245,200,66,0.05);transform:translateX(4px);}
+.shop-item-icon{font-size:22px;min-width:34px;text-align:center;}
+.shop-item-name{font-size:14px;font-weight:700;color:#fff;min-width:100px;}
+.shop-item-desc{font-size:12px;font-weight:500;color:#aaa;flex:1;line-height:1.6;}
+.shop-item-cost{font-size:14px;font-weight:700;color:var(--gold);min-width:44px;text-align:right;}
+.shop-buffs{margin-top:10px;padding:8px;font-size:13px;font-weight:600;color:var(--green);line-height:1.8;text-align:center;}
+.shop-close{font-family:var(--pixel-font);font-size:10px;padding:10px 24px;background:var(--accent);color:#fff;border:none;box-shadow:0 3px 0 #aa2244;cursor:pointer;display:block;margin:12px auto 0;transition:all 0.1s;}
+.shop-close:hover{transform:translateY(-2px);}
+.shop-close:active{transform:translateY(2px);box-shadow:0 1px 0 #aa2244;}

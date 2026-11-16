@@ -1,0 +1,87 @@
+/* ===== HOME PAGE =====
+   Layout of the refreshed title screen: a battle stage in front of the door,
+   the main button, a row of live numbers, the secondary buttons and the top
+   three players. Sprite canvases are 64x64 and scaled by whole numbers. */
+#title-screen{justify-content:center;gap:0;padding:18px 16px 22px;}
+#title-screen .game-logo{padding-top:30px;margin-bottom:0;}
+
+/* ---- the stage ---- */
+.home-stage{--home-shake:0px;position:relative;width:min(700px,100%);height:210px;margin:4px 0 2px;display:flex;justify-content:center;align-items:flex-end;transform:translateX(var(--home-shake));}
+.home-stage .dungeon-canvas{width:360px;height:180px;margin:0;}
+.home-fighter{position:absolute;bottom:-6px;display:flex;flex-direction:column;align-items:center;pointer-events:none;}
+.home-fighter canvas{width:192px;height:192px;image-rendering:pixelated;display:block;}
+.home-fighter-hero{left:8px;}
+.home-fighter-enemy{right:8px;}
+.home-fighter-name{position:absolute;bottom:-12px;font-family:var(--pixel-font);font-size:8px;letter-spacing:1px;color:#cfd6ff;background:rgba(5,6,18,.78);border:2px solid #2c3160;padding:4px 7px;white-space:nowrap;text-transform:uppercase;}
+.home-fighter-hero .home-fighter-name{left:50%;transform:translateX(-62%);}
+.home-fighter-enemy .home-fighter-name{left:50%;transform:translateX(-42%);}
+.home-fighter-name.is-boss{color:#ffd43b;border-color:#8a2340;}
+
+/* ---- main call to action ---- */
+.home-play{display:flex;flex-direction:column;align-items:center;margin-top:22px;}
+#title-screen #enter-dungeon-btn{margin-top:0;padding:20px 56px;font-size:17px;animation:homeCtaGlow 2.4s ease-in-out infinite;}
+@keyframes homeCtaGlow{0%,100%{box-shadow:0 5px 0 #aa2244,0 0 18px rgba(233,69,96,.3);}50%{box-shadow:0 5px 0 #aa2244,0 0 34px rgba(233,69,96,.62);}}
+.home-welcome{margin-top:10px;font-size:14px;font-weight:700;color:#7ff0c3;text-shadow:0 2px 6px rgba(0,0,0,.8);}
+
+/* ---- live numbers ---- */
+.home-features{list-style:none;margin:18px 0 4px;padding:0;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.home-features li{display:flex;align-items:baseline;gap:7px;padding:8px 13px;background:rgba(10,11,30,.72);border:2px solid #2a2f5c;box-shadow:inset 0 0 0 1px rgba(255,255,255,.04);}
+.home-features b{font-family:var(--pixel-font);font-size:13px;color:var(--gold);}
+.home-features span{font-size:13px;font-weight:700;color:#aeb4dc;}
+
+/* ---- top players ---- */
+.home-top-coders{display:flex;align-items:center;gap:12px;margin-top:14px;padding:8px 14px;max-width:min(700px,100%);background:rgba(10,11,30,.72);border:2px solid #3b3366;color:#dfe3ff;cursor:pointer;font-family:var(--ui-font);}
+.home-top-coders[hidden]{display:none;}
+.home-top-coders:hover{border-color:var(--gold);}
+.home-top-label{font-family:var(--pixel-font);font-size:8px;color:var(--gold);letter-spacing:1px;white-space:nowrap;}
+.home-top-list{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
+.home-top-row{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;max-width:190px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.home-top-row i{font-style:normal;font-family:var(--pixel-font);font-size:7px;padding:3px 4px;background:#3a3f6e;color:#fff;}
+.home-top-row.rank-1 i{background:#c99a12;color:#2a1a00;}
+.home-top-row.rank-2 i{background:#a9b2c8;color:#1a1d29;}
+.home-top-row.rank-3 i{background:#b06a32;color:#200f02;}
+.home-top-row em{font-style:normal;color:var(--gold);font-size:12px;}
+
+/* ---- short screens (most laptops): tighten the vertical rhythm ---- */
+@media(max-height:820px) and (min-width:701px){
+    #title-screen{padding-top:8px;padding-bottom:12px;}
+    #title-screen .game-logo{padding-top:26px;}
+    .home-stage{height:196px;}
+    .home-play{margin-top:18px;}
+    #title-screen #enter-dungeon-btn{padding:17px 50px;font-size:16px;}
+    .home-features{margin-top:14px;}
+    .title-secondary-actions{margin-top:8px;}
+    .title-secondary-btn{padding:11px 16px;}
+    .home-top-coders{margin-top:10px;}
+}
+
+/* ---- phones ---- */
+@media(max-width:700px){
+    #title-screen{justify-content:flex-start;padding:10px 12px 18px;overflow-y:auto;}
+    .home-stage{width:100%;height:150px;}
+    .home-stage .dungeon-canvas{width:280px;height:140px;}
+    .home-fighter canvas{width:128px;height:128px;}
+    .home-fighter{bottom:-4px;}
+    .home-fighter-hero{left:-10px;}
+    .home-fighter-enemy{right:-10px;}
+    .home-stage{overflow:visible;}
+    #title-screen{overflow-x:hidden;}
+    .home-fighter-name{font-size:7px;padding:3px 5px;bottom:-10px;}
+    .home-play{margin-top:20px;width:min(320px,90vw);}
+    #title-screen #enter-dungeon-btn{width:100%;padding:17px 10px;font-size:15px;}
+    .home-features{display:grid;grid-template-columns:1fr 1fr;gap:6px;width:min(320px,90vw);margin-top:14px;}
+    .home-features li{flex-direction:column;align-items:center;gap:2px;padding:7px 4px;text-align:center;}
+    .home-features span{font-size:12px;}
+    .title-secondary-actions{margin-top:8px;}
+    .home-top-coders{flex-direction:column;gap:6px;width:min(320px,90vw);}
+    .home-top-list{flex-direction:column;gap:4px;align-items:stretch;width:100%;}
+    .home-top-row{max-width:none;display:grid;grid-template-columns:34px 1fr auto;text-align:left;}
+}
+@media(max-width:360px){
+    .home-stage .dungeon-canvas{width:240px;height:120px;}
+    .home-stage{height:130px;}
+}
+@media(prefers-reduced-motion:reduce){
+    #title-screen #enter-dungeon-btn{animation:none;}
+    .home-stage{transform:none;}
+}

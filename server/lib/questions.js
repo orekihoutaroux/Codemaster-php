@@ -3,7 +3,7 @@ const path = require('path');
 
 // Every question the game asks lives in the "questions" collection in MongoDB.
 // This file is the only place that reads or writes it.
-const SEED_FILE = path.join(__dirname, '..', 'questions_seed.json');
+const SEED_FILE = path.join(__dirname, '..', 'data', 'questions_seed.json');
 
 const QUESTION_FIELDS = ['id', 'cat', 'diff', 'type', 'q', 'choices', 'answer', 'explain'];
 

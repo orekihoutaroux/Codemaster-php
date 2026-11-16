@@ -8,39 +8,27 @@ index.html is only a shell. This loader:
      stay global for the inline onclick handlers in the partials)
   3. unhides the app once everything is ready
 
-APP.JS MAP (one file each, loaded in this order)
-  01  Drawing helpers and character data
-  02  Monsters, dungeon encounters, and bosses
-  02a Sprite engine (draws heroes and monsters from shapes, with poses)
-  02b Hero sprites
-  02c Monster and boss sprites
-  03  Question data and offline fallback
-  04  Runtime game state
-  05  Player persistence and state synchronization
-  06  Question, battle, shop, and admin API requests
-  07  Screen navigation, account panel, themes, and display preferences
-  08  Music and sound effects
-  09  Question timer
-  10  Title animation and character selection
-  11  Account access and game entry
-  12  Battle, questionnaire, and progression
-  13  Shop controls
-  14  Admin access
-  15  Settings
-  16  Admin question and user management
-  17  Visual feedback, reset, and utility functions
-  18  Keyboard, lifecycle, and input events
-  19  Leaderboard
-  20  Application startup
+Folders under js/
+  data/     game content: heroes, monsters, offline questions
+  sprites/  how heroes and monsters are drawn and animated
+  core/     shared plumbing used by every screen (state, saving, server
+            calls, navigation, sound, startup)
+  game/     the dungeon itself: battles, timer, shop
+  screens/  one file per screen or overlay (home, account, hero select,
+            leaderboard, tutorial, settings)
+  admin/    the admin login and dashboard
+
+ORDER MATTERS: a file may only use things defined in files above it when it
+first runs. To add a file, put it in the right folder and add it to SCRIPTS.
 ===============================================================================
 */
 (function () {
   var PAGES = [
-    'pages/title.html',
+    'pages/home.html',
     'pages/leaderboard.html',
-    'pages/add-user.html',
-    'pages/select.html',
-    'pages/learn.html',
+    'pages/account.html',
+    'pages/hero-select.html',
+    'pages/study.html',
     'pages/game.html',
     'pages/tutorial.html'
   ];
@@ -55,32 +43,34 @@ APP.JS MAP (one file each, loaded in this order)
   ];
 
   var SCRIPTS = [
-    'js/01-drawing-characters.js',
-    'js/02-monsters-bosses.js',
-    'js/02a-sprite-engine.js',
-    'js/02b-hero-sprites.js',
-    'js/02c-monster-sprites.js',
-    'js/03-question-data.js',
-    'js/04-runtime-state.js',
-    'js/05-persistence.js',
-    'js/06-api-requests.js',
-    'js/07-navigation-display.js',
-    'js/08-audio.js',
-    'js/09-question-timer.js',
-    'js/10-title-character-select.js',
-    'js/11-account-entry.js',
-    'js/12-battle-progression.js',
-    'js/13-shop-controls.js',
-    'js/14-admin-access.js',
-    'js/15-settings.js',
-    'js/16-admin-management.js',
-    'js/17-feedback-utilities.js',
-    'js/18-events.js',
-    'js/19-leaderboard.js',
-    'js/20-startup.js',
-    'js/21-password-visibility.js',
-    'js/22-tutorial.js',
-    'js/23-home.js'
+    'js/data/heroes.js',              // the six heroes: stats, colours, special skills
+    'js/data/monsters.js',            // monsters, bosses, the floor map and combat balance
+    'js/sprites/sprite-engine.js',    // draws heroes and monsters from shapes, with poses
+    'js/sprites/hero-sprites.js',     // the look of each hero
+    'js/sprites/monster-sprites.js',  // the look of each monster and boss
+    'js/data/questions-fallback.js',  // questions used when the server cannot be reached
+    'js/core/state.js',               // the variables that make up a run (HP, score, floor ...)
+    'js/core/persistence.js',         // saving and loading a player's progress
+    'js/core/api.js',                 // every call to the server (/api/...)
+    'js/core/navigation.js',          // showScreen(), floor themes, account form state, display settings
+    'js/core/audio.js',               // sound effects
+    'js/game/timer.js',               // the question countdown
+    'js/screens/home-door.js',        // home page: dungeon door and star field
+    'js/screens/hero-select.js',      // hero select cards
+    'js/core/music.js',               // background music
+    'js/screens/account.js',          // create account, log in, enter the game
+    'js/game/battle.js',              // questions, attacks, damage, floors and bosses
+    'js/game/shop.js',                // opening and closing the shop
+    'js/admin/admin-login.js',        // admin sign-in and the hidden logo shortcut
+    'js/screens/settings.js',         // settings overlay and exit to title
+    'js/admin/admin-panel.js',        // admin dashboard: questions, categories, users, admins
+    'js/core/feedback.js',            // toasts, death screen, shop purchases, helpers
+    'js/core/events.js',              // keyboard shortcuts and page lifecycle
+    'js/screens/leaderboard.js',      // leaderboard screen
+    'js/core/startup.js',             // runs once everything above has loaded
+    'js/core/password-visibility.js', // eye buttons on password fields
+    'js/screens/tutorial.js',         // How to Play
+    'js/screens/home.js'              // home page: live battle, numbers, top coders
   ];
 
   var root = document.getElementById('app-root');

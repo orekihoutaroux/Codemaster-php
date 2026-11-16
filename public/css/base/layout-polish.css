@@ -1,0 +1,193 @@
+/* ===== LAYOUT POLISH =====
+   Loaded last. Fixes clipped screens, overflowing panels, and inconsistent
+   controls without touching the art direction in the earlier sheets. */
+
+/* ---------- Shared controls ---------- */
+button{font-family:inherit;}
+button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,
+.choice-btn:focus-visible,.char-card:focus-visible,.learn-tab:focus-visible,.shop-item:focus-visible,.game-title:focus-visible{
+    outline:2px solid var(--gold);outline-offset:2px;
+}
+.add-user-card input,.add-user-card select,
+.admin-login-field input,.admin-login-field select,
+.admin-field input,.admin-field select,.admin-field textarea{
+    border-radius:2px;transition:border-color .12s,box-shadow .12s;
+}
+.add-user-card input:focus,.add-user-card select:focus,
+.admin-login-field input:focus,.admin-login-field select:focus,
+.admin-field input:focus,.admin-field select:focus,.admin-field textarea:focus{
+    outline:none;border-color:var(--gold);box-shadow:0 0 0 2px rgba(245,200,66,.18);
+}
+.admin-login-field select{width:100%;background:#0f1020;color:#fff;border:2px solid #333;padding:10px;font-family:var(--ui-font);}
+.admin-field input[readonly]{color:#9a9ab8;background:#0b0c18;border-style:dashed;cursor:default;}
+.start-btn:disabled,.confirm-btn:disabled{cursor:not-allowed;transform:none;}
+
+/* Screens that can be taller than the viewport scroll instead of clipping. */
+#select-screen,#add-user-screen,#leaderboard-screen{justify-content:flex-start;overflow-y:auto;}
+#select-screen > :first-child,#add-user-screen > :first-child,#leaderboard-screen > :first-child{margin-top:auto;}
+#select-screen > :last-child,#add-user-screen > :last-child,#leaderboard-screen > :last-child{margin-bottom:auto;}
+
+/* ---------- Title ---------- */
+.title-secondary-actions{display:flex;gap:10px;justify-content:center;margin-top:10px;}
+.title-secondary-btn{flex:1;min-width:210px;padding:13px 18px;margin-top:0;white-space:nowrap;}
+.title-secondary-btn.study{background:var(--accent2);box-shadow:0 4px 0 #0a2a4a;}
+.title-secondary-btn.study:hover{box-shadow:0 6px 0 #0a2a4a,0 0 22px rgba(60,120,200,.4);}
+.title-secondary-btn.scores{background:var(--green);color:#04261b;box-shadow:0 4px 0 #2a9966;}
+.title-secondary-btn.scores:hover{box-shadow:0 6px 0 #2a9966,0 0 22px rgba(78,204,163,.4);}
+
+/* ---------- Account ---------- */
+.add-user-card{width:min(520px,100%);padding:24px;gap:14px;}
+.add-user-status{min-height:20px;text-align:center;font-size:14px;color:#ff9aa9;line-height:1.5;}
+.add-user-actions .start-btn{min-width:130px;}
+
+/* ---------- Hero select ---------- */
+.select-title{margin-bottom:6px;text-align:center;}
+.select-subtitle{font-size:15px;color:#b6b6d4;text-align:center;margin-bottom:14px;line-height:1.5;}
+.select-section{width:min(1000px,100%);padding:14px;margin-bottom:14px;}
+.characters-grid{max-width:none;gap:12px;}
+.char-card{min-height:0;padding:10px 10px 12px;justify-content:flex-start;}
+.char-canvas{width:92px;height:92px;margin-bottom:6px;}
+.char-card .char-desc{margin-top:2px;}
+.char-special-preview{width:100%;margin-top:auto;}
+.char-card .char-stats{margin-bottom:8px;}
+.select-actions{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;}
+.select-actions .start-btn,.select-actions .confirm-btn{margin-top:0;padding:14px 28px;font-size:12px;}
+.select-actions .select-back-btn{background:#2b2b44;box-shadow:0 4px 0 #17172a;}
+.select-actions .select-back-btn:hover{box-shadow:0 6px 0 #17172a;}
+
+/* ---------- Leaderboard ---------- */
+.leaderboard-container{padding:22px;min-height:0;max-height:calc(100vh - 40px);}
+.leaderboard-header h1{font-size:26px;line-height:1.4;}
+.leaderboard-table{min-height:160px;margin-bottom:16px;border-width:3px;}
+#leaderboard-list{flex:1;overflow-y:auto;min-height:0;}
+#leaderboard-list .admin-empty{padding:28px 16px;text-align:center;}
+.leaderboard-row,.leaderboard-row.header-row{grid-template-columns:64px 1.5fr 1.4fr 1fr 90px 70px;padding:11px 16px;}
+.leaderboard-row.header-row{font-size:13px;letter-spacing:.6px;}
+.leaderboard-row.header-row .col{font-size:13px;}
+.leaderboard-row .col{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.col.rank{width:auto;min-width:0;}
+.leaderboard-back{align-self:center;margin-top:0;padding:14px 28px;font-size:12px;flex-shrink:0;}
+
+/* ---------- Game HUD ---------- */
+.hud-settings-btn{margin-right:8px;}
+.toast{top:72px;font-size:15px;padding:10px 22px;min-width:min(320px,calc(100vw - 32px));max-width:calc(100vw - 32px);}
+
+/* ---------- Side panels ---------- */
+.lex-curtain{padding:6px 12px 10px;scrollbar-width:thin;scrollbar-color:rgba(245,200,66,.45) transparent;}
+.lex-panel-info{gap:4px;margin-top:14px;}
+.lex-character-stats{padding:6px;margin-top:2px;}
+.lex-character-stats-title{margin-bottom:5px;}
+.lex-panel-btns{flex-direction:row;gap:6px;margin-top:4px;}
+.lex-panel-btns .btn-menu{flex:1;padding:7px 6px;white-space:nowrap;}
+.btn-menu.btn-potion{color:#9ff0d0;border-color:rgba(78,204,163,.6);}
+.btn-menu.btn-potion:hover{color:#fff;border-color:var(--green);}
+.lex-monster-stats{margin-top:14px;}
+
+/* ---------- Question panel ---------- */
+.lex-question-area{scrollbar-width:thin;scrollbar-color:rgba(245,200,66,.45) transparent;padding-right:2px;}
+.q-text{font-size:18px;line-height:1.55;margin-bottom:8px;}
+.code-block{font-family:ui-monospace,'Cascadia Code','Consolas','Courier New',monospace;font-size:14.5px;line-height:1.55;font-weight:500;padding:10px 14px;margin:8px 0 4px;color:#e4e6ef;border-color:#3a3f52;border-left-color:var(--gold);border-radius:2px;tab-size:2;}
+.code-block .code-tag{color:#ff7b72;}
+.code-block .code-kw{color:#ff79c6;}
+.code-block .code-var{color:#88ccff;}
+.code-block .code-string{color:#e6db74;}
+.code-block .code-comment{color:#8b93a7;font-style:italic;}
+.choices{gap:8px;margin-top:8px;}
+.choice-btn{font-size:16px;padding:9px 10px;text-align:left;gap:10px;min-width:0;}
+.choice-btn .choice-text{min-width:0;overflow-wrap:anywhere;}
+.choice-btn .choice-letter{min-width:24px;height:24px;}
+.explanation{margin-top:10px;font-size:15px;line-height:1.6;}
+.lex-attack-btn{margin-top:8px;}
+body.large-text .code-block{font-size:16px;}
+
+/* ---------- Overlays ---------- */
+.death-overlay{background:rgba(18,2,4,.96);backdrop-filter:blur(3px);text-align:center;}
+.death-overlay .sub{color:#d8c2c2;}
+.settings-overlay{z-index:330;}
+.settings-card{width:min(460px,92vw);gap:14px;padding:22px;}
+.settings-volume-value{text-align:center;color:#c8c8e2;font-size:13px;}
+#settings-volume-slider{width:100%;accent-color:var(--gold);padding:0;border:none;background:transparent;}
+.settings-run-actions{display:flex;flex-direction:column;gap:10px;padding-top:14px;border-top:1px solid rgba(245,200,66,.22);}
+.settings-run-label{font-size:11px;letter-spacing:1px;color:#9a9ab8;text-align:center;}
+.settings-card .admin-btn{min-width:150px;}
+.shop-box{width:min(520px,92vw);max-height:88vh;}
+.shop-item{border-radius:2px;}
+.admin-header > div:first-child{flex:1;min-width:260px;}
+.admin-actions{align-items:flex-start;}
+.admin-list,.admin-form{scrollbar-width:thin;scrollbar-color:#4b4f73 transparent;}
+.admin-list-item{border-radius:2px;}
+
+/* ---------- Smaller windows ---------- */
+@media(max-height:820px){
+    .lex-character-special-desc{display:none;}
+    .char-canvas{width:84px;height:84px;}
+}
+@media(max-width:900px){
+    .characters-grid{grid-template-columns:repeat(2,1fr);}
+    .leaderboard-row,.leaderboard-row.header-row{grid-template-columns:44px 1.4fr 1fr 70px 48px;gap:8px;padding:10px;}
+    .leaderboard-row .col.role{display:none;}
+}
+/* Tablets and phones: stack the battle panels instead of squeezing three
+   columns side by side, and let the page scroll. */
+@media(max-width:820px){
+    .lex-hud{flex-wrap:wrap;gap:4px 8px;padding:6px 10px;}
+    .lex-hud-left{min-width:0;flex:1;}
+    .lex-hud-right{min-width:0;}
+    .lex-hud-center{order:3;flex-basis:100%;}
+    .lex-battle-scene{height:200px;}
+    .lex-hero-side{left:14px;}
+    .lex-enemy-side{right:14px;}
+    .lex-speech-bubble{left:120px;max-width:130px;padding:6px 8px;}
+    .lex-game-panel{flex-direction:column;overflow-y:auto;}
+    .lex-center-content{order:1;flex:none;overflow:visible;border-left:0;border-right:0;padding-bottom:14px;}
+    .lex-question-area{flex:none;overflow:visible;max-width:none;}
+    .lex-curtain{order:2;width:100%;min-width:0;flex:none;overflow:visible;padding-bottom:14px;}
+    .lex-curtain-right{order:3;}
+    .lex-character-special-desc{display:block;}
+    .toast{top:10px;}
+    .admin-panel{max-height:94vh;overflow-y:auto;padding:12px;}
+    .admin-grid{grid-template-columns:1fr;overflow:visible;flex:none;}
+    .admin-list{max-height:190px;}
+    .admin-form{overflow:visible;}
+    .account-info-overlay{max-width:100vw;}
+}
+@media(max-width:560px){
+    .game-title{font-size:clamp(15px,5.3vw,28px);white-space:nowrap;}
+    .admin-form{grid-template-columns:1fr;}
+    .leaderboard-container{padding:14px;}
+    .leaderboard-header h1{font-size:20px;}
+    .leaderboard-row,.leaderboard-row.header-row{grid-template-columns:40px 1fr 64px 44px;}
+    .leaderboard-row .col.character{display:none;}
+    .characters-grid{gap:8px;}
+    .select-section{padding:8px;}
+    .title-secondary-actions{flex-direction:column;width:min(320px,90vw);}
+    .title-secondary-btn{min-width:0;}
+    .choices{grid-template-columns:1fr;}
+    .add-user-card{padding:16px;}
+    .select-actions .start-btn,.select-actions .confirm-btn{flex:1;padding:14px 12px;}
+}
+@media(max-width:560px){
+    .lex-hud-left{overflow:hidden;}
+    .lex-player-name,.lex-player-title{display:block;max-width:40vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .hud-settings-btn{margin-right:4px;padding:8px 10px;}
+}
+
+/* Admin: the question editor says where its questions are stored. */
+.admin-subtitle-warning{color:#ff9aa9;}
+
+/* Admin: MANAGE ADMINS tab */
+.admin-form-heading{font-family:var(--pixel-font,'Press Start 2P',monospace);font-size:11px;letter-spacing:1px;color:var(--gold);padding-bottom:4px;border-bottom:1px solid rgba(245,200,66,.22);}
+.admin-btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none;transform:none;}
+.admin-tabs{flex-wrap:wrap;}
+#admin-admin-list .admin-list-item{width:100%;}
+
+/* Admin: category dropdown + add new */
+.admin-category-row{display:flex;gap:8px;align-items:stretch;}
+.admin-category-row select{flex:1;min-width:0;}
+.admin-category-new{flex:0 0 auto;white-space:nowrap;padding:0 14px;}
+.admin-category-add{display:flex;gap:8px;margin-top:8px;align-items:stretch;}
+.admin-category-add[hidden]{display:none;}
+.admin-category-add input{flex:1;min-width:0;}
+.admin-category-add .admin-btn{flex:0 0 auto;padding:0 12px;}
+.admin-category-delete{flex:0 0 auto;white-space:nowrap;padding:0 12px;color:#ff9aa9;}
+.admin-category-delete:hover{color:#fff;border-color:var(--accent);}
