@@ -119,6 +119,11 @@ function resetRuntimeEncounter(){
     monsterMaxHp=0;
     monsterAttack=0;
     monsterDefense=0;
+    // The defeat pose is held on purpose so a fallen hero stays down behind
+    // the death screen. A new run must clear it, or the hero stays invisible.
+    if(typeof combatRunId==='number')combatRunId++;
+    if(typeof SPR!=='undefined'){SPR.clearPose('hero');SPR.clearPose('enemy');}
+    if(typeof clearCharacterCombatAnimation==='function')clearCharacterCombatAnimation();
 }
 
 function restartAfterDeath(){

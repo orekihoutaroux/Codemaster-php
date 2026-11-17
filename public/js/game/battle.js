@@ -56,7 +56,12 @@ function measureCombatDash(){
 }
 
 // The moment an attack connects: the target flinches, or falls if it has no HP left.
-function poseTargetHit(side){
+// Increases every time a run is reset, so an attack that was still in the air
+// when the player died cannot land on (and knock down) the hero of the next run.
+var combatRunId=0;
+
+function poseTargetHit(side,runId){
+    if(runId!==undefined&&runId!==combatRunId)return;
     if(side==='enemy'){
         if(monsterHp<=0){
             SPR.pose('enemy','die',{dur:isBossFight?1300:800,hold:true});
@@ -483,8 +488,9 @@ function playCharacterAttackAnimation(charId,damageValue,isCritical){
     var impactDelay=CHARACTER_ATTACK_TIMINGS[id]||330;
     var swing=CHARACTER_ATTACK_POSES[id]||CHARACTER_ATTACK_POSES.knight;
     SPR.pose('hero','attack',{dur:swing.dur,k:swing.k||impactDelay/swing.dur});
+    var runId=combatRunId;
     setTimeout(function(){
-        poseTargetHit('enemy');
+        poseTargetHit('enemy',runId);
         monsterEl.classList.remove('monster-hit-anim');
         void monsterEl.offsetWidth;
         monsterEl.classList.add('monster-hit-anim');
@@ -517,8 +523,9 @@ function playCharacterSkillAnimation(charId,damageValue,skillName){
     var effect=createCharacterSkillVisual(id);
     var impactDelay=CHARACTER_SKILL_TIMINGS[id]||520;
     SPR.pose('hero','skill',{dur:1400,k:impactDelay/1400});
+    var runId=combatRunId;
     setTimeout(function(){
-        poseTargetHit('enemy');
+        poseTargetHit('enemy',runId);
         monsterEl.classList.remove('monster-hit-anim');
         void monsterEl.offsetWidth;
         monsterEl.classList.add('monster-hit-anim');
@@ -600,8 +607,9 @@ function playEnemyAttackAnimation(monsterId,damageValue){
     var visual=ENEMY_DASH_FACTORS[id]?createEnemyAttackVisual(id):null;
     var impactDelay=ENEMY_ATTACK_TIMINGS[id]||330;
     SPR.pose('enemy','attack',{dur:1000,k:impactDelay/1000});
+    var runId=combatRunId;
     setTimeout(function(){
-        poseTargetHit('hero');
+        poseTargetHit('hero',runId);
         heroEl.classList.remove('hero-hit-anim');
         void heroEl.offsetWidth;
         heroEl.classList.add('hero-hit-anim');
@@ -632,8 +640,9 @@ function playBossSkillAnimation(bossId,damageValue,skillName){
     var effect=createBossSkillVisual(id);
     var impactDelay=BOSS_SKILL_TIMINGS[id]||620;
     SPR.pose('enemy','skill',{dur:1600,k:impactDelay/1600});
+    var runId=combatRunId;
     setTimeout(function(){
-        poseTargetHit('hero');
+        poseTargetHit('hero',runId);
         heroEl.classList.remove('hero-hit-anim');
         void heroEl.offsetWidth;
         heroEl.classList.add('hero-hit-anim');

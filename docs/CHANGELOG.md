@@ -245,3 +245,12 @@ the `/api/admin/*` routes remain unprotected on the server.
   `server/data/lessons_seed.json`, `public/js/core/lesson-format.js`,
   `public/js/screens/study.js`, `public/js/admin/admin-lessons.js`,
   `public/css/overlays/admin-lessons.css`.
+
+## Changelog — hero missing after START NEW RUN
+
+- Fixed: after dying, pressing **START NEW RUN** could leave the battle with no
+  hero (only the HP bar). The hero's "fallen" pose is kept on screen behind the
+  death screen on purpose, but a new run never cleared it. It is now cleared on
+  every run reset, and an attack that was still landing when the player died
+  can no longer knock down the hero of the next run. This mostly happened on
+  the live site, where resetting the run takes a moment.
