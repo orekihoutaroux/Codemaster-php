@@ -272,3 +272,19 @@ the `/api/admin/*` routes remain unprotected on the server.
   them. Settings are remembered on this browser.
 - The old saved font setting and the hidden "large text" switch are cleaned up
   automatically (the large-text switch becomes the new Large size).
+
+## Changelog — home page background and polish
+
+- New animated pixel-art night scene behind the home page
+  (`public/js/screens/home-background.js`): dithered sky, a slow aurora,
+  twinkling stars and the odd shooting star, a moon, three layers of
+  mountains, a castle on a hill with flickering windows and waving flags, a
+  far watchtower, drifting fog, rising embers and floating bits of PHP code.
+  The scene shifts slightly with the mouse. It only animates while the home
+  page is open, and shows a still picture when the device asks for reduced
+  motion.
+- STUDY MATERIALS, LEADERBOARD and HOW TO PLAY now share one calm style with a
+  coloured pixel icon, so ENTER DUNGEON is the one bright button.
+- Pixel icons on the numbers row and the Top Coders strip, a stone ledge under
+  the dungeon door, a darker pool behind the centre so text stays readable,
+  and a one-line description at the bottom on larger screens.

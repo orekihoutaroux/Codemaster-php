@@ -136,6 +136,7 @@ window.updateHomeWelcome=function(){
 };
 
 function refreshHome(){
+    if(typeof startHomeBackground==='function')startHomeBackground();
     updateHomeCounts();updateHomeWelcome();renderHomeTopCoders();startHomeShowcase();
 }
 window.refreshHome=refreshHome;

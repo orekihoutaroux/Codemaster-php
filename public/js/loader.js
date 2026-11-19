@@ -71,6 +71,7 @@ first runs. To add a file, put it in the right folder and add it to SCRIPTS.
     'js/core/startup.js',             // runs once everything above has loaded
     'js/core/password-visibility.js', // eye buttons on password fields
     'js/screens/tutorial.js',         // How to Play
+    'js/screens/home-background.js',  // home page: animated night-sky background
     'js/screens/home.js',             // home page: live battle, numbers, top coders
     'js/screens/study.js',            // Study Materials: loads and shows the lessons
     'js/admin/admin-lessons.js'       // admin dashboard: STUDY MATERIALS tab

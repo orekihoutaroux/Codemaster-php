@@ -1,0 +1,66 @@
+/* ===== HOME PAGE: BACKGROUND SCENE AND FINISHING TOUCHES =====
+   Loaded after the other home styles. The animated scene itself is drawn by
+   js/screens/home-background.js onto #home-bg-canvas. */
+#title-screen > #home-bg-canvas{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;z-index:0;image-rendering:pixelated;image-rendering:crisp-edges;pointer-events:none;}
+#title-screen::before{display:none;}
+/* soft dark pool behind the centre so text stays readable over the scene */
+#title-screen::after{background:radial-gradient(ellipse 46% 58% at 50% 54%,rgba(4,4,16,.62) 0%,rgba(4,4,16,.34) 55%,transparent 80%),radial-gradient(ellipse at center,transparent 45%,rgba(2,2,10,.55) 100%);}
+
+/* the logo sits in front of the moonlit sky */
+#title-screen .game-logo{filter:drop-shadow(0 10px 18px rgba(0,0,0,.6)) drop-shadow(0 0 22px rgba(120,110,255,.18));}
+
+/* the door stage stands on a stone ledge */
+.home-stage::before{content:'';position:absolute;left:50%;bottom:-6px;width:min(520px,96%);height:14px;transform:translateX(-50%);background:linear-gradient(180deg,#2c2a48 0 4px,#17162c 4px 10px,#0b0a18 10px);box-shadow:0 8px 18px rgba(0,0,0,.55);clip-path:polygon(3% 0,97% 0,100% 100%,0 100%);}
+.home-stage .dungeon-canvas{position:relative;z-index:1;}
+
+/* pixel icons */
+.px-icon{width:16px;height:16px;flex:0 0 auto;image-rendering:pixelated;}
+
+/* numbers row: icon, number, label */
+.home-features li{align-items:center;gap:8px;background:rgba(8,9,26,.82);border-color:#2f3566;backdrop-filter:blur(2px);}
+.home-features li .px-icon{width:15px;height:15px;}
+.home-features .feat-q .px-icon{color:#5ef2c3;}
+.home-features .feat-m .px-icon{color:#ff6b8b;}
+.home-features .feat-h .px-icon{color:#cfd6ff;}
+.home-features .feat-l .px-icon{color:#f5c842;}
+
+/* One bright button (ENTER DUNGEON); the other three share one calm style
+   with a coloured icon and top edge, so the main action stands out. */
+.title-secondary-actions{gap:10px;}
+.title-secondary-btn,.title-secondary-btn.study,.title-secondary-btn.scores,.title-secondary-btn.howto{
+    --tone:#9fb4ff;display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    background:linear-gradient(180deg,#1c1f40,#121430);color:#eef0ff;border:2px solid #343a72;border-top:3px solid var(--tone);
+    box-shadow:0 4px 0 #07081a,inset 0 1px 0 rgba(255,255,255,.06);
+}
+.title-secondary-btn .px-icon{color:var(--tone);width:18px;height:18px;}
+.title-secondary-btn.study{--tone:#5aa8ff;}
+.title-secondary-btn.scores{--tone:#4ecca3;}
+.title-secondary-btn.howto{--tone:#f5c842;}
+.title-secondary-btn:hover,.title-secondary-btn.study:hover,.title-secondary-btn.scores:hover,.title-secondary-btn.howto:hover{
+    background:linear-gradient(180deg,#262a55,#171a3c);border-color:var(--tone);transform:translateY(-2px);
+    box-shadow:0 6px 0 #07081a,0 0 18px color-mix(in srgb,var(--tone) 35%,transparent);
+}
+.title-secondary-btn:focus-visible{outline:2px solid var(--tone);outline-offset:3px;}
+
+/* top players */
+.home-top-coders{background:rgba(8,9,26,.82);border-color:#4a3f7a;}
+.home-top-label{display:inline-flex;align-items:center;gap:7px;}
+.home-top-label .px-icon{color:var(--gold);width:14px;height:14px;}
+
+.home-footer{margin-top:12px;font-size:calc(12px * var(--text-scale,1));color:#8f95c4;text-align:center;letter-spacing:.3px;text-shadow:0 1px 3px #000;}
+
+@media(max-height:820px) and (min-width:701px){
+    .home-footer{margin-top:8px;}
+}
+@media(max-height:700px) and (min-width:701px){
+    .home-footer{display:none;}
+}
+@media(max-width:700px){
+    #title-screen::after{background:radial-gradient(ellipse 80% 50% at 50% 55%,rgba(4,4,16,.6) 0%,rgba(4,4,16,.3) 60%,transparent 85%);}
+    .home-stage::before{width:300px;}
+    .title-secondary-btn{justify-content:flex-start;padding-left:18px;}
+    .home-footer{display:none;}
+}
+@media(prefers-reduced-motion:reduce){
+    .title-secondary-btn:hover{transform:none;}
+}

@@ -154,6 +154,7 @@ codemaster-php/
 | The lessons in Study Materials               | Admin dashboard → **STUDY MATERIALS** tab (no code needed). Built-in originals: `server/data/lessons_seed.json` |
 | How lessons are drawn / the lesson text format | `public/js/core/lesson-format.js`                          |
 | The home page                                | `public/pages/home.html`, `public/js/screens/home.js`, `public/css/screens/home*.css` |
+| The home page's animated background          | `public/js/screens/home-background.js`                       |
 | Account creation and login                   | `public/pages/account.html`, `public/js/screens/account.js`  |
 | Moving between screens                       | `showScreen()` in `public/js/core/navigation.js`             |
 | Sound effects / music                        | `public/js/core/audio.js` / `public/js/core/music.js`        |
