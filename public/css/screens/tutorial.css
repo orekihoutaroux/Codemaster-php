@@ -20,6 +20,7 @@
 .tutorial-optout{display:flex;align-items:center;justify-content:center;gap:8px;font-size:calc(14px * var(--text-scale,1));color:#9a9ab8;cursor:pointer;}
 .tutorial-optout input{width:18px;height:18px;accent-color:var(--gold);cursor:pointer;}
 .tutorial-actions{display:flex;justify-content:space-between;gap:12px;}
+.tutorial-actions .tutorial-next{margin-left:auto;}
 .tutorial-actions .start-btn{margin-top:0;padding:14px 26px;font-size:calc(12px * var(--text-scale,1));min-width:140px;}
 .tutorial-back{background:#2b2b44;box-shadow:0 4px 0 #17172a;}
 .tutorial-back:hover{box-shadow:0 6px 0 #17172a;}

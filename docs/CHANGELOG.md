@@ -288,3 +288,8 @@ the `/api/admin/*` routes remain unprotected on the server.
 - Pixel icons on the numbers row and the Top Coders strip, a stone ledge under
   the dungeon door, a darker pool behind the centre so text stays readable,
   and a one-line description at the bottom on larger screens.
+
+## Changelog — How to Play
+
+- The BACK button is hidden on the first step of How to Play (there is
+  nothing to go back to); it appears from step 2 on. NEXT stays on the right.

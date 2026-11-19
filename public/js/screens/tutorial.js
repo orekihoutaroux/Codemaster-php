@@ -149,7 +149,13 @@ function renderTutorialStep(){
         }).join('');
     }
     var back=document.getElementById('tutorial-back');
-    if(back)back.disabled=tutorialIndex===0;
+    // There is nothing before the first step, so BACK is hidden there.
+    if(back){
+        var first=tutorialIndex===0;
+        back.style.display=first?'none':'';
+        back.disabled=first;
+        back.setAttribute('aria-hidden',first?'true':'false');
+    }
     var next=document.getElementById('tutorial-next');
     if(next){
         var last=tutorialIndex===steps.length-1;
@@ -163,7 +169,7 @@ function tutorialGoTo(index){tutorialIndex=index;renderTutorialStep();}
 function tutorialStep(delta){
     var total=getTutorialSteps().length;
     if(delta>0&&tutorialIndex>=total-1){finishTutorial();return;}
-    tutorialIndex+=delta;
+    tutorialIndex=Math.max(0,tutorialIndex+delta);
     renderTutorialStep();
 }
 
