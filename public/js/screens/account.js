@@ -120,7 +120,26 @@ function loginUser(){
     });
 }
 
+// After RESTART GAME: the player is signed in and the run was already reset,
+// so only the chosen hero's stats need applying before the battle starts.
+function startNewRunWithHero(){
+    if(!selectedChar||!playerUsername)return;
+    playFloorStartSfx();
+    var enterBtn=document.getElementById('confirm-btn');
+    if(enterBtn){enterBtn.disabled=true;enterBtn.textContent='STARTING...';}
+    applySelectedCharacterStats();
+    hp=maxHp;
+    saveState();
+    setHeroReselectMode(false);
+    apiSetCharacter(selectedChar.name)
+    .then(function(){return typeof apiProgressionEvent==='function'?apiProgressionEvent('progress_sync',getProgressionMetrics(),false):null;})
+    .catch(function(){})
+    .then(function(){enterDungeonWithTutorial('New run started with '+selectedChar.name+'!');})
+    .finally(function(){if(enterBtn){enterBtn.textContent='ENTER DUNGEON';updateEnterButtonState();}});
+}
+
 function startGame(){
+    if(heroReselectMode){startNewRunWithHero();return;}
     var nameField=document.getElementById('username-input');
     var roleField=document.getElementById('role-select');
     var yearField=document.getElementById('year-level-select');

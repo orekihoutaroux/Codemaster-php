@@ -239,6 +239,7 @@ All routes start with `/api`. Routes marked *admin* need an admin session
 | GET    | `/players/:username`                       | Load a player's saved run                 |
 | POST   | `/players/:username`                       | Save a player's run                       |
 | POST   | `/players/:username/reset`                 | Reset a player's run                      |
+| POST   | `/players/:username/character`             | Change a player's hero (new run)          |
 | GET    | `/players/:username/progression`           | Levels and achievements                   |
 | POST   | `/players/:username/progression/event`     | Record a progression event                |
 | GET    | `/admin/users`                             | List players (*admin*)                    |

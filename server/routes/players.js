@@ -1,5 +1,5 @@
 const express = require('express');
-const { DEFAULT_STATE, createDefaultState, normalizeProgression } = require('../lib/state');
+const { DEFAULT_STATE, CHARACTER_MAX_HP, createDefaultState, normalizeProgression } = require('../lib/state');
 
 module.exports = function playersRoutes(db) {
   const router = express.Router();
@@ -56,6 +56,28 @@ module.exports = function playersRoutes(db) {
     } catch (err) {
       console.error(err);
       res.status(500).json({ status: 'error', message: 'Failed to save player state' });
+    }
+  });
+
+  // Change the player's hero (used when a new run starts after RESTART GAME).
+  // The run itself was already reset; this only records the new hero so the
+  // next login and reset use it.
+  router.post('/players/:username/character', async (req, res) => {
+    try {
+      const username = String(req.params.username || '').trim().slice(0, 24);
+      const character = String((req.body && req.body.character) || '').trim();
+      if (!Object.prototype.hasOwnProperty.call(CHARACTER_MAX_HP, character)) {
+        return res.status(400).json({ status: 'error', message: 'Unknown hero' });
+      }
+      const result = await db.collection('players').updateOne(
+        { username },
+        { $set: { 'profile.character': character, updatedAt: new Date() } }
+      );
+      if (!result.matchedCount) return res.status(404).json({ status: 'not_found', message: 'Player not found' });
+      res.json({ status: 'ok', character });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ status: 'error', message: 'Failed to change hero' });
     }
   });
 

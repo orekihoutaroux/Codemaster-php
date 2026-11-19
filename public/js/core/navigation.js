@@ -268,6 +268,9 @@ function showScreen(id){
         if(monsterAnimId){cancelAnimationFrame(monsterAnimId);monsterAnimId=null;}
     }
     if(id==='select-screen')renderCharacterSelect();
+    if(id==='add-user-screen'||id==='title-screen'){
+        if(typeof heroReselectMode!=='undefined'&&heroReselectMode&&typeof setHeroReselectMode==='function')setHeroReselectMode(false);
+    }
     if(id==='add-user-screen'){
         if(returningPlayerName)showReturningPlayerLogin();
         else{

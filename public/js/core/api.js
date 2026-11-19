@@ -235,6 +235,14 @@ function apiBuyBuff(action){
     return Promise.resolve({status:'no_gold'});
 }
 
+// Records which hero the player picked for a new run (after RESTART GAME).
+function apiSetCharacter(characterName){
+    if(!playerUsername)return Promise.resolve(null);
+    return fetch('/api/players/'+encodeURIComponent(playerUsername)+'/character',{
+        method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({character:characterName})
+    }).then(function(res){return res.json();}).catch(function(err){console.error('apiSetCharacter failed:',err);return null;});
+}
+
 function apiReset(){
     if(playerUsername){
         return fetch('/api/players/'+encodeURIComponent(playerUsername)+'/reset',{method:'POST'})

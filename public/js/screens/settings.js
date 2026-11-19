@@ -57,16 +57,18 @@ function onSettingsTextSizeChange(choice){
 }
 
 function restartGame(){
+    if(!confirm('Restart the game? Your current run ends and you go back to floor 1. You stay signed in and pick a hero for the new run.'))return;
     // Restarting ends the current run, so it counts for the leaderboard just
     // like a death does.
     submitLeaderboardScore(score,floor_num);
     apiReset()
     .then(function(){
-        localStorage.removeItem(ACTIVE_PLAYER_SESSION_KEY);
         closeSettings();
+        if(typeof resetRuntimeEncounter==='function')resetRuntimeEncounter();
         syncUiFromState();
-        showToast('Game restarted','info');
-        showScreen('title-screen');
+        showScreen('select-screen');
+        setHeroReselectMode(true);
+        showToast('Run reset. Pick a hero to start again.','info');
     }).catch(function(){showToast('Could not restart','error');});
 }
 

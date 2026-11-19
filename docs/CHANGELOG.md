@@ -304,3 +304,14 @@ the `/api/admin/*` routes remain unprotected on the server.
   returns home.
 - The old "ADD USER" title is now "REGISTER". Typing a name that already has
   an account still switches to the login form, keeping the password.
+
+## Changelog — Restart Game picks a hero and starts a new run
+
+- **RESTART GAME** in Game Settings asks for confirmation, ends the current run
+  (the score goes to the leaderboard), then opens hero select titled
+  "NEW RUN: PICK A HERO". Your last hero is already selected.
+- **START NEW RUN** starts floor 1 at full HP with the chosen hero. You stay
+  signed in, so there is no login step.
+- The chosen hero is saved to your account (`POST /players/:username/character`),
+  so the next login preselects it.
+- BACK on that screen returns home; ENTER DUNGEON from there works as usual.

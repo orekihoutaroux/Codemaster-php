@@ -43,8 +43,29 @@ function startCharacterSelectAnimation(){
     selectPreviewAnimId=requestAnimationFrame(animate);
 }
 
+// True after RESTART GAME: the player is still signed in, so picking a hero
+// starts the new run straight away (no username or password needed).
+var heroReselectMode=false;
+
+function setHeroReselectMode(on){
+    heroReselectMode=!!on;
+    var title=document.querySelector('#select-screen .select-title');
+    var subtitle=document.querySelector('#select-screen .select-subtitle');
+    var confirm=document.getElementById('confirm-btn');
+    if(title)title.textContent=on?'NEW RUN: PICK A HERO':'PICK A HERO';
+    if(subtitle)subtitle.textContent=on?'Your run was reset to floor 1. Choose a hero (or keep the same one) and press START NEW RUN.':'Each hero has a passive bonus and a special skill charged by correct answers.';
+    if(confirm)confirm.textContent=on?'START NEW RUN':'ENTER DUNGEON';
+    updateEnterButtonState();
+}
+
+function backFromHeroSelect(){
+    if(heroReselectMode){setHeroReselectMode(false);showScreen('title-screen');return;}
+    showScreen('add-user-screen');
+}
+
 function updateEnterButtonState(){
     var btn=document.getElementById('confirm-btn');
+    if(heroReselectMode){if(btn)btn.disabled=!selectedChar;return;}
     var name=(document.getElementById('username-input')?document.getElementById('username-input').value:'').trim();
     var password=document.getElementById('password-input')?document.getElementById('password-input').value:'';
     if(btn)btn.disabled=!selectedChar||!name||password.length<6;
