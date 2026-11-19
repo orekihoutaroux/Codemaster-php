@@ -12,3 +12,9 @@
 .add-user-actions .login-btn{background:var(--accent2);box-shadow:0 4px 0 #0a2a4a,0 0 14px rgba(20,90,150,0.35);}
 .add-user-status{font-size:calc(12px * var(--text-scale,1));line-height:1.6;min-height:18px;text-align:center;color:#ff9fb0;}
 .add-user-actions .start-btn:disabled{opacity:0.45;cursor:not-allowed;transform:none;box-shadow:0 2px 0 #aa2244,0 0 10px rgba(233,69,96,0.2);}
+
+/* Log in / register switch at the bottom of the card. The login form is the
+   default; the register link only shows there, the log-in link only on
+   the register form. */
+#add-user-screen:not(.login-mode) #register-prompt{display:none;}
+#register-prompt .register-btn{border-color:var(--gold);background:linear-gradient(180deg,#7a5a10,#4a3606);color:#fff6d1;}

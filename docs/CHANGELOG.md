@@ -293,3 +293,14 @@ the `/api/admin/*` routes remain unprotected on the server.
 
 - The BACK button is hidden on the first step of How to Play (there is
   nothing to go back to); it appears from step 2 on. NEXT stays on the right.
+
+## Changelog — log in first, register from the bottom link
+
+- **ENTER DUNGEON** now always opens the **PLAYER LOGIN** page (username and
+  password only). At the bottom: "Don't have an account? **REGISTER**", which
+  opens the register form (username, password, role, year level, block).
+  The register form has "Already have an account? **LOG IN**" to go back.
+- BACK on the register form returns to the login page; BACK on the login page
+  returns home.
+- The old "ADD USER" title is now "REGISTER". Typing a name that already has
+  an account still switches to the login form, keeping the password.

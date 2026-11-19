@@ -1,12 +1,15 @@
 <!-- ========================================================================
-     PAGE 3: ACCOUNT / LOGIN
-     Purpose: Creates a player profile or resumes an existing saved profile.
-     Functions: updateAddUserState(), loginUser(), goToHeroSelection()
+     PAGE: ACCOUNT (LOG IN / REGISTER)
+     Purpose: ENTER DUNGEON opens the login form first. "Don't have an
+     account? REGISTER" switches to the register form (role, year, block),
+     and "Already have an account? LOG IN" switches back.
+     Functions: showLoginScreen(), showRegisterScreen(), loginUser(),
+                goToHeroSelection(), backFromAccountEntry() (core/navigation.js)
      ======================================================================== -->
 <div id="add-user-screen" class="screen">
     <div class="add-user-card">
-        <div class="add-user-title" id="add-user-title">ADD USER</div>
-        <div class="add-user-subtitle" id="add-user-subtitle">Create an account to pick a hero, or log in to resume your dungeon.</div>
+        <div class="add-user-title" id="add-user-title">PLAYER LOGIN</div>
+        <div class="add-user-subtitle" id="add-user-subtitle">Log in to continue your saved dungeon progress.</div>
         <div class="profile-field">
             <label for="username-input">Username</label>
             <input id="username-input" type="text" maxlength="24" autocomplete="off" placeholder="Enter your name">
@@ -52,6 +55,7 @@
             <button id="add-user-next-btn" class="start-btn" onclick="goToHeroSelection()" disabled>NEXT: PICK HERO</button>
         </div>
         <div class="add-user-status" id="add-user-status"></div>
-        <div class="returning-player-prompt" id="returning-player-prompt"><span>Already have an account?</span><button type="button" class="returning-login-btn" onclick="showLoginScreen()">LOG IN</button></div>
+        <div class="returning-player-prompt" id="returning-player-prompt"><span>Already have an account?</span><button type="button" class="returning-login-btn" onclick="showLoginFromRegister()">LOG IN</button></div>
+        <div class="returning-player-prompt register-prompt" id="register-prompt"><span>Don't have an account?</span><button type="button" class="returning-login-btn register-btn" id="show-register-btn" onclick="showRegisterScreen()">REGISTER</button></div>
     </div>
-</div>
+</div>

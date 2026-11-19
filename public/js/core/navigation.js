@@ -196,12 +196,13 @@ function showLoginScreen(){
     document.getElementById('username-input').focus();
 }
 
+// REGISTER: create a new account, then pick a hero.
 function showAccountCreateScreen(){
     var screen=document.getElementById('add-user-screen');
     if(!screen)return;
     screen.classList.remove('login-mode');
-    document.getElementById('add-user-title').textContent='ADD USER';
-    document.getElementById('add-user-subtitle').textContent='Create an account to pick a hero, or log in to resume your dungeon.';
+    document.getElementById('add-user-title').textContent='REGISTER';
+    document.getElementById('add-user-subtitle').textContent='Create your account, then pick a hero to enter the dungeon.';
     document.getElementById('username-input').setAttribute('autocomplete','off');
     document.getElementById('password-input').setAttribute('autocomplete','new-password');
     document.getElementById('password-input').placeholder='At least 6 characters';
@@ -209,10 +210,28 @@ function showAccountCreateScreen(){
     updateAddUserState();
 }
 
-// Set once a player has entered the dungeon in this tab. If they come back to
-// the account screen later (after EXIT TO TITLE, a restart or a death), they
-// are shown the login form with their name filled in instead of ADD USER,
-// which would only tell them their own username is already taken.
+// The "Don't have an account? REGISTER" link under the login form.
+function showRegisterScreen(){
+    var nameEl=document.getElementById('username-input');
+    var passwordEl=document.getElementById('password-input');
+    // A returning player's own name is taken (by them), so do not carry it over.
+    if(nameEl&&returningPlayerName&&nameEl.value.trim()===returningPlayerName)nameEl.value='';
+    if(passwordEl)passwordEl.value='';
+    showAccountCreateScreen();
+    if(nameEl)nameEl.focus();
+}
+
+// The "Already have an account? LOG IN" link under the register form.
+function showLoginFromRegister(){
+    var passwordEl=document.getElementById('password-input');
+    if(passwordEl)passwordEl.value='';
+    if(returningPlayerName)showReturningPlayerLogin();
+    else showLoginScreen();
+}
+
+// ENTER DUNGEON always opens the login form first. A player who already
+// entered the dungeon in this tab (after EXIT TO TITLE, a restart or a death)
+// finds their name filled in.
 var returningPlayerName='';
 
 function showReturningPlayerLogin(){
@@ -227,19 +246,11 @@ function showReturningPlayerLogin(){
     updateAddUserState();
 }
 
+// BACK: from REGISTER it returns to the login form; from the login form it
+// returns to the home page.
 function backFromAccountEntry(){
     var screen=document.getElementById('add-user-screen');
-    if(screen&&screen.classList.contains('login-mode')){
-        // Switching to "create account": do not leave the returning player's
-        // own name in the box, because that name is taken (by them).
-        var nameEl=document.getElementById('username-input');
-        var passwordEl=document.getElementById('password-input');
-        if(returningPlayerName&&nameEl&&nameEl.value.trim()===returningPlayerName){
-            nameEl.value='';
-            if(passwordEl)passwordEl.value='';
-        }
-        showAccountCreateScreen();
-    }
+    if(screen&&!screen.classList.contains('login-mode'))showLoginFromRegister();
     else showScreen('title-screen');
 }
 
@@ -259,7 +270,12 @@ function showScreen(id){
     if(id==='select-screen')renderCharacterSelect();
     if(id==='add-user-screen'){
         if(returningPlayerName)showReturningPlayerLogin();
-        else showAccountCreateScreen();
+        else{
+            var nameEl=document.getElementById('username-input'),passwordEl=document.getElementById('password-input');
+            if(passwordEl)passwordEl.value='';
+            if(nameEl&&!nameEl.value)nameEl.value='';
+            showLoginScreen();
+        }
     }
     syncBackgroundMusic(id);
 }

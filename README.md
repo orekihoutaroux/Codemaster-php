@@ -93,7 +93,7 @@ codemaster-php/
 │   ├── index.html             empty shell: styles + js/loader.js
 │   ├── pages/                 one HTML file per screen
 │   │   ├── home.html            title page
-│   │   ├── account.html         create account / log in
+│   │   ├── account.html         log in (first) / register
 │   │   ├── hero-select.html     pick a hero
 │   │   ├── tutorial.html        How to Play
 │   │   ├── game.html            the dungeon
