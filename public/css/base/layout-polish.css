@@ -37,12 +37,12 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 
 /* ---------- Account ---------- */
 .add-user-card{width:min(520px,100%);padding:24px;gap:14px;}
-.add-user-status{min-height:20px;text-align:center;font-size:14px;color:#ff9aa9;line-height:1.5;}
+.add-user-status{min-height:20px;text-align:center;font-size:calc(14px * var(--text-scale,1));color:#ff9aa9;line-height:1.5;}
 .add-user-actions .start-btn{min-width:130px;}
 
 /* ---------- Hero select ---------- */
 .select-title{margin-bottom:6px;text-align:center;}
-.select-subtitle{font-size:15px;color:#b6b6d4;text-align:center;margin-bottom:14px;line-height:1.5;}
+.select-subtitle{font-size:calc(15px * var(--text-scale,1));color:#b6b6d4;text-align:center;margin-bottom:14px;line-height:1.5;}
 .select-section{width:min(1000px,100%);padding:14px;margin-bottom:14px;}
 .characters-grid{max-width:none;gap:12px;}
 .char-card{min-height:0;padding:10px 10px 12px;justify-content:flex-start;}
@@ -51,26 +51,26 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 .char-special-preview{width:100%;margin-top:auto;}
 .char-card .char-stats{margin-bottom:8px;}
 .select-actions{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;}
-.select-actions .start-btn,.select-actions .confirm-btn{margin-top:0;padding:14px 28px;font-size:12px;}
+.select-actions .start-btn,.select-actions .confirm-btn{margin-top:0;padding:14px 28px;font-size:calc(12px * var(--text-scale,1));}
 .select-actions .select-back-btn{background:#2b2b44;box-shadow:0 4px 0 #17172a;}
 .select-actions .select-back-btn:hover{box-shadow:0 6px 0 #17172a;}
 
 /* ---------- Leaderboard ---------- */
 .leaderboard-container{padding:22px;min-height:0;max-height:calc(100vh - 40px);}
-.leaderboard-header h1{font-size:26px;line-height:1.4;}
+.leaderboard-header h1{font-size:calc(26px * var(--text-scale,1));line-height:1.4;}
 .leaderboard-table{min-height:160px;margin-bottom:16px;border-width:3px;}
 #leaderboard-list{flex:1;overflow-y:auto;min-height:0;}
 #leaderboard-list .admin-empty{padding:28px 16px;text-align:center;}
 .leaderboard-row,.leaderboard-row.header-row{grid-template-columns:64px 1.5fr 1.4fr 1fr 90px 70px;padding:11px 16px;}
-.leaderboard-row.header-row{font-size:13px;letter-spacing:.6px;}
-.leaderboard-row.header-row .col{font-size:13px;}
+.leaderboard-row.header-row{font-size:calc(13px * var(--text-scale,1));letter-spacing:.6px;}
+.leaderboard-row.header-row .col{font-size:calc(13px * var(--text-scale,1));}
 .leaderboard-row .col{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .col.rank{width:auto;min-width:0;}
-.leaderboard-back{align-self:center;margin-top:0;padding:14px 28px;font-size:12px;flex-shrink:0;}
+.leaderboard-back{align-self:center;margin-top:0;padding:14px 28px;font-size:calc(12px * var(--text-scale,1));flex-shrink:0;}
 
 /* ---------- Game HUD ---------- */
 .hud-settings-btn{margin-right:8px;}
-.toast{top:72px;font-size:15px;padding:10px 22px;min-width:min(320px,calc(100vw - 32px));max-width:calc(100vw - 32px);}
+.toast{top:72px;font-size:calc(15px * var(--text-scale,1));padding:10px 22px;min-width:min(320px,calc(100vw - 32px));max-width:calc(100vw - 32px);}
 
 /* ---------- Side panels ---------- */
 .lex-curtain{padding:6px 12px 10px;scrollbar-width:thin;scrollbar-color:rgba(245,200,66,.45) transparent;}
@@ -85,30 +85,28 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 
 /* ---------- Question panel ---------- */
 .lex-question-area{scrollbar-width:thin;scrollbar-color:rgba(245,200,66,.45) transparent;padding-right:2px;}
-.q-text{font-size:18px;line-height:1.55;margin-bottom:8px;}
-.code-block{font-family:ui-monospace,'Cascadia Code','Consolas','Courier New',monospace;font-size:14.5px;line-height:1.55;font-weight:500;padding:10px 14px;margin:8px 0 4px;color:#e4e6ef;border-color:#3a3f52;border-left-color:var(--gold);border-radius:2px;tab-size:2;}
+.q-text{font-size:calc(18px * var(--text-scale,1));line-height:1.55;margin-bottom:8px;}
+.code-block{font-family:ui-monospace,'Cascadia Code','Consolas','Courier New',monospace;font-size:calc(14.5px * var(--text-scale,1));line-height:1.55;font-weight:500;padding:10px 14px;margin:8px 0 4px;color:#e4e6ef;border-color:#3a3f52;border-left-color:var(--gold);border-radius:2px;tab-size:2;}
 .code-block .code-tag{color:#ff7b72;}
 .code-block .code-kw{color:#ff79c6;}
 .code-block .code-var{color:#88ccff;}
 .code-block .code-string{color:#e6db74;}
 .code-block .code-comment{color:#8b93a7;font-style:italic;}
 .choices{gap:8px;margin-top:8px;}
-.choice-btn{font-size:16px;padding:9px 10px;text-align:left;gap:10px;min-width:0;}
+.choice-btn{font-size:calc(16px * var(--text-scale,1));padding:9px 10px;text-align:left;gap:10px;min-width:0;}
 .choice-btn .choice-text{min-width:0;overflow-wrap:anywhere;}
 .choice-btn .choice-letter{min-width:24px;height:24px;}
-.explanation{margin-top:10px;font-size:15px;line-height:1.6;}
+.explanation{margin-top:10px;font-size:calc(15px * var(--text-scale,1));line-height:1.6;}
 .lex-attack-btn{margin-top:8px;}
-body.large-text .code-block{font-size:16px;}
+body.large-text .code-block{font-size:calc(16px * var(--text-scale,1));}
 
 /* ---------- Overlays ---------- */
 .death-overlay{background:rgba(18,2,4,.96);backdrop-filter:blur(3px);text-align:center;}
 .death-overlay .sub{color:#d8c2c2;}
 .settings-overlay{z-index:330;}
 .settings-card{width:min(460px,92vw);gap:14px;padding:22px;}
-.settings-volume-value{text-align:center;color:#c8c8e2;font-size:13px;}
-#settings-volume-slider{width:100%;accent-color:var(--gold);padding:0;border:none;background:transparent;}
 .settings-run-actions{display:flex;flex-direction:column;gap:10px;padding-top:14px;border-top:1px solid rgba(245,200,66,.22);}
-.settings-run-label{font-size:11px;letter-spacing:1px;color:#9a9ab8;text-align:center;}
+.settings-run-label{font-size:calc(11px * var(--text-scale,1));letter-spacing:1px;color:#9a9ab8;text-align:center;}
 .settings-card .admin-btn{min-width:150px;}
 .shop-box{width:min(520px,92vw);max-height:88vh;}
 .shop-item{border-radius:2px;}
@@ -155,7 +153,7 @@ body.large-text .code-block{font-size:16px;}
     .game-title{font-size:clamp(15px,5.3vw,28px);white-space:nowrap;}
     .admin-form{grid-template-columns:1fr;}
     .leaderboard-container{padding:14px;}
-    .leaderboard-header h1{font-size:20px;}
+    .leaderboard-header h1{font-size:calc(20px * var(--text-scale,1));}
     .leaderboard-row,.leaderboard-row.header-row{grid-template-columns:40px 1fr 64px 44px;}
     .leaderboard-row .col.character{display:none;}
     .characters-grid{gap:8px;}
@@ -176,7 +174,7 @@ body.large-text .code-block{font-size:16px;}
 .admin-subtitle-warning{color:#ff9aa9;}
 
 /* Admin: MANAGE ADMINS tab */
-.admin-form-heading{font-family:var(--pixel-font,'Press Start 2P',monospace);font-size:11px;letter-spacing:1px;color:var(--gold);padding-bottom:4px;border-bottom:1px solid rgba(245,200,66,.22);}
+.admin-form-heading{font-family:var(--pixel-font,'Press Start 2P',monospace);font-size:calc(11px * var(--text-scale,1));letter-spacing:1px;color:var(--gold);padding-bottom:4px;border-bottom:1px solid rgba(245,200,66,.22);}
 .admin-btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none;transform:none;}
 .admin-tabs{flex-wrap:wrap;}
 #admin-admin-list .admin-list-item{width:100%;}

@@ -254,3 +254,21 @@ the `/api/admin/*` routes remain unprotected on the server.
   every run reset, and an attack that was still landing when the player died
   can no longer knock down the hero of the next run. This mostly happened on
   the live site, where resetting the run takes a moment.
+
+## Changelog — settings: volume and text size fixed
+
+- **Text size now works.** The old "Font Size" option changed a value that no
+  text on the page used, so nothing happened. Every font size in the CSS is now
+  written as `calc(Npx * var(--text-scale,1))`, and Settings sets that one
+  number: Small (90%), Normal (100%, the default), Large (115%) and Extra large
+  (130%). Each screen was checked at Extra large on a laptop and a small phone.
+  The logo and the attack-effect lettering keep their size because they are
+  artwork.
+- **Separate Music and Sound effects sliders.** Before, one slider controlled
+  both, so music could not be turned down without losing the sound effects.
+  Moving the Sound effects slider plays a short chime at the new level; at 0
+  a slider shows "Off".
+- Changes apply as you adjust them; SAVE CHANGES keeps them and CANCEL undoes
+  them. Settings are remembered on this browser.
+- The old saved font setting and the hidden "large text" switch are cleaned up
+  automatically (the large-text switch becomes the new Large size).

@@ -60,7 +60,7 @@
 .lex-battle-scene[data-floor-theme="cyber-defense"] .lex-bg-ground::after{content:'';position:absolute;inset:18px 0 0;background:linear-gradient(90deg,rgba(30,235,216,.13) 1px,transparent 1px),linear-gradient(rgba(30,235,216,.1) 1px,transparent 1px);background-size:54px 100%,100% 12px;}
 .lex-battle-scene[data-floor-theme="cyber-defense"] .lex-cave-frame{display:block;inset:0;box-shadow:inset 34px 0 32px rgba(0,0,0,.45),inset -34px 0 32px rgba(0,0,0,.45);}
 .lex-battle-scene[data-floor-theme="cyber-defense"] .lex-cave-frame::before{content:'';position:absolute;inset:8px 10px 51px;border:2px solid rgba(65,241,224,.28);clip-path:polygon(0 0,20% 0,20% 2px,80% 2px,80% 0,100% 0,100% 26%,calc(100% - 2px) 26%,calc(100% - 2px) 74%,100% 74%,100% 100%,80% 100%,80% calc(100% - 2px),20% calc(100% - 2px),20% 100%,0 100%,0 74%,2px 74%,2px 26%,0 26%);}
-.lex-battle-scene[data-floor-theme="cyber-defense"] .lex-cave-frame::after{content:'SECURE // NODE 03';position:absolute;top:18px;left:50%;transform:translateX(-50%);font-family:var(--pixel-font);font-size:8px;letter-spacing:2px;color:#68fff0;text-shadow:0 0 8px #18cdbf;opacity:.58;white-space:nowrap;}
+.lex-battle-scene[data-floor-theme="cyber-defense"] .lex-cave-frame::after{content:'SECURE // NODE 03';position:absolute;top:18px;left:50%;transform:translateX(-50%);font-family:var(--pixel-font);font-size:calc(8px * var(--text-scale,1));letter-spacing:2px;color:#68fff0;text-shadow:0 0 8px #18cdbf;opacity:.58;white-space:nowrap;}
 .lex-battle-scene[data-floor-theme="cyber-defense"] .lex-crystal-cluster{display:none;}
 
 /* Floor 4: a living code terminal with matrix rain and executable platforms */
@@ -78,7 +78,7 @@
 .lex-battle-scene[data-floor-theme="code-matrix"] .lex-bg-ground::after{content:'';position:absolute;inset:20px 0 0;background:repeating-linear-gradient(90deg,transparent 0 32px,rgba(65,240,112,.15) 32px 34px,transparent 34px 66px);}
 .lex-battle-scene[data-floor-theme="code-matrix"] .lex-cave-frame{display:block;inset:0;box-shadow:inset 28px 0 28px rgba(0,0,0,.5),inset -28px 0 28px rgba(0,0,0,.5);}
 .lex-battle-scene[data-floor-theme="code-matrix"] .lex-cave-frame::before{content:'';position:absolute;left:26%;right:26%;top:17px;height:16px;border:2px solid rgba(73,235,119,.38);background:repeating-linear-gradient(90deg,rgba(54,232,108,.36) 0 25px,transparent 25px 34px);box-shadow:0 0 9px rgba(44,229,103,.22);}
-.lex-battle-scene[data-floor-theme="code-matrix"] .lex-cave-frame::after{content:'<?php  function battle() { return $victory; }  ?>';position:absolute;top:42px;left:50%;transform:translateX(-50%);font-family:var(--pixel-font);font-size:7px;letter-spacing:1px;color:#54f98e;text-shadow:0 0 7px #1ee269;opacity:.45;white-space:nowrap;animation:codePromptBlink 1.8s steps(2,end) infinite;}
+.lex-battle-scene[data-floor-theme="code-matrix"] .lex-cave-frame::after{content:'<?php  function battle() { return $victory; }  ?>';position:absolute;top:42px;left:50%;transform:translateX(-50%);font-family:var(--pixel-font);font-size:calc(7px * var(--text-scale,1));letter-spacing:1px;color:#54f98e;text-shadow:0 0 7px #1ee269;opacity:.45;white-space:nowrap;animation:codePromptBlink 1.8s steps(2,end) infinite;}
 .lex-battle-scene[data-floor-theme="code-matrix"] .lex-crystal-cluster{display:none;}
 
 /* Floor 5: inferno caldera with volcanic silhouettes, lava and rising embers */
@@ -152,25 +152,25 @@
 .lex-enemy-side{right:55px;}
 .char-game-canvas{width:110px;height:110px;image-rendering:pixelated;filter:drop-shadow(2px 4px 6px rgba(0,0,0,0.5));}
 .monster-canvas{width:110px;height:110px;image-rendering:pixelated;filter:drop-shadow(2px 4px 6px rgba(0,0,0,0.6));}
-.lex-hero-label,.lex-enemy-label{font-family:var(--pixel-font);font-size:9px;text-shadow:1px 1px 0 #000;margin-bottom:3px;}
-.lex-hero-label{position:relative;left:-16px;min-width:64px;padding:4px 8px;border:2px solid var(--green);background:rgba(5,13,24,0.9);color:#8dffcf;font-size:9px;font-weight:800;line-height:1.2;letter-spacing:1px;text-align:center;text-shadow:2px 2px 0 #000;box-shadow:0 2px 0 rgba(0,0,0,0.55);}
-.lex-enemy-label{min-width:120px;max-width:220px;padding:3px 7px;background:rgba(5,13,24,0.82);border-bottom:2px solid var(--accent);color:#ff7188;font-size:11px;font-weight:800;line-height:1.2;letter-spacing:0.5px;text-align:center;text-shadow:2px 2px 0 #000;}
+.lex-hero-label,.lex-enemy-label{font-family:var(--pixel-font);font-size:calc(9px * var(--text-scale,1));text-shadow:1px 1px 0 #000;margin-bottom:3px;}
+.lex-hero-label{position:relative;left:-16px;min-width:64px;padding:4px 8px;border:2px solid var(--green);background:rgba(5,13,24,0.9);color:#8dffcf;font-size:calc(9px * var(--text-scale,1));font-weight:800;line-height:1.2;letter-spacing:1px;text-align:center;text-shadow:2px 2px 0 #000;box-shadow:0 2px 0 rgba(0,0,0,0.55);}
+.lex-enemy-label{min-width:120px;max-width:220px;padding:3px 7px;background:rgba(5,13,24,0.82);border-bottom:2px solid var(--accent);color:#ff7188;font-size:calc(11px * var(--text-scale,1));font-weight:800;line-height:1.2;letter-spacing:0.5px;text-align:center;text-shadow:2px 2px 0 #000;}
 .lex-hero-hp-wrap{position:relative;width:140px;margin-top:4px;}
 .lex-hero-hp-wrap>.buff-indicators{position:absolute;top:calc(100% + 5px);left:50%;width:184px;transform:translateX(-50%);display:grid;grid-template-columns:repeat(2,max-content);justify-content:center;gap:4px;}
-.lex-hero-hp-wrap>.buff-indicators .buff-tag{font-family:var(--pixel-font);font-size:11px;padding:3px 7px;line-height:1.35;white-space:nowrap;text-shadow:1px 1px 0 #000;background-color:rgba(5,13,24,0.92);}
+.lex-hero-hp-wrap>.buff-indicators .buff-tag{font-family:var(--pixel-font);font-size:calc(11px * var(--text-scale,1));padding:3px 7px;line-height:1.35;white-space:nowrap;text-shadow:1px 1px 0 #000;background-color:rgba(5,13,24,0.92);}
 .lex-monster-hp-wrap{position:relative;width:160px;margin-top:4px;}
 .hp-bar-container{width:100%;}
 .hp-bar{height:18px;background:var(--hp-bg);border:2px solid #444;position:relative;}
 .hp-fill{height:100%;background:var(--hp-red);transition:width 0.3s;}
 .hp-fill.low{background:#ff4444;animation:hpPulse 0.5s infinite;}
-.hp-text{position:absolute;inset:0;text-align:center;font-size:12px;line-height:14px;color:#fff;text-shadow:1px 1px 0 #000;font-weight:700;}
+.hp-text{position:absolute;inset:0;text-align:center;font-size:calc(12px * var(--text-scale,1));line-height:14px;color:#fff;text-shadow:1px 1px 0 #000;font-weight:700;}
 @keyframes hpPulse{0%,100%{opacity:1;}50%{opacity:0.5;}}
 .lex-monster-hp-bar{height:18px;background:#330000;border:2px solid #555;position:relative;}
 .monster-hp-fill{height:100%;background:#cc2222;transition:width 0.3s;}
-.monster-hp-text{position:absolute;inset:0;text-align:center;font-size:12px;line-height:14px;color:#fff;text-shadow:1px 1px 0 #000;font-weight:700;}
+.monster-hp-text{position:absolute;inset:0;text-align:center;font-size:calc(12px * var(--text-scale,1));line-height:14px;color:#fff;text-shadow:1px 1px 0 #000;font-weight:700;}
 
 /* Speech bubble */
-.lex-speech-bubble{position:absolute;top:24px;left:186px;transform:none;background:#fff;border:3px solid #222;border-radius:6px;padding:8px 14px;font-family:var(--pixel-font);font-size:9px;color:#1a1a1a;max-width:190px;text-align:center;z-index:15;line-height:1.9;white-space:pre-line;box-shadow:2px 2px 0 #888;opacity:1;visibility:visible;transition:opacity .16s ease,transform .16s ease,visibility 0s linear 0s;}
+.lex-speech-bubble{position:absolute;top:24px;left:186px;transform:none;background:#fff;border:3px solid #222;border-radius:6px;padding:8px 14px;font-family:var(--pixel-font);font-size:calc(9px * var(--text-scale,1));color:#1a1a1a;max-width:190px;text-align:center;z-index:15;line-height:1.9;white-space:pre-line;box-shadow:2px 2px 0 #888;opacity:1;visibility:visible;transition:opacity .16s ease,transform .16s ease,visibility 0s linear 0s;}
 .lex-speech-bubble.combat-hidden{opacity:0;visibility:hidden;transform:translateY(-6px) scale(.88);transition:opacity .16s ease,transform .16s ease,visibility 0s linear .16s;}
 .lex-speech-bubble::after{content:'';position:absolute;bottom:-14px;left:26px;border:7px solid transparent;border-top:10px solid #222;}
 .lex-speech-bubble::before{content:'';position:absolute;bottom:-10px;left:28px;border:6px solid transparent;border-top:8px solid #fff;z-index:1;}

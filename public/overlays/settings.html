@@ -1,26 +1,41 @@
 <!-- ========================================================================
-     OVERLAY 3: SETTINGS
-     Purpose: Controls volume and font size, or restarts/exits the game.
-     Functions: openSettings(), closeSettings(), saveSettings(), restartGame(),
-     exitGame()
+     OVERLAY: SETTINGS
+     Purpose: Music and sound-effect volume, text size, and restarting or
+              leaving the current run.
+     Functions: openSettings(), closeSettings(), saveSettings(),
+                cancelSettings(), restartGame(), exitGame()
+                (js/screens/settings.js)
      ======================================================================== -->
 <div id="settings-overlay" class="admin-login-overlay settings-overlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="settings-title">
     <div class="admin-login-card settings-card">
         <div class="admin-login-title" id="settings-title">SETTINGS</div>
-        <div class="admin-login-subtitle">Adjust audio, font size, or control the game.</div>
-        <div class="admin-login-field">
-            <label for="settings-volume-slider">Audio Volume</label>
-            <input id="settings-volume-slider" type="range" min="0" max="100" value="100" oninput="onSettingsVolumeChange(this.value)">
-            <div class="settings-volume-value" id="settings-volume-value">100%</div>
+        <div class="admin-login-subtitle">Changes apply as you adjust them. SAVE keeps them, CANCEL undoes them.</div>
+
+        <div class="settings-group">
+            <div class="settings-group-title">SOUND</div>
+            <div class="settings-row">
+                <label for="settings-music-slider">Music</label>
+                <input id="settings-music-slider" class="settings-slider" type="range" min="0" max="100" step="5" value="100" oninput="onSettingsMusicChange(this.value)">
+                <output class="settings-value" id="settings-music-value" for="settings-music-slider">100%</output>
+            </div>
+            <div class="settings-row">
+                <label for="settings-sfx-slider">Sound effects</label>
+                <input id="settings-sfx-slider" class="settings-slider" type="range" min="0" max="100" step="5" value="100" oninput="onSettingsSfxChange(this.value)">
+                <output class="settings-value" id="settings-sfx-value" for="settings-sfx-slider">100%</output>
+            </div>
         </div>
-        <div class="admin-login-field">
-            <label for="settings-font-size">Font Size</label>
-            <select id="settings-font-size" onchange="onSettingsFontSizeChange(this.value)">
-                <option value="small">Small (13px)</option>
-                <option value="medium">Medium (16px)</option>
-                <option value="large" selected>Large (18px)</option>
-            </select>
+
+        <div class="settings-group">
+            <div class="settings-group-title" id="settings-text-label">TEXT SIZE</div>
+            <div class="settings-text-sizes" role="radiogroup" aria-labelledby="settings-text-label">
+                <button type="button" class="settings-size-btn" data-size="small" role="radio" onclick="onSettingsTextSizeChange('small')"><span style="font-size:13px">Aa</span>Small</button>
+                <button type="button" class="settings-size-btn" data-size="normal" role="radio" onclick="onSettingsTextSizeChange('normal')"><span style="font-size:16px">Aa</span>Normal</button>
+                <button type="button" class="settings-size-btn" data-size="large" role="radio" onclick="onSettingsTextSizeChange('large')"><span style="font-size:19px">Aa</span>Large</button>
+                <button type="button" class="settings-size-btn" data-size="xlarge" role="radio" onclick="onSettingsTextSizeChange('xlarge')"><span style="font-size:22px">Aa</span>Extra large</button>
+            </div>
+            <div class="settings-text-sample">Which superglobal holds form data sent with <code>POST</code>?</div>
         </div>
+
         <div class="admin-login-actions">
             <button type="button" class="admin-btn ghost" onclick="cancelSettings()">CANCEL</button>
             <button type="button" class="admin-btn primary" onclick="saveSettings()">SAVE CHANGES</button>

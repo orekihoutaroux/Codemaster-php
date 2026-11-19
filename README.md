@@ -157,6 +157,8 @@ codemaster-php/
 | Account creation and login                   | `public/pages/account.html`, `public/js/screens/account.js`  |
 | Moving between screens                       | `showScreen()` in `public/js/core/navigation.js`             |
 | Sound effects / music                        | `public/js/core/audio.js` / `public/js/core/music.js`        |
+| Volume and text-size settings                | `public/overlays/settings.html`, `public/js/screens/settings.js`, `TEXT_SIZES` in `public/js/core/navigation.js` |
+| A font size                                  | the CSS file for that screen; keep the form `calc(16px * var(--text-scale,1))` so the Text size setting still works |
 | The admin dashboard                          | `public/overlays/admin.html`, `public/js/admin/admin-panel.js` |
 | Phone layout                                 | `public/css/base/mobile.css` (plus the `@media` blocks in each file) |
 | An API endpoint                              | the matching file in `server/routes/`                        |

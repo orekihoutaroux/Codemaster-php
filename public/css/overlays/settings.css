@@ -1,0 +1,32 @@
+/* ===== SETTINGS PANEL =====
+   Music and sound-effect sliders, the text-size picker and a sample line
+   that shows the chosen size. */
+.settings-group{display:flex;flex-direction:column;gap:10px;padding:12px 14px;background:rgba(255,255,255,.03);border:1px solid rgba(245,200,66,.18);}
+.settings-group-title{font-family:var(--pixel-font);font-size:calc(9px * var(--text-scale,1));letter-spacing:1px;color:var(--gold);}
+.settings-row{display:grid;grid-template-columns:minmax(96px,auto) minmax(0,1fr) 52px;align-items:center;gap:12px;}
+.settings-row label{font-size:calc(15px * var(--text-scale,1));font-weight:700;color:#dfe3ff;}
+.settings-value{font-family:var(--pixel-font);font-size:calc(10px * var(--text-scale,1));color:#fff;text-align:right;}
+
+/* A slider whose filled part shows the level. --fill is set from JS. */
+.settings-slider{--fill:100%;-webkit-appearance:none;appearance:none;width:100%;height:28px;padding:0;margin:0;border:none;background:transparent;cursor:pointer;}
+.settings-slider::-webkit-slider-runnable-track{height:8px;background:linear-gradient(90deg,var(--gold) var(--fill),#2b2f55 var(--fill));border:2px solid #0b0c1d;}
+.settings-slider::-moz-range-track{height:8px;background:#2b2f55;border:2px solid #0b0c1d;}
+.settings-slider::-moz-range-progress{height:8px;background:var(--gold);}
+.settings-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;margin-top:-8px;background:#fff6d1;border:3px solid #0b0c1d;box-shadow:0 0 0 2px var(--gold);}
+.settings-slider::-moz-range-thumb{width:16px;height:16px;background:#fff6d1;border:3px solid #0b0c1d;border-radius:0;box-shadow:0 0 0 2px var(--gold);}
+.settings-slider:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
+
+.settings-text-sizes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;}
+.settings-size-btn{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;min-height:64px;padding:8px 4px;background:#14162e;color:#cfd4f5;border:2px solid #2f3462;font-family:var(--ui-font);font-size:calc(12px * var(--text-scale,1));font-weight:700;cursor:pointer;}
+.settings-size-btn span{font-family:var(--ui-font);font-weight:700;line-height:1;color:#fff;}
+.settings-size-btn:hover{border-color:#6b72b8;}
+.settings-size-btn.active{border-color:var(--gold);background:#2a2440;color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold);}
+.settings-text-sample{padding:10px 12px;background:#0b0d20;border-left:3px solid var(--green);font-size:calc(16px * var(--text-scale,1));font-weight:600;color:#e8ebff;line-height:1.4;}
+.settings-text-sample code{font-family:'Courier New',monospace;color:#e6db74;}
+
+@media(max-width:600px){
+    .settings-row{grid-template-columns:1fr 52px;gap:4px 10px;}
+    .settings-row label{grid-column:1 / -1;}
+    .settings-size-btn{min-height:58px;font-size:calc(11px * var(--text-scale,1));}
+}
+.settings-card{max-height:calc(100dvh - 24px);overflow-y:auto;}

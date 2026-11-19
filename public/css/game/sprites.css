@@ -9,7 +9,7 @@
 .monster-canvas{margin:-71px -35px -11px -47px;}
 .lex-hero-label,.lex-enemy-label,.lex-hero-hp-wrap,.lex-monster-hp-wrap{position:relative;z-index:2;}
 /* Bosses are tall: keep their name on one line and lift it clear of the head. */
-.lex-enemy-side.is-boss .lex-enemy-label{white-space:nowrap;max-width:none;font-size:11px;transform:translateY(-16px);}
+.lex-enemy-side.is-boss .lex-enemy-label{white-space:nowrap;max-width:none;font-size:calc(11px * var(--text-scale,1));transform:translateY(-16px);}
 
 /* Portraits: canvas pixels are an exact multiple of the art pixels. */
 .char-canvas{width:96px;height:96px;}
@@ -21,7 +21,7 @@
     .char-game-canvas{margin:-35px -30px -8px -13px;}
     .monster-canvas{margin:-20px -10px -8px -18px;}
     .char-canvas{width:96px;height:96px;}
-    .lex-enemy-side.is-boss .lex-enemy-label{font-size:9px;transform:none;}
+    .lex-enemy-side.is-boss .lex-enemy-label{font-size:calc(9px * var(--text-scale,1));transform:none;}
 }
 @media(max-width:600px){
     .lex-avatar{width:42px;height:42px;}

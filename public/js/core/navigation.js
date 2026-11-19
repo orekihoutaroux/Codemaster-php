@@ -370,61 +370,74 @@ function showLearnTab(tab){
 }
 
 function applyLargeTextMode(){
-    document.body.classList.toggle('large-text',largeTextMode);
+    // Replaced by the Text size setting; see applyStoredFontSize().
+    document.body.classList.remove('large-text');
 }
 
-function toggleLargeText(){
-    largeTextMode=!largeTextMode;
-    localStorage.setItem('largeTextMode',largeTextMode?'1':'0');
-    applyLargeTextMode();
-    showToast(largeTextMode?'Large text enabled':'Large text disabled','info');
+
+// ----- volume -----
+// Sliders show 0-100%; the gain follows a curve because ears hear loudness
+// that way (50% on the slider sounds about half as loud).
+function getPerceivedGain(value){
+    return Math.pow(Math.max(0,Math.min(1,value)),1.6);
 }
 
 function setSfxVolume(v){
     var num=Math.max(0,Math.min(1,parseFloat(v)||0));
     sfxVolume=num;
     localStorage.setItem('sfxVolume',String(num));
-    if(audioMasterGain)audioMasterGain.gain.value=getPerceivedGain(sfxVolume);
-    updateSfxVolumeUI();
+    if(audioMasterGain&&audioCtx)audioMasterGain.gain.setTargetAtTime(getPerceivedGain(num),audioCtx.currentTime,0.015);
+    updateVolumeUI();
 }
 
-function getPerceivedGain(value){
-    return Math.pow(Math.max(0,Math.min(1,value)),1.6);
+function setMusicVolume(v){
+    var num=Math.max(0,Math.min(1,parseFloat(v)||0));
+    musicVolume=num;
+    localStorage.setItem('musicVolume',String(num));
+    if(musicGain&&audioCtx)musicGain.gain.setTargetAtTime(MUSIC_BASE_GAIN*getPerceivedGain(num),audioCtx.currentTime,0.05);
+    updateVolumeUI();
 }
 
-function updateSfxVolumeUI(){
-    var slider=document.getElementById('sfx-volume-slider');
-    var val=document.getElementById('sfx-volume-value');
-    var settingsSlider=document.getElementById('settings-volume-slider');
-    var settingsVal=document.getElementById('settings-volume-value');
-    var pct=Math.round(sfxVolume*100);
-    if(slider)slider.value=String(pct);
-    if(val)val.textContent=pct+'%';
-    if(settingsSlider)settingsSlider.value=String(pct);
-    if(settingsVal)settingsVal.textContent=pct+'%';
+function updateVolumeUI(){
+    [['sfx',sfxVolume],['music',musicVolume]].forEach(function(pair){
+        var pct=Math.round(pair[1]*100);
+        var slider=document.getElementById('settings-'+pair[0]+'-slider');
+        var label=document.getElementById('settings-'+pair[0]+'-value');
+        if(slider&&String(slider.value)!==String(pct))slider.value=String(pct);
+        if(slider)slider.style.setProperty('--fill',pct+'%');
+        if(label)label.textContent=pct===0?'Off':pct+'%';
+    });
+}
+var updateSfxVolumeUI=updateVolumeUI; // older name, kept for any old callers
+
+// ----- text size -----
+// Every font size in the CSS is written as calc(Npx * var(--text-scale,1)),
+// so changing this one number resizes all the text in the game.
+var TEXT_SIZES={small:0.9,normal:1,large:1.15,xlarge:1.3};
+
+function normaliseTextSize(choice){
+    return Object.prototype.hasOwnProperty.call(TEXT_SIZES,choice)?choice:'normal';
 }
 
-function applyFontSizeChoice(choice){
-    var size=(choice||'medium');
-    if(size==='large')document.documentElement.style.fontSize='18px';
-    else if(size==='small')document.documentElement.style.fontSize='13px';
-    else document.documentElement.style.fontSize='16px';
+function applyTextSize(choice){
+    var size=normaliseTextSize(choice);
+    document.documentElement.style.setProperty('--text-scale',String(TEXT_SIZES[size]));
+    document.documentElement.setAttribute('data-text-size',size);
+    return size;
+}
+
+function getStoredTextSize(){
+    return normaliseTextSize(localStorage.getItem('textSize'));
 }
 
 function applyStoredFontSize(){
-    var storedChoice=localStorage.getItem('rootFontSize');
-    if(storedChoice){
-        applyFontSizeChoice(storedChoice);
-        return;
-    }
-    var storedScale=localStorage.getItem('rootFontScale');
-    if(storedScale){
-        var scale=parseInt(storedScale,10);
-        var derived=scale>=110?'large':(scale<=90?'small':'medium');
-        localStorage.setItem('rootFontSize',derived);
-        applyFontSizeChoice(derived);
-        return;
-    }
-    applyFontSizeChoice('large');
+    // The old "Font Size" setting (rootFontSize / rootFontScale) only changed
+    // a value the page never used, so it is dropped. The old hidden
+    // "large text" switch becomes the new Large size.
+    if(!localStorage.getItem('textSize')&&localStorage.getItem('largeTextMode')==='1')localStorage.setItem('textSize','large');
+    localStorage.removeItem('rootFontSize');
+    localStorage.removeItem('rootFontScale');
+    localStorage.removeItem('largeTextMode');
+    applyTextSize(getStoredTextSize());
 }
 

@@ -45,6 +45,11 @@ var playerProgression=null;
 var progressionEventQueue=Promise.resolve();
 var sfxVolume=parseFloat(localStorage.getItem('sfxVolume')||'1');
 if(isNaN(sfxVolume))sfxVolume=1;
+// Music has its own slider. Players who only ever had one volume slider keep
+// the level they chose for it.
+var musicVolume=parseFloat(localStorage.getItem('musicVolume')||String(sfxVolume));
+if(isNaN(musicVolume))musicVolume=1;
+var MUSIC_BASE_GAIN=0.16;
 var questionEdits={};
 // True once the question bank has been loaded from MongoDB. While it is false
 // the game is running on the offline copy in data/questions-fallback.js and nothing

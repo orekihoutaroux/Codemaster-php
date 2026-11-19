@@ -5,17 +5,16 @@ function ensureAudioContext(){
             var AC=window.AudioContext||window.webkitAudioContext;
             if(!AC)return null;
             audioCtx=new AC();
+            // Two separate volume controls: sound effects go through
+            // audioMasterGain, music through musicGain. Both go to the speakers.
             audioMasterGain=audioCtx.createGain();
             audioMasterGain.gain.value=getPerceivedGain(sfxVolume);
             audioMasterGain.connect(audioCtx.destination);
-            musicGain=audioCtx.createGain();
-            musicGain.gain.value=0.16;
-            musicGain.connect(audioMasterGain);
         }
-        if(!musicGain&&audioMasterGain){
+        if(!musicGain){
             musicGain=audioCtx.createGain();
-            musicGain.gain.value=0.16;
-            musicGain.connect(audioMasterGain);
+            musicGain.gain.value=MUSIC_BASE_GAIN*getPerceivedGain(musicVolume);
+            musicGain.connect(audioCtx.destination);
         }
         if(audioCtx.state==='suspended')audioCtx.resume();
         return audioCtx;
@@ -127,6 +126,18 @@ function playCombatSfxRecipe(recipe,isEmpowered,pan){
         playSynthTone(tone.f,tone.o,tone.d,tone.w,tone.v,tone.s,typeof tone.pan==='number'?tone.pan:pan);
     }
     for(var j=0;j<noises.length;j++)playFilteredNoise(noises[j],typeof noises[j].pan==='number'?noises[j].pan:pan);
+}
+
+// A short two-note chime so players can hear the new sound-effects level
+// while they drag the slider.
+var lastVolumePreview=0;
+function playVolumePreviewSfx(){
+    var now=Date.now();
+    if(now-lastVolumePreview<140)return;
+    lastVolumePreview=now;
+    if(!ensureAudioContext())return;
+    playSynthTone(660,0,0.07,'square',0.05,1.0);
+    playSynthTone(990,0.07,0.09,'triangle',0.05,1.0);
 }
 
 var BUTTON_SFX_PROFILES={
