@@ -315,3 +315,12 @@ the `/api/admin/*` routes remain unprotected on the server.
 - The chosen hero is saved to your account (`POST /players/:username/character`),
   so the next login preselects it.
 - BACK on that screen returns home; ENTER DUNGEON from there works as usual.
+
+## Changelog — Settings no longer changes the run
+
+- Opening **Settings** in battle now pauses the question timer. Before, the
+  timer kept counting behind the panel; if it ran out, the question counted as
+  wrong and the hero lost HP while you were only changing volume or text size.
+- **SAVE CHANGES** and **CANCEL** (or Escape) close the panel and the timer
+  continues from the same second. Saving only stores volume and text size;
+  HP, score, floor, gold and the current question stay exactly as they were.

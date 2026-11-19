@@ -7,6 +7,9 @@ function openSettings(){
     var overlay=document.getElementById('settings-overlay');
     if(!overlay)return;
     settingsSnapshot={sfx:sfxVolume,music:musicVolume,textSize:getStoredTextSize()};
+    // Settings only changes volume and text size: hold the question timer so
+    // the run is exactly as it was when the panel closes.
+    if(typeof pauseTimer==='function')pauseTimer();
     updateVolumeUI();
     markTextSizeChoice(settingsSnapshot.textSize);
     overlay.style.display='flex';
@@ -19,6 +22,7 @@ function cancelSettings(){
         onSettingsTextSizeChange(settingsSnapshot.textSize);
     }
     closeSettings();
+    if(typeof resumeTimer==='function')resumeTimer();
 }
 
 function closeSettings(){
@@ -84,9 +88,11 @@ function exitGame(){
 }
 
 function saveSettings(){
-    // Everything is already applied and stored; saving just keeps it.
+    // Only volume and text size are saved here (in this browser). The run
+    // itself is not touched: the question picks up where it was paused.
     settingsSnapshot=null;
-    showToast('Settings saved','success');
+    showToast('Volume and text size saved','success');
     closeSettings();
+    if(typeof resumeTimer==='function')resumeTimer();
 }
 
