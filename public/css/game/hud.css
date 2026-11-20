@@ -11,17 +11,17 @@
 /* ---- SPECIAL SKILL: a tab hanging under the player profile (top left) ----
    Charges +25% per correct answer. Gold when full; glowing and clickable
    when it can be used on the current question (updateCharacterStatsUI()). */
-.hud-skill{position:absolute;top:calc(100% + 4px);left:14px;z-index:21;display:flex;align-items:center;gap:7px;width:236px;margin:0;padding:3px 7px 4px 3px;
+.hud-skill{position:absolute;top:calc(100% + 4px);left:14px;z-index:21;display:flex;align-items:center;gap:10px;width:292px;margin:0;padding:5px 10px 6px 5px;
     border:2px solid #2c3366;border-top:0;border-radius:0 0 5px 5px;background:linear-gradient(180deg,#161b3c 0%,#0b0e22 100%);color:#c9cdf0;cursor:default;font:inherit;text-align:left;
     box-shadow:0 3px 0 rgba(0,0,0,.45);}
 .hud-skill:disabled{opacity:1;cursor:default;}
-.hud-skill-icon{flex:0 0 auto;width:22px;height:22px;display:grid;place-items:center;background:#080a18;border:2px solid #3b4680;}
-.hud-skill-icon svg{width:14px;height:14px;display:block;image-rendering:pixelated;}
-.hud-skill-main{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:3px;}
+.hud-skill-icon{flex:0 0 auto;width:34px;height:34px;display:grid;place-items:center;background:#080a18;border:2px solid #3b4680;}
+.hud-skill-icon svg{width:22px;height:22px;display:block;image-rendering:pixelated;}
+.hud-skill-main{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:5px;}
 .hud-skill-top{display:flex;align-items:baseline;justify-content:space-between;gap:6px;min-width:0;}
-.hud-skill-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--ui-font);font-weight:800;font-size:calc(11px * var(--text-scale,1));line-height:1.1;letter-spacing:.4px;color:#dfe3ff;text-shadow:1px 1px 0 #000;}
-.hud-skill-state{flex:0 0 auto;font-family:var(--pixel-font);font-size:calc(7px * var(--text-scale,1));line-height:1;color:#9aa3d8;text-shadow:1px 1px 0 #000;}
-.hud-skill-track{display:block;height:6px;background:#04050b;border:1px solid #262b52;overflow:hidden;}
+.hud-skill-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--ui-font);font-weight:800;font-size:calc(15px * var(--text-scale,1));line-height:1.1;letter-spacing:.5px;color:#dfe3ff;text-shadow:1px 1px 0 #000;}
+.hud-skill-state{flex:0 0 auto;font-family:var(--pixel-font);font-size:calc(10px * var(--text-scale,1));line-height:1;color:#9aa3d8;text-shadow:1px 1px 0 #000;}
+.hud-skill-track{display:block;height:9px;background:#04050b;border:1px solid #262b52;overflow:hidden;}
 .hud-skill-fill{display:block;height:100%;background:linear-gradient(90deg,#7b4dff 0%,#e94560 60%,#f5c842 100%);transition:width .35s ease;}
 /* full: gold */
 .hud-skill.full{border-color:#a87b0c;}
@@ -42,25 +42,26 @@
 @media(prefers-reduced-motion:reduce){.hud-skill.ready,.hud-skill.ready .hud-skill-fill{animation:none;}}
 
 /* ---- SHOP: a gold tab hanging under PTS / GOLD / FLOOR (top right) ---- */
-.hud-shop-btn{position:absolute;top:calc(100% + 4px);right:14px;z-index:21;display:flex;align-items:center;justify-content:center;gap:8px;min-width:150px;margin:0;padding:6px 16px 8px;cursor:pointer;
-    font-family:var(--pixel-font);font-size:calc(12px * var(--text-scale,1));letter-spacing:2px;line-height:1.2;color:#2a1600;text-shadow:0 1px 0 rgba(255,255,255,.5);
+.hud-shop-btn{position:absolute;top:calc(100% + 4px);right:14px;z-index:21;display:flex;align-items:center;justify-content:center;gap:10px;min-width:196px;margin:0;padding:11px 22px 12px;cursor:pointer;
+    font-family:var(--pixel-font);font-size:calc(16px * var(--text-scale,1));letter-spacing:3px;line-height:1.2;color:#2a1600;text-shadow:0 1px 0 rgba(255,255,255,.5);
     background:linear-gradient(180deg,#ffe98f 0%,#f5c842 45%,#d9a21a 100%);border:2px solid #7a5800;border-top:0;border-radius:0 0 5px 5px;
     box-shadow:0 3px 0 rgba(0,0,0,.45),inset 0 -2px 0 rgba(90,58,0,.35);transition:transform .1s,filter .1s;}
 .hud-shop-btn:hover{filter:brightness(1.08);transform:translateY(1px);}
 .hud-shop-btn:active{transform:translateY(2px);}
 .hud-shop-btn:focus-visible{outline:2px solid #fff;outline-offset:2px;}
 /* a little pixel coin */
-.hud-shop-coin{width:14px;height:14px;flex-shrink:0;background:radial-gradient(circle at 40% 35%,#fff6c4 0 18%,#ffd84a 19% 55%,#c78a00 56% 100%);border:2px solid #5a3a00;border-radius:50%;box-shadow:1px 1px 0 rgba(0,0,0,.35);}
+.hud-shop-coin{width:20px;height:20px;flex-shrink:0;background:radial-gradient(circle at 40% 35%,#fff6c4 0 18%,#ffd84a 19% 55%,#c78a00 56% 100%);border:2px solid #5a3a00;border-radius:50%;box-shadow:1px 1px 0 rgba(0,0,0,.35);}
 /* phones and tablets: the header is narrower */
 @media(max-width:900px){
-    .hud-skill{left:10px;width:min(210px,calc(52% - 14px));gap:5px;padding:2px 5px 3px 2px;}
-    .hud-skill-icon{width:20px;height:20px;}
-    .hud-skill-icon svg{width:12px;height:12px;}
-    .hud-skill-name{font-size:calc(10px * var(--text-scale,1));}
-    .hud-skill-state{font-size:calc(6px * var(--text-scale,1));}
-    .hud-skill-track{height:5px;}
-    .hud-shop-btn{right:10px;min-width:0;width:min(150px,calc(48% - 22px));padding:5px 10px 7px;font-size:calc(10px * var(--text-scale,1));letter-spacing:1px;gap:6px;}
-    .hud-shop-coin{width:12px;height:12px;}
+    .hud-skill{left:10px;width:min(250px,calc(55% - 14px));gap:6px;padding:3px 7px 4px 3px;}
+    .hud-skill-icon{width:28px;height:28px;}
+    .hud-skill-icon svg{width:18px;height:18px;}
+    .hud-skill-main{gap:4px;}
+    .hud-skill-name{font-size:calc(12px * var(--text-scale,1));}
+    .hud-skill-state{font-size:calc(8px * var(--text-scale,1));}
+    .hud-skill-track{height:7px;}
+    .hud-shop-btn{right:10px;min-width:0;width:min(180px,calc(45% - 14px));padding:9px 10px 10px;font-size:calc(13px * var(--text-scale,1));letter-spacing:2px;gap:7px;}
+    .hud-shop-coin{width:16px;height:16px;}
 }
 
 .lex-hud-center{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;}

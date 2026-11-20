@@ -68,7 +68,7 @@
 .lex-battle-scene .lex-speech-bubble{top:12px;left:calc(var(--hero-x) + 36px);right:auto;max-width:min(210px,calc(var(--app-w,100vw) * .4));}
 
 /* ---- buffs: top-left corner of the scene, under the skill tab (css/game/hud.css) ---- */
-.lex-battle-scene>.buff-indicators{position:absolute;top:44px;left:8px;z-index:12;display:flex;flex-wrap:wrap;gap:4px;max-width:44%;pointer-events:none;}
+.lex-battle-scene>.buff-indicators{position:absolute;top:56px;left:8px;z-index:12;display:flex;flex-wrap:wrap;gap:4px;max-width:44%;pointer-events:none;}
 .lex-battle-scene>.buff-indicators .buff-tag{font-family:var(--pixel-font);font-size:calc(9px * var(--text-scale,1));padding:3px 6px;line-height:1.35;white-space:nowrap;text-shadow:1px 1px 0 #000;background-color:rgba(5,13,24,.92);}
 
 /* ---- hit effects land on the fighters ----
@@ -147,9 +147,9 @@
 }
 /* ---- tablets and phones: 2x pixels ---- */
 @media(max-width:900px){
-    /* 32px more sky: the skill and SHOP tabs hang over the top of the scene */
-    .lex-battle-scene{--px:2;--ground:56px;--feet:12px;--gap:min(26%,240px);height:250px;}
-    .lex-battle-scene>.buff-indicators{top:36px;max-width:96%;flex-wrap:nowrap;}
+    /* 44px more sky: the skill and SHOP tabs hang over the top of the scene */
+    .lex-battle-scene{--px:2;--ground:56px;--feet:12px;--gap:min(26%,240px);height:262px;}
+    .lex-battle-scene>.buff-indicators{top:46px;max-width:96%;flex-wrap:nowrap;}
     .fighter-plate{width:min(180px,calc(var(--app-w,100vw) * .44));padding:2px 4px 3px;gap:2px;}
     .enemy-plate{width:min(190px,calc(var(--app-w,100vw) * .45));}
     .fighter-plate-top{height:12px;gap:4px;}
@@ -158,7 +158,7 @@
     .fighter-plate .lex-enemy-label{font-size:calc(8px * var(--text-scale,1));}
     .fighter-plate .hp-bar,.fighter-plate .lex-monster-hp-bar{height:14px;}
     .fighter-plate .hp-text,.fighter-plate .monster-hp-text{font-size:calc(10px * var(--text-scale,1));line-height:10px;}
-    .lex-battle-scene .lex-speech-bubble{top:60px;left:calc(var(--hero-x) + 26px);max-width:min(170px,calc(var(--app-w,100vw) * .42));padding:6px 8px;}
+    .lex-battle-scene .lex-speech-bubble{top:72px;left:calc(var(--hero-x) + 26px);max-width:min(170px,calc(var(--app-w,100vw) * .42));padding:6px 8px;}
     .lex-enemy-side.is-boss .lex-enemy-label{font-size:calc(7px * var(--text-scale,1));}
 }
 @media(max-width:420px){

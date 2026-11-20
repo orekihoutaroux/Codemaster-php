@@ -579,3 +579,13 @@ the `/api/admin/*` routes remain unprotected on the server.
   `#floor-num` from `pages/game.html` and the two lines that updated it
   (`resolveMonsterDefeat()` in `js/game/battle.js`, `syncUiFromState()` in
   `js/core/navigation.js`).
+
+## Changelog — bigger skill and SHOP tabs
+
+- The **special skill tab** (top left) is bigger: 292px wide, a 34px icon box,
+  15px skill name, 10px percentage and a 9px charge bar (phones: up to 250px
+  wide, 28px icon).
+- The **SHOP tab** (top right) is bigger: at least 196px wide, 16px text and a
+  20px coin (phones: up to 180px wide, 13px text).
+- The buff tags and, on phones, the speech bubble moved down to stay clear of
+  the bigger tabs (phones and tablets get 12px more sky in the battle scene).
