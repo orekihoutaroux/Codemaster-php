@@ -691,3 +691,10 @@ curve (it may be lower). Old leaderboard scores came from the old point rules.
   is (switching between LOG IN and REGISTER, coming back to the page).
 - With Extra Large text the form's spacing tightens so it still fits a 16:9
   screen (`css/base/screen-fit.css`).
+
+## Changelog — SHOP lined up with SETTINGS, potion icon
+
+- The SHOP tab hangs from the header with its right edge lined up with the
+  SETTINGS button, on every screen size (`css/game/hud.css`).
+- The coin on the SHOP tab is now a small pixel-art potion bottle (inline SVG
+  in `pages/game.html`).

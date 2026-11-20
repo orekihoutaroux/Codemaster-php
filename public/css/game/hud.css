@@ -41,21 +41,17 @@
 @keyframes hudSkillShine{from{background-position:200% 0;}to{background-position:0 0;}}
 @media(prefers-reduced-motion:reduce){.hud-skill.ready,.hud-skill.ready .hud-skill-fill{animation:none;}}
 
-/* ---- SHOP: a gold tab hanging under PTS / GOLD (top right, left of SETTINGS) ----
-   It sits inside .lex-hud-right-stats, which is stretched to the full header
-   height, so top:100% + the header's 4px padding and 4px border is just under
-   the header's gold line. Centred under PTS / GOLD. */
-.lex-hud-right{align-self:stretch;}
-.lex-hud-right-stats{position:relative;align-self:stretch;}
-.hud-shop-btn{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);z-index:21;display:flex;align-items:center;justify-content:center;gap:10px;min-width:196px;margin:0;padding:11px 22px 12px;cursor:pointer;
+/* ---- SHOP: a gold tab hanging under SETTINGS (top right) ----
+   right: the header's side padding, so its right edge lines up with SETTINGS. */
+.hud-shop-btn{position:absolute;top:calc(100% + 4px);right:14px;z-index:21;display:flex;align-items:center;justify-content:center;gap:10px;min-width:196px;margin:0;padding:11px 22px 12px;cursor:pointer;
     font-family:var(--pixel-font);font-size:calc(16px * var(--text-scale,1));letter-spacing:3px;line-height:1.2;color:#2a1600;text-shadow:0 1px 0 rgba(255,255,255,.5);
     background:linear-gradient(180deg,#ffe98f 0%,#f5c842 45%,#d9a21a 100%);border:2px solid #7a5800;border-top:0;border-radius:0 0 5px 5px;
     box-shadow:0 3px 0 rgba(0,0,0,.45),inset 0 -2px 0 rgba(90,58,0,.35);transition:transform .1s,filter .1s;}
-.hud-shop-btn:hover{filter:brightness(1.08);transform:translate(-50%,1px);}
-.hud-shop-btn:active{transform:translate(-50%,2px);}
+.hud-shop-btn:hover{filter:brightness(1.08);transform:translateY(1px);}
+.hud-shop-btn:active{transform:translateY(2px);}
 .hud-shop-btn:focus-visible{outline:2px solid #fff;outline-offset:2px;}
-/* a little pixel coin */
-.hud-shop-coin{width:20px;height:20px;flex-shrink:0;background:radial-gradient(circle at 40% 35%,#fff6c4 0 18%,#ffd84a 19% 55%,#c78a00 56% 100%);border:2px solid #5a3a00;border-radius:50%;box-shadow:1px 1px 0 rgba(0,0,0,.35);}
+/* a little pixel potion bottle (inline SVG in pages/game.html) */
+.hud-shop-icon{width:20px;height:24px;flex-shrink:0;display:block;margin:-3px 0;filter:drop-shadow(1px 1px 0 rgba(90,58,0,.45));}
 /* phones and tablets: the header is narrower */
 @media(max-width:900px){
     .hud-skill{left:10px;width:min(250px,calc(55% - 14px));gap:6px;padding:3px 7px 4px 3px;}
@@ -65,16 +61,8 @@
     .hud-skill-name{font-size:calc(12px * var(--text-scale,1));}
     .hud-skill-state{font-size:calc(8px * var(--text-scale,1));}
     .hud-skill-track{height:7px;}
-    /* the header wraps on phones, so the tab hangs from the header itself, at the right */
-    .lex-hud-right,.lex-hud-right-stats{align-self:auto;}
-    .lex-hud-right-stats{position:static;}
-    .hud-shop-btn,.hud-shop-btn:hover,.hud-shop-btn:active{transform:none;}
-    .hud-shop-btn{top:calc(100% + 4px);left:auto;right:10px;min-width:0;width:min(180px,calc(45% - 14px));padding:9px 10px 10px;font-size:calc(13px * var(--text-scale,1));letter-spacing:2px;gap:7px;}
-    .hud-shop-coin{width:16px;height:16px;}
-}
-/* tablets have room to keep it under PTS / GOLD: clear of the settings gear (40px + gap) */
-@media(min-width:600px) and (max-width:900px){
-    .hud-shop-btn{right:58px;}
+    .hud-shop-btn{right:10px;min-width:0;width:min(180px,calc(45% - 14px));padding:9px 10px 10px;font-size:calc(13px * var(--text-scale,1));letter-spacing:2px;gap:7px;}
+    .hud-shop-icon{width:16px;height:19px;margin:-2px 0;}
 }
 
 .lex-hud-center{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;}
