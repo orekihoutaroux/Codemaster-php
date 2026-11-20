@@ -700,7 +700,7 @@ function resolveMonsterDefeat(){
         apiBossDefeated()
         .then(function(bd){
             floor_num=bd.floor;gold=bd.gold;potions=bd.potions;hp=bd.hp;maxHp=bd.max_hp;bossesDefeated=bd.bosses_defeated;
-            document.getElementById('floor-num').textContent=floor_num;document.getElementById('gold-count').textContent=gold;
+            document.getElementById('gold-count').textContent=gold;
             updatePotionDisplay();document.getElementById('bosses-beaten').textContent=bossesDefeated;
             applyBattleBackground();syncBackgroundMusic('game-screen');updatePlayerHP();showBossDefeat();
         });

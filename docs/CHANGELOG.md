@@ -571,3 +571,11 @@ the `/api/admin/*` routes remain unprotected on the server.
   don't cover each other.
 - The tutorial says where the skill and the SHOP are now. The Debugger's bomb
   icon is lighter so it shows on the dark tab.
+
+## Changelog — FLOOR counter removed from the top right
+
+- The header's top right now shows only **PTS** and **GOLD**. The floor is
+  still shown in the **FLOOR N** title in the middle of the header. Removed
+  `#floor-num` from `pages/game.html` and the two lines that updated it
+  (`resolveMonsterDefeat()` in `js/game/battle.js`, `syncUiFromState()` in
+  `js/core/navigation.js`).

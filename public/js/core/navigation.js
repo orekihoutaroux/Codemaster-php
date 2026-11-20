@@ -34,7 +34,6 @@ function applyBattleBackground(){
 function syncUiFromState(){
     var scoreEl=document.getElementById('score');if(scoreEl)scoreEl.textContent=score;
     var goldEl=document.getElementById('gold-count');if(goldEl)goldEl.textContent=gold;
-    var floorEl=document.getElementById('floor-num');if(floorEl)floorEl.textContent=floor_num;
     var floorTitle=document.getElementById('floor-title');if(floorTitle)floorTitle.textContent='FLOOR '+floor_num;
     applyBattleBackground();
     var streakEl=document.getElementById('streak');if(streakEl)streakEl.textContent=streak;
