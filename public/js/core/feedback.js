@@ -24,7 +24,7 @@ function buyShopItem(action,cost){
     .then(function(data){
         if(data.status==='ok'){
             gold=data.gold;document.getElementById('gold-count').textContent=gold;
-            if(data.potions!==undefined){potions=data.potions;var potionBtn=document.getElementById('potion-btn');if(potionBtn)potionBtn.textContent='POTION('+potions+')';}
+            if(data.potions!==undefined){potions=data.potions;updatePotionDisplay();}
             if(data.hp!==undefined){hp=data.hp;maxHp=data.max_hp;updatePlayerHP();showFloatingPoints('+'+data.healed+' HP');}
             if(data.buff_def!==undefined)buffDef=data.buff_def;
             if(data.buff_gold!==undefined)buffGold=data.buff_gold;
@@ -51,6 +51,22 @@ function updateShopBuffs(){
     if(buffCrit>0)parts.push('CRIT: '+buffCrit+' turns');
     if(buffTime>0)parts.push('TIME: '+buffTime+' turns');
     el.textContent=parts.length>0?'Active Buffs: '+parts.join(' | '):'No active buffs';
+}
+// Potions: the POTION(n) button in the left panel and the counter above the
+// hero's head (pages/game.html). The counter bounces when the number changes.
+var lastPotionCount=null;
+function updatePotionDisplay(){
+    var btn=document.getElementById('potion-btn');if(btn)btn.textContent='POTION('+potions+')';
+    var badge=document.getElementById('hero-potion-badge'),count=document.getElementById('hero-potion-count');
+    if(count)count.textContent=potions;
+    if(badge){
+        badge.classList.toggle('empty',potions<=0);
+        badge.setAttribute('aria-label','Potions: '+potions+'. Drink a potion to restore 30 HP');
+        if(lastPotionCount!==null&&lastPotionCount!==potions){
+            badge.classList.remove('bump');void badge.offsetWidth;badge.classList.add('bump');
+        }
+    }
+    lastPotionCount=potions;
 }
 function updateBuffIndicators(){
     var container=document.querySelector('.buff-indicators');

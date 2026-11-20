@@ -59,13 +59,31 @@
 .lex-enemy-side.is-boss .enemy-plate{border-color:#d4a017;box-shadow:0 3px 0 rgba(0,0,0,.5),0 0 12px rgba(255,190,40,.35);}
 .lex-enemy-side.is-boss .lex-enemy-label{color:#ffd43b;font-size:calc(9px * var(--text-scale,1));transform:none;white-space:nowrap;}
 
-/* ---- speech bubble next to the hero's head ---- */
+/* ---- speech bubble beside the hero's face ----
+   --hero-head (art pixels from the feet to the top of the head) is set by
+   updateHeroHeadAnchor() in js/game/battle.js for the chosen hero, so the
+   bubble's tail points at the face whichever hero it is. */
 @keyframes hpPulse{0%,100%{opacity:1;}50%{opacity:0.5;}}
 .lex-speech-bubble{position:absolute;top:24px;left:186px;transform:none;background:#fff;border:3px solid #222;border-radius:6px;padding:8px 14px;font-family:var(--pixel-font);font-size:calc(9px * var(--text-scale,1));color:#1a1a1a;max-width:190px;text-align:center;z-index:15;line-height:1.9;white-space:pre-line;box-shadow:2px 2px 0 #888;opacity:1;visibility:visible;transition:opacity .16s ease,transform .16s ease,visibility 0s linear 0s;}
 .lex-speech-bubble.combat-hidden{opacity:0;visibility:hidden;transform:translateY(-6px) scale(.88);transition:opacity .16s ease,transform .16s ease,visibility 0s linear .16s;}
 .lex-speech-bubble::after{content:'';position:absolute;bottom:-14px;left:26px;border:7px solid transparent;border-top:10px solid #222;}
 .lex-speech-bubble::before{content:'';position:absolute;bottom:-10px;left:28px;border:6px solid transparent;border-top:8px solid #fff;z-index:1;}
-.lex-battle-scene .lex-speech-bubble{top:12px;left:calc(var(--hero-x) + 36px);right:auto;max-width:min(210px,40vw);}
+.lex-battle-scene .lex-speech-bubble{top:auto;bottom:calc(var(--ground) - var(--feet) + (var(--hero-head,44) - 17) * var(--px) * 1px);
+    left:calc(var(--hero-x) + 13px * var(--px));right:auto;width:max-content;max-width:min(230px,calc(2 * var(--gap) - 13px * var(--px) - 30px));transform-origin:0 100%;}
+.lex-battle-scene .lex-speech-bubble::after{bottom:7px;left:-13px;border:7px solid transparent;border-right:10px solid #222;border-left:0;}
+.lex-battle-scene .lex-speech-bubble::before{bottom:8px;left:-7px;border:6px solid transparent;border-right:8px solid #fff;border-left:0;}
+
+/* ---- potions left, above the hero's head (click to drink) ---- */
+.hero-potion-badge{position:absolute;left:0;bottom:calc((var(--hero-head,44) + 3) * var(--px) * 1px);transform:translateX(-50%);z-index:4;width:max-content;
+    display:inline-flex;align-items:center;gap:3px;margin:0;padding:2px 7px 2px 4px;background:rgba(6,8,20,.9);border:2px solid #b8324f;border-radius:0;
+    box-shadow:0 2px 0 rgba(0,0,0,.5);color:#ffd6de;font-family:var(--pixel-font);font-size:calc(10px * var(--text-scale,1));line-height:1;white-space:nowrap;cursor:pointer;}
+.hero-potion-badge .px-icon{width:16px;height:16px;image-rendering:pixelated;}
+.hero-potion-x{font-size:calc(8px * var(--text-scale,1));opacity:.75;}
+.hero-potion-badge:hover{border-color:#ff6b8b;box-shadow:0 2px 0 rgba(0,0,0,.5),0 0 10px rgba(255,77,106,.55);}
+.hero-potion-badge:focus-visible{outline:2px solid #ffd43b;outline-offset:2px;}
+.hero-potion-badge.empty{border-color:#4a4a5a;color:#8a8aa0;filter:grayscale(.85);}
+.hero-potion-badge.bump{animation:potionBump .45s ease-out;}
+@keyframes potionBump{0%{transform:translateX(-50%) scale(1);}35%{transform:translateX(-50%) scale(1.35);}100%{transform:translateX(-50%) scale(1);}}
 
 /* ---- buffs: top-left corner of the scene ---- */
 .lex-battle-scene>.buff-indicators{position:absolute;top:8px;left:8px;z-index:12;display:flex;flex-wrap:wrap;gap:4px;max-width:44%;pointer-events:none;}
@@ -103,7 +121,6 @@
 /* ---- short laptop screens: a slightly lower scene ---- */
 @media(max-height:700px) and (min-width:901px){
     .lex-battle-scene{height:214px;}
-    .lex-battle-scene .lex-speech-bubble{top:6px;}
 }
 /* ---- tablets and phones: 2x pixels ---- */
 @media(max-width:900px){
@@ -116,7 +133,9 @@
     .fighter-plate .lex-enemy-label{font-size:calc(8px * var(--text-scale,1));}
     .fighter-plate .hp-bar,.fighter-plate .lex-monster-hp-bar{height:14px;}
     .fighter-plate .hp-text,.fighter-plate .monster-hp-text{font-size:calc(10px * var(--text-scale,1));line-height:10px;}
-    .lex-battle-scene .lex-speech-bubble{top:8px;left:calc(var(--hero-x) + 26px);max-width:min(170px,42vw);padding:6px 8px;}
+    .lex-battle-scene .lex-speech-bubble{padding:5px 8px;}
+    .hero-potion-badge{font-size:calc(9px * var(--text-scale,1));padding:1px 5px 1px 3px;}
+    .hero-potion-badge .px-icon{width:14px;height:14px;}
     .lex-battle-scene .attack-spark{bottom:calc(var(--ground) + 28px);}
     .combat-impact-burst{top:calc(100% - var(--ground) - 30px);}
     .lex-enemy-side.is-boss .lex-enemy-label{font-size:calc(7px * var(--text-scale,1));}

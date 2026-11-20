@@ -42,7 +42,7 @@ function syncUiFromState(){
     var accEl=document.getElementById('accuracy');if(accEl)accEl.textContent=totalAnswered>0?Math.round(totalCorrect/totalAnswered*100)+'%':'0%';
     var monstersEl=document.getElementById('monsters-slain');if(monstersEl)monstersEl.textContent=monstersDefeated;
     var bossesEl=document.getElementById('bosses-beaten');if(bossesEl)bossesEl.textContent=bossesDefeated;
-    var potionBtn=document.getElementById('potion-btn');if(potionBtn)potionBtn.textContent='POTION('+potions+')';
+    updatePotionDisplay();
     var playerLvl=document.getElementById('player-level');if(playerLvl)playerLvl.textContent='LVL '+(playerUsername?level:1);
     updatePlayerHP();
     refreshShopGold();
