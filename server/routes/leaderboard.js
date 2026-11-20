@@ -21,7 +21,29 @@ module.exports = function leaderboardRoutes(db) {
         best.push(row);
         if (best.length === 50) break;
       }
-      const ranked = best.map((row, i) => ({ rank: i + 1, ...row }));
+      // Year level and block come from the player's account (so a change made
+      // by an admin shows here too); the values saved with the score are the
+      // fallback for players without an account. '-' means unknown.
+      const names = best.map((row) => String(row.name || '').trim()).filter(Boolean);
+      const players = names.length
+        ? await db.collection('players')
+          .find({ username: { $in: names } }, { projection: { _id: 0, username: 1, profile: 1 } })
+          .toArray()
+        : [];
+      const profiles = new Map(players.map((p) => [p.username, p.profile || {}]));
+      const known = (value) => {
+        const text = String(value == null ? '' : value).trim();
+        return text && text !== '-' ? text : '';
+      };
+      const ranked = best.map((row, i) => {
+        const profile = profiles.get(String(row.name || '').trim()) || {};
+        return {
+          rank: i + 1,
+          ...row,
+          yearLevel: known(profile.yearLevel) || known(row.yearLevel) || '-',
+          block: known(profile.block) || known(row.block) || '-'
+        };
+      });
       res.json({ status: 'ok', leaderboard: ranked });
     } catch (err) {
       console.error(err);

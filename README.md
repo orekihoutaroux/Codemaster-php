@@ -250,5 +250,5 @@ All routes start with `/api`. Routes marked *admin* need an admin session
 | GET    | `/admin/admins`                            | List admins (*admin*)                     |
 | POST   | `/admin/admins`                            | Add an admin (*admin*)                    |
 | DELETE | `/admin/admins/:username`                  | Remove an admin (*admin*)                 |
-| GET    | `/leaderboard`                             | Best score per player, top 50             |
+| GET    | `/leaderboard`                             | Best score per player, top 50, with year level and block |
 | POST   | `/leaderboard`                             | Submit a finished run                     |

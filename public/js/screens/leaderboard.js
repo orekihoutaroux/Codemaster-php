@@ -19,10 +19,15 @@ function renderLeaderboard(){
             row.className='leaderboard-row';
             if(player.rank<=3)row.classList.add('rank-'+player.rank);
             var medal=player.rank===1?'🥇':player.rank===2?'🥈':player.rank===3?'🥉':player.rank;
+            var year=String(player.yearLevel||'-'),block=String(player.block||'-');
+            // phones hide the YEAR and BLOCK columns and show them under the name
+            var classLine=(year!=='-'||block!=='-')?'<span class="lb-class">Year '+escapeHtml(year)+' &middot; Block '+escapeHtml(block)+'</span>':'';
             row.innerHTML='<div class="col rank">'+medal+'</div>'+
-                          '<div class="col name">'+escapeHtml(player.name)+'</div>'+
+                          '<div class="col name"><span class="lb-name">'+escapeHtml(player.name)+'</span>'+classLine+'</div>'+
                           '<div class="col character">'+escapeHtml(player.character||'-')+'</div>'+
                           '<div class="col role">'+escapeHtml(player.role||'-')+'</div>'+
+                          '<div class="col year">'+escapeHtml(year)+'</div>'+
+                          '<div class="col block">'+escapeHtml(block)+'</div>'+
                           '<div class="col score">'+(Number(player.score)||0)+'</div>'+
                           '<div class="col floor">'+(Number(player.floor)||1)+'</div>';
             container.appendChild(row);

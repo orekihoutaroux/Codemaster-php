@@ -382,3 +382,11 @@ the `/api/admin/*` routes remain unprotected on the server.
     labels (e.g. SHIELDED) appear on the fighters.
   - Sizes: 3x pixels on laptops, 2x on phones and tablets, 4x on large
     screens (1600x940 and up).
+
+## Changelog — year level and block on the leaderboard
+
+- The leaderboard has **YEAR** and **BLOCK** columns. On phones they show as
+  a line under the player's name ("Year 2 · Block 3").
+- The values come from the player's account, so older scores saved before
+  this change also show them, and a change made by an admin shows at once.
+  Scores from someone without an account show "-".
