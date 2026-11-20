@@ -45,6 +45,8 @@
 .admin-field input,.admin-field select,.admin-field textarea{width:100%;background:#0f1020;color:#fff;border:2px solid #333;padding:10px;font-family:var(--ui-font);font-size:calc(13px * var(--text-scale,1));}
 .admin-field textarea{min-height:104px;resize:vertical;}
 .admin-footer{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;padding-top:4px;}
+/* footer buttons (DELETE QUESTION + SAVE QUESTION) share one height, even when one label wraps on phones */
+.admin-footer .admin-actions{align-items:stretch;}
 .admin-status{font-size:calc(12px * var(--text-scale,1));color:var(--green);}
 .admin-empty{padding:12px;font-size:calc(13px * var(--text-scale,1));color:#aaa;line-height:1.7;}
 .admin-tabs{display:flex;gap:8px;margin-top:2px;}

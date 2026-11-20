@@ -2,7 +2,7 @@
      OVERLAY 5: ADMIN DASHBOARD
      Purpose: Adds/edits questions and study lessons, and manages saved
      player accounts and admin accounts.
-     Functions: openAdminDashboard(), switchAdminTab(), saveAdminQuestion(),
+     Functions: openAdminDashboard(), switchAdminTab(), saveAdminQuestion(), deleteAdminQuestion(),
      createNewLesson(), saveAdminLesson(), deleteAdminLesson(),
      restoreBuiltInLessons(), saveAdminUser(), resetAdminUserProgress(), deleteAdminUser(),
      startAddAdmin(), submitAddAdmin(), removeSelectedAdmin(), logoutAdmin()
@@ -108,7 +108,10 @@
                 </div>
                 <div class="admin-footer">
                     <div class="admin-status" id="admin-status">Select a question to edit it.</div>
-                    <button type="button" class="admin-btn primary" onclick="saveAdminQuestion()">SAVE QUESTION</button>
+                    <div class="admin-actions">
+                        <button type="button" class="admin-btn danger" id="admin-delete-question-btn" onclick="deleteAdminQuestion()" disabled title="Delete this question from the question bank">DELETE QUESTION</button>
+                        <button type="button" class="admin-btn primary" onclick="saveAdminQuestion()">SAVE QUESTION</button>
+                    </div>
                 </div>
             </form>
         </div>

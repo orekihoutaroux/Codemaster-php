@@ -86,12 +86,47 @@ async function migrateQuestionEditsIntoQuestions(db) {
   return edits.length;
 }
 
-// The question bank, straight from MongoDB.
+// The question bank, straight from MongoDB (without deleted questions).
 async function getStoredQuestions(db) {
   return db.collection('questions')
-    .find({}, { projection: { _id: 0 } })
+    .find({ deleted: { $ne: true } }, { projection: { _id: 0 } })
     .sort({ id: 1 })
     .toArray();
+}
+
+// The id for the next new question: one past every id ever used, deleted
+// questions included, so a new question never takes a deleted one's id.
+async function getNextQuestionId(db) {
+  const top = await db.collection('questions')
+    .find({}, { projection: { _id: 0, id: 1 } })
+    .sort({ id: -1 })
+    .limit(1)
+    .toArray();
+  return ((top[0] && Number(top[0].id)) || 0) + 1;
+}
+
+// Deletes a question. A question an admin added is removed for good. A starter
+// question is only marked deleted: the starter bank is stored again on every
+// boot (ensureQuestionsSeeded), so removing it would bring it back, and RESET
+// BUILT-IN EDITS can restore it. The last question of a difficulty is kept,
+// because the game needs at least one of each.
+async function deleteQuestion(db, id) {
+  const questions = db.collection('questions');
+  const existing = await questions.findOne({ id, deleted: { $ne: true } });
+  if (!existing) return { error: 'That question no longer exists.', status: 404 };
+  const sameDifficulty = await questions.countDocuments({ diff: existing.diff, deleted: { $ne: true } });
+  if (sameDifficulty <= 1) {
+    return { error: `This is the last ${existing.diff} question. The game needs at least one, so add another before deleting it.`, status: 400 };
+  }
+  const isCustom = existing.source === 'admin' || existing.isCustom === true;
+  if (isCustom) {
+    await questions.deleteOne({ id });
+  } else {
+    const now = new Date();
+    await questions.updateOne({ id }, { $set: { deleted: true, deletedAt: now, updatedAt: now } });
+  }
+  const remaining = await questions.countDocuments({ deleted: { $ne: true } });
+  return { deleted: id, builtIn: !isCustom, remaining };
 }
 
 // Writes one question to MongoDB. A question that is not in the bank yet is
@@ -123,15 +158,15 @@ async function saveQuestion(db, fields) {
     edited: !isCustom,
     updatedAt: now
   };
-  await questions.updateOne({ id: fields.id }, { $set: question });
+  await questions.updateOne({ id: fields.id }, { $set: question, $unset: { deleted: '', deletedAt: '' } });
   return {
     question: { ...question, createdAt: existing.createdAt || now },
     persistence: isCustom ? 'updated_custom' : 'updated_builtin'
   };
 }
 
-// Puts every starter question back to its original wording. Questions an admin
-// added stay untouched.
+// Puts every starter question back to its original wording, and brings back
+// starter questions that were deleted. Questions an admin added stay untouched.
 async function restoreBuiltInQuestions(db) {
   const seed = readSeedQuestions();
   const now = new Date();
@@ -146,6 +181,7 @@ async function restoreBuiltInQuestions(db) {
           edited: false,
           updatedAt: now
         },
+        $unset: { deleted: '', deletedAt: '' },
         $setOnInsert: { createdAt: now }
       },
       upsert: true
@@ -162,6 +198,8 @@ module.exports = {
   ensureQuestionsSeeded,
   migrateQuestionEditsIntoQuestions,
   getStoredQuestions,
+  getNextQuestionId,
+  deleteQuestion,
   saveQuestion,
   restoreBuiltInQuestions
 };

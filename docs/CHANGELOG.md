@@ -698,3 +698,21 @@ curve (it may be lower). Old leaderboard scores came from the old point rules.
   SETTINGS button, on every screen size (`css/game/hud.css`).
 - The coin on the SHOP tab is now a small pixel-art potion bottle (inline SVG
   in `pages/game.html`).
+
+## Changelog — DELETE QUESTION in the question editor
+
+- The **QUESTIONS** tab of the admin dashboard has a **DELETE QUESTION** button
+  next to SAVE QUESTION. It deletes the question that is open in the editor,
+  after asking first (`deleteAdminQuestion()` in
+  `public/js/admin/admin-panel.js`, `apiAdminDeleteQuestion()` in
+  `public/js/core/api.js`). It is off while a new question hasn't been saved
+  yet.
+- A question an admin added is removed from MongoDB for good. A starter
+  question is only marked as deleted, so the server doesn't put it back the
+  next time it starts, and **RESET BUILT-IN EDITS** brings it back
+  (`deleteQuestion()` in `server/lib/questions.js`, new
+  `DELETE /api/admin/questions/:id` route).
+- The server won't delete the last question of a difficulty, so the game always
+  has a question to ask on every floor.
+- `GET /api/questions` also returns `nextId`, so a new question never reuses
+  the number of a deleted starter question.

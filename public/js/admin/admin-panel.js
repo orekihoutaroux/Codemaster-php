@@ -62,7 +62,8 @@ function formatAdminDate(value){
 function getNextQuestionId(){
     var maxId=0;
     QUESTIONS.forEach(function(q){if(q.id>maxId)maxId=q.id;});
-    return maxId+1;
+    // never reuse the id of a deleted question (questionsNextId, js/core/api.js)
+    return Math.max(maxId+1,Number(questionsNextId)||0);
 }
 
 function closeAdminDashboard(){
@@ -123,6 +124,7 @@ function selectAdminQuestion(id,updateList){
     document.getElementById('admin-answer').value=String(question.answer!==undefined?question.answer:0);
     document.getElementById('admin-explain').value=question.explain||'';
     var isCustom=question.isCustom===true||question.source==='admin';
+    updateAdminDeleteQuestionButton(true);
     document.getElementById('admin-status').textContent=isCustom?
         'Editing custom question #'+question.id+'. Saved in MongoDB.':
         'Editing starter question #'+question.id+'. Changes are saved in MongoDB.';
@@ -131,6 +133,7 @@ function selectAdminQuestion(id,updateList){
 function createNewQuestion(){
     var id=getNextQuestionId();
     adminCurrentQuestionId=id;
+    updateAdminDeleteQuestionButton(false); // nothing to delete until it is saved
     var list=document.getElementById('admin-question-list');
     if(list){
         renderAdminQuestionList();
@@ -173,6 +176,42 @@ function saveAdminQuestion(){
             showToast(data.message||'Could not save question','error');
         }
     }).catch(function(){showToast('Could not save question','error');});
+}
+
+// DELETE QUESTION: only for a question that is saved (not a new, unsaved one).
+function updateAdminDeleteQuestionButton(enabled){
+    var btn=document.getElementById('admin-delete-question-btn');
+    if(btn){btn.disabled=!enabled;btn.textContent='DELETE QUESTION';}
+}
+
+function deleteAdminQuestion(){
+    var id=document.getElementById('admin-question-id').value;
+    var question=adminQuestionsCache.find(function(q){return String(q.id)===String(id);});
+    if(!question){showToast('This question is not saved yet, so there is nothing to delete.','info');return;}
+    var isCustom=question.isCustom===true||question.source==='admin';
+    var preview=shortAdminText(decodeEntities(question.q||''));
+    var note=isCustom?'\n\nThis question was added by an admin. Deleting it cannot be undone.':
+        '\n\nThis is a starter question. RESET BUILT-IN EDITS can bring it back later.';
+    if(!confirm('Delete question #'+question.id+'?\n\n"'+preview+'"'+note))return;
+    var btn=document.getElementById('admin-delete-question-btn');
+    if(btn){btn.disabled=true;btn.textContent='DELETING...';}
+    apiAdminDeleteQuestion(question.id).then(function(data){
+        if(data&&data.status==='ok'){
+            showToast('Question #'+question.id+' deleted','success');
+            // select the question that was next to it in the list
+            var index=adminQuestionsCache.findIndex(function(q){return String(q.id)===String(question.id);});
+            var neighbour=adminQuestionsCache[index+1]||adminQuestionsCache[index-1];
+            adminCurrentQuestionId=neighbour?neighbour.id:null;
+            reloadAdminQuestions();
+            var status=document.getElementById('admin-status');
+            if(status)status.textContent='Question #'+question.id+' deleted. '+(data.remaining?data.remaining+' questions left.':'');
+        }else{
+            var msg=(data&&data.message)||'Could not delete the question.';
+            showToast(msg,'error');
+            var st=document.getElementById('admin-status');if(st)st.textContent=msg;
+            updateAdminDeleteQuestionButton(true);
+        }
+    });
 }
 
 function resetAdminQuestions(){

@@ -1,5 +1,5 @@
 const express = require('express');
-const { getStoredQuestions, saveQuestion, restoreBuiltInQuestions } = require('../lib/questions');
+const { getStoredQuestions, getNextQuestionId, deleteQuestion, saveQuestion, restoreBuiltInQuestions } = require('../lib/questions');
 const { normalizeCategory, rememberCategory } = require('../lib/categories');
 
 module.exports = function questionsRoutes(db) {
@@ -8,7 +8,8 @@ module.exports = function questionsRoutes(db) {
   router.get('/questions', async (req, res) => {
     try {
       const questions = await getStoredQuestions(db);
-      res.json({ status: 'ok', storage: 'mongodb', count: questions.length, questions });
+      const nextId = await getNextQuestionId(db);
+      res.json({ status: 'ok', storage: 'mongodb', count: questions.length, nextId, questions });
     } catch (err) {
       console.error(err);
       res.status(500).json({ status: 'error', message: 'Failed to load questions' });
@@ -44,6 +45,21 @@ module.exports = function questionsRoutes(db) {
     } catch (err) {
       console.error(err);
       res.status(500).json({ status: 'error', message: 'Failed to save question' });
+    }
+  });
+
+  // Admin only (server.js guards /api/admin). See deleteQuestion() for how
+  // starter and added questions differ.
+  router.delete('/admin/questions/:id', async (req, res) => {
+    try {
+      const id = parseInt(req.params.id, 10) || 0;
+      if (id <= 0) return res.status(400).json({ status: 'error', message: 'Invalid question id' });
+      const result = await deleteQuestion(db, id);
+      if (result.error) return res.status(result.status || 400).json({ status: 'error', message: result.error });
+      res.json({ status: 'ok', storage: 'mongodb', ...result });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ status: 'error', message: 'Failed to delete question' });
     }
   });
 

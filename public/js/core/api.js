@@ -2,12 +2,17 @@
 // Loads questions and sends battle, shop, player, and admin changes to Express.
 // The question bank is stored in MongoDB and served by GET /api/questions.
 // The offline copy is only a last resort so a network blip cannot end a run.
+// The id the next new question gets (from the server: past every id ever used,
+// deleted questions included). 0 until the bank has loaded.
+var questionsNextId=0;
+
 function loadQuestionsFromServer(){
     return fetch('/api/questions')
     .then(function(res){return res.json();})
     .then(function(data){
         if(data&&data.status==='ok'&&Array.isArray(data.questions)&&data.questions.length){
             QUESTIONS=data.questions;
+            questionsNextId=Number(data.nextId)||0;
             questionsFromDatabase=true;
             document.body.setAttribute('data-question-storage','mongodb');
             document.body.setAttribute('data-question-count',String(QUESTIONS.length));
@@ -285,6 +290,14 @@ function apiAdminListQuestions(){
     return loadQuestionsFromServer().then(function(){
         return {status:'ok',questions:QUESTIONS,storage:questionsFromDatabase?'mongodb':'offline'};
     });
+}
+
+// Deletes a question (DELETE /api/admin/questions/:id). Starter questions come
+// back with RESET BUILT-IN EDITS; questions an admin added are gone for good.
+function apiAdminDeleteQuestion(id){
+    return adminFetch('/api/admin/questions/'+encodeURIComponent(id),{method:'DELETE'})
+    .then(function(res){return res.json();})
+    .catch(function(){return {status:'error',message:'Could not reach the server to delete the question.'};});
 }
 
 function apiAdminSaveQuestion(body){

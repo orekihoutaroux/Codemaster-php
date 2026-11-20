@@ -229,8 +229,9 @@ All routes start with `/api`. Routes marked *admin* need an admin session
 | Method | Route                                      | Purpose                                   |
 |--------|--------------------------------------------|-------------------------------------------|
 | GET    | `/health`                                  | Is the server up?                         |
-| GET    | `/questions`                               | The question bank                         |
+| GET    | `/questions`                               | The question bank (and `nextId`)          |
 | POST   | `/admin/questions`                         | Add or edit a question (*admin*)          |
+| DELETE | `/admin/questions/:id`                     | Delete a question (*admin*)               |
 | POST   | `/admin/questions/reset`                   | Restore built-in questions (*admin*)      |
 | GET    | `/lessons`                                 | Study Materials lessons, in order         |
 | POST   | `/admin/lessons`                           | Add a lesson (*admin*)                    |
