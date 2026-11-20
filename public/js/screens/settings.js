@@ -77,14 +77,16 @@ function restartGame(){
 }
 
 function exitGame(){
-    // Save first, then sign out of the run. Progress stays in MongoDB; the
-    // player logs back in from ENTER DUNGEON (their name is remembered).
-    if(playerUsername&&typeof saveState==='function')saveState();
+    // Exiting ends the run without keeping it: the saved run is reset on the
+    // server, so the next login starts again from floor 1 with a hero pick.
+    if(playerUsername&&!confirm('Exit to title? This run will not be saved. Next time you log in you start again from floor 1.'))return;
+    closeSettings();
+    if(typeof resetRuntimeEncounter==='function')resetRuntimeEncounter();
     localStorage.removeItem(ACTIVE_PLAYER_SESSION_KEY);
     document.body.removeAttribute('data-active-player');
-    closeSettings();
     showScreen('title-screen');
-    showToast('Progress saved. Exited to title','info');
+    var done=function(){showToast('Run not saved. Exited to title','info');};
+    apiReset().then(done,done);
 }
 
 function saveSettings(){

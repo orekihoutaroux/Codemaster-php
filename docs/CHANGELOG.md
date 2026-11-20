@@ -324,3 +324,13 @@ the `/api/admin/*` routes remain unprotected on the server.
 - **SAVE CHANGES** and **CANCEL** (or Escape) close the panel and the timer
   continues from the same second. Saving only stores volume and text size;
   HP, score, floor, gold and the current question stay exactly as they were.
+
+## Changelog — EXIT TO TITLE does not save the run
+
+- **EXIT TO TITLE** (Settings) now ends the run without keeping it. It asks
+  first ("This run will not be saved"); CANCEL keeps playing.
+- On exit the saved run is reset on the server (same as `/players/:username/reset`),
+  so the next login starts again from floor 1 with full HP, 2 potions and no
+  gold, after picking a hero. Your account and chosen hero stay.
+- The run is not added to the leaderboard on exit (RESTART GAME and dying
+  still add it). This replaces the earlier "EXIT TO TITLE keeps progress".
