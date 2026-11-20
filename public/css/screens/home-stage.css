@@ -15,6 +15,29 @@
 .home-fighter{position:absolute;bottom:-6px;z-index:2;display:flex;flex-direction:column;align-items:center;pointer-events:none;}
 .home-fighter canvas{width:192px;height:192px;image-rendering:pixelated;display:block;}
 .home-fighter-hero{left:8px;z-index:3;}
+/* while the monster strikes back it is drawn in front of the hero */
+.home-stage.enemy-attacking .home-fighter-enemy{z-index:4;}
+
+/* ---- attack effects (made by js/screens/home.js, in front of everything on the stage) ---- */
+.home-fx{position:absolute;z-index:6;pointer-events:none;transform:translate(-50%,-50%);}
+.home-fx svg{display:block;width:100%;height:100%;}
+.home-fx-burst{animation:homeFxBurst .48s steps(6,end) forwards;filter:drop-shadow(0 0 6px rgba(255,220,120,.6));}
+.home-fx-burst.big{animation-duration:.52s;filter:drop-shadow(0 0 10px rgba(255,140,60,.8));}
+@keyframes homeFxBurst{0%{transform:translate(-50%,-50%) scale(.3) rotate(0);opacity:1;}40%{transform:translate(-50%,-50%) scale(1.15) rotate(12deg);opacity:1;}100%{transform:translate(-50%,-50%) scale(1.35) rotate(22deg);opacity:0;}}
+.home-fx-slash{animation:homeFxSlash .32s steps(4,end) forwards;}
+@keyframes homeFxSlash{0%{transform:translate(-50%,-50%) scale(.3,.3);opacity:1;}50%{transform:translate(-50%,-50%) scale(1.1);opacity:1;}100%{transform:translate(-50%,-50%) scale(1.25);opacity:0;}}
+.home-fx-bolt{background:#fff;box-shadow:0 0 0 3px var(--fx-color,#ffd43b),0 0 14px 5px var(--fx-color,#ffd43b);}
+.home-fx-bolt::after{content:'';position:absolute;top:25%;right:100%;width:300%;height:50%;background:linear-gradient(to left,var(--fx-color,#ffd43b),transparent);opacity:.85;}
+.home-fx-bolt.from-enemy::after{right:auto;left:100%;background:linear-gradient(to right,var(--fx-color,#ff4d6a),transparent);}
+.home-fx-dmg{font-family:var(--pixel-font);font-size:calc(15px * var(--text-scale,1));color:#ffd43b;white-space:nowrap;
+    text-shadow:2px 2px 0 #000,-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000;animation:homeFxDmg .95s ease-out forwards;}
+.home-fx-dmg.on-hero{color:#ff5a6e;}
+.home-fx-dmg.ko{font-size:calc(19px * var(--text-scale,1));color:#ff8a3c;animation-duration:1.2s;}
+@keyframes homeFxDmg{0%{transform:translate(-50%,-50%) scale(.5);opacity:0;}15%{transform:translate(-50%,-75%) scale(1.3);opacity:1;}35%{transform:translate(-50%,-95%) scale(1);opacity:1;}100%{transform:translate(-50%,-210%) scale(1);opacity:0;}}
+@media(max-width:600px){
+    .home-fx-dmg{font-size:calc(11px * var(--text-scale,1));}
+    .home-fx-dmg.ko{font-size:calc(14px * var(--text-scale,1));}
+}
 .home-fighter-enemy{right:8px;}
 .home-fighter-name{position:absolute;bottom:-12px;font-family:var(--pixel-font);font-size:calc(8px * var(--text-scale,1));letter-spacing:1px;color:#cfd6ff;background:rgba(5,6,18,.78);border:2px solid #2c3160;padding:4px 7px;white-space:nowrap;text-transform:uppercase;}
 .home-fighter-hero .home-fighter-name{left:50%;transform:translateX(-62%);}

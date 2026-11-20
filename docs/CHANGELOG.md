@@ -415,3 +415,16 @@ the `/api/admin/*` routes remain unprotected on the server.
   silhouette, `.global-atmosphere` in `index.html`) was drawn over the bottom
   of the scene as black blocks. It is now hidden whenever the scene shows;
   the leaderboard still uses it.
+
+## Changelog — home page battle: attack effects and turns
+
+- The little battle on the home page now goes **hero → monster → hero**:
+  the hero attacks, the monster strikes back, and the hero's second attack
+  is the K.O. (`js/screens/home.js`, round of 6.4 s).
+- Attack effects: pixel hit bursts, a sword slash for the knight and the
+  hacker, coloured bolts for the scholar, wizard, mentor and debugger,
+  damage numbers (gold on the monster, red on the hero), "K.O.!" with a
+  bigger burst on the last hit, and a small screen shake on every hit.
+- Monsters that fight up close run at the hero; ranged monsters (the ones
+  in `ENEMY_DASH_FACTORS`) lean in and fire a bolt. The attacker is always
+  drawn in front. Styles: "attack effects" in `css/screens/home-stage.css`.
