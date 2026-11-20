@@ -660,3 +660,11 @@ and keeps 25% charge; RESTORE PULSE 1.2x and heals 10% of max HP; BOUNTY BREAK
 Runs in progress keep their score, but their level is recalculated on the new
 curve (it may be lower). Old leaderboard scores came from the old point rules.
 
+
+## Changelog — header order: PTS, GOLD, SETTINGS
+
+- The top right of the battle header now reads **PTS, GOLD, SETTINGS**
+  (SETTINGS moved to the far right).
+- The SHOP tab still hangs under PTS / GOLD: it now sits inside the PTS / GOLD
+  group and is centred under it (`css/game/hud.css`). On phones it stays at
+  the right edge; on tablets it moves left to stay clear of SETTINGS.

@@ -69,7 +69,7 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 .leaderboard-back{align-self:center;margin-top:0;padding:14px 28px;font-size:calc(12px * var(--text-scale,1));flex-shrink:0;}
 
 /* ---------- Game HUD ---------- */
-.hud-settings-btn{margin-right:8px;}
+.hud-settings-btn{margin-right:0;margin-left:6px;}
 .toast{top:72px;font-size:calc(15px * var(--text-scale,1));padding:10px 22px;min-width:min(320px,calc(var(--app-w,100vw) - 32px));max-width:calc(var(--app-w,100vw) - 32px);}
 
 /* ---------- Side panels ---------- */
@@ -159,7 +159,7 @@ body.large-text .code-block{font-size:calc(16px * var(--text-scale,1));}
 @media(max-width:560px){
     .lex-hud-left{overflow:hidden;}
     .lex-player-name,.lex-player-title{display:block;max-width:calc(var(--app-w,100vw) * .4);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-    .hud-settings-btn{margin-right:4px;padding:8px 10px;}
+    .hud-settings-btn{margin-right:0;margin-left:2px;padding:8px 10px;}
 }
 
 /* Admin: the question editor says where its questions are stored. */

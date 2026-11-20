@@ -24,11 +24,13 @@
             </div>
         </div>
         <div class="lex-hud-right">
-            <button type="button" id="settings-btn" class="admin-btn ghost hud-settings-btn" onclick="openSettings()" aria-label="Settings" title="Settings"><span class="hud-settings-label">SETTINGS</span></button>
             <div class="lex-hud-right-stats">
                 <div class="lex-stat-box"><span class="val" id="score">0</span><span class="lbl">PTS</span></div>
                 <div class="lex-stat-box"><span class="val" id="gold-count">0</span><span class="lbl">GOLD</span></div>
+                <!-- Shop, hanging under PTS / GOLD: buy items and drink your potions (overlays/shop.html) -->
+                <button type="button" class="hud-shop-btn" id="shop-btn" onclick="openShop()" title="Open the shop (buy items, drink your potions)"><span class="hud-shop-coin" aria-hidden="true"></span>SHOP</button>
             </div>
+            <button type="button" id="settings-btn" class="admin-btn ghost hud-settings-btn" onclick="openSettings()" aria-label="Settings" title="Settings"><span class="hud-settings-label">SETTINGS</span></button>
         </div>
         <!-- Two tabs hanging just under the header (css/game/hud.css). They are
              children of .lex-hud, not of its left/right parts, which phones clip.
@@ -45,8 +47,6 @@
                 <span class="hud-skill-track"><span class="hud-skill-fill" id="character-special-charge-fill" style="width:0%"></span></span>
             </span>
         </button>
-        <!-- Shop, under PTS / GOLD: buy items and drink your potions (overlays/shop.html) -->
-        <button type="button" class="hud-shop-btn" id="shop-btn" onclick="openShop()" title="Open the shop (buy items, drink your potions)"><span class="hud-shop-coin" aria-hidden="true"></span>SHOP</button>
     </div>
 
     <!-- GAME AREA B: FLOOR-AWARE BATTLE SCENE
