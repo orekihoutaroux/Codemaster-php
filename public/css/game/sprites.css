@@ -1,15 +1,7 @@
 /* ===== HERO AND MONSTER SPRITES =====
    The battle sprites are drawn on 64x64 canvases and shown at exactly 3x
-   (2x on small screens) so every art pixel stays square and sharp.
-   The canvas is larger than its old 110px slot, so negative margins keep the
-   layout the same and leave room above the head for weapon swings.
-   Hero stands at x=28 of 64, monsters at x=34; the margins centre each one. */
-.char-game-canvas,.monster-canvas{width:192px;height:192px;image-rendering:pixelated;pointer-events:none;position:relative;z-index:1;}
-.char-game-canvas{margin:-71px -53px -11px -29px;}
-.monster-canvas{margin:-71px -35px -11px -47px;}
-.lex-hero-label,.lex-enemy-label,.lex-hero-hp-wrap,.lex-monster-hp-wrap{position:relative;z-index:2;}
-/* Bosses are tall: keep their name on one line and lift it clear of the head. */
-.lex-enemy-side.is-boss .lex-enemy-label{white-space:nowrap;max-width:none;font-size:calc(11px * var(--text-scale,1));transform:translateY(-16px);}
+   (2x on small screens, 4x on very large ones) so every art pixel stays
+   square and sharp. Their size and place are set in css/game/battle-stage.css.
 
 /* Portraits: canvas pixels are an exact multiple of the art pixels. */
 .char-canvas{width:96px;height:96px;}
@@ -17,11 +9,7 @@
 .account-info-avatar{width:78px;height:78px;flex-basis:78px;}
 
 @media(max-width:900px){
-    .char-game-canvas,.monster-canvas{width:128px;height:128px;}
-    .char-game-canvas{margin:-35px -30px -8px -13px;}
-    .monster-canvas{margin:-20px -10px -8px -18px;}
     .char-canvas{width:96px;height:96px;}
-    .lex-enemy-side.is-boss .lex-enemy-label{font-size:calc(9px * var(--text-scale,1));transform:none;}
 }
 @media(max-width:600px){
     .lex-avatar{width:42px;height:42px;}

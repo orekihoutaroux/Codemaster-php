@@ -61,6 +61,7 @@ first runs. To add a file, put it in the right folder and add it to SCRIPTS.
     'js/core/music.js',               // background music
     'js/screens/account.js',          // create account, log in, enter the game
     'js/game/battle.js',              // questions, attacks, damage, floors and bosses
+    'js/game/battle-background.js',   // the pixel-art place behind each fight (one per floor)
     'js/game/shop.js',                // opening and closing the shop
     'js/admin/admin-login.js',        // admin sign-in and the hidden logo shortcut
     'js/screens/settings.js',         // settings overlay and exit to title

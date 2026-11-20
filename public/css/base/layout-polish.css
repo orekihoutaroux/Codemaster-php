@@ -132,10 +132,6 @@ body.large-text .code-block{font-size:calc(16px * var(--text-scale,1));}
     .lex-hud-left{min-width:0;flex:1;}
     .lex-hud-right{min-width:0;}
     .lex-hud-center{order:3;flex-basis:100%;}
-    .lex-battle-scene{height:200px;}
-    .lex-hero-side{left:14px;}
-    .lex-enemy-side{right:14px;}
-    .lex-speech-bubble{left:120px;max-width:130px;padding:6px 8px;}
     .lex-game-panel{flex-direction:column;overflow-y:auto;}
     .lex-center-content{order:1;flex:none;overflow:visible;border-left:0;border-right:0;padding-bottom:14px;}
     .lex-question-area{flex:none;overflow:visible;max-width:none;}

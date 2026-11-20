@@ -37,11 +37,6 @@
     .char-card{min-height:210px;}
     .char-canvas{width:100px;height:100px;}
     .choice-btn{font-size:calc(13px * var(--text-scale,1));padding:7px 6px;}
-    .lex-battle-scene{height:170px;}
-    .char-game-canvas{width:85px;height:85px;}
-    .monster-canvas{width:100px;height:100px;}
-    .lex-hero-side{left:30px;}
-    .lex-enemy-side{right:30px;}
 }
 /* ===== STUDY COURSE (13 lessons) ===== */
 .learn-header,.learn-tabs{flex-shrink:0;}

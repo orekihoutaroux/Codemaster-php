@@ -66,6 +66,7 @@ function launchDungeon(message){
     if(selectedChar.ability==='addTime')TIMER_MAX=35;else TIMER_MAX=30;
     var progEl=document.getElementById('lex-progress-fill');if(progEl)progEl.style.width='5%';
     document.getElementById('player-level').textContent='LVL '+level;
+    var heroPlateName=document.getElementById('hero-plate-name');if(heroPlateName)heroPlateName.textContent=selectedChar.name;
     updatePlayerHP();
     startCharacterAnimation();encounterCount=0;spawnMonster();loadQuestion();
     if(message)showToast(message,'success');

@@ -27,6 +27,8 @@ function applyBattleBackground(){
         scene.setAttribute('aria-label',themeNames[theme]+' battlefield, Floor '+floor_num);
     }
     if(gameScreen)gameScreen.setAttribute('data-floor-theme',theme);
+    // the pixel-art place behind the fight (game/battle-background.js)
+    if(typeof startBattleBackground==='function')startBattleBackground(theme);
 }
 
 function syncUiFromState(){
@@ -267,6 +269,7 @@ function showScreen(id){
         if(characterAnimId){cancelAnimationFrame(characterAnimId);characterAnimId=null;}
         if(monsterAnimId){cancelAnimationFrame(monsterAnimId);monsterAnimId=null;}
     }
+    if(id==='game-screen'&&typeof startBattleBackground==='function')startBattleBackground();
     if(id==='select-screen')renderCharacterSelect();
     if(id==='add-user-screen'||id==='title-screen'){
         if(typeof heroReselectMode!=='undefined'&&heroReselectMode&&typeof setHeroReselectMode==='function')setHeroReselectMode(false);

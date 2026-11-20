@@ -44,9 +44,6 @@
                 mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3Cpath d='M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z'/%3E%3C/svg%3E") center/contain no-repeat;}
     .lex-hud-right-stats{gap:8px;}
 
-    /* Battle scene: the monster blurb and buff badges stay on screen. */
-    .lex-monster-desc-panel{left:auto;right:0;transform:none;width:min(220px,52vw);font-size:calc(11px * var(--text-scale,1));}
-    .lex-hero-hp-wrap>.buff-indicators{left:0;transform:none;width:min(184px,46vw);justify-content:start;}
 
     /* Shop: description gets its own line instead of a narrow middle column. */
     .shop-item{display:grid;grid-template-columns:34px 1fr auto;grid-template-areas:"icon name cost" "icon desc cost";column-gap:10px;row-gap:2px;padding:10px 12px;}

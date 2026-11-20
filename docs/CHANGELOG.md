@@ -354,3 +354,31 @@ the `/api/admin/*` routes remain unprotected on the server.
 - For testing in the browser console: `setHomeTimeOfDay(0.5)` shows noon
   (0 = midnight, 0.25 = sunrise, 0.75 = sunset); `setHomeTimeOfDay(null)`
   lets the day run again.
+
+## Changelog — battle background and fighter positions
+
+- **New battle backgrounds.** Each floor is now a pixel-art place drawn at
+  the same pixel size as the heroes and monsters (`js/game/battle-background.js`),
+  replacing the old CSS shapes (`css/game/floor-backgrounds.css` is gone):
+  1. Sunlit valley: sun with turning rays, drifting clouds, snowy mountains,
+     a distant castle, a shimmering lake, pine trees, birds, a stone path.
+  2. Crystal cavern: stalactites with water drips, glowing crystals, an
+     underground pool, rising spores.
+  3. Cyber defense: a data skyline, server racks with blinking lights,
+     data packets, a scanning beam, a moving neon grid floor.
+  4. Code matrix: falling code, terminal towers with a blinking cursor,
+     a glowing platform.
+  5. Inferno core: a volcano with lava streams and eruptions in the middle,
+     smoke, a bubbling lava lake, embers. Boss fights add a red pulse.
+- **Fighter positions fixed** (`css/game/battle-stage.css`):
+  - Hero and monster face each other around the middle of the scene
+    instead of hugging the screen edges, and both stand on the floor.
+  - A plate under each fighter's feet: level + hero name + HP bar for the
+    hero (green), name + HP bar for the monster (red; gold plate for bosses).
+  - The monster description moved into the **Monster Stats** panel (it used
+    to hang off the bottom of the scene).
+  - Active buffs show in the top-left corner of the scene.
+  - Speech bubble sits next to the hero's head; hit effects and ability
+    labels (e.g. SHIELDED) appear on the fighters.
+  - Sizes: 3x pixels on laptops, 2x on phones and tablets, 4x on large
+    screens (1600x940 and up).

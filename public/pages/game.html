@@ -34,34 +34,23 @@
     </div>
 
     <!-- GAME AREA B: FLOOR-AWARE BATTLE SCENE
+         The place is drawn on #battle-bg-canvas by js/game/battle-background.js
+         (a different place for every floor). Layout: css/game/battle-stage.css.
+         Each fighter stands on the floor with a plate under its feet:
+         level, hero and HP for the hero; name and HP for the monster.
          Functions: applyBattleBackground(), startCharacterAnimation(),
          startMonsterAnimation(), and updateMonsterUI(). -->
     <div class="lex-battle-scene" id="battle-scene" data-floor-theme="sunlit-valley" aria-label="Sunlit valley battlefield">
-        <!-- Layered pixel landscape; the theme changes with the current floor -->
-        <div class="lex-bg-sky" aria-hidden="true"></div>
-        <div class="lex-bg-stars" aria-hidden="true"></div>
-        <div class="lex-bg-clouds" aria-hidden="true"></div>
-        <div class="lex-bg-mountains" aria-hidden="true"></div>
-        <div class="lex-bg-island" aria-hidden="true"></div>
-        <div class="lex-bg-sea" aria-hidden="true"></div>
-        <div class="lex-bg-atmosphere" aria-hidden="true"></div>
-        <div class="lex-bg-ground" aria-hidden="true"></div>
-        <div class="lex-cave-frame" aria-hidden="true"></div>
-        <div class="lex-crystal-cluster lex-crystal-left" aria-hidden="true"></div>
-        <div class="lex-crystal-cluster lex-crystal-right" aria-hidden="true"></div>
-        <div class="lex-bg-particles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <!-- Greek columns -->
-        <div class="lex-column" style="left:20px;height:72px;"></div>
-        <div class="lex-column" style="right:20px;height:72px;"></div>
-        <!-- Cypress trees -->
-        <div class="lex-tree" style="left:155px;"></div>
-        <div class="lex-tree" style="left:188px;"></div>
+        <canvas id="battle-bg-canvas" class="battle-bg-canvas" aria-hidden="true"></canvas>
 
-        <!-- Player hero (left side) -->
+        <!-- Player hero (left) -->
         <div class="lex-hero-side" id="hero-side">
-            <div class="lex-hero-label" id="player-level">LVL 1</div>
             <canvas id="game-character" class="char-game-canvas" width="64" height="64"></canvas>
-            <div class="lex-hero-hp-wrap">
+            <div class="fighter-plate hero-plate">
+                <div class="fighter-plate-top">
+                    <span class="lex-hero-label" id="player-level">LVL 1</span>
+                    <span class="fighter-plate-name" id="hero-plate-name">HERO</span>
+                </div>
                 <div class="hp-bar-container">
                     <div class="hp-bar">
                         <div class="hp-fill" id="hp-fill" style="width:100%"></div>
@@ -71,28 +60,27 @@
             </div>
         </div>
 
-        <!-- Speech bubble (center, pointing to enemy) -->
+        <!-- Speech bubble (next to the hero's head) -->
         <div class="lex-speech-bubble" id="speech-bubble">Ready for battle!</div>
 
         <!-- Attack impact effects -->
-        <div class="attack-spark hero" id="hero-attack-fx" style="right:118px;bottom:108px;"></div>
-        <div class="attack-spark monster" id="monster-attack-fx" style="left:118px;bottom:108px;"></div>
+        <div class="attack-spark hero" id="hero-attack-fx"></div>
+        <div class="attack-spark monster" id="monster-attack-fx"></div>
         <div class="character-combat-fx-layer" id="character-combat-fx-layer" aria-hidden="true"></div>
 
-        <!-- Enemy / monster (right side) -->
+        <!-- Enemy / monster (right) -->
         <div class="lex-enemy-side">
-            <div class="lex-enemy-label" id="monster-name">Bug Sprite</div>
             <canvas id="monster-canvas" class="monster-canvas" width="64" height="64"></canvas>
-            <div class="lex-monster-hp-wrap">
+            <div class="fighter-plate enemy-plate">
+                <div class="fighter-plate-top">
+                    <span class="lex-enemy-label" id="monster-name">Bug Sprite</span>
+                </div>
                 <div class="lex-monster-hp-bar">
                     <div class="monster-hp-fill" id="monster-hp-fill" style="width:100%"></div>
                     <div class="monster-hp-text" id="monster-hp-text">100/100</div>
                 </div>
-                <div class="lex-monster-desc-panel" id="monster-desc">A tiny bug that crawls in your code</div>
             </div>
         </div>
-
-        <div class="monster-miss-streak" id="monster-miss-streak">MISS STREAK: 0</div>
     </div>
 
     <!-- GAME AREA C: QUESTION AND STATISTICS PANEL
@@ -164,6 +152,7 @@
             <div class="lex-monster-stats" aria-label="Current monster statistics">
                 <div class="lex-monster-stats-title">Monster Stats</div>
                 <div class="lex-monster-stats-card">
+                    <div class="lex-monster-desc-panel" id="monster-desc">A tiny bug that crawls in your code</div>
                     <div class="lex-monster-stat-row"><span>TYPE</span><strong id="monster-stat-type">NORMAL</strong></div>
                     <div class="lex-monster-stat-row hp"><span>HP</span><strong id="monster-stat-hp">100 / 100</strong></div>
                     <div class="lex-monster-stat-row atk"><span>ATK</span><strong id="monster-stat-atk">8</strong></div>

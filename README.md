@@ -155,6 +155,8 @@ codemaster-php/
 | How lessons are drawn / the lesson text format | `public/js/core/lesson-format.js`                          |
 | The home page                                | `public/pages/home.html`, `public/js/screens/home.js`, `public/css/screens/home*.css` |
 | The home page's animated background          | `public/js/screens/home-background.js`                       |
+| The battle background of each floor          | `public/js/game/battle-background.js` (which floor gets which place: `getBattleThemeForFloor()` in `public/js/core/navigation.js`) |
+| Where hero, monster, name plates and HP bars sit in battle | `public/css/game/battle-stage.css`                |
 | Account creation and login                   | `public/pages/account.html`, `public/js/screens/account.js`  |
 | Moving between screens                       | `showScreen()` in `public/js/core/navigation.js`             |
 | Sound effects / music                        | `public/js/core/audio.js` / `public/js/core/music.js`        |

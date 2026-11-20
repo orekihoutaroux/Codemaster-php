@@ -55,9 +55,10 @@ function updateShopBuffs(){
 function updateBuffIndicators(){
     var container=document.querySelector('.buff-indicators');
     if(!container){
+        // shown in the top-left corner of the battle scene (css/game/battle-stage.css)
         container=document.createElement('div');container.className='buff-indicators';
-        var hp_container=document.querySelector('.hp-bar-container');
-        if(hp_container)hp_container.parentNode.insertBefore(container,hp_container.nextSibling);
+        var battleScene=document.getElementById('battle-scene');
+        if(battleScene)battleScene.appendChild(container);
     }
     container.innerHTML='';
     if(buffDef>0){var t=document.createElement('span');t.className='buff-tag def';t.textContent='DEF('+buffDef+')';container.appendChild(t);}
@@ -68,7 +69,18 @@ function updateBuffIndicators(){
 
 function showFloatingPoints(text){var el=document.createElement('div');el.className='float-points';el.textContent=text;el.style.left='50%';el.style.top='30%';document.body.appendChild(el);setTimeout(function(){el.remove();},1400);} 
 function showFloatingDmg(text){var el=document.createElement('div');el.className='float-dmg';el.textContent=text;el.style.left='45%';el.style.top='25%';document.body.appendChild(el);setTimeout(function(){el.remove();},1400);} 
-function showAbilityActivate(text){var el=document.createElement('div');el.className='ability-activate';el.textContent=text;el.style.left='20%';el.style.top='40%';document.body.appendChild(el);setTimeout(function(){el.remove();},1200);} 
+// Pops up in front of the hero (falls back to the left of the screen when the hero is not shown).
+function showAbilityActivate(text){
+    var el=document.createElement('div');el.className='ability-activate';el.textContent=text;
+    document.body.appendChild(el);
+    var hero=document.getElementById('game-character'),r=hero&&hero.offsetParent!==null?hero.getBoundingClientRect():null;
+    if(r&&r.width){
+        var cx=r.left+r.width*28/64;
+        el.style.left=Math.max(6,Math.min(window.innerWidth-el.offsetWidth-6,cx-el.offsetWidth/2))+'px';
+        el.style.top=Math.max(6,r.bottom-r.height*0.32)+'px'; // starts at the legs and floats up (clear of the speech bubble)
+    }else{el.style.left='20%';el.style.top='40%';}
+    setTimeout(function(){el.remove();},1200);
+} 
 function showToast(msg,type){document.querySelectorAll('.toast').forEach(function(t){t.remove();});var el=document.createElement('div');el.className='toast '+type;el.textContent=msg;document.body.appendChild(el);setTimeout(function(){el.remove();},2000);} 
 function showLevelUp(lvl){var o=document.createElement('div');o.className='level-up-overlay';o.innerHTML='<div class="text">LEVEL UP!</div><div class="sub">Level '+lvl+' | +10 Max HP | +'+ATTACK_PER_LEVEL+' ATK</div>';document.body.appendChild(o);o.onclick=function(){o.remove();};setTimeout(function(){o.remove();},2500);} 
 function showBossDefeat(){var o=document.createElement('div');o.className='boss-defeat-overlay';o.innerHTML='<div class="text">BOSS DEFEATED!</div><div class="sub">Floor '+floor_num+' unlocked!</div><div class="sub2">+25g | +1 Potion | HP Restored!</div>';document.body.appendChild(o);o.onclick=function(){o.remove();};setTimeout(function(){o.remove();},3000);} 
