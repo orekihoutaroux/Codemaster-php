@@ -716,3 +716,20 @@ curve (it may be lower). Old leaderboard scores came from the old point rules.
   has a question to ask on every floor.
 - `GET /api/questions` also returns `nextId`, so a new question never reuses
   the number of a deleted starter question.
+
+## Changelog — Home page: the hero finishes with its special skill
+
+- In the little fight on the home page, the hero's last attack is now its
+  special skill instead of a second normal attack: the skill's name pops up
+  over the hero (TIME WARP, ARCANE BURST, AEGIS SLAM, ZERO-DAY STRIKE,
+  RESTORE PULSE, BOUNTY BREAK), the hero takes its skill pose, the same
+  pixel-art effect as in battle is drawn, and that hit is the K.O.
+  (`playRoundEffects()` in `public/js/screens/home.js`). The knight and the
+  hacker run in for their skill as they do for a normal attack.
+- The skill uses the battle's timing (`CHARACTER_SKILL_TIMINGS`), so a round
+  now lasts 6.7 seconds instead of 6.4.
+- `BattleFX.heroSkill()` (`public/js/game/battle-fx.js`) can draw on another
+  stage besides the battle scene; the home page gives it a new
+  `#home-fx-canvas` (`public/pages/home.html`). There the whole-scene flash is
+  left out and the canvas edges fade (`css/screens/home-stage.css`), so no box
+  shows around the stage. Battles look the same as before.

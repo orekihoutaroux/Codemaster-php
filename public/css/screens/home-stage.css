@@ -37,7 +37,27 @@
 @media(max-width:600px){
     .home-fx-dmg{font-size:calc(11px * var(--text-scale,1));}
     .home-fx-dmg.ko{font-size:calc(14px * var(--text-scale,1));}
+    .home-fx-dmg.skill{font-size:calc(13px * var(--text-scale,1));}
+    .home-fx-skill{padding:4px 7px 5px;}
+    .home-fx-skill small{font-size:calc(5px * var(--text-scale,1));}
+    .home-fx-skill b{font-size:calc(9px * var(--text-scale,1));}
 }
+/* special skill: the pixel-art effect canvas (sized by js/game/battle-fx.js) covers
+   the stage; its top and sides fade out, so a beam falling from the sky or a
+   glitch line across the stage has no hard edge */
+.home-fx-canvas{position:absolute;left:0;top:0;z-index:5;pointer-events:none;image-rendering:pixelated;
+    -webkit-mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent),linear-gradient(to bottom,transparent,#000 32%);
+    -webkit-mask-composite:source-in;
+            mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent),linear-gradient(to bottom,transparent,#000 32%);
+            mask-composite:intersect;}
+/* the skill's name pops up over the hero */
+.home-fx-skill{z-index:7;display:flex;flex-direction:column;align-items:center;gap:3px;white-space:nowrap;padding:5px 9px 6px;
+    background:rgba(6,7,20,.88);border:2px solid var(--fx-color,#ffd43b);box-shadow:0 0 0 2px #05060f,0 0 16px var(--fx-color,#ffd43b);
+    animation:homeFxSkill 1.5s steps(12,end) forwards;}
+.home-fx-skill small{font-family:var(--pixel-font);font-size:calc(6px * var(--text-scale,1));letter-spacing:1px;color:var(--fx-accent,#fff);opacity:.85;}
+.home-fx-skill b{font-family:var(--pixel-font);font-weight:400;font-size:calc(11px * var(--text-scale,1));letter-spacing:1px;color:var(--fx-color,#ffd43b);text-shadow:2px 2px 0 #000;}
+@keyframes homeFxSkill{0%{transform:translate(-50%,-30%) scale(.6);opacity:0;}12%{transform:translate(-50%,-50%) scale(1.12);opacity:1;}22%{transform:translate(-50%,-50%) scale(1);opacity:1;}80%{transform:translate(-50%,-56%) scale(1);opacity:1;}100%{transform:translate(-50%,-70%) scale(1);opacity:0;}}
+.home-fx-dmg.skill{font-size:calc(18px * var(--text-scale,1));color:#fff3b0;}
 .home-fighter-enemy{right:8px;}
 .home-fighter-name{position:absolute;bottom:-12px;font-family:var(--pixel-font);font-size:calc(8px * var(--text-scale,1));letter-spacing:1px;color:#cfd6ff;background:rgba(5,6,18,.78);border:2px solid #2c3160;padding:4px 7px;white-space:nowrap;text-transform:uppercase;}
 .home-fighter-hero .home-fighter-name{left:50%;transform:translateX(-62%);}

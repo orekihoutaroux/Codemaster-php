@@ -6,36 +6,66 @@
 // hero's hand and land on the monster at any screen size.
 //
 //   BattleFX.heroAttack(heroId, impactMs, releaseMs)  normal attack
-//   BattleFX.heroSkill(heroId, impactMs)              special skill
+//   BattleFX.heroSkill(heroId, impactMs, stage)       special skill
 //   BattleFX.clear()                                  stop everything
 // Called from playCharacterAttackAnimation() and playCharacterSkillAnimation()
 // in js/game/battle.js, which still handle damage, sounds and the hero pose.
+// The home page's showcase fight (js/screens/home.js) also plays the specials,
+// on its own stage: it passes {scene, canvas, hero, enemy, shake(ms, big)}.
 (function(){
 'use strict';
 var scene=null,canvas=null,ctx=null,W=0,H=0,P=3,GY=0,effects=[],parts=[],animId=null,lastNow=0;
+var stage=null,heroEl=null,enemyEl=null; // stage: null = the battle scene
 var reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // ---------- canvas ----------
+// Switches to another stage (null = the battle scene). Whatever was still
+// playing on the old one is dropped.
+function useStage(next){
+    next=next||null;
+    var nextCanvas=next?next.canvas:document.getElementById('battle-fx-canvas');
+    if(canvas&&nextCanvas!==canvas){
+        effects=[];parts=[];
+        if(ctx)ctx.clearRect(0,0,W,H);
+        if(scene)scene.classList.remove('fx-shake','fx-shake-big');
+        W=H=0;
+    }
+    stage=next;
+}
 function setup(){
-    scene=document.getElementById('battle-scene');
-    canvas=document.getElementById('battle-fx-canvas');
-    if(!scene||!canvas)return false;
+    if(stage){scene=stage.scene;canvas=stage.canvas;heroEl=stage.hero;enemyEl=stage.enemy;}
+    else{
+        scene=document.getElementById('battle-scene');canvas=document.getElementById('battle-fx-canvas');
+        heroEl=document.getElementById('game-character');enemyEl=document.getElementById('monster-canvas');
+    }
+    if(!scene||!canvas||!heroEl||!enemyEl)return false;
     var cs=getComputedStyle(scene),r=uiRect(scene); // layout pixels (js/core/ui-fit.js)
     if(!r.width||!r.height)return false;
-    P=Math.max(1,parseInt(cs.getPropertyValue('--px'),10)||3);
+    var floorTop=0;
+    if(stage){
+        // Another stage has no --px/--ground: the pixel size and the floor come
+        // from the hero sprite (64 art pixels wide, feet on art row 61).
+        var hr=uiRect(heroEl);
+        if(!hr.width)return false;
+        P=Math.max(1,Math.round(hr.width/64));
+        floorTop=hr.top-r.top+hr.height*61/64;
+    }else P=Math.max(1,parseInt(cs.getPropertyValue('--px'),10)||3);
     var w=Math.ceil(r.width/P),h=Math.ceil(r.height/P);
     if(w!==W||h!==H||canvas.width!==w){
         W=w;H=h;canvas.width=W;canvas.height=H;
         canvas.style.width=(W*P)+'px';canvas.style.height=(H*P)+'px';
     }
-    var ground=parseFloat(cs.getPropertyValue('--ground'))||62,feet=parseFloat(cs.getPropertyValue('--feet'))||14;
-    GY=H-Math.round((ground-feet)/P);
+    if(stage)GY=Math.round(floorTop/P);
+    else{
+        var ground=parseFloat(cs.getPropertyValue('--ground'))||62,feet=parseFloat(cs.getPropertyValue('--feet'))||14;
+        GY=H-Math.round((ground-feet)/P);
+    }
     ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
     return true;
 }
 // A point on a fighter, in effect pixels. col,row are art pixels on its 64x64 sprite.
 function at(side,col,row){
-    var el=document.getElementById(side==='hero'?'game-character':'monster-canvas');
+    var el=side==='hero'?heroEl:enemyEl;
     if(!el||!scene)return {x:0,y:0};
     var s=uiRect(scene),r=uiRect(el);
     return {x:(r.left-s.left+r.width*col/64)/P,y:(r.top-s.top+r.height*row/64)/P};
@@ -84,7 +114,7 @@ function add(delay,dur,draw){effects.push({t0:performance.now()+delay,dur:Math.m
 function once(delay,fn){effects.push({t0:performance.now()+delay,dur:1,once:fn});wake();}
 function wake(){if(!animId){lastNow=0;animId=requestAnimationFrame(loop);}}
 function loop(now){
-    if(!setup()){effects=[];parts=[];animId=null;return;}
+    if(!setup()){if(ctx)ctx.clearRect(0,0,W,H);effects=[];parts=[];animId=null;return;}
     var dt=Math.min(0.05,lastNow?(now-lastNow)/1000:0.016);lastNow=now;
     ctx.clearRect(0,0,W,H);
     for(var i=0;i<effects.length;i++){
@@ -129,9 +159,12 @@ function drawParts(dt){
 }
 
 // ---------- shared pieces ----------
-function flash(delay,dur,color,strength){add(delay,dur,function(e,k){alpha((1-k)*(strength||0.3));rect(0,0,W,H,color);});}
+// The whole-scene flash only suits the framed battle scene; on an open stage
+// (the home page) it would show as a box, so it is left out there.
+function flash(delay,dur,color,strength){if(stage)return;add(delay,dur,function(e,k){alpha((1-k)*(strength||0.3));rect(0,0,W,H,color);});}
 function shake(delay,ms,big){
     once(delay,function(){
+        if(stage){if(stage.shake)stage.shake(ms||260,!!big);return;}
         if(!scene)return;
         scene.classList.remove('fx-shake','fx-shake-big');void scene.offsetWidth;
         scene.classList.add(big?'fx-shake-big':'fx-shake');
@@ -391,15 +424,17 @@ var SKILLS={
 
 window.BattleFX={
     heroAttack:function(id,impact,release){
+        useStage(null);
         if(!setup())return;
         if(reduceMotion){burst(impact,monsterBody,'#ffd15a','#ffffff',0.8);return;}
         (ATTACKS[id]||ATTACKS.scholar)(impact,release==null?Math.round(impact*0.35):release);
     },
-    heroSkill:function(id,impact){
+    heroSkill:function(id,impact,onStage){
+        useStage(onStage);
         if(!setup())return;
         if(reduceMotion){burst(impact,monsterBody,'#ffd15a','#ffffff',1.2);return;}
         (SKILLS[id]||SKILLS.scholar)(impact);
     },
-    clear:function(){effects=[];parts=[];if(ctx)ctx.clearRect(0,0,W,H);if(scene)scene.classList.remove('fx-shake','fx-shake-big');}
+    clear:function(){effects=[];parts=[];if(ctx)ctx.clearRect(0,0,W,H);if(scene)scene.classList.remove('fx-shake','fx-shake-big');stage=null;}
 };
 })();
