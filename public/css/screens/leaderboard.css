@@ -26,7 +26,6 @@
 .col.role{color:#4ecca3;font-size:calc(13px * var(--text-scale,1));font-weight:bold;}
 /* year level and block: small badges; on phones a line under the name instead */
 .col.year,.col.block{text-align:center;color:#9fb4ff;font-weight:bold;font-size:calc(14px * var(--text-scale,1));}
-.leaderboard-row:not(.header-row) .col.year,.leaderboard-row:not(.header-row) .col.block{font-family:var(--pixel-font);font-size:calc(11px * var(--text-scale,1));}
 .col.name .lb-name{display:block;overflow:hidden;text-overflow:ellipsis;}
 .col.name .lb-class{display:none;margin-top:3px;font-size:calc(11px * var(--text-scale,1));font-weight:700;color:#9fb4ff;letter-spacing:.3px;}
 .rank-1 .col.rank{color:#ffd700;font-size:calc(22px * var(--text-scale,1));text-shadow:0 0 10px rgba(255,215,0,0.9);}

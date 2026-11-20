@@ -61,7 +61,7 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 .leaderboard-table{min-height:160px;margin-bottom:16px;border-width:3px;}
 #leaderboard-list{flex:1;overflow-y:auto;min-height:0;}
 #leaderboard-list .admin-empty{padding:28px 16px;text-align:center;}
-.leaderboard-row,.leaderboard-row.header-row{grid-template-columns:60px 1.5fr 1.3fr .9fr 58px 62px 86px 64px;padding:11px 16px;}
+.leaderboard-row,.leaderboard-row.header-row{grid-template-columns:56px 1.4fr 1.25fr .85fr 92px 58px 80px 60px;padding:11px 16px;}
 .leaderboard-row.header-row{font-size:calc(13px * var(--text-scale,1));letter-spacing:.6px;}
 .leaderboard-row.header-row .col{font-size:calc(13px * var(--text-scale,1));}
 .leaderboard-row .col{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
@@ -122,7 +122,7 @@ body.large-text .code-block{font-size:calc(16px * var(--text-scale,1));}
 }
 @media(max-width:900px){
     .characters-grid{grid-template-columns:repeat(2,1fr);}
-    .leaderboard-row,.leaderboard-row.header-row{grid-template-columns:44px 1.4fr 1fr 46px 52px 70px 48px;gap:8px;padding:10px;}
+    .leaderboard-row,.leaderboard-row.header-row{grid-template-columns:40px 1.3fr 1fr 78px 50px 62px 46px;gap:8px;padding:10px;}
     .leaderboard-row .col.role{display:none;}
 }
 /* Tablets and phones: stack the battle panels instead of squeezing three

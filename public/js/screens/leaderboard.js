@@ -4,6 +4,16 @@ function showLeaderboard(){
     renderLeaderboard();
 }
 
+// "1" -> "1st Year", "2" -> "2nd Year" ... ; anything else is shown as it is.
+function formatYearLevel(value){
+    var text=String(value==null?'':value).trim();
+    if(!text||text==='-')return '-';
+    if(!/^\d+$/.test(text))return text;
+    var n=parseInt(text,10),last=n%10,lastTwo=n%100;
+    var suffix=(lastTwo>=11&&lastTwo<=13)?'th':last===1?'st':last===2?'nd':last===3?'rd':'th';
+    return n+suffix+' Year';
+}
+
 function renderLeaderboard(){
     var container=document.getElementById('leaderboard-list');
     if(!container)return;
@@ -19,9 +29,9 @@ function renderLeaderboard(){
             row.className='leaderboard-row';
             if(player.rank<=3)row.classList.add('rank-'+player.rank);
             var medal=player.rank===1?'🥇':player.rank===2?'🥈':player.rank===3?'🥉':player.rank;
-            var year=String(player.yearLevel||'-'),block=String(player.block||'-');
+            var year=formatYearLevel(player.yearLevel),block=String(player.block||'-');
             // phones hide the YEAR and BLOCK columns and show them under the name
-            var classLine=(year!=='-'||block!=='-')?'<span class="lb-class">Year '+escapeHtml(year)+' &middot; Block '+escapeHtml(block)+'</span>':'';
+            var classLine=(year!=='-'||block!=='-')?'<span class="lb-class">'+escapeHtml(year==='-'?'Year -':year)+' &middot; Block '+escapeHtml(block)+'</span>':'';
             row.innerHTML='<div class="col rank">'+medal+'</div>'+
                           '<div class="col name"><span class="lb-name">'+escapeHtml(player.name)+'</span>'+classLine+'</div>'+
                           '<div class="col character">'+escapeHtml(player.character||'-')+'</div>'+

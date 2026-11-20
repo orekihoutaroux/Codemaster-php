@@ -385,8 +385,9 @@ the `/api/admin/*` routes remain unprotected on the server.
 
 ## Changelog — year level and block on the leaderboard
 
-- The leaderboard has **YEAR** and **BLOCK** columns. On phones they show as
-  a line under the player's name ("Year 2 · Block 3").
+- The leaderboard has **YEAR** and **BLOCK** columns. Year levels read
+  "1st Year", "2nd Year", "3rd Year", "4th Year". On phones they show as a
+  line under the player's name ("2nd Year · Block 3").
 - The values come from the player's account, so older scores saved before
   this change also show them, and a change made by an admin shows at once.
   Scores from someone without an account show "-".
