@@ -8,9 +8,13 @@
 /* ---- the stage ---- */
 .home-stage{--home-shake:0px;position:relative;width:min(700px,100%);height:210px;margin:4px 0 2px;display:flex;justify-content:center;align-items:flex-end;transform:translateX(var(--home-shake));}
 .home-stage .dungeon-canvas{width:360px;height:180px;margin:0;}
-.home-fighter{position:absolute;bottom:-6px;display:flex;flex-direction:column;align-items:center;pointer-events:none;}
+/* The fighters stand in front of the dungeon door (the door canvas is z-index 1
+   in home-refresh.css), so a hero running across to strike, or a spell flying
+   over, is never hidden behind it. The hero is the one who attacks, so it is
+   drawn in front of the monster too. */
+.home-fighter{position:absolute;bottom:-6px;z-index:2;display:flex;flex-direction:column;align-items:center;pointer-events:none;}
 .home-fighter canvas{width:192px;height:192px;image-rendering:pixelated;display:block;}
-.home-fighter-hero{left:8px;}
+.home-fighter-hero{left:8px;z-index:3;}
 .home-fighter-enemy{right:8px;}
 .home-fighter-name{position:absolute;bottom:-12px;font-family:var(--pixel-font);font-size:calc(8px * var(--text-scale,1));letter-spacing:1px;color:#cfd6ff;background:rgba(5,6,18,.78);border:2px solid #2c3160;padding:4px 7px;white-space:nowrap;text-transform:uppercase;}
 .home-fighter-hero .home-fighter-name{left:50%;transform:translateX(-62%);}

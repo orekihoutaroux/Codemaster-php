@@ -391,3 +391,11 @@ the `/api/admin/*` routes remain unprotected on the server.
 - The values come from the player's account, so older scores saved before
   this change also show them, and a change made by an admin shows at once.
   Scores from someone without an account show "-".
+
+## Changelog — home page: fighters in front of the door
+
+- In the little battle on the home page, the hero and the monster are now
+  drawn in front of the dungeon door. Before, the knight and the hacker ran
+  behind the door when they attacked, and spells flew behind it.
+- The attacking hero is drawn in front of the monster too
+  (`css/screens/home-stage.css`).
