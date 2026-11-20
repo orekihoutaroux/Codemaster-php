@@ -5,6 +5,11 @@
 #title-screen::before{display:none;}
 /* soft dark pool behind the centre so text stays readable over the scene */
 #title-screen::after{background:radial-gradient(ellipse 46% 58% at 50% 54%,rgba(4,4,16,.62) 0%,rgba(4,4,16,.34) 55%,transparent 80%),radial-gradient(ellipse at center,transparent 45%,rgba(2,2,10,.55) 100%);}
+/* home-background.js sets --home-veil: lighter by day, full at night. */
+#title-screen::after{opacity:var(--home-veil,1);transition:opacity 1.2s linear;}
+/* by day the footer line sits on bright grass: give it a dark backing */
+.home-footer{transition:background-color 1.2s linear,color 1.2s linear;padding:3px 10px;}
+#title-screen[data-sky="day"] .home-footer{background:rgba(8,9,26,.62);color:#dfe3ff;}
 
 /* the logo sits in front of the moonlit sky */
 #title-screen .game-logo{filter:drop-shadow(0 10px 18px rgba(0,0,0,.6)) drop-shadow(0 0 22px rgba(120,110,255,.18));}

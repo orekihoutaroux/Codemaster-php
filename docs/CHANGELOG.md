@@ -334,3 +334,23 @@ the `/api/admin/*` routes remain unprotected on the server.
   gold, after picking a hero. Your account and chosen hero stay.
 - The run is not added to the leaderboard on exit (RESTART GAME and dying
   still add it). This replaces the earlier "EXIT TO TITLE keeps progress".
+
+## Changelog — home page background: day and night
+
+- The home page background now goes through a whole day in 2 minutes:
+  sunrise, day, sunset and night. It starts at your real time of day.
+- **Sunrise:** pink and orange sky, the sun comes up behind the castle while
+  the moon sets over the watchtower.
+- **Day:** blue sky, drifting clouds, flocks of birds, a green valley with
+  pine trees and flowers, a stone castle with red roofs.
+- **Sunset:** orange and red sky, the sun sets on the right, castle windows
+  light up, the moon rises.
+- **Night:** moon, stars, shooting stars, aurora, bats and fireflies (the
+  old night scene).
+- Sun and moon travel across the sky; colours fade smoothly between times of
+  day. The dark overlay behind the menu is lighter by day; the footer line
+  gets a dark backing by day so it stays readable.
+- "Reduce motion" shows a still picture of the current time of day.
+- For testing in the browser console: `setHomeTimeOfDay(0.5)` shows noon
+  (0 = midnight, 0.25 = sunrise, 0.75 = sunset); `setHomeTimeOfDay(null)`
+  lets the day run again.
