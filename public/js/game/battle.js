@@ -95,7 +95,8 @@ function spawnMonster(){
     monsterHp=battleStats.hp;monsterMaxHp=monsterHp;
     monsterAttack=battleStats.attack;monsterDefense=battleStats.defense;
     updateMonsterUI();startMonsterAnimation();
-    document.getElementById('encounter-label').textContent='ENCOUNTER '+encounterCount+'/3';
+    document.getElementById('encounter-label').textContent=encounterCount+'/3';
+    document.getElementById('encounter-box').classList.remove('boss');
     document.getElementById('battle-banner').textContent='BATTLE! Answer correctly to attack!';
     document.getElementById('battle-banner').style.borderColor='var(--accent)';
     var progEl=document.getElementById('lex-progress-fill');
@@ -110,7 +111,8 @@ function spawnBoss(){
     monsterHp=battleStats.hp;monsterMaxHp=monsterHp;
     monsterAttack=battleStats.attack;monsterDefense=battleStats.defense;
     updateMonsterUI();startMonsterAnimation();
-    document.getElementById('encounter-label').textContent='\u2620 BOSS FIGHT \u2620';
+    document.getElementById('encounter-label').textContent='BOSS';
+    document.getElementById('encounter-box').classList.add('boss');
     document.getElementById('battle-banner').textContent='\u2620 BOSS: '+currentMonster.name+' \u2620';
     document.getElementById('battle-banner').style.borderColor='var(--gold)';
     var progEl2=document.getElementById('lex-progress-fill');
@@ -133,6 +135,8 @@ function updateMonsterUI(){
     var bossPanel=document.getElementById('boss-special-panel');
     if(bossPanel){
         bossPanel.style.display=bossSpecial?'block':'none';
+        // lets the right panel tighten up to make room for it (css/base/screen-fit.css)
+        var rightPanel=document.querySelector('.lex-curtain-right');if(rightPanel)rightPanel.classList.toggle('boss-fight',!!bossSpecial);
         if(bossSpecial){
             var bossName=document.getElementById('boss-special-name');if(bossName)bossName.textContent=bossSpecial.name;
             var bossDesc=document.getElementById('boss-special-desc');if(bossDesc)bossDesc.textContent=bossSpecial.desc;
@@ -155,17 +159,38 @@ function updateCharacterStatsUI(){
     var levelText=document.getElementById('level-progress-text');if(levelText)levelText.textContent=levelProgress.currentExp+' / '+levelProgress.requiredExp;
     var levelFill=document.getElementById('level-progress-fill');if(levelFill)levelFill.style.width=((levelProgress.currentExp/levelProgress.requiredExp)*100)+'%';
 
+    // The special skill button at the bottom of the hero's plate (pages/game.html).
     var special=getCharacterSpecial();
-    var specialName=document.getElementById('character-special-name');if(specialName)specialName.textContent=special?special.name:'SELECT A HERO';
-    var specialDesc=document.getElementById('character-special-desc');if(specialDesc)specialDesc.textContent=special?special.desc:'Answer correctly to charge your hero skill.';
+    var specialName=document.getElementById('character-special-name');if(specialName)specialName.textContent=special?special.name:'SPECIAL';
     var chargeFill=document.getElementById('character-special-charge-fill');if(chargeFill)chargeFill.style.width=specialCharge+'%';
     var skillBtn=document.getElementById('character-special-btn');
     if(skillBtn){
-        var ready=!!special&&specialCharge>=100&&!answered&&!!currentQuestion&&monsterHp>0;
+        var full=!!special&&specialCharge>=100;
+        var ready=full&&!answered&&!!currentQuestion&&monsterHp>0;
         skillBtn.disabled=!ready;
-        skillBtn.className='lex-special-skill-btn'+(specialCharge>=100?' ready':'');
-        skillBtn.textContent=specialCharge>=100?(ready?'USE '+special.name:'SKILL READY'):'CHARGE '+specialCharge+'%';
+        skillBtn.classList.toggle('full',full);   // charged: gold
+        skillBtn.classList.toggle('ready',ready); // and usable now: glows
+        var state=document.getElementById('character-special-state');
+        if(state)state.textContent=ready?'USE!':full?'READY':specialCharge+'%';
+        var tip=special?special.name+' \u2013 '+special.desc+' '+(ready?'Click to use it now.':full?'Ready for the next question.':'Charged '+specialCharge+'%: +25% per correct answer.'):'Answer correctly to charge your hero skill.';
+        skillBtn.title=tip;skillBtn.setAttribute('aria-label',tip);
+        drawSkillIcon(selectedChar?selectedChar.id:'');
     }
+}
+
+// Pixel icon of the hero's skill (CHARACTER_SKILL_ICONS in js/data/heroes.js),
+// drawn as a tiny SVG. Redrawn only when the hero changes.
+function drawSkillIcon(heroId){
+    var box=document.getElementById('character-special-icon');
+    if(!box||box.getAttribute('data-hero')===heroId)return;
+    box.setAttribute('data-hero',heroId);
+    var rows=(typeof CHARACTER_SKILL_ICONS!=='undefined'&&CHARACTER_SKILL_ICONS[heroId])||null;
+    if(!rows){box.innerHTML='';return;}
+    var out='<svg viewBox="0 0 10 10" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">';
+    rows.forEach(function(row,y){
+        for(var x=0;x<row.length;x++){var c=SKILL_ICON_COLORS[row.charAt(x)];if(c)out+='<rect x="'+x+'" y="'+y+'" width="1" height="1" fill="'+c+'"/>';}
+    });
+    box.innerHTML=out+'</svg>';
 }
 
 function updatePlayerHP(){

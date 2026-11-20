@@ -512,3 +512,41 @@ the `/api/admin/*` routes remain unprotected on the server.
     code) until the answers are in sight. Short questions look the same as
     before; on 16:9 only 15 of the 125 questions need it.
 
+
+## Changelog — big SHOP button in the left panel
+
+- **SHOP is now a big gold button at the top of the battle's left panel**
+  (`#shop-btn` in `pages/game.html`, styled in `css/game/question-panel.css`),
+  instead of the small tab under the player badge. The tab and its styles in
+  `css/game/hud.css` were removed, and the buff tags went back to the very top
+  of the battle scene.
+- To make room, **Streak and Encounter sit side by side** in two matching
+  boxes. The Encounter box shows `1/3`, `2/3`, `3/3`, or `BOSS` in red during
+  a boss fight (`spawnMonster()` / `spawnBoss()` in `js/game/battle.js`).
+- **Boss fights fit 16:9 too.** The BOSS SPECIAL box made the right panel up to
+  100px too tall, hiding Run Stats. During a boss fight on 16:9 screens, the
+  panel now drops the DEF note and the boss skill description (as the hero's
+  skill text is already dropped on the left) and shows Run Stats two by two.
+  The right panel gets a `boss-fight` class from `updateMonsterUI()`; the rules
+  are in `css/base/screen-fit.css`.
+
+## Changelog — special skill under the hero
+
+- **The special skill is now a button at the bottom of the hero's plate** in
+  the battle scene (under LVL / name / HP), instead of the bottom of the left
+  panel (`#character-special-btn` in `pages/game.html`, styled as
+  `.plate-skill` in `css/game/battle-stage.css`). It shows:
+  - a pixel icon for each hero's skill (hourglass, sparkle, shield, bolt,
+    cross, bomb: `CHARACTER_SKILL_ICONS` in `js/data/heroes.js`, drawn by
+    `drawSkillIcon()` in `js/game/battle.js`);
+  - the skill name and a charge bar with the percentage;
+  - gold with **READY** when fully charged, and a glowing, shining **USE!**
+    button when it can be used on the current question. Hovering shows what
+    the skill does.
+- The scene's floor is taller to make room (`--ground` 62px to 100px, scene
+  230px to 268px on 16:9; phones and other sizes adjusted the same way).
+- The old SPECIAL SKILL block, its charge bar and the CHARGE button were
+  removed from the left panel, with their styles.
+- To keep 16:9 screens fitting with the taller scene, the right panel shows
+  the monster's TYPE / HP / ATK / DEF two by two (`css/base/screen-fit.css`).
+  All 125 questions still fit; the four longest use slightly smaller code.

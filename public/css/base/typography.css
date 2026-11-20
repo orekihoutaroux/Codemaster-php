@@ -9,7 +9,7 @@
 .select-profile .profile-hint,.add-user-card .add-user-subtitle,.admin-login-subtitle,.admin-subtitle{font-size:calc(15px * var(--text-scale,1));line-height:1.65;}
 .char-card .char-name{font-size:calc(13px * var(--text-scale,1));line-height:1.6;}
 .char-card .char-desc,.char-card .char-stats{font-size:calc(14px * var(--text-scale,1));line-height:1.55;}
-.start-btn,.confirm-btn,.learn-back,.shop-close,.admin-btn,.admin-tab,.lex-attack-btn,.lex-special-skill-btn{letter-spacing:.5px;}
+.start-btn,.confirm-btn,.learn-back,.shop-close,.admin-btn,.admin-tab,.lex-attack-btn{letter-spacing:.5px;}
 #title-screen .start-btn[onclick*="learn-screen"],#title-screen .start-btn[onclick*="showLeaderboard"]{font-size:calc(12px * var(--text-scale,1))!important;}
 .start-btn,.confirm-btn{line-height:1.5;}
 .learn-title{font-size:calc(19px * var(--text-scale,1));line-height:1.5;}
@@ -31,9 +31,8 @@
 .admin-user-meta{font-size:calc(12px * var(--text-scale,1));}
 .lex-floor-badge,.lex-monster-stats-title,.lex-best-title,.lex-character-stats-title{font-size:calc(10px * var(--text-scale,1));line-height:1.6;}
 .lex-panel-row,.lex-monster-stat-row,.lex-best-row,.btn-menu,.diff-btn{font-size:calc(14px * var(--text-scale,1));line-height:1.5;}
-.lex-monster-stat-row span,.lex-monster-stat-note,.lex-character-stat span,.lex-level-progress-label,.lex-character-special-desc,.lex-boss-special-desc{font-size:calc(11px * var(--text-scale,1));line-height:1.5;}
-.lex-character-stat strong,.lex-monster-stat-row strong,.lex-character-special-label,.lex-boss-special-label,.lex-boss-special-ready{font-size:calc(9px * var(--text-scale,1));}
-.lex-special-skill-btn{font-size:calc(9px * var(--text-scale,1));}
+.lex-monster-stat-row span,.lex-monster-stat-note,.lex-character-stat span,.lex-level-progress-label,.lex-boss-special-desc{font-size:calc(11px * var(--text-scale,1));line-height:1.5;}
+.lex-character-stat strong,.lex-monster-stat-row strong,.lex-boss-special-label,.lex-boss-special-ready{font-size:calc(9px * var(--text-scale,1));}
 .lex-speech-bubble{font-size:calc(11px * var(--text-scale,1));line-height:1.7;}
 .lex-hero-label{font-size:calc(10px * var(--text-scale,1));}
 .lex-enemy-label{font-size:calc(12px * var(--text-scale,1));}
@@ -55,7 +54,7 @@
     .learn-tab{font-size:calc(13px * var(--text-scale,1));padding:8px 10px;}
     .learn-card p,.learn-card li{font-size:calc(15px * var(--text-scale,1));}
     .lex-panel-row,.lex-monster-stat-row,.lex-best-row,.btn-menu,.diff-btn{font-size:calc(12px * var(--text-scale,1));}
-    .lex-character-stat span,.lex-level-progress-label,.lex-character-special-desc,.lex-boss-special-desc,.lex-monster-stat-note{font-size:calc(10px * var(--text-scale,1));}
+    .lex-character-stat span,.lex-level-progress-label,.lex-boss-special-desc,.lex-monster-stat-note{font-size:calc(10px * var(--text-scale,1));}
     .lex-speech-bubble{font-size:calc(9px * var(--text-scale,1));}
     .q-text{font-size:calc(17px * var(--text-scale,1));}
     .choice-btn{font-size:calc(15px * var(--text-scale,1));}

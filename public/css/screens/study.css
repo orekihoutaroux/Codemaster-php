@@ -31,7 +31,7 @@
     .lex-curtain{width:120px;min-width:110px;}
     .lex-character-stats{padding:5px 3px;}
     .lex-character-stat-grid{grid-template-columns:1fr;}
-    .lex-character-special-desc,.lex-monster-stat-note,.lex-boss-special-desc{font-size:calc(8px * var(--text-scale,1));}
+    .lex-monster-stat-note,.lex-boss-special-desc{font-size:calc(8px * var(--text-scale,1));}
     .lex-character-stat strong,.lex-monster-stat-row strong{font-size:calc(7px * var(--text-scale,1));}
     .characters-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
     .char-card{min-height:210px;}

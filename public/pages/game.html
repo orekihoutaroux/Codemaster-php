@@ -31,9 +31,6 @@
                 <div class="lex-stat-box"><span class="val" id="floor-num">1</span><span class="lbl">FLOOR</span></div>
             </div>
         </div>
-        <!-- Shop: a tab hanging just under the player badge (css/game/hud.css).
-             Potions are drunk from the shop too. -->
-        <button type="button" class="hud-shop-btn" id="hud-shop-btn" onclick="openShop()" title="Open the shop (buy items, drink your potions)">SHOP</button>
     </div>
 
     <!-- GAME AREA B: FLOOR-AWARE BATTLE SCENE
@@ -60,6 +57,18 @@
                         <div class="hp-text" id="hp-text">100/100</div>
                     </div>
                 </div>
+                <!-- Special skill: charges +25% per correct answer; glows and can be
+                     clicked when ready (updateCharacterStatsUI() in js/game/battle.js) -->
+                <button type="button" class="plate-skill" id="character-special-btn" onclick="useCharacterSpecial()" disabled title="Answer correctly to charge your hero skill.">
+                    <span class="plate-skill-icon" id="character-special-icon" aria-hidden="true"></span>
+                    <span class="plate-skill-main">
+                        <span class="plate-skill-top">
+                            <span class="plate-skill-name" id="character-special-name">SPECIAL</span>
+                            <span class="plate-skill-state" id="character-special-state">0%</span>
+                        </span>
+                        <span class="plate-skill-track"><span class="plate-skill-fill" id="character-special-charge-fill" style="width:0%"></span></span>
+                    </span>
+                </button>
             </div>
         </div>
 
@@ -96,11 +105,19 @@
         <!-- Left curtain panel -->
         <div class="lex-curtain lex-curtain-left">
             <div class="lex-panel-info">
-                <div class="streak-inline">
-                    <div class="streak-label">STREAK</div>
-                    <div class="streak-value" id="streak">0</div>
+                <!-- Shop: buy items and drink your potions (overlays/shop.html) -->
+                <button type="button" class="lex-shop-btn" id="shop-btn" onclick="openShop()" title="Open the shop (buy items, drink your potions)"><span class="lex-shop-coin" aria-hidden="true"></span>SHOP</button>
+                <!-- streak and encounter side by side -->
+                <div class="lex-panel-pair">
+                    <div class="streak-inline">
+                        <div class="streak-label">STREAK</div>
+                        <div class="streak-value" id="streak">0</div>
+                    </div>
+                    <div class="streak-inline lex-encounter-box" id="encounter-box">
+                        <div class="streak-label">ENCOUNTER</div>
+                        <div class="streak-value" id="encounter-label">1/3</div>
+                    </div>
                 </div>
-                <div class="lex-floor-badge" id="encounter-label">ENCOUNTER 1/3</div>
                 <div class="lex-panel-row"><span>DIFF</span><span class="val"><div class="diff-btn easy active" id="auto-diff-display">AUTO</div></span></div>
                 <div class="lex-character-stats" aria-label="Current character statistics">
                     <div class="lex-character-stats-title">Character Stats</div>
@@ -113,13 +130,6 @@
                     <div class="lex-level-progress">
                         <div class="lex-level-progress-label"><span>LEVEL EXP</span><strong id="level-progress-text">0 / 100</strong></div>
                         <div class="lex-level-progress-track"><div class="lex-level-progress-fill" id="level-progress-fill" style="width:0%"></div></div>
-                    </div>
-                    <div class="lex-character-special">
-                        <div class="lex-character-special-label">SPECIAL SKILL</div>
-                        <div class="lex-character-special-name" id="character-special-name">SELECT A HERO</div>
-                        <div class="lex-character-special-desc" id="character-special-desc">Answer correctly to charge your hero skill.</div>
-                        <div class="lex-special-charge-track"><div class="lex-special-charge-fill" id="character-special-charge-fill" style="width:0%"></div></div>
-                        <button type="button" class="lex-special-skill-btn" id="character-special-btn" onclick="useCharacterSpecial()" disabled>CHARGE 0%</button>
                     </div>
                 </div>
             </div>

@@ -114,7 +114,6 @@ body.large-text .code-block{font-size:calc(16px * var(--text-scale,1));}
 /* ---------- Shorter windows ----------
    html.vh-820 / .vh-700 are set by js/core/ui-fit.js from the layout height
    (media queries would see the real window size, not the zoomed one). */
-:where(html.vh-820) .lex-character-special-desc{display:none;}
 :where(html.vh-820) .char-canvas{width:84px;height:84px;}
 
 @media(max-width:900px){
@@ -134,7 +133,6 @@ body.large-text .code-block{font-size:calc(16px * var(--text-scale,1));}
     .lex-question-area{flex:none;overflow:visible;max-width:none;}
     .lex-curtain{order:2;width:100%;min-width:0;flex:none;overflow:visible;padding-bottom:14px;}
     .lex-curtain-right{order:3;}
-    .lex-character-special-desc{display:block;}
     .toast{top:10px;}
     .admin-panel{max-height:calc(var(--app-h,100vh) * .94);overflow-y:auto;padding:12px;}
     .admin-grid{grid-template-columns:1fr;overflow:visible;flex:none;}

@@ -8,13 +8,6 @@
 .lex-hud-left,.lex-hud-right{display:flex;align-items:center;gap:8px;min-width:190px;}
 .lex-hud-left{justify-content:flex-start;min-width:max-content;}
 .lex-hud-right{justify-content:flex-end;}
-/* SHOP: a tab hanging just under the player badge (pages/game.html) */
-.hud-shop-btn{position:absolute;top:calc(100% + 4px);left:14px;z-index:21;margin:0;padding:5px 14px 6px;
-    font-family:var(--pixel-font);font-size:calc(9px * var(--text-scale,1));letter-spacing:1px;line-height:1.2;color:#2a1600;text-shadow:0 1px 0 rgba(255,255,255,.45);
-    background:linear-gradient(180deg,#ffe27a 0%,#d9a21a 100%);border:2px solid #7a5800;border-top:0;border-radius:0 0 4px 4px;box-shadow:0 3px 0 rgba(0,0,0,.45);cursor:pointer;}
-.hud-shop-btn:hover{background:linear-gradient(180deg,#fff0a8 0%,#f0b82a 100%);transform:translateY(1px);}
-.hud-shop-btn:focus-visible{outline:2px solid #fff;outline-offset:2px;}
-@media(max-width:900px){.hud-shop-btn{left:10px;padding:4px 11px 5px;font-size:calc(8px * var(--text-scale,1));}}
 .lex-hud-center{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;}
 .lex-player-identity{display:flex;align-items:center;gap:8px;min-width:0;flex-shrink:0;}
 .lex-player-identity .lex-player-name{max-width:none;white-space:nowrap;overflow:visible;text-overflow:clip;}
