@@ -150,6 +150,8 @@ codemaster-php/
 | Damage, points, gold, levels, floors         | `public/js/game/battle.js` and `public/js/data/monsters.js`  |
 | The question time limit                      | `TIMER_MAX` in `public/js/core/state.js` (countdown in `public/js/game/timer.js`) |
 | Shop items and prices                        | `public/overlays/shop.html`, `buyShopItem()` in `public/js/core/feedback.js` and the prices in `public/js/core/api.js` |
+| Game balance: monster HP/attack per floor, endless growth, damage roll, points per kill, HP potion price | the `GAME BALANCE` block at the top of `public/js/data/monsters.js` |
+| Hero stats, passives, specials, level curve  | `CHARACTERS`, `CHARACTER_SPECIALS` and the level constants in `public/js/data/heroes.js` (starting HP also in `CHARACTER_MAX_HP`, `server/lib/state.js`) |
 | The built-in questions                       | `server/data/questions_seed.json` (new ids are added to the database on the next start) |
 | The lessons in Study Materials               | Admin dashboard → **STUDY MATERIALS** tab (no code needed). Built-in originals: `server/data/lessons_seed.json` |
 | How lessons are drawn / the lesson text format | `public/js/core/lesson-format.js`                          |

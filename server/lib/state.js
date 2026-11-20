@@ -4,15 +4,16 @@ const DEFAULT_STATE = {
   hp: 100, maxHp: 100, floor: 1, gold: 0, potions: 2,
   monstersDefeated: 0, bossesDefeated: 0,
   buffDef: 0, buffGold: 0, buffCrit: 0, buffTime: 0,
-  specialCharge: 0, specialShield: 0
+  specialCharge: 0, specialShield: 0, potionsBought: 0
 };
 
+// Starting HP of each hero: 100 + the hero's bonus (public/js/data/heroes.js).
 const CHARACTER_MAX_HP = {
-  'THE SCHOLAR': 100,
-  'THE WIZARD': 90,
-  'THE KNIGHT': 120,
-  'THE HACKER': 95,
-  'THE MENTOR': 110,
+  'THE SCHOLAR': 115,
+  'THE WIZARD': 105,
+  'THE KNIGHT': 110,
+  'THE HACKER': 100,
+  'THE MENTOR': 105,
   'THE DEBUGGER': 105
 };
 

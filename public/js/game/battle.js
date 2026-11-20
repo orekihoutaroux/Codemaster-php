@@ -700,6 +700,7 @@ function resolveMonsterDefeat(){
         apiBossDefeated()
         .then(function(bd){
             floor_num=bd.floor;gold=bd.gold;potions=bd.potions;hp=bd.hp;maxHp=bd.max_hp;bossesDefeated=bd.bosses_defeated;
+            showKillPoints(bd);
             document.getElementById('gold-count').textContent=gold;
             updatePotionDisplay();document.getElementById('bosses-beaten').textContent=bossesDefeated;
             applyBattleBackground();syncBackgroundMusic('game-screen');updatePlayerHP();showBossDefeat();
@@ -709,10 +710,22 @@ function resolveMonsterDefeat(){
         .then(function(md){
             monstersDefeated=md.monsters_defeated;gold=md.gold;
             document.getElementById('monsters-slain').textContent=monstersDefeated;document.getElementById('gold-count').textContent=gold;
+            showKillPoints(md);
             updateCharacterStatsUI();
         });
-        showToast(currentMonster.name+' DEFEATED! +'+currentMonster.gold+'g','info');
+        showToast(currentMonster.name+' DEFEATED! +'+currentMonster.gold+'g +'+getKillPoints(false,floor_num)+' pts','info');
     }
+}
+
+// Points for a defeat (awardKillPoints() in js/core/api.js): score, level, max HP.
+function showKillPoints(result){
+    if(!result||!result.points)return;
+    score=result.score;level=result.level;maxHp=result.max_hp;hp=Math.min(hp,maxHp);
+    var scoreEl=document.getElementById('score');if(scoreEl)scoreEl.textContent=score;
+    var levelEl=document.getElementById('player-level');if(levelEl)levelEl.textContent='LVL '+level;
+    showFloatingPoints('+'+result.points+' pts');
+    if(result.levelUp)showLevelUp(level);
+    updatePlayerHP();
 }
 
 function finishQuestionWithSpecialVictory(){
@@ -736,12 +749,14 @@ function useCharacterSpecial(){
 
     specialCharge=Math.max(0,Math.min(100,Number(special.recharge)||0));
     if(special.resetTimer)startTimer();
-    if(special.heal)hp=Math.min(maxHp,hp+special.heal);
-    if(special.gold){gold+=special.gold;var goldEl=document.getElementById('gold-count');if(goldEl)goldEl.textContent=gold;}
+    if(special.healPct)hp=Math.min(maxHp,hp+Math.round(maxHp*special.healPct/100));
+    if(special.goldPerFloor){gold+=special.goldPerFloor*Math.min(5,Math.max(1,floor_num));var goldEl=document.getElementById('gold-count');if(goldEl)goldEl.textContent=gold;}
     if(special.shield)specialShield=Math.max(specialShield,special.shield);
 
-    var blocked=special.ignoreDefense?0:Math.min(monsterDefense,Math.max(0,special.damage-5));
-    var specialDamage=Math.max(5,special.damage-blocked);
+    // power x your medium-question attack, +-10% (js/data/monsters.js)
+    var rawSpecial=rollDamage(getSpecialDamage(special));
+    var blocked=special.ignoreDefense?0:Math.min(monsterDefense,Math.max(0,rawSpecial-5));
+    var specialDamage=Math.max(5,rawSpecial-blocked);
     monsterHp=Math.max(0,monsterHp-specialDamage);
     playCharacterSkillAnimation(selectedChar?selectedChar.id:'scholar',specialDamage,special.name);
     setTimeout(function(){playCharacterAttackSfx(selectedChar?selectedChar.id:'default',true);},90);
@@ -767,12 +782,13 @@ function selectAnswer(idx){
     if(selectedChar){
         var characterDefense=getCharacterBaseDefensePercent();
         if(characterDefense>0)effectiveDmg=Math.floor(effectiveDmg*(1-(characterDefense/100)));
-        if(selectedChar.ability==='heal')abilityHeal=15;
-        if(selectedChar.ability==='goldBoost'){goldMult=1.5;abilityHeal=5;}
+        abilityHeal=Number(selectedChar.healOnCorrect)||0;      // Mentor, Debugger
+        goldMult=Number(selectedChar.goldMultiplier)||1;          // Debugger
     }
     if(buffDef>0)effectiveDmg=Math.floor(effectiveDmg*0.5);
     var shieldWasUsed=!answerIsCorrect&&specialShield>0;
-    if(shieldWasUsed){effectiveDmg=0;specialShield--;}
+    if(shieldWasUsed)effectiveDmg=0;
+    specialShield=0; // AEGIS SLAM only covers the question it was used on
     if(buffGold>0)goldMult*=2;
     var extraCrit=(buffCrit>0)?0.4:0;
     apiAnswer({qid:currentQuestion.id,selected:idx,correct:currentQuestion.answer,diff:currentQuestion.diff,monster_dmg:effectiveDmg,ability_heal:abilityHeal,gold_mult:goldMult})
@@ -805,15 +821,16 @@ function selectAnswer(idx){
             var baseAtk=getCharacterBaseAttack(currentDifficulty);
             var atkPower=baseAtk;var abilityMsg='';
             if(selectedChar){
-                if(selectedChar.ability==='dmgBoost'){atkPower=Math.floor(baseAtk*getCharacterAttackMultiplier());abilityMsg='DMG +20%!';}
-                if(selectedChar.ability==='critHit'){if(Math.random()<(0.3+extraCrit)){atkPower=baseAtk*2;abilityMsg='\u26A1 CRITICAL HIT! \u26A1';}
+                if(selectedChar.ability==='dmgBoost'){atkPower=Math.floor(baseAtk*getCharacterAttackMultiplier());abilityMsg='DMG +'+Math.round((getCharacterAttackMultiplier()-1)*100)+'%!';}
+                if(selectedChar.ability==='critHit'){if(Math.random()<((Number(selectedChar.critChance)||0.3)+extraCrit)){atkPower=baseAtk*2;abilityMsg='\u26A1 CRITICAL HIT! \u26A1';}
                 }else if(extraCrit>0&&Math.random()<extraCrit){atkPower=baseAtk*2;abilityMsg='\u26A1 CRIT POTION! \u26A1';}
-                if(selectedChar.ability==='addTime')abilityMsg=abilityMsg||'+5s TIMER!';
-                if(selectedChar.ability==='heal')abilityMsg=abilityMsg||'HEALED +15!';
+                if(selectedChar.ability==='addTime')abilityMsg=abilityMsg||'+'+(Number(selectedChar.timerBonus)||10)+'s TIMER!';
+                if(selectedChar.ability==='heal')abilityMsg=abilityMsg||'HEALED +'+abilityHeal+'!';
                 if(selectedChar.ability==='goldBoost')abilityMsg=abilityMsg||'GOLD +50%!';
                 if(selectedChar.ability==='defense')abilityMsg=abilityMsg||'SHIELDED!';
             }else if(extraCrit>0&&Math.random()<extraCrit){atkPower=baseAtk*2;abilityMsg='\u26A1 CRIT POTION! \u26A1';}
             updateBuffIndicators();
+            atkPower=rollDamage(atkPower); // +-10% (js/data/monsters.js)
             var damageBlocked=Math.min(monsterDefense,Math.max(0,atkPower-5));
             atkPower=Math.max(5,atkPower-damageBlocked);
             var criticalImpact=/CRITICAL|CRIT POTION/.test(abilityMsg);
@@ -843,7 +860,7 @@ function selectAnswer(idx){
                 updateSpeech(['Ouch!','Argh!','Not good!','Heal up!','Watch out!'][Math.floor(Math.random()*5)]);
             }
             if(shieldWasUsed)showAbilityActivate('AEGIS BLOCKED ALL DAMAGE!');
-            if(!shieldWasUsed&&selectedChar&&selectedChar.ability==='defense')showAbilityActivate('SHIELD -50% DMG!');
+            if(!shieldWasUsed&&selectedChar&&selectedChar.ability==='defense')showAbilityActivate('SHIELD -'+getCharacterBaseDefensePercent()+'% DMG!');
             if(data.dead){showDeath();return;}
         }
         var explanationEl=document.getElementById('explanation');
@@ -872,9 +889,9 @@ function buyPotion(){
     apiBuyPotion()
     .then(function(data){
         if(data.status==='ok'){gold=data.gold;hp=data.hp;maxHp=data.max_hp;document.getElementById('gold-count').textContent=gold;
-        updatePlayerHP();showToast('HP Potion healed +'+data.healed+' HP! -15g','success');showFloatingPoints('+'+data.healed+' HP');refreshShopGold();}
+        updatePlayerHP();showToast('HP Potion healed +'+data.healed+' HP! -'+data.price+'g','success');showFloatingPoints('+'+data.healed+' HP');refreshShopGold();}
         else if(data.status==='full_hp')showToast('HP is already full!','info');
-        else showToast('Not enough gold! Need 15g','error');
+        else showToast('Not enough gold! Need '+data.price+'g','error');
     });
 }
 

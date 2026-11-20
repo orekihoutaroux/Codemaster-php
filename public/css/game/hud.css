@@ -41,7 +41,7 @@
 @keyframes hudSkillShine{from{background-position:200% 0;}to{background-position:0 0;}}
 @media(prefers-reduced-motion:reduce){.hud-skill.ready,.hud-skill.ready .hud-skill-fill{animation:none;}}
 
-/* ---- SHOP: a gold tab hanging under PTS / GOLD / FLOOR (top right) ---- */
+/* ---- SHOP: a gold tab hanging under PTS / GOLD (top right) ---- */
 .hud-shop-btn{position:absolute;top:calc(100% + 4px);right:14px;z-index:21;display:flex;align-items:center;justify-content:center;gap:10px;min-width:196px;margin:0;padding:11px 22px 12px;cursor:pointer;
     font-family:var(--pixel-font);font-size:calc(16px * var(--text-scale,1));letter-spacing:3px;line-height:1.2;color:#2a1600;text-shadow:0 1px 0 rgba(255,255,255,.5);
     background:linear-gradient(180deg,#ffe98f 0%,#f5c842 45%,#d9a21a 100%);border:2px solid #7a5800;border-top:0;border-radius:0 0 5px 5px;

@@ -9,6 +9,7 @@ var score=0,level=1,streak=0,wrongStreak=0;
 var bestStreak=0,totalCorrect=0,totalAnswered=0;
 var hp=100,maxHp=100,floor_num=1;
 var gold=0,potions=2;
+var potionsBought=0; // HP potions bought in the shop on this floor (their price rises; js/data/monsters.js)
 var monstersDefeated=0,bossesDefeated=0;
 var currentMonster=null,monsterHp=0,monsterMaxHp=0,monsterAttack=0,monsterDefense=0,encounterCount=0,isBossFight=false;
 var specialCharge=0,specialShield=0,bossAttackCount=0;

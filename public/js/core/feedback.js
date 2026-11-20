@@ -30,13 +30,14 @@ function buyShopItem(action,cost){
             if(data.buff_gold!==undefined)buffGold=data.buff_gold;
             if(data.buff_crit!==undefined)buffCrit=data.buff_crit;
             if(data.buff_time!==undefined)buffTime=data.buff_time;
-            refreshShopGold();updateShopBuffs();updateBuffIndicators();
+            refreshShopGold();updateShopBuffs();updateBuffIndicators();updateHpPotionPrice();
             var names={'buy_potion':'HP Potion','buy_def_potion':'DEF Potion','buy_gold_potion':'Gold Potion','buy_crit_potion':'Crit Potion','buy_time_potion':'Time Potion'};
+            if(action==='buy_potion'&&data.price)cost=data.price; // the HP potion's price rises (js/data/monsters.js)
             var purchaseMessage=action==='buy_potion'?'HP Potion healed +'+data.healed+' HP! -'+cost+'g':'Bought '+(names[action]||'item')+'! -'+cost+'g';
             showToast(purchaseMessage,'success');
         } else if(data.status==='full_hp'){
             showToast('HP is already full!','info');
-        } else { showToast('Not enough gold! Need '+cost+'g','error'); }
+        } else { showToast('Not enough gold! Need '+(action==='buy_potion'&&data.price?data.price:cost)+'g','error'); }
     });
 }
 
@@ -47,6 +48,11 @@ function updatePotionDisplay(){
     var box=document.getElementById('shop-my-potions');if(box)box.classList.toggle('empty',potions<=0);
     var btn=document.getElementById('shop-drink-btn');
     if(btn){btn.disabled=potions<=0;btn.textContent=potions>0?'DRINK':'NONE LEFT';}
+}
+// The shop's HP potion costs more for each one bought on this floor.
+function updateHpPotionPrice(){
+    var el=document.getElementById('shop-hp-potion-cost');
+    if(el)el.textContent=getHpPotionPrice()+'g';
 }
 function refreshShopGold(){
     var el=document.getElementById('shop-gold-display');if(el)el.textContent=gold;

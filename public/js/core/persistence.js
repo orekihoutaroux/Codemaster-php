@@ -4,7 +4,7 @@ function getDefaultState(){
         score:0,level:1,streak:0,wrongStreak:0,bestStreak:0,totalCorrect:0,totalAnswered:0,
         answeredIds:[],hp:100,maxHp:100,floor:1,gold:0,potions:2,
         monstersDefeated:0,bossesDefeated:0,buffDef:0,buffGold:0,buffCrit:0,buffTime:0,
-        specialCharge:0,specialShield:0
+        specialCharge:0,specialShield:0,potionsBought:0
     };
 }
 
@@ -125,6 +125,7 @@ function mergeStoredState(defaults,stored){
     defaults.buffTime=Number(s.buffTime)||0;
     defaults.specialCharge=Math.max(0,Math.min(100,Number(s.specialCharge)||0));
     defaults.specialShield=Math.max(0,Math.min(1,Number(s.specialShield)||0));
+    defaults.potionsBought=Math.max(0,Math.floor(Number(s.potionsBought)||0));
     return defaults;
 }
 
@@ -176,7 +177,7 @@ function applyStateObject(d){
     score=d.score;level=d.level;streak=d.streak;wrongStreak=d.wrongStreak;bestStreak=d.bestStreak;totalCorrect=d.totalCorrect;totalAnswered=d.totalAnswered;
     answeredIds=d.answeredIds;hp=d.hp;maxHp=d.maxHp;floor_num=d.floor;gold=d.gold;potions=d.potions;
     monstersDefeated=d.monstersDefeated;bossesDefeated=d.bossesDefeated;buffDef=d.buffDef;buffGold=d.buffGold;buffCrit=d.buffCrit;buffTime=d.buffTime;
-    specialCharge=d.specialCharge;specialShield=d.specialShield;
+    specialCharge=d.specialCharge;specialShield=d.specialShield;potionsBought=d.potionsBought||0;
 }
 
 function saveState(){
@@ -184,7 +185,7 @@ function saveState(){
         score:score,level:level,streak:streak,wrongStreak:wrongStreak,bestStreak:bestStreak,totalCorrect:totalCorrect,totalAnswered:totalAnswered,
         answeredIds:answeredIds.slice(),hp:hp,maxHp:maxHp,floor:floor_num,gold:gold,potions:potions,
         monstersDefeated:monstersDefeated,bossesDefeated:bossesDefeated,buffDef:buffDef,buffGold:buffGold,buffCrit:buffCrit,buffTime:buffTime,
-        specialCharge:specialCharge,specialShield:specialShield
+        specialCharge:specialCharge,specialShield:specialShield,potionsBought:potionsBought
     };
     // Cache immediately so a refresh cannot lose the latest score/level, then
     // use a keepalive request so MongoDB persistence survives page unload.

@@ -77,7 +77,7 @@ function getTutorialSteps(){
             visual:'<div class="tut-timer" aria-hidden="true"><div class="tut-timer-fill"></div><span>30s</span></div>'+
                 '<div class="tut-choices" aria-hidden="true"><div class="tut-choice good"><b>A</b>Correct &rarr; you strike</div><div class="tut-choice bad"><b>B</b>Wrong &rarr; you get hit</div></div>',
             points:[
-                'You have <b>30 seconds</b> per question'+(tutorialHeroOverview?' (<b>35</b> for the Scholar)':(selectedChar&&selectedChar.ability==='addTime'?' (<b>35</b> as the Scholar)':''))+'. Running out of time counts as a wrong answer.',
+                'You have <b>30 seconds</b> per question'+(tutorialHeroOverview?' (<b>40</b> for the Scholar)':(selectedChar&&selectedChar.ability==='addTime'?' (<b>40</b> as the Scholar)':''))+'. Running out of time counts as a wrong answer.',
                 '<b>Correct:</b> you attack the monster. Its DEF blocks part of your damage.',
                 '<b>Wrong:</b> the monster attacks you and your streak resets. Each wrong answer in a row hits <b>2 harder</b> than the last.',
                 'Tap an answer, or press <kbd>A</kbd>&ndash;<kbd>D</kbd> / <kbd>1</kbd>&ndash;<kbd>4</kbd>. Press <kbd>Enter</kbd> for the next encounter.'
@@ -86,14 +86,14 @@ function getTutorialSteps(){
         {
             title:'POINTS, GOLD & LEVELS',
             visual:'<table class="tut-table"><thead><tr><th>Question</th><th>Points</th><th>Streak bonus</th><th>Gold</th></tr></thead><tbody>'+
-                '<tr><td><span class="tut-diff easy">EASY</span></td><td>10</td><td>+5 &times; streak</td><td>3g</td></tr>'+
+                '<tr><td><span class="tut-diff easy">EASY</span></td><td>10</td><td>+2 &times; streak</td><td>3g</td></tr>'+
                 '<tr><td><span class="tut-diff medium">MEDIUM</span></td><td>25</td><td>+2 &times; streak</td><td>8g</td></tr>'+
                 '<tr><td><span class="tut-diff hard">HARD</span></td><td>50</td><td>+2 &times; streak</td><td>15g</td></tr>'+
                 '</tbody></table>',
             points:[
                 'Monsters ask <b>easy or medium</b> questions; bosses ask <b>hard</b> ones.',
-                'Keep a <b>streak</b> of correct answers for bonus points (medium/hard bonus counts up to a 10 streak).',
-                'Defeated monsters also drop gold. Your points are your EXP: <b>level 2 at 100</b>, and each level needs 20 more than the last. Every level adds <b>+10 max HP</b>.'
+                'Keep a <b>streak</b> of correct answers for bonus points (the bonus counts up to a 10 streak).',
+                'Defeating a monster gives <b>60 points &times; the floor</b> (a boss: 180 &times; the floor) and drops gold. Your points are your EXP: <b>level 2 at 100</b>, and each level needs 55 more than the last. Every level adds <b>+2 attack and +5 max HP</b>.'
             ]
         },
         tutorialHeroStep(),
@@ -110,8 +110,8 @@ function getTutorialSteps(){
             title:'STAY ALIVE',
             visual:'<div class="tut-items" aria-hidden="true"><div><span class="tut-icon heal">&#9829;</span>POTION<small>+30 HP</small></div><div><span class="tut-icon shop">&#9733;</span>SHOP<small>Spend gold</small></div><div><span class="tut-icon dead">&#10006;</span>0 HP<small>Run over</small></div></div>',
             points:[
-                'Open the <b>SHOP</b> (the gold tab under PTS / GOLD / FLOOR, top right) to drink a potion: it heals 30 HP. You start with 2 and earn one per boss.',
-                'Open the <b>SHOP</b> to buy healing and buffs (defence, double gold, crits, extra time) that last <b>3 questions</b>.',
+                'Open the <b>SHOP</b> (the gold tab under PTS / GOLD, top right) to drink a potion: it heals 30 HP. You start with 2 and earn one per boss.',
+                'Open the <b>SHOP</b> to buy healing and buffs (defence, double gold, crits, extra time) that last <b>3 questions</b>. The HP potion costs <b>10g more</b> each time you buy one on the same floor.',
                 'If your HP hits <b>0</b> the run ends: your score goes on the <b>leaderboard</b> and you start again from floor 1.',
                 'Stuck on a topic? <b>STUDY MATERIALS</b> on the home screen covers everything the questions ask.'
             ]

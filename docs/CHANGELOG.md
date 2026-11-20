@@ -605,3 +605,58 @@ the `/api/admin/*` routes remain unprotected on the server.
   Monster Stats / Run Stats panel no longer needs scrolling. It drops the DEF
   note and sets Run Stats two by two (as in boss fights), and with Extra Large
   text or a boss fight at Large text it shows the monster's stats two by two.
+
+## Changelog — game balance
+
+Tuned with a run simulator: thousands of full runs per hero at different answer
+accuracies, playing sensibly (potion when low, special when ready, DEF potion
+before bosses). The table shows the share of runs that clear all 5 floors.
+
+| Correct answers | 50% | 60% | 70% | 80% | 90% |
+|---|---|---|---|---|---|
+| Before: weakest hero (Scholar / Wizard) | 3% | 59% | 97% | 100% | 100% |
+| Before: strongest hero (Knight) | 89% | 100% | 100% | 100% | 100% |
+| Now: all heroes | 1–5% | 21–31% | 70–75% | 96–98% | 100% |
+
+Before, the hero mattered more than the answers: at 50% correct a Knight
+cleared the dungeon 89% of the time and a Wizard 4%. Now every hero is within a
+few points of the others, and how far you get depends on what you know.
+
+**Heroes** (`public/js/data/heroes.js`; starting HP also in `server/lib/state.js`)
+
+| Hero | Before | Now |
+|---|---|---|
+| Scholar | +5s timer, HP+0, DEF 0% | **+10s timer (40s)**, HP+15, DEF 15% |
+| Wizard | +20% damage, HP-10 | **+45% damage**, HP+5 |
+| Knight | takes 50% less damage, HP+20 | **takes 20% less damage**, HP+10, ATK low |
+| Hacker | 30% crit, HP-5 | **35% crit**, HP+0 |
+| Mentor | heals 15 per correct answer | **heals 5 per correct answer**, HP+5 |
+| Debugger | +50% gold, heals 5, DEF 10% | +50% gold, **heals 3**, DEF 5% |
+
+**Specials now grow with your attack** (they used to deal 15–30 flat damage,
+less than a normal hit by floor 2): power x the damage of a correct medium
+answer. TIME WARP 2.5x + timer reset; ARCANE BURST 2.8x; AEGIS SLAM 1.8x and
+blocks all damage **if you miss that same question** (it used to block the next
+miss whenever it came, which made Knights nearly immune); ZERO-DAY STRIKE 2x
+and keeps 25% charge; RESTORE PULSE 1.2x and heals 10% of max HP; BOUNTY BREAK
+1.8x and gives 6 gold per floor.
+
+**Rules** (`GAME BALANCE` block in `public/js/data/monsters.js`, `public/js/core/api.js`)
+- **HP potion price rises**: 15g, then +10g for each one bought on the same
+  floor (15, 25, 35...), back to 15g on the next floor. Buying potions was the
+  strongest thing in the game (a weak player could buy 50+ per run).
+- **Points for defeating monsters**: 60 x floor (boss: 180 x floor). Points are
+  EXP, so every hero levels at a similar pace, not just the slow ones.
+- **Streak bonus** is +2 per answer up to a 10 streak on every difficulty
+  (easy used to get +5 per answer with no cap, beating hard questions).
+- **Levels**: each level needs 55 more EXP than the last (was 20) and gives
+  +5 max HP (was +10) and +2 attack.
+- **Your hits and specials roll +-10%**, so no tiny stat change decides whether
+  a boss needs one more hit.
+- **Monsters** have about 5% more HP. **Past floor 5** the monsters get +25% HP
+  and attack per floor; before, they stopped growing and a good player could
+  never die.
+
+Runs in progress keep their score, but their level is recalculated on the new
+curve (it may be lower). Old leaderboard scores came from the old point rules.
+

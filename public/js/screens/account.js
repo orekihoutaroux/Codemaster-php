@@ -63,7 +63,7 @@ function launchDungeon(message){
     document.getElementById('player-name').textContent=playerUsername+' | '+playerRole;
     updatePlayerTitleUI();
     SPR.drawTo(document.getElementById('header-avatar'),'hero',selectedChar.id,{crop:'bust'});
-    if(selectedChar.ability==='addTime')TIMER_MAX=35;else TIMER_MAX=30;
+    TIMER_MAX=30+(selectedChar.ability==='addTime'?(Number(selectedChar.timerBonus)||10):0); // Scholar: +10s
     var progEl=document.getElementById('lex-progress-fill');if(progEl)progEl.style.width='5%';
     document.getElementById('player-level').textContent='LVL '+level;
     var heroPlateName=document.getElementById('hero-plate-name');if(heroPlateName)heroPlateName.textContent=selectedChar.name;

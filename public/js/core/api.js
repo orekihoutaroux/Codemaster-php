@@ -152,7 +152,9 @@ function apiAnswer(payload){
         if(streak>bestStreak)bestStreak=streak;
         var diff=payload.diff||'easy';
         var base=diff==='hard'?50:(diff==='medium'?25:10);
-        var streakBonus=(diff==='easy')?(5*streak):(Math.min(streak,10)*2);
+        // +2 per answer in the streak, up to a 10 streak, on every difficulty
+        // (easy used to get +5 per answer with no cap, beating hard questions).
+        var streakBonus=Math.min(streak,10)*2;
         var points=base+streakBonus;
         score+=points;
         var goldEarned=diff==='hard'?15:(diff==='medium'?8:3);
@@ -190,29 +192,47 @@ function apiUsePotion(){
     return Promise.resolve({status:'no_potions'});
 }
 
+// Points (= EXP) for a defeated monster or boss (getKillPoints() in js/data/monsters.js).
+function awardKillPoints(isBoss,floor){
+    var points=getKillPoints(isBoss,floor);
+    score+=points;
+    var newLevel=getLevelFromScore(score);
+    var leveledUp=newLevel>level;
+    if(leveledUp){maxHp=getCharacterMaxHp(newLevel);}
+    level=newLevel;
+    return {points:points,levelUp:leveledUp};
+}
+
 function apiMonsterDefeated(reward){
     var goldReward=Math.max(0,parseInt(reward,10)||5);
+    var kill=awardKillPoints(false,floor_num);
     monstersDefeated++;gold+=goldReward;saveState();
-    var result={status:'ok',monsters_defeated:monstersDefeated,gold:gold};
+    var result={status:'ok',monsters_defeated:monstersDefeated,gold:gold,points:kill.points,score:score,level:level,levelUp:kill.levelUp,hp:hp,max_hp:maxHp};
     return apiProgressionEvent('monster_defeated',getProgressionMetrics(),true).then(function(){return result;});
 }
 
 function apiBossDefeated(){
-    bossesDefeated++;floor_num++;gold+=25;potions+=1;hp=maxHp;saveState();
-    var result={status:'ok',bosses_defeated:bossesDefeated,floor:floor_num,gold:gold,potions:potions,hp:hp,max_hp:maxHp};
+    var kill=awardKillPoints(true,floor_num);
+    // a new floor: full HP, and the shop's HP potion is back to its base price
+    bossesDefeated++;floor_num++;gold+=25;potions+=1;hp=maxHp;potionsBought=0;saveState();
+    var result={status:'ok',bosses_defeated:bossesDefeated,floor:floor_num,gold:gold,potions:potions,hp:hp,max_hp:maxHp,points:kill.points,score:score,level:level,levelUp:kill.levelUp};
     return apiProgressionEvent('boss_defeated',getProgressionMetrics(),true).then(function(){return result;});
 }
 
+// The price rises by 10g for every HP potion bought on the same floor
+// (getHpPotionPrice() in js/data/monsters.js); a new floor resets it.
 function apiBuyPotion(){
-    if(hp>=maxHp)return Promise.resolve({status:'full_hp',hp:hp,max_hp:maxHp,gold:gold});
-    if(gold>=15){
-        gold-=15;
+    var price=getHpPotionPrice();
+    if(hp>=maxHp)return Promise.resolve({status:'full_hp',hp:hp,max_hp:maxHp,gold:gold,price:price});
+    if(gold>=price){
+        gold-=price;
+        potionsBought++;
         var healed=Math.min(30,maxHp-hp);
         hp+=healed;
         saveState();
-        return Promise.resolve({status:'ok',gold:gold,hp:hp,max_hp:maxHp,healed:healed});
+        return Promise.resolve({status:'ok',gold:gold,hp:hp,max_hp:maxHp,healed:healed,price:price,next_price:getHpPotionPrice()});
     }
-    return Promise.resolve({status:'no_gold'});
+    return Promise.resolve({status:'no_gold',price:price});
 }
 
 function apiBuyBuff(action){
