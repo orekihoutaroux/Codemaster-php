@@ -411,3 +411,7 @@ the `/api/admin/*` routes remain unprotected on the server.
 - The battle and the leaderboard keep their own backgrounds.
 - Titles on hero select and Study Materials have a dark outline so the sun
   or moon behind them does not wash them out.
+- Fix: the old shared page backdrop (stars, mist and a dark castle-wall
+  silhouette, `.global-atmosphere` in `index.html`) was drawn over the bottom
+  of the scene as black blocks. It is now hidden whenever the scene shows;
+  the leaderboard still uses it.

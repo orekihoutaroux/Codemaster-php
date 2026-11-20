@@ -3,6 +3,9 @@
    js/screens/home-background.js onto #home-bg-canvas. */
 #home-bg-canvas{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;z-index:0;image-rendering:pixelated;image-rendering:crisp-edges;pointer-events:none;display:none;}
 body[data-scene-bg] #home-bg-canvas{display:block;}
+/* the old shared backdrop (stars, mist, dark castle-wall silhouette in index.html)
+   would be drawn over the scene, so it is hidden while the scene is showing */
+body[data-scene-bg] .global-atmosphere,body[data-scene-bg] .stars{display:none;}
 /* Login/register, choose hero, How to Play and Study Materials use the same
    scene, a little dimmer, with a soft dark centre so their panels stay easy
    to read (--home-veil is 1 at night and about .55 by day, so the bright
