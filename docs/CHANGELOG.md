@@ -391,17 +391,3 @@ the `/api/admin/*` routes remain unprotected on the server.
 - The values come from the player's account, so older scores saved before
   this change also show them, and a change made by an admin shows at once.
   Scores from someone without an account show "-".
-
-## Changelog — potion counter on the hero, speech bubble fixed
-
-- **Potion counter above the hero's head** in battle (flask icon × number).
-  Click or tap it to drink a potion (+30 HP); it bounces when the number
-  changes and turns grey at 0. The POTION button in the left panel still
-  works; both always show the same number (`updatePotionDisplay()` in
-  `js/core/feedback.js`).
-- **Speech bubble** now sits right beside the hero's face with its tail
-  pointing at the face, for every hero (each hero's height is measured by
-  `updateHeroHeadAnchor()` in `js/game/battle.js`). Before, it floated at
-  the top of the scene with its tail pointing at nothing. It stays inside
-  the scene and clear of the monster on phones too.
-- How to Play mentions the potion counter.

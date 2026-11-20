@@ -110,7 +110,7 @@ function getTutorialSteps(){
             title:'STAY ALIVE',
             visual:'<div class="tut-items" aria-hidden="true"><div><span class="tut-icon heal">&#9829;</span>POTION<small>+30 HP</small></div><div><span class="tut-icon shop">&#9733;</span>SHOP<small>Spend gold</small></div><div><span class="tut-icon dead">&#10006;</span>0 HP<small>Run over</small></div></div>',
             points:[
-                'Tap the <b>potion counter above your hero</b> (or the POTION button) to heal 30 HP. You start with 2 and earn one per boss.',
+                'Press <b>POTION</b> to heal 30 HP. You start with 2 and earn one per boss.',
                 'Open the <b>SHOP</b> to buy healing and buffs (defence, double gold, crits, extra time) that last <b>3 questions</b>.',
                 'If your HP hits <b>0</b> the run ends: your score goes on the <b>leaderboard</b> and you start again from floor 1.',
                 'Stuck on a topic? <b>STUDY MATERIALS</b> on the home screen covers everything the questions ask.'

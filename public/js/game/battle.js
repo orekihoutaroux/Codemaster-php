@@ -4,29 +4,9 @@
 var SPRITE_FRAME_MS=33;
 function spriteCanvasVisible(canvas){return !!canvas&&!document.hidden&&canvas.offsetParent!==null;}
 
-// Height of each hero from the feet (art row 60) to the top of the head, in
-// art pixels. css/game/battle-stage.css uses it (--hero-head) to place the
-// speech bubble beside the face and the potion counter above the head.
-var heroHeadCache={};
-function updateHeroHeadAnchor(){
-    if(!selectedChar)return;
-    var top=heroHeadCache[selectedChar.id];
-    if(top===undefined){
-        top=16;
-        var c=document.createElement('canvas');c.width=64;c.height=64;
-        SPR.drawTo(c,'hero',selectedChar.id,{});
-        var d=c.getContext('2d').getImageData(0,0,64,64).data;
-        search:for(var y=0;y<64;y++)for(var x=0;x<64;x++)if(d[(y*64+x)*4+3]>20){top=y;break search;}
-        heroHeadCache[selectedChar.id]=top;
-    }
-    var scene=document.getElementById('battle-scene');
-    if(scene)scene.style.setProperty('--hero-head',String(60-top));
-}
-
 function startCharacterAnimation(){
     if(characterAnimId)cancelAnimationFrame(characterAnimId);
     SPR.clearPose('hero');
-    updateHeroHeadAnchor();
     var last=0;
     function animate(now){
         var canvas=document.getElementById('game-character');if(!canvas)return;
@@ -704,7 +684,7 @@ function resolveMonsterDefeat(){
         .then(function(bd){
             floor_num=bd.floor;gold=bd.gold;potions=bd.potions;hp=bd.hp;maxHp=bd.max_hp;bossesDefeated=bd.bosses_defeated;
             document.getElementById('floor-num').textContent=floor_num;document.getElementById('gold-count').textContent=gold;
-            updatePotionDisplay();document.getElementById('bosses-beaten').textContent=bossesDefeated;
+            var potionBtn=document.getElementById('potion-btn');if(potionBtn)potionBtn.textContent='POTION('+potions+')';document.getElementById('bosses-beaten').textContent=bossesDefeated;
             applyBattleBackground();syncBackgroundMusic('game-screen');updatePlayerHP();showBossDefeat();
         });
     }else{
@@ -801,7 +781,7 @@ function selectAnswer(idx){
         document.getElementById('gold-count').textContent=gold;
         document.getElementById('best-streak').textContent=bestStreak;
         document.getElementById('accuracy').textContent=totalAnswered>0?Math.round(totalCorrect/totalAnswered*100)+'%':'0%';
-        updatePotionDisplay();
+        var potionBtn=document.getElementById('potion-btn');if(potionBtn)potionBtn.textContent='POTION('+potions+')';
         updatePlayerHP();
 
         if(data.status==='correct'){
@@ -865,7 +845,7 @@ function usePotion(){
     apiUsePotion()
     .then(function(data){
         if(data.status==='ok'){hp=data.hp;maxHp=data.max_hp;potions=data.potions;updatePlayerHP();
-        updatePotionDisplay();showToast('Healed +'+data.healed+' HP!','success');showFloatingPoints('+'+data.healed+' HP');}
+        var potionBtn=document.getElementById('potion-btn');if(potionBtn)potionBtn.textContent='POTION('+potions+')';showToast('Healed +'+data.healed+' HP!','success');showFloatingPoints('+'+data.healed+' HP');}
         else if(data.status==='full_hp')showToast('HP is already full!','info');
         else if(data.status!=='dead')showToast('No potions left! Buy healing in the shop.','error');
     });
