@@ -678,3 +678,16 @@ curve (it may be lower). Old leaderboard scores came from the old point rules.
   `apiAdminDeleteCategory` in `public/js/core/api.js`) and styles.
 - Picking a category for a question and saving works as before. The server's
   category endpoints are unchanged.
+
+## Changelog — Confirm Password when registering
+
+- The **REGISTER** form asks for the password twice: a **Confirm Password**
+  box next to Password (under it on phones), with its own show/hide eye.
+  It says "Passwords match" in green or "Passwords do not match" in red, and
+  **NEXT: PICK HERO** stays off until both are the same, so a typo can't lock a
+  player out of a new account (`isAddUserValid()` and
+  `updatePasswordMatchHint()` in `public/js/core/navigation.js`).
+- The box is hidden while logging in and is emptied whenever the password box
+  is (switching between LOG IN and REGISTER, coming back to the page).
+- With Extra Large text the form's spacing tightens so it still fits a 16:9
+  screen (`css/base/screen-fit.css`).

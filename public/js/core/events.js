@@ -62,7 +62,7 @@ document.addEventListener('input',function(e){
         var levelField=document.getElementById('admin-user-level');
         if(levelField)levelField.value=getLevelFromScore(parseInt(e.target.value,10)||0);
     }
-    if(e.target && (e.target.id==='username-input' || e.target.id==='password-input' || e.target.id==='role-select' || e.target.id==='year-level-select' || e.target.id==='block-select')){
+    if(e.target && (e.target.id==='username-input' || e.target.id==='password-input' || e.target.id==='password-confirm-input' || e.target.id==='role-select' || e.target.id==='year-level-select' || e.target.id==='block-select')){
         updateAddUserState();
         updateEnterButtonState();
     }

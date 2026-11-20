@@ -218,6 +218,7 @@ function showRegisterScreen(){
     // A returning player's own name is taken (by them), so do not carry it over.
     if(nameEl&&returningPlayerName&&nameEl.value.trim()===returningPlayerName)nameEl.value='';
     if(passwordEl)passwordEl.value='';
+    clearPasswordConfirm();
     showAccountCreateScreen();
     if(nameEl)nameEl.focus();
 }
@@ -226,6 +227,7 @@ function showRegisterScreen(){
 function showLoginFromRegister(){
     var passwordEl=document.getElementById('password-input');
     if(passwordEl)passwordEl.value='';
+    clearPasswordConfirm();
     if(returningPlayerName)showReturningPlayerLogin();
     else showLoginScreen();
 }
@@ -278,6 +280,7 @@ function showScreen(id){
         else{
             var nameEl=document.getElementById('username-input'),passwordEl=document.getElementById('password-input');
             if(passwordEl)passwordEl.value='';
+            clearPasswordConfirm();
             if(nameEl&&!nameEl.value)nameEl.value='';
             showLoginScreen();
         }
@@ -294,7 +297,7 @@ function goToHeroSelection(){
     var nextBtn=document.getElementById('add-user-next-btn');
     var input=document.getElementById('username-input');
     if(!isAddUserValid()){
-        if(status)status.textContent='Enter a username, a password with at least 6 characters, and your role details.';
+        if(status)status.textContent=passwordsDiffer()?'The two passwords do not match. Type the same password in both boxes.':'Enter a username, a password with at least 6 characters (twice), and your role details.';
         showToast('Complete Add User first','error');
         updateAddUserState();
         return;
@@ -336,11 +339,45 @@ function goToHeroSelection(){
     });
 }
 
+// REGISTER asks for the password twice; the second box must match the first.
+function getPasswordConfirm(){
+    var el=document.getElementById('password-confirm-input');
+    return el?el.value:'';
+}
+function passwordsDiffer(){
+    var password=document.getElementById('password-input')?document.getElementById('password-input').value:'';
+    var confirmValue=getPasswordConfirm();
+    return confirmValue.length>0&&confirmValue!==password;
+}
+function clearPasswordConfirm(){
+    var el=document.getElementById('password-confirm-input');
+    if(el)el.value='';
+    updatePasswordMatchHint();
+}
+function updatePasswordMatchHint(){
+    var el=document.getElementById('password-confirm-input');
+    var hint=document.getElementById('password-match-hint');
+    var password=document.getElementById('password-input')?document.getElementById('password-input').value:'';
+    var confirmValue=getPasswordConfirm();
+    var state='';
+    if(confirmValue.length>0)state=(confirmValue===password)?'match':'mismatch';
+    if(hint){
+        hint.className='password-match-hint'+(state?' '+state:'');
+        hint.textContent=state==='match'?'\u2713 Passwords match':state==='mismatch'?'\u2717 Passwords do not match':'';
+    }
+    if(el){
+        el.classList.toggle('match',state==='match');
+        el.classList.toggle('mismatch',state==='mismatch');
+        if(state==='mismatch')el.setAttribute('aria-invalid','true');else el.removeAttribute('aria-invalid');
+    }
+}
+
 function isAddUserValid(){
     var name=(document.getElementById('username-input')?document.getElementById('username-input').value:'').trim();
     var password=document.getElementById('password-input')?document.getElementById('password-input').value:'';
     var role=(document.getElementById('role-select')?document.getElementById('role-select').value:'').trim();
     if(!name || password.length<6 || !role)return false;
+    if(getPasswordConfirm()!==password)return false; // Confirm Password must match
     if(role==='Student'){
         var year=(document.getElementById('year-level-select')?document.getElementById('year-level-select').value:'').trim();
         var block=(document.getElementById('block-select')?document.getElementById('block-select').value:'').trim();
@@ -369,6 +406,7 @@ function updateAddUserState(){
         if(blockEl)blockEl.value='';
     }
 
+    updatePasswordMatchHint();
     var valid=isAddUserValid();
     if(nextBtn)nextBtn.disabled=!valid;
     if(loginBtn)loginBtn.disabled=!(nameEl&&nameEl.value.trim()&&passwordEl&&passwordEl.value.length>=6);

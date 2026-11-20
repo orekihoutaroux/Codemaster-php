@@ -18,3 +18,13 @@
    the register form. */
 #add-user-screen:not(.login-mode) #register-prompt{display:none;}
 #register-prompt .register-btn{border-color:var(--gold);background:linear-gradient(180deg,#7a5a10,#4a3606);color:#fff6d1;}
+/* Password and Confirm Password share a row (while logging in only Password shows) */
+.password-row{display:flex;gap:12px;align-items:flex-start;}
+.password-row>.profile-field{flex:1 1 0;min-width:0;}
+@media(max-width:560px){.password-row{flex-direction:column;align-items:stretch;gap:14px;}}
+/* Confirm Password: green when the two passwords match, red when they don't */
+.password-match-hint{min-height:16px;font-size:calc(12px * var(--text-scale,1));font-weight:700;line-height:1.3;}
+.password-match-hint.match{color:#4ecca3;}
+.password-match-hint.mismatch{color:#ff8a9a;}
+#password-confirm-input.mismatch{border-color:#e94560;}
+#password-confirm-input.match{border-color:#2fb37f;}

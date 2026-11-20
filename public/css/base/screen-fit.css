@@ -38,6 +38,12 @@
 :where(html.ui-fit) .select-actions .start-btn,
 :where(html.ui-fit) .select-actions .confirm-btn{padding:16px 40px;font-size:calc(14px * var(--text-scale,1));}
 
+/* ---- Register with Extra Large text (Settings): tighter spacing so the
+   form, with Password and Confirm Password, still fits ---- */
+:where(html.ui-fit.vh-820[data-text-size="xlarge"]) .add-user-card{gap:8px;padding-top:12px;padding-bottom:12px;}
+:where(html.ui-fit.vh-820[data-text-size="xlarge"]) .add-user-card input,
+:where(html.ui-fit.vh-820[data-text-size="xlarge"]) .add-user-card select{padding-top:9px;padding-bottom:9px;}
+
 /* ---- Battle: the side panels fit without their own scrollbar ---- */
 :where(html.ui-fit.vh-820) .lex-curtain{padding-top:4px;padding-bottom:4px;}
 :where(html.ui-fit.vh-820) .lex-panel-info{margin-top:10px;}

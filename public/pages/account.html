@@ -2,7 +2,8 @@
      PAGE: ACCOUNT (LOG IN / REGISTER)
      Purpose: ENTER DUNGEON opens the login form first. "Don't have an
      account? REGISTER" switches to the register form (role, year, block),
-     and "Already have an account? LOG IN" switches back.
+     and "Already have an account? LOG IN" switches back. Registering asks for
+     the password twice (Confirm Password must match).
      Functions: showLoginScreen(), showRegisterScreen(), loginUser(),
                 goToHeroSelection(), backFromAccountEntry() (core/navigation.js)
      ======================================================================== -->
@@ -14,9 +15,19 @@
             <label for="username-input">Username</label>
             <input id="username-input" type="text" maxlength="24" autocomplete="off" placeholder="Enter your name">
         </div>
+        <!-- Password and Confirm Password side by side (stacked on phones) -->
+        <div class="password-row">
         <div class="profile-field">
             <label for="password-input">Password</label>
             <input id="password-input" type="password" minlength="6" maxlength="128" autocomplete="new-password" placeholder="At least 6 characters">
+        </div>
+        <!-- REGISTER only (hidden while logging in): type the password again so a
+             typo cannot lock the player out. Checked in isAddUserValid(). -->
+        <div class="profile-field" id="password-confirm-field">
+            <label for="password-confirm-input">Confirm Password</label>
+            <input id="password-confirm-input" type="password" minlength="6" maxlength="128" autocomplete="new-password" placeholder="Type the same password again" aria-describedby="password-match-hint">
+            <div class="password-match-hint" id="password-match-hint" aria-live="polite"></div>
+        </div>
         </div>
         <div class="profile-field" id="role-field">
             <label for="role-select">Role</label>
