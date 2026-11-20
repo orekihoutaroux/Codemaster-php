@@ -428,3 +428,9 @@ the `/api/admin/*` routes remain unprotected on the server.
 - Monsters that fight up close run at the hero; ranged monsters (the ones
   in `ENEMY_DASH_FACTORS`) lean in and fire a bolt. The attacker is always
   drawn in front. Styles: "attack effects" in `css/screens/home-stage.css`.
+
+## Changelog — leaderboard uses the home scene
+
+- The **Leaderboard** now has the same day-and-night valley background as
+  the home page, a little dimmer, like login, choose hero, How to Play and
+  Study Materials. Only the battle keeps its own backgrounds.

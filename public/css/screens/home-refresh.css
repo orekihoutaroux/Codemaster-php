@@ -4,16 +4,17 @@
 #home-bg-canvas{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;z-index:0;image-rendering:pixelated;image-rendering:crisp-edges;pointer-events:none;display:none;}
 body[data-scene-bg] #home-bg-canvas{display:block;}
 /* the old shared backdrop (stars, mist, dark castle-wall silhouette in index.html)
-   would be drawn over the scene, so it is hidden while the scene is showing */
+   would be drawn over the scene, so it is hidden while the scene is showing
+   (only the battle still has it behind its own background) */
 body[data-scene-bg] .global-atmosphere,body[data-scene-bg] .stars{display:none;}
-/* Login/register, choose hero, How to Play and Study Materials use the same
+/* Login/register, choose hero, How to Play, Study Materials and Leaderboard use the same
    scene, a little dimmer, with a soft dark centre so their panels stay easy
    to read (--home-veil is 1 at night and about .55 by day, so the bright
    daytime sky gets a little more shade than the night). */
 body[data-scene-bg="dim"] #home-bg-canvas{filter:brightness(.78) saturate(.9);}
 /* titles that sit on the open sky get a dark outline so the sun or moon behind them does not wash them out */
 .select-title,.learn-title,.select-subtitle{text-shadow:2px 2px 0 #4a3600,-1px -1px 0 #05060f,1px -1px 0 #05060f,-1px 1px 0 #05060f,1px 1px 0 #05060f,0 0 10px rgba(0,0,0,.75);}
-#add-user-screen,#select-screen,#tutorial-screen,#learn-screen{
+#add-user-screen,#select-screen,#tutorial-screen,#learn-screen,#leaderboard-screen{
     background:radial-gradient(ellipse 70% 75% at 50% 48%,rgba(4,5,18,calc(.48 - .2 * var(--home-veil,1))) 0%,rgba(4,5,18,calc(.36 - .16 * var(--home-veil,1))) 60%,rgba(2,2,10,.5) 100%);}
 #title-screen::before{display:none;}
 /* soft dark pool behind the centre so text stays readable over the scene */

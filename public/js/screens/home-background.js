@@ -17,7 +17,7 @@
 // only while the home page is shown).
 //
 // The same scene is the background of the login/register, choose-hero,
-// How to Play and Study Materials screens too, a little dimmer there
+// How to Play, Study Materials and Leaderboard screens too, a little dimmer there
 // (SCENE_SCREENS below; the dimming is in css/screens/home-refresh.css).
 // The canvas is moved to <body> so it stays put while those screens change.
 //
@@ -32,7 +32,7 @@ var reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: 
 
 // ---------- time of day ----------
 // Screens that show this scene: 'home' = full brightness, 'dim' = dimmer.
-var SCENE_SCREENS={'title-screen':'home','add-user-screen':'dim','select-screen':'dim','tutorial-screen':'dim','learn-screen':'dim'};
+var SCENE_SCREENS={'title-screen':'home','add-user-screen':'dim','select-screen':'dim','tutorial-screen':'dim','learn-screen':'dim','leaderboard-screen':'dim'};
 var sceneMode='';
 function activeSceneMode(){
     for(var id in SCENE_SCREENS){var el=document.getElementById(id);if(el&&el.classList.contains('active'))return SCENE_SCREENS[id];}
