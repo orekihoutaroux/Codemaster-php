@@ -95,10 +95,6 @@
 @media(max-width:560px){
     .admin-category-row{flex-wrap:wrap;}
     .admin-category-row select{flex:1 1 100%;}
-    .admin-category-row .admin-btn{flex:1 1 0;padding:10px 8px;}
-    .admin-category-add{flex-wrap:wrap;}
-    .admin-category-add input{flex:1 1 100%;}
-    .admin-category-add .admin-btn{flex:1 1 0;padding:10px 8px;}
 }
 
 @media(max-width:400px){

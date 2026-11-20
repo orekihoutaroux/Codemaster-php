@@ -668,3 +668,13 @@ curve (it may be lower). Old leaderboard scores came from the old point rules.
 - The SHOP tab still hangs under PTS / GOLD: it now sits inside the PTS / GOLD
   group and is centred under it (`css/game/hud.css`). On phones it stays at
   the right edge; on tablets it moves left to stay clear of SETTINGS.
+
+## Changelog — admin: no NEW / DELETE category buttons
+
+- The question editor's **Category** field is now just the dropdown: the
+  **+ NEW** and **DELETE** buttons and the new-category box (ADD / CANCEL) were
+  removed from `public/overlays/admin.html`, with their code
+  (`public/js/admin/admin-panel.js`, `apiAdminAddCategory` /
+  `apiAdminDeleteCategory` in `public/js/core/api.js`) and styles.
+- Picking a category for a question and saving works as before. The server's
+  category endpoints are unchanged.

@@ -480,7 +480,7 @@ function removeSelectedAdmin(){
 
 // ===== QUESTION CATEGORIES =====
 // The category box is a dropdown filled from MongoDB ("categories" collection
-// plus any category a question already uses). "+ NEW" adds one.
+// plus any category a question already uses). Categories are picked from the list; the admin panel no longer adds or deletes them.
 var DEFAULT_ADMIN_CATEGORIES=['basics','variables','strings','arrays','control','functions','oop','coding','advanced','modern php','traits','references'];
 var adminCategories=DEFAULT_ADMIN_CATEGORIES.slice();
 
@@ -526,90 +526,6 @@ function reloadAdminCategories(){
         renderAdminCategoryOptions(current||null);
     });
 }
-
-function showNewCategoryInput(){
-    var box=document.getElementById('admin-cat-new');
-    var btn=document.getElementById('admin-cat-new-btn');
-    var input=document.getElementById('admin-cat-new-input');
-    if(!box)return;
-    box.hidden=false;
-    if(btn)btn.setAttribute('aria-expanded','true');
-    if(input){input.value='';input.focus();}
-}
-
-function hideNewCategoryInput(){
-    var box=document.getElementById('admin-cat-new');
-    var btn=document.getElementById('admin-cat-new-btn');
-    if(box)box.hidden=true;
-    if(btn){btn.setAttribute('aria-expanded','false');btn.focus();}
-}
-
-function submitNewCategory(){
-    var input=document.getElementById('admin-cat-new-input');
-    var name=String(input?input.value:'').trim().toLowerCase().replace(/\s+/g,' ');
-    if(!/^[a-z0-9][a-z0-9 -]{0,22}[a-z0-9]$/.test(name)){
-        showToast('Category must be 2-24 letters, numbers, spaces or dashes','error');
-        if(input)input.focus();
-        return;
-    }
-    if(adminCategories.indexOf(name)!==-1){
-        setAdminCategory(name);
-        hideNewCategoryInput();
-        showToast('"'+formatCategoryLabel(name)+'" already exists - selected it','info');
-        return;
-    }
-    apiAdminAddCategory(name).then(function(data){
-        if(data&&data.status==='ok'){
-            if(Array.isArray(data.categories))adminCategories=data.categories.slice();
-            setAdminCategory(data.category);
-            hideNewCategoryInput();
-            showToast('Category "'+formatCategoryLabel(data.category)+'" added','success');
-            var status=document.getElementById('admin-status');
-            if(status)status.textContent='Category "'+formatCategoryLabel(data.category)+'" added and selected. Save the question to use it.';
-        }else{
-            showToast((data&&data.message)||'Could not add category','error');
-        }
-    });
-}
-
-// Deletes the category selected in the dropdown. The server refuses one that
-// questions still use and says how many, so nothing is left uncategorised.
-function deleteSelectedCategory(){
-    var select=document.getElementById('admin-cat');
-    var name=select?select.value:'';
-    if(!name)return;
-    var label=formatCategoryLabel(name);
-    var inUse=QUESTIONS.filter(function(q){return String(q.cat||'').toLowerCase()===name;}).length;
-    if(inUse>0){
-        var msg=inUse+' question'+(inUse===1?'':'s')+' still use "'+label+'". Move '+(inUse===1?'it':'them')+' to another category first.';
-        showToast(msg,'error');
-        var status=document.getElementById('admin-status');if(status)status.textContent=msg;
-        return;
-    }
-    if(adminCategories.length<=1){showToast('At least one category must remain','error');return;}
-    if(!confirm('Delete the category "'+label+'"? No questions use it.'))return;
-    apiAdminDeleteCategory(name).then(function(data){
-        if(data&&data.status==='ok'){
-            if(Array.isArray(data.categories))adminCategories=data.categories.slice();
-            else adminCategories=adminCategories.filter(function(c){return c!==name;});
-            var editingId=document.getElementById('admin-question-id');
-            var editing=editingId&&editingId.value?QUESTIONS.find(function(q){return String(q.id)===String(editingId.value);}):null;
-            renderAdminCategoryOptions(editing&&adminCategories.indexOf(editing.cat)!==-1?editing.cat:getDefaultAdminCategory());
-            showToast('Category "'+label+'" deleted','info');
-            var st=document.getElementById('admin-status');if(st)st.textContent='Category "'+label+'" deleted.';
-        }else{
-            var m=(data&&data.message)||'Could not delete category';
-            showToast(m,'error');
-            var st2=document.getElementById('admin-status');if(st2)st2.textContent=m;
-        }
-    });
-}
-
-document.addEventListener('keydown',function(e){
-    if(!e.target||e.target.id!=='admin-cat-new-input')return;
-    if(e.key==='Enter'){e.preventDefault();submitNewCategory();}
-    else if(e.key==='Escape'){e.preventDefault();e.stopPropagation();hideNewCategoryInput();}
-});
 
 // The dropdown is filled each time the question editor loads
 // (reloadAdminQuestions -> reloadAdminCategories).
