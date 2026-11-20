@@ -589,3 +589,19 @@ the `/api/admin/*` routes remain unprotected on the server.
   20px coin (phones: up to 180px wide, 13px text).
 - The buff tags and, on phones, the speech bubble moved down to stay clear of
   the bigger tabs (phones and tablets get 12px more sky in the battle scene).
+
+## Changelog — Pick a Hero buttons always on screen
+
+- **BACK / ENTER DUNGEON are always visible** on computers. With Large or
+  Extra Large text (Settings) the hero cards used to grow and push the buttons
+  below the screen. The buttons are now pinned under the cards; if the cards
+  ever don't fit, only the cards scroll. The buttons are also bigger.
+- **Shorter, wider hero cards** on computers: each card shows the hero next to
+  its name, description and stats, with the special skill underneath, and the
+  cards panel uses more of the screen width. All six cards and the buttons fit
+  without scrolling at every text size on 16:9 screens.
+  (`css/base/screen-fit.css`; phones keep their layout.)
+- **Battle right panel with bigger text:** with Large or Extra Large text the
+  Monster Stats / Run Stats panel no longer needs scrolling. It drops the DEF
+  note and sets Run Stats two by two (as in boss fights), and with Extra Large
+  text or a boss fight at Large text it shows the monster's stats two by two.

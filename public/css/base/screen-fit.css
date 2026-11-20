@@ -13,28 +13,55 @@
 :where(html.ui-fit) #learn-screen .learn-card.active{flex:0 1 auto;min-height:0;margin-bottom:0;overflow-y:auto;
     scrollbar-width:thin;scrollbar-color:rgba(78,204,163,.55) transparent;}
 
-/* ---- Pick a hero: six cards and the buttons on one screen ---- */
-:where(html.ui-fit.vh-820) #select-screen{padding-top:10px;padding-bottom:10px;}
-:where(html.ui-fit.vh-820) .select-title{margin-bottom:0;}
-:where(html.ui-fit.vh-820) .select-subtitle{margin-bottom:8px;}
-:where(html.ui-fit.vh-820) .select-section{width:min(1120px,100%);padding:10px 12px 12px;margin-bottom:10px;}
-:where(html.ui-fit.vh-820) .characters-grid{gap:10px;}
-:where(html.ui-fit.vh-820) .char-card{padding:8px 12px 10px;}
-:where(html.ui-fit.vh-820) .char-canvas{width:72px;height:72px;margin-bottom:4px;}
-:where(html.ui-fit.vh-820) .char-card .char-name{margin-bottom:2px;}
-:where(html.ui-fit.vh-820) .char-card .char-stats{margin-top:2px;margin-bottom:6px;}
-:where(html.ui-fit.vh-820) .char-special-preview{padding:5px 8px;}
+/* ---- Pick a hero: six cards and the buttons on one screen ----
+   BACK / ENTER DUNGEON are pinned under the cards and always on screen; if the
+   cards still don't fit (very large text in Settings), only the cards scroll.
+   Each card puts the hero beside its name, description and stats, which uses
+   the wide screen better and keeps the cards short. */
+:where(html.ui-fit) #select-screen{justify-content:center;overflow:hidden;padding-top:10px;padding-bottom:14px;}
+:where(html.ui-fit) #select-screen > :first-child,
+:where(html.ui-fit) #select-screen > :last-child{margin-top:0;margin-bottom:0;}
+:where(html.ui-fit) .select-title{flex-shrink:0;margin-bottom:0;}
+:where(html.ui-fit) .select-subtitle{flex-shrink:0;margin-bottom:10px;}
+:where(html.ui-fit) .select-section{flex:0 1 auto;min-height:0;overflow-y:auto;width:min(1240px,100%);padding:12px;margin-bottom:14px;
+    scrollbar-width:thin;scrollbar-color:rgba(245,200,66,.5) transparent;}
+:where(html.ui-fit) .characters-grid{gap:12px;}
+:where(html.ui-fit) .char-card{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto auto auto 1fr;column-gap:14px;row-gap:3px;
+    align-items:center;justify-items:start;text-align:left;padding:12px 14px 12px 12px;}
+:where(html.ui-fit) .char-card .char-canvas{grid-column:1;grid-row:1 / span 3;width:80px;height:80px;margin:0;align-self:center;}
+:where(html.ui-fit) .char-card .char-name,
+:where(html.ui-fit) .char-card .char-desc,
+:where(html.ui-fit) .char-card .char-stats{grid-column:2;margin:0;}
+:where(html.ui-fit) .char-card .char-special-preview{grid-column:1 / -1;align-self:end;justify-self:stretch;margin-top:10px;text-align:center;}
+/* bigger, easier buttons */
+:where(html.ui-fit) .select-actions{flex-shrink:0;gap:16px;}
+:where(html.ui-fit) .select-actions .start-btn,
+:where(html.ui-fit) .select-actions .confirm-btn{padding:16px 40px;font-size:calc(14px * var(--text-scale,1));}
 
 /* ---- Battle: the side panels fit without their own scrollbar ---- */
 :where(html.ui-fit.vh-820) .lex-curtain{padding-top:4px;padding-bottom:4px;}
 :where(html.ui-fit.vh-820) .lex-panel-info{margin-top:10px;}
 :where(html.ui-fit.vh-820) .lex-curtain-left .lex-panel-row{padding-top:0;padding-bottom:2px;}
 :where(html.ui-fit.vh-820) .lex-curtain-left .diff-btn{padding-top:2px;padding-bottom:2px;}
-/* boss fights add the BOSS SPECIAL box to the right panel: drop the two
-   lines that repeat what is shown elsewhere and set Run Stats out two by two */
+/* The right panel gets tighter when it would not fit otherwise: in boss
+   fights (the BOSS SPECIAL box) and with Large / Extra Large text (Settings).
+   Step 1: drop the DEF note and the boss skill text (shown elsewhere) and set
+   Run Stats out two by two. Step 2 (boss fight with bigger text, or any fight
+   with Extra Large text): the monster's stats two by two as well. */
 :where(html.ui-fit.vh-820) .lex-curtain-right.boss-fight .lex-monster-stat-note,
-:where(html.ui-fit.vh-820) .lex-curtain-right.boss-fight .lex-boss-special-desc{display:none;}
-:where(html.ui-fit.vh-820) .lex-curtain-right.boss-fight .lex-best-scroll{display:grid;grid-template-columns:1fr 1fr;column-gap:12px;}
+:where(html.ui-fit.vh-820) .lex-curtain-right.boss-fight .lex-boss-special-desc,
+:where(html.ui-fit.vh-820[data-text-size="large"]) .lex-curtain-right .lex-monster-stat-note,
+:where(html.ui-fit.vh-820[data-text-size="xlarge"]) .lex-curtain-right .lex-monster-stat-note{display:none;}
+:where(html.ui-fit.vh-820) .lex-curtain-right.boss-fight .lex-best-scroll,
+:where(html.ui-fit.vh-820[data-text-size="large"]) .lex-curtain-right .lex-best-scroll,
+:where(html.ui-fit.vh-820[data-text-size="xlarge"]) .lex-curtain-right .lex-best-scroll{display:grid;grid-template-columns:1fr 1fr;column-gap:12px;}
+:where(html.ui-fit.vh-820[data-text-size="large"]) .lex-curtain-right.boss-fight .lex-monster-stats-card,
+:where(html.ui-fit.vh-820[data-text-size="xlarge"]) .lex-curtain-right .lex-monster-stats-card{display:grid;grid-template-columns:1fr 1fr;column-gap:8px;}
+:where(html.ui-fit.vh-820[data-text-size="large"]) .lex-curtain-right.boss-fight .lex-monster-stats-card > :not(.lex-monster-stat-row),
+:where(html.ui-fit.vh-820[data-text-size="xlarge"]) .lex-curtain-right .lex-monster-stats-card > :not(.lex-monster-stat-row){grid-column:1 / -1;}
+:where(html.ui-fit.vh-820[data-text-size="large"]) .lex-curtain-right.boss-fight .lex-monster-stat-row,
+:where(html.ui-fit.vh-820[data-text-size="xlarge"]) .lex-curtain-right .lex-monster-stat-row{min-width:0;}
+:where(html.ui-fit.vh-820[data-text-size="xlarge"]) .lex-curtain-right.boss-fight .lex-boss-special{padding-top:4px;padding-bottom:4px;}
 
 /* ---- Battle: long code questions keep their answers in sight ----
    fitQuestionToArea() in js/game/battle.js adds these one at a time, only
