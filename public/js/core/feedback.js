@@ -24,7 +24,7 @@ function buyShopItem(action,cost){
     .then(function(data){
         if(data.status==='ok'){
             gold=data.gold;document.getElementById('gold-count').textContent=gold;
-            if(data.potions!==undefined){potions=data.potions;var potionBtn=document.getElementById('potion-btn');if(potionBtn)potionBtn.textContent='POTION('+potions+')';}
+            if(data.potions!==undefined){potions=data.potions;updatePotionDisplay();}
             if(data.hp!==undefined){hp=data.hp;maxHp=data.max_hp;updatePlayerHP();showFloatingPoints('+'+data.healed+' HP');}
             if(data.buff_def!==undefined)buffDef=data.buff_def;
             if(data.buff_gold!==undefined)buffGold=data.buff_gold;
@@ -40,6 +40,14 @@ function buyShopItem(action,cost){
     });
 }
 
+// Potions you own are drunk from the shop (overlays/shop.html, "Your potions").
+// Keeps the count and the DRINK button there up to date.
+function updatePotionDisplay(){
+    var count=document.getElementById('shop-potion-count');if(count)count.textContent=potions;
+    var box=document.getElementById('shop-my-potions');if(box)box.classList.toggle('empty',potions<=0);
+    var btn=document.getElementById('shop-drink-btn');
+    if(btn){btn.disabled=potions<=0;btn.textContent=potions>0?'DRINK':'NONE LEFT';}
+}
 function refreshShopGold(){
     var el=document.getElementById('shop-gold-display');if(el)el.textContent=gold;
 }

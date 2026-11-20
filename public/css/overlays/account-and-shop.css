@@ -50,6 +50,16 @@
 .shop-title{font-family:var(--pixel-font);font-size:calc(16px * var(--text-scale,1));color:var(--gold);text-shadow:2px 2px 0 #886600;text-align:center;margin-bottom:8px;}
 .shop-gold{font-size:calc(15px * var(--text-scale,1));font-weight:700;color:var(--gold);text-align:center;margin-bottom:14px;}
 .shop-items{display:flex;flex-direction:column;gap:8px;}
+/* the potions you own: free to drink */
+.shop-my-potions{display:flex;align-items:center;gap:12px;margin:0 0 12px;padding:10px 12px;background:rgba(10,60,40,.55);border:2px solid var(--green);}
+.shop-my-potions-icon{font-size:calc(26px * var(--text-scale,1));color:#ff5a7a;line-height:1;}
+.shop-my-potions-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
+.shop-my-potions-copy strong{font-size:calc(14px * var(--text-scale,1));color:#d8fff0;}
+.shop-my-potions-copy small{font-size:calc(11px * var(--text-scale,1));color:#9fd8c0;}
+.shop-drink-btn{flex-shrink:0;padding:8px 14px;font-family:var(--pixel-font);font-size:calc(9px * var(--text-scale,1));color:#062014;background:var(--green);border:2px solid #b8ffe2;cursor:pointer;}
+.shop-drink-btn:hover:not(:disabled){filter:brightness(1.15);}
+.shop-drink-btn:disabled{cursor:not-allowed;background:#3a4a44;border-color:#55665f;color:#a9b8b2;}
+.shop-my-potions.empty{border-color:#55665f;background:rgba(30,40,36,.55);}
 .shop-item{display:flex;align-items:center;gap:12px;background:rgba(0,0,0,0.5);border:2px solid #333;padding:12px;cursor:pointer;transition:all 0.15s;}
 .shop-item:hover{border-color:var(--gold);background:rgba(245,200,66,0.05);transform:translateX(4px);}
 .shop-item-icon{font-size:calc(22px * var(--text-scale,1));min-width:34px;text-align:center;}

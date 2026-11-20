@@ -655,7 +655,7 @@ function resolveMonsterDefeat(){
         .then(function(bd){
             floor_num=bd.floor;gold=bd.gold;potions=bd.potions;hp=bd.hp;maxHp=bd.max_hp;bossesDefeated=bd.bosses_defeated;
             document.getElementById('floor-num').textContent=floor_num;document.getElementById('gold-count').textContent=gold;
-            var potionBtn=document.getElementById('potion-btn');if(potionBtn)potionBtn.textContent='POTION('+potions+')';document.getElementById('bosses-beaten').textContent=bossesDefeated;
+            updatePotionDisplay();document.getElementById('bosses-beaten').textContent=bossesDefeated;
             applyBattleBackground();syncBackgroundMusic('game-screen');updatePlayerHP();showBossDefeat();
         });
     }else{
@@ -752,7 +752,7 @@ function selectAnswer(idx){
         document.getElementById('gold-count').textContent=gold;
         document.getElementById('best-streak').textContent=bestStreak;
         document.getElementById('accuracy').textContent=totalAnswered>0?Math.round(totalCorrect/totalAnswered*100)+'%':'0%';
-        var potionBtn=document.getElementById('potion-btn');if(potionBtn)potionBtn.textContent='POTION('+potions+')';
+        updatePotionDisplay();
         updatePlayerHP();
 
         if(data.status==='correct'){
@@ -816,9 +816,9 @@ function usePotion(){
     apiUsePotion()
     .then(function(data){
         if(data.status==='ok'){hp=data.hp;maxHp=data.max_hp;potions=data.potions;updatePlayerHP();
-        var potionBtn=document.getElementById('potion-btn');if(potionBtn)potionBtn.textContent='POTION('+potions+')';showToast('Healed +'+data.healed+' HP!','success');showFloatingPoints('+'+data.healed+' HP');}
+        updatePotionDisplay();showToast('Healed +'+data.healed+' HP!','success');showFloatingPoints('+'+data.healed+' HP');}
         else if(data.status==='full_hp')showToast('HP is already full!','info');
-        else if(data.status!=='dead')showToast('No potions left! Buy healing in the shop.','error');
+        else if(data.status!=='dead')showToast('No potions left! Buy an HP Potion below.','error');
     });
 }
 

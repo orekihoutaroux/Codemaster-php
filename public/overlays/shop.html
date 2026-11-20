@@ -1,12 +1,23 @@
 <!-- ========================================================================
      OVERLAY 2: DUNGEON SHOP
-     Purpose: Purchases healing items and temporary battle improvements.
-     Functions: openShop(), closeShop(), buyShopItem(), refreshShopGold()
+     Purpose: Drink your own potions, buy healing items and temporary battle
+              improvements.
+     Functions: openShop(), closeShop(), usePotion(), buyShopItem(),
+                refreshShopGold(), updatePotionDisplay()
      ======================================================================== -->
 <div id="shop-overlay" class="shop-overlay" style="display:none;">
     <div class="shop-box">
         <div class="shop-title">DUNGEON SHOP</div>
         <div class="shop-gold">Your Gold: <span id="shop-gold-display">0</span>g</div>
+        <!-- Potions you own (start with 2, +1 after every boss): free to drink -->
+        <div class="shop-my-potions" id="shop-my-potions">
+            <span class="shop-my-potions-icon" aria-hidden="true">&#9829;</span>
+            <span class="shop-my-potions-copy">
+                <strong>Your potions: <span id="shop-potion-count">2</span></strong>
+                <small>Free to drink &middot; heals 30 HP &middot; +1 after every boss</small>
+            </span>
+            <button type="button" class="shop-drink-btn" id="shop-drink-btn" onclick="usePotion()">DRINK</button>
+        </div>
         <div class="shop-items">
             <div class="shop-item" onclick="buyShopItem('buy_potion',15)">
                 <div class="shop-item-icon" style="color:#4ecca3;">&#9829;</div>
@@ -42,4 +53,4 @@
         <div class="shop-buffs" id="shop-buffs"></div>
         <button class="shop-close" onclick="closeShop()">CLOSE</button>
     </div>
-</div>
+</div>

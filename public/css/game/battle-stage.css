@@ -67,8 +67,8 @@
 .lex-speech-bubble::before{content:'';position:absolute;bottom:-10px;left:28px;border:6px solid transparent;border-top:8px solid #fff;z-index:1;}
 .lex-battle-scene .lex-speech-bubble{top:12px;left:calc(var(--hero-x) + 36px);right:auto;max-width:min(210px,40vw);}
 
-/* ---- buffs: top-left corner of the scene ---- */
-.lex-battle-scene>.buff-indicators{position:absolute;top:8px;left:8px;z-index:12;display:flex;flex-wrap:wrap;gap:4px;max-width:44%;pointer-events:none;}
+/* ---- buffs: top-left corner of the scene, under the SHOP tab ---- */
+.lex-battle-scene>.buff-indicators{position:absolute;top:36px;left:8px;z-index:12;display:flex;flex-wrap:wrap;gap:4px;max-width:44%;pointer-events:none;}
 .lex-battle-scene>.buff-indicators .buff-tag{font-family:var(--pixel-font);font-size:calc(9px * var(--text-scale,1));padding:3px 6px;line-height:1.35;white-space:nowrap;text-shadow:1px 1px 0 #000;background-color:rgba(5,13,24,.92);}
 
 /* ---- hit effects land on the fighters ----

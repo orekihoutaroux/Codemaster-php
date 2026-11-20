@@ -77,10 +77,6 @@ button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-vis
 .lex-panel-info{gap:4px;margin-top:14px;}
 .lex-character-stats{padding:6px;margin-top:2px;}
 .lex-character-stats-title{margin-bottom:5px;}
-.lex-panel-btns{flex-direction:row;gap:6px;margin-top:4px;}
-.lex-panel-btns .btn-menu{flex:1;padding:7px 6px;white-space:nowrap;}
-.btn-menu.btn-potion{color:#9ff0d0;border-color:rgba(78,204,163,.6);}
-.btn-menu.btn-potion:hover{color:#fff;border-color:var(--green);}
 .lex-monster-stats{margin-top:14px;}
 
 /* ---------- Question panel ---------- */

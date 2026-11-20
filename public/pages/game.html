@@ -31,6 +31,9 @@
                 <div class="lex-stat-box"><span class="val" id="floor-num">1</span><span class="lbl">FLOOR</span></div>
             </div>
         </div>
+        <!-- Shop: a tab hanging just under the player badge (css/game/hud.css).
+             Potions are drunk from the shop too. -->
+        <button type="button" class="hud-shop-btn" id="hud-shop-btn" onclick="openShop()" title="Open the shop (buy items, drink your potions)">SHOP</button>
     </div>
 
     <!-- GAME AREA B: FLOOR-AWARE BATTLE SCENE
@@ -118,10 +121,6 @@
                         <div class="lex-special-charge-track"><div class="lex-special-charge-fill" id="character-special-charge-fill" style="width:0%"></div></div>
                         <button type="button" class="lex-special-skill-btn" id="character-special-btn" onclick="useCharacterSpecial()" disabled>CHARGE 0%</button>
                     </div>
-                </div>
-                <div class="lex-panel-btns">
-                    <button type="button" class="btn-menu btn-potion" id="potion-btn" onclick="usePotion()" title="Drink a potion to restore 30 HP">POTION(2)</button>
-                    <button type="button" class="btn-menu btn-shop" onclick="openShop()">&#9733; SHOP</button>
                 </div>
             </div>
         </div>

@@ -462,3 +462,21 @@ the `/api/admin/*` routes remain unprotected on the server.
   Skills shake the scene on impact.
 - The old CSS-drawn hero shots and skill effects were removed from
   `css/game/battle-animations.css`.
+
+## Changelog — shop under the player badge, potions drunk from the shop
+
+- **SHOP tab under your badge.** The SHOP button moved out of the left panel
+  into a small gold tab hanging just under the player badge, top left
+  (`#hud-shop-btn` in `pages/game.html`, styled in `css/game/hud.css`). It
+  sits outside the header so the header stays the same height. The buff tags
+  in that corner of the battle scene moved down to make room
+  (`css/game/battle-stage.css`).
+- **POTION button removed.** You still own potions (start with 2, +1 after
+  every boss); you drink them from a new **Your potions: N — DRINK** card at
+  the top of the shop (`overlays/shop.html`, styled in
+  `css/overlays/account-and-shop.css`). It shows NONE LEFT and greys out at 0.
+  The paid HP Potion below it is unchanged.
+- `updatePotionDisplay()` (`js/core/feedback.js`) keeps the shop's potion
+  count in step everywhere the old button label used to be updated. The
+  tutorial and the "no potions" message now point to the shop.
+- Removed the unused `.lex-panel-btns` and `.btn-potion` styles.
