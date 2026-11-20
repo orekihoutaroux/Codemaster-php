@@ -157,6 +157,7 @@ codemaster-php/
 | The home page's animated background          | `public/js/screens/home-background.js`                       |
 | The battle background of each floor          | `public/js/game/battle-background.js` (which floor gets which place: `getBattleThemeForFloor()` in `public/js/core/navigation.js`) |
 | Where hero, monster, name plates and HP bars sit in battle | `public/css/game/battle-stage.css`                |
+| Hero attack and special-skill effects        | `public/js/game/battle-fx.js` (timings: `CHARACTER_ATTACK_TIMINGS` / `CHARACTER_SKILL_TIMINGS` in `public/js/game/battle.js`) |
 | Account creation and login                   | `public/pages/account.html`, `public/js/screens/account.js`  |
 | Moving between screens                       | `showScreen()` in `public/js/core/navigation.js`             |
 | Sound effects / music                        | `public/js/core/audio.js` / `public/js/core/music.js`        |

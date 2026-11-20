@@ -15,8 +15,7 @@
 
 /* Character-specific attacks and active skills */
 .character-combat-fx-layer{position:absolute;inset:0;z-index:14;overflow:hidden;pointer-events:none;contain:layout paint;}
-.character-attack-visual,.character-skill-fx{position:absolute;pointer-events:none;image-rendering:pixelated;}
-.character-skill-fx{inset:0;overflow:hidden;}
+/* Hero shots and special-skill effects are drawn by js/game/battle-fx.js. */
 
 /* Every hero now moves according to their fighting style. */
 .hero-normal-scholar{animation:scholarAttackMove .78s steps(8,end);}
@@ -32,35 +31,6 @@
 @keyframes healerAttackMove{0%,100%{transform:translate(0) scale(1);filter:none;}24%{transform:translateY(-10px) rotate(-3deg);filter:drop-shadow(0 0 7px #6dffba);}48%{transform:translate(10px,-16px) scale(1.08);filter:brightness(1.35) drop-shadow(0 0 13px #a6ffd5);}70%{transform:translate(4px,-4px) rotate(3deg);} }
 @keyframes pirateAttackMove{0%,100%{transform:translate(0) rotate(0);}19%{transform:translate(-13px,3px) rotate(-7deg);}37%{transform:translate(16px,-3px) rotate(6deg);filter:brightness(1.4);}49%{transform:translate(-20px,6px) rotate(-9deg);filter:drop-shadow(-8px 0 5px rgba(255,197,73,.65));}67%{transform:translate(8px,0) rotate(3deg);} }
 
-/* Normal attack projectiles and impact signatures. */
-.character-attack-visual{top:42%;left:145px;z-index:3;}
-.attack-scholar{width:26px;height:18px;animation:scholarPageShot .68s steps(7,end) forwards;}
-.attack-scholar .code-page{position:absolute;inset:0;background:repeating-linear-gradient(180deg,#fff0a2 0 3px,#a87317 3px 4px);border:3px solid #5c3b0a;box-shadow:0 0 8px #ffe16a;transform:skewX(-12deg);}
-.attack-scholar .code-page.trail{left:-18px;opacity:.35;transform:scale(.72) skewX(-12deg);}
-@keyframes scholarPageShot{0%{left:145px;transform:translateY(9px) rotate(-12deg);opacity:0;}15%{opacity:1;}55%{transform:translateY(-11px) rotate(8deg);}88%,100%{left:calc(100% - 185px);transform:translateY(2px) rotate(2deg);opacity:1;} }
-.attack-wizard{width:28px;height:28px;animation:wizardOrbShot .76s ease-in forwards;}
-.attack-wizard .magic-orb{position:absolute;inset:4px;border-radius:50%;background:#f5d5ff;box-shadow:0 0 0 5px #863aff,0 0 18px 9px rgba(122,48,255,.8);}
-.attack-wizard .magic-spark{position:absolute;width:6px;height:6px;background:#fff;border:2px solid #9f66ff;transform:rotate(45deg);}
-.attack-wizard .magic-spark.one{left:-8px;top:0}.attack-wizard .magic-spark.two{right:-9px;bottom:0}
-@keyframes wizardOrbShot{0%{left:150px;transform:scale(.25) rotate(0);opacity:0;}28%{transform:scale(1.35) rotate(90deg);opacity:1;}82%,100%{left:calc(100% - 185px);transform:scale(.75) rotate(270deg);opacity:1;} }
-.attack-knight{width:54px;height:64px;animation:knightArcTravel .6s ease-out forwards;}
-.attack-knight .sword-arc{position:absolute;inset:0;border:7px solid transparent;border-right-color:#fff0a5;border-radius:50%;filter:drop-shadow(0 0 5px #ffc83d);transform:rotate(-28deg);}
-.attack-knight .shield-edge{position:absolute;left:16px;top:14px;width:24px;height:32px;background:#db9c20;border:4px solid #fff0a5;clip-path:polygon(50% 0,100% 16%,87% 75%,50% 100%,13% 75%,0 16%);}
-@keyframes knightArcTravel{0%{left:140px;transform:scale(.5) rotate(-24deg);opacity:0;}25%{opacity:1;}72%,100%{left:calc(100% - 205px);transform:scale(1.15) rotate(12deg);opacity:1;} }
-.attack-rogue{left:auto;right:106px;top:31%;width:130px;height:90px;animation:rogueSlashBurst .58s steps(6,end) forwards;}
-.attack-rogue .hack-slash{position:absolute;width:8px;height:92px;background:#70ffd1;box-shadow:0 0 8px #00eaa0;transform:rotate(54deg) scaleY(0);}
-.attack-rogue .hack-slash.one{left:25px}.attack-rogue .hack-slash.two{left:60px;animation-delay:.07s}.attack-rogue .hack-slash.three{left:95px;animation-delay:.14s}
-@keyframes rogueSlashBurst{0%{opacity:0;filter:hue-rotate(0);}20%{opacity:1;}45%{transform:translateX(-16px);filter:hue-rotate(60deg);}70%{transform:translateX(9px);}100%{opacity:0;transform:translateX(0);} }
-.attack-rogue .hack-slash{animation:rogueBladeGrow .32s steps(4,end) .14s forwards;}@keyframes rogueBladeGrow{to{transform:rotate(54deg) scaleY(1);}}
-.attack-healer{width:30px;height:30px;animation:healerLightShot .74s ease-in-out forwards;}
-.attack-healer .light-cross{position:absolute;left:9px;top:0;width:12px;height:30px;background:#c6ffe4;box-shadow:0 0 12px #4effae;}.attack-healer .light-cross::after{content:'';position:absolute;left:-9px;top:9px;width:30px;height:12px;background:inherit;}
-.attack-healer .light-drop{position:absolute;width:6px;height:6px;border-radius:50%;background:#5dffb3;}.attack-healer .light-drop.one{left:-9px;top:2px}.attack-healer .light-drop.two{right:-8px;bottom:0}
-@keyframes healerLightShot{0%{left:148px;transform:translateY(12px) scale(.5);opacity:0;}28%{transform:translateY(-13px) scale(1.1);opacity:1;}82%,100%{left:calc(100% - 188px);transform:translateY(0) scale(.82);opacity:1;} }
-.attack-pirate{width:30px;height:30px;animation:pirateCannonShot .69s cubic-bezier(.25,.8,.4,1) forwards;}
-.attack-pirate .cannonball{position:absolute;inset:4px;border-radius:50%;background:#15131c;border:3px solid #5d526d;box-shadow:inset -4px -4px 0 #050407,0 0 6px #ffb63e;}
-.attack-pirate .powder-smoke{position:absolute;left:-10px;width:10px;height:10px;background:#d5c5aa;box-shadow:-8px 3px 0 #806e62;opacity:.7;}.attack-pirate .powder-smoke.one{top:3px}.attack-pirate .powder-smoke.two{bottom:2px;left:-18px}
-@keyframes pirateCannonShot{0%{left:145px;transform:translateY(15px) scale(.45);opacity:0;}17%{opacity:1;}50%{transform:translateY(-15px) scale(1) rotate(240deg);}86%,100%{left:calc(100% - 185px);transform:translateY(3px) scale(.92) rotate(540deg);opacity:1;} }
-
 /* Active skill poses. */
 .hero-skill-scholar{animation:timeWarpPose 1.25s steps(10,end);}
 .hero-skill-wizard{animation:arcaneBurstPose 1.25s ease-in-out;}
@@ -75,57 +45,7 @@
 @keyframes restorePulsePose{0%,100%{transform:translate(0) scale(1);filter:none;}20%{transform:translateY(-12px) scale(1.03);filter:drop-shadow(0 0 9px #56ffae);}45%{transform:translateY(-23px) scale(1.16);filter:brightness(1.6) drop-shadow(0 0 20px #8dffd0);}70%{transform:translateY(-9px) scale(1.06);} }
 @keyframes bountyBreakPose{0%,100%{transform:translate(0);filter:none;}16%{transform:translate(-22px,4px) rotate(-9deg);}31%{transform:translate(20px,-6px) rotate(7deg);filter:brightness(1.5);}43%{transform:translate(-30px,9px) rotate(-12deg);filter:drop-shadow(-10px 0 8px #ffb236);}62%{transform:translate(15px,-3px) rotate(5deg);} }
 
-/* Scholar — TIME WARP: clock, rewind marks, and expanding cyan rings. */
-.skill-scholar{background:radial-gradient(circle at 50% 48%,rgba(72,241,255,.22),transparent 48%);animation:skillTintIn 1.25s ease-out;}
-.skill-scholar .time-ring{position:absolute;left:50%;top:48%;border:4px solid #72f7ff;border-radius:50%;box-shadow:0 0 14px #28cbd9;transform:translate(-50%,-50%) scale(.1);animation:timeRingExpand 1.05s ease-out forwards;}.skill-scholar .time-ring.outer{width:190px;height:190px}.skill-scholar .time-ring.inner{width:110px;height:110px;animation-delay:.12s}
-.skill-scholar .time-clock{position:absolute;left:50%;top:48%;width:62px;height:62px;border:6px solid #f9df73;border-radius:50%;background:rgba(11,39,60,.86);box-shadow:0 0 18px #47f0ff;transform:translate(-50%,-50%);animation:clockPop 1.05s steps(8,end);}.skill-scholar .time-clock b,.skill-scholar .time-clock em{position:absolute;left:27px;top:8px;width:5px;height:23px;background:#fff2a1;transform-origin:50% 100%;}.skill-scholar .time-clock em{top:28px;height:5px;width:20px;transform-origin:0 50%;}
-.skill-scholar .rewind-mark{position:absolute;top:42%;font-family:var(--pixel-font);font-size:34px;color:#7ffaff;text-shadow:0 0 10px #38dce8;animation:rewindMark 1s steps(6,end) forwards;}.skill-scholar .rewind-mark.one{left:32%}.skill-scholar .rewind-mark.two{right:30%;animation-delay:.08s}
-@keyframes timeRingExpand{0%{opacity:0;transform:translate(-50%,-50%) scale(.1)}35%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(2.4)}}@keyframes clockPop{0%{opacity:0;transform:translate(-50%,-50%) scale(.2) rotate(0)}30%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(1.1) rotate(-360deg)}}@keyframes rewindMark{0%{opacity:0;transform:translateX(45px)}45%{opacity:1}100%{opacity:0;transform:translateX(-55px)}}
-
-/* Wizard — ARCANE BURST: rotating runes collapse into a violet core. */
-.skill-wizard{background:radial-gradient(circle at 78% 47%,rgba(139,49,255,.4),transparent 31%);animation:skillTintIn 1.25s ease-out;}
-.skill-wizard .rune-ring{position:absolute;left:77%;top:47%;border:5px dotted #e7bcff;border-radius:50%;box-shadow:0 0 18px #852eff;transform:translate(-50%,-50%);animation:runeSpin 1.15s linear forwards;}.skill-wizard .rune-ring.outer{width:145px;height:145px}.skill-wizard .rune-ring.inner{width:85px;height:85px;border-style:dashed;animation-direction:reverse}
-.skill-wizard .arcane-core{position:absolute;left:77%;top:47%;width:35px;height:35px;border-radius:50%;background:#fff;box-shadow:0 0 0 10px #9b42ff,0 0 35px 18px #6e1dff;transform:translate(-50%,-50%) scale(.1);animation:arcaneCoreBurst 1.1s ease-in forwards;}
-.skill-wizard .arcane-ray{position:absolute;left:77%;top:47%;width:170px;height:5px;background:linear-gradient(90deg,#fff,#9b48ff,transparent);transform-origin:0 50%;opacity:0;animation:arcaneRay .72s ease-out .36s forwards;}.skill-wizard .arcane-ray.one{transform:rotate(20deg)}.skill-wizard .arcane-ray.two{transform:rotate(145deg)}.skill-wizard .arcane-ray.three{transform:rotate(265deg)}
-@keyframes runeSpin{0%{opacity:0;transform:translate(-50%,-50%) scale(.2) rotate(0)}35%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(1.35) rotate(420deg)}}@keyframes arcaneCoreBurst{0%{opacity:0;transform:translate(-50%,-50%) scale(.1)}55%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-50%) scale(3.5)}}@keyframes arcaneRay{0%{opacity:0;scale:.1 1}35%{opacity:1}100%{opacity:0;scale:1.25 1}}
-
-/* Knight — AEGIS SLAM: shield charge followed by two ground shockwaves. */
-.skill-knight .aegis-shield{position:absolute;left:14%;top:26%;width:70px;height:86px;background:linear-gradient(90deg,#7b4b0d,#ffe07a 50%,#a9660b);border:7px solid #fff1a8;clip-path:polygon(50% 0,100% 14%,88% 73%,50% 100%,12% 73%,0 14%);filter:drop-shadow(0 0 13px #ffbd25);animation:aegisShieldCharge .82s cubic-bezier(.2,.7,.3,1) forwards;}
-.skill-knight .slam-column{position:absolute;right:10%;bottom:45px;width:95px;height:145px;background:linear-gradient(180deg,transparent,rgba(255,222,91,.74),#fff6bd);clip-path:polygon(42% 0,58% 0,100% 100%,0 100%);opacity:0;animation:slamColumn .58s ease-out .32s forwards;}
-.skill-knight .slam-wave{position:absolute;right:5%;bottom:37px;width:190px;height:38px;border:7px solid #ffd14a;border-radius:50%;transform:scale(.1);opacity:0;animation:slamWave .75s ease-out .42s forwards;}.skill-knight .slam-wave.two{animation-delay:.56s;border-color:#fff2a0}
-@keyframes aegisShieldCharge{0%{opacity:0;transform:translateX(-35px) scale(.45)}28%{opacity:1}100%{opacity:0;left:82%;transform:translateX(-50%) scale(1.25) rotate(8deg)}}@keyframes slamColumn{0%{opacity:0;transform:scaleY(.15)}35%{opacity:1;transform:scaleY(1)}100%{opacity:0;transform:scaleY(.65)}}@keyframes slamWave{0%{opacity:0;transform:scale(.1)}30%{opacity:1}100%{opacity:0;transform:scale(2.1)}}
-
-/* Hacker — ZERO-DAY STRIKE: scanline glitches and three neon cuts. */
-.skill-rogue{background:repeating-linear-gradient(180deg,transparent 0 8px,rgba(0,255,170,.08) 8px 10px);animation:rogueScreenGlitch .95s steps(9,end);}
-.skill-rogue .glitch-line{position:absolute;left:0;width:100%;height:6px;background:#48ffc7;box-shadow:0 0 10px #00e69d;opacity:0;animation:glitchLine .65s steps(7,end) forwards;}.skill-rogue .glitch-line.one{top:28%}.skill-rogue .glitch-line.two{top:48%;animation-delay:.08s}.skill-rogue .glitch-line.three{top:66%;animation-delay:.15s}
-.skill-rogue .zero-slash{position:absolute;right:10%;top:16%;width:10px;height:150px;background:#eafff7;box-shadow:0 0 7px #00ffad,0 0 18px #00ffad;transform:rotate(55deg) scaleY(0);animation:zeroSlash .38s steps(5,end) .28s forwards;}.skill-rogue .zero-slash.two{right:16%;top:23%;animation-delay:.39s}.skill-rogue .zero-slash.three{right:22%;top:10%;animation-delay:.5s}
-@keyframes rogueScreenGlitch{0%,100%{filter:none}18%{filter:hue-rotate(80deg);transform:translateX(5px)}35%{transform:translateX(-8px)}52%{filter:contrast(1.8);transform:translateX(4px)}70%{transform:translateX(-3px)}}@keyframes glitchLine{0%{opacity:0;transform:translateX(-100%)}35%{opacity:.9}100%{opacity:0;transform:translateX(100%)}}@keyframes zeroSlash{0%{opacity:0;transform:rotate(55deg) scaleY(0)}35%{opacity:1}100%{opacity:0;transform:rotate(55deg) scaleY(1)}}
-
-/* Mentor — RESTORE PULSE: healing crosses orbit inside expanding green waves. */
-.skill-healer{background:radial-gradient(circle at 17% 47%,rgba(77,255,170,.32),transparent 34%);animation:skillTintIn 1.3s ease-out;}
-.skill-healer .restore-ring{position:absolute;left:17%;top:47%;width:105px;height:105px;border:6px solid #6dffb5;border-radius:50%;box-shadow:0 0 16px #35e993;transform:translate(-50%,-50%) scale(.1);animation:restoreRing 1.12s ease-out forwards;}.skill-healer .restore-ring.two{animation-delay:.18s;border-color:#d7ffe9}
-.skill-healer .restore-cross{position:absolute;width:18px;height:58px;background:#d9ffeb;box-shadow:0 0 12px #4cffae;opacity:0;animation:restoreCross 1s ease-out forwards;}.skill-healer .restore-cross::after{content:'';position:absolute;left:-20px;top:20px;width:58px;height:18px;background:inherit;}.skill-healer .restore-cross.main{left:calc(17% - 9px);top:calc(47% - 29px)}.skill-healer .restore-cross.left{left:8%;top:25%;transform:scale(.55);animation-delay:.12s}.skill-healer .restore-cross.right{left:26%;top:31%;transform:scale(.45);animation-delay:.22s}
-.skill-healer .restore-spark{position:absolute;left:17%;top:47%;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 0 15px #70ffc0;animation:restoreSpark 1.05s ease-out forwards;}.skill-healer .restore-spark.two{animation-delay:.12s}
-@keyframes restoreRing{0%{opacity:0;transform:translate(-50%,-50%) scale(.1)}34%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(3.3)}}@keyframes restoreCross{0%{opacity:0;transform:translateY(25px) scale(.35)}35%{opacity:1}100%{opacity:0;transform:translateY(-42px) scale(1.15)}}@keyframes restoreSpark{0%{opacity:0;transform:translate(0) scale(.2)}35%{opacity:1}100%{opacity:0;transform:translate(calc(65vw - 100px),-12px) scale(2.2)}}
-
-/* Debugger — BOUNTY BREAK: cannon recoil, projectile, blast, and coin shower. */
-.skill-pirate .bounty-cannon{position:absolute;left:12%;top:46%;width:82px;height:38px;background:#2b2220;border:6px solid #a46b22;box-shadow:inset -12px 0 0 #0e0b0b,0 0 8px #ffae34;transform:rotate(-7deg);animation:cannonRecoil .78s steps(7,end) forwards;}.skill-pirate .bounty-cannon::after{content:'';position:absolute;right:-20px;top:8px;width:23px;height:13px;background:#111;border:4px solid #80531e;}
-.skill-pirate .bounty-ball{position:absolute;left:20%;top:47%;width:32px;height:32px;border-radius:50%;background:#111;border:5px solid #55434a;box-shadow:0 0 10px #ff9b27;animation:bountyBall 1s cubic-bezier(.2,.7,.3,1) forwards;}
-.skill-pirate .bounty-blast{position:absolute;right:8%;top:33%;width:105px;height:105px;background:radial-gradient(circle,#fff5a6 0 15%,#ffb21d 16% 38%,#ef4b14 39% 60%,transparent 61%);clip-path:polygon(50% 0,61% 28%,84% 10%,79% 36%,100% 40%,77% 57%,91% 82%,62% 72%,50% 100%,39% 73%,10% 91%,23% 60%,0 46%,26% 36%,12% 12%,40% 28%);opacity:0;transform:scale(.1);animation:bountyBlast .58s steps(6,end) .43s forwards;}
-.skill-pirate .bounty-coin{position:absolute;right:12%;top:40%;width:17px;height:17px;border-radius:50%;background:#ffe672;border:4px solid #b87908;box-shadow:0 0 6px #ffc526;opacity:0;animation:coinShower .8s ease-out .48s forwards;}.skill-pirate .bounty-coin.two{right:18%;animation-delay:.55s}.skill-pirate .bounty-coin.three{right:9%;animation-delay:.62s}.skill-pirate .bounty-coin.four{right:23%;animation-delay:.68s}
-@keyframes cannonRecoil{0%,100%{transform:translateX(0) rotate(-7deg)}35%{transform:translateX(-24px) rotate(-13deg);filter:brightness(1.6)}62%{transform:translateX(8px) rotate(-4deg)}}@keyframes bountyBall{0%{opacity:0;transform:translate(0,15px) scale(.4)}20%{opacity:1}78%,100%{left:calc(100% - 175px);transform:translateY(-13px) scale(1.15) rotate(500deg);opacity:1}}@keyframes bountyBlast{0%{opacity:0;transform:scale(.1) rotate(0)}35%{opacity:1}100%{opacity:0;transform:scale(1.75) rotate(22deg)}}@keyframes coinShower{0%{opacity:0;transform:translateY(0) rotateY(0)}25%{opacity:1}100%{opacity:0;transform:translateY(90px) rotateY(540deg)}}
 @keyframes skillTintIn{0%{opacity:0}22%{opacity:1}100%{opacity:0}}
-
-@media(max-width:900px){
-    .character-attack-visual{left:105px;transform:scale(.8)}
-    @keyframes scholarPageShot{0%{left:105px;transform:translateY(9px) rotate(-12deg) scale(.8);opacity:0}15%{opacity:1}88%,100%{left:calc(100% - 140px);transform:translateY(2px) rotate(2deg) scale(.8);opacity:1}}
-    @keyframes wizardOrbShot{0%{left:108px;transform:scale(.2);opacity:0}28%{transform:scale(1);opacity:1}82%,100%{left:calc(100% - 140px);transform:scale(.65) rotate(270deg);opacity:1}}
-    @keyframes knightArcTravel{0%{left:100px;transform:scale(.4);opacity:0}25%{opacity:1}72%,100%{left:calc(100% - 155px);transform:scale(.9) rotate(12deg);opacity:1}}
-    @keyframes healerLightShot{0%{left:105px;transform:scale(.4);opacity:0}28%{opacity:1}82%,100%{left:calc(100% - 140px);transform:scale(.7);opacity:1}}
-    @keyframes pirateCannonShot{0%{left:105px;transform:scale(.35);opacity:0}17%{opacity:1}86%,100%{left:calc(100% - 140px);transform:scale(.75) rotate(540deg);opacity:1}}
-    .skill-wizard .rune-ring,.skill-wizard .arcane-core,.skill-wizard .arcane-ray{left:74%}
-    .skill-knight .aegis-shield{width:52px;height:66px}.skill-pirate .bounty-cannon{left:8%;transform:scale(.75)}
-}
 
 /* Enemy-specific normal attacks */
 .enemy-attack-visual,.boss-skill-fx{position:absolute;pointer-events:none;image-rendering:pixelated;}

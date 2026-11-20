@@ -434,3 +434,31 @@ the `/api/admin/*` routes remain unprotected on the server.
 - The **Leaderboard** now has the same day-and-night valley background as
   the home page, a little dimmer, like login, choose hero, How to Play and
   Study Materials. Only the battle keeps its own backgrounds.
+
+## Changelog — attack effects fixed and special skills redone
+
+- **Attack positions fixed.** Shots, hit effects, monster projectiles and
+  boss skills used fixed spots from the old layout (145px from the edge,
+  14% / 77% / 82% across), so they started and landed in the wrong places
+  once the fighters moved toward the middle. Before every attack the game now
+  measures where the hero and the monster stand (`--hx/--hy`, `--mx/--my`,
+  `--shot` in `measureCombatDash()`), and every effect uses that.
+- **New pixel-art hero attacks** (`js/game/battle-fx.js`, drawn on
+  `#battle-fx-canvas` at the sprites' pixel size): a code page (Scholar),
+  an arcane orb (Wizard), a light cross (Mentor) and a cannonball with muzzle
+  flash and smoke (Debugger) fly from the hero's hand to the monster; the
+  Knight lands a sword crescent and the Hacker three neon cuts. Every hit
+  gets a pixel burst with sparks.
+- **New special skills:**
+  - TIME WARP: a giant clock over the monster rewinds, then shatters.
+  - ARCANE BURST: rune circles, three spiralling orbs and a violet pillar.
+  - AEGIS SLAM: a golden shield, a ground shockwave with flying rocks, and
+    a shield glow on the knight (it blocks the next hit).
+  - ZERO-DAY STRIKE: lock-on brackets, glitch lines, four neon cuts and a
+    0-DAY stamp.
+  - RESTORE PULSE: light gathers, a beam strikes the monster, healing rings
+    and crosses around the mentor.
+  - BOUNTY BREAK: a cannon, a big explosion, and coins flying to the debugger.
+  Skills shake the scene on impact.
+- The old CSS-drawn hero shots and skill effects were removed from
+  `css/game/battle-animations.css`.

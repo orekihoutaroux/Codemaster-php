@@ -53,6 +53,15 @@ function measureCombatDash(){
     var enemyDash=Math.max(40,(gap-(isBossFight?42:36)*unit)*factor);
     scene.style.setProperty('--hdash',Math.round(heroDash)+'px');
     scene.style.setProperty('--edash',(-Math.round(enemyDash))+'px');
+    // Where the fighters really are inside the scene, for the attack effects in
+    // css/game/battle-stage.css: --hx/--hy hero body, --mx/--my monster body,
+    // --shot the distance between them, --unit one art pixel.
+    var s=scene.getBoundingClientRect();
+    var hx=h.left-s.left+h.width*28/64,hy=h.top-s.top+h.height*38/64;
+    var mx=m.left-s.left+m.width*33/64,my=m.top-s.top+m.height*40/64;
+    scene.style.setProperty('--hx',Math.round(hx)+'px');scene.style.setProperty('--hy',Math.round(hy)+'px');
+    scene.style.setProperty('--mx',Math.round(mx)+'px');scene.style.setProperty('--my',Math.round(my)+'px');
+    scene.style.setProperty('--shot',Math.round(mx-hx)+'px');scene.style.setProperty('--unit',unit.toFixed(2)+'px');
 }
 
 // The moment an attack connects: the target flinches, or falls if it has no HP left.
@@ -337,8 +346,8 @@ function addCombatParticles(parent,side,profile,count){
         var particle=document.createElement('i');
         particle.className='combat-particle';
         particle.style.setProperty('--particle-color',i%3===0?profile.accent:profile.color);
-        particle.style.setProperty('--particle-x',(side==='hero'?12:88)+(Math.random()*10-5)+'%');
-        particle.style.setProperty('--particle-y',(29+Math.random()*43)+'%');
+        particle.style.setProperty('--particle-x','calc('+(side==='hero'?'var(--hx,14%)':'var(--mx,86%)')+' + '+Math.round(Math.random()*40-20)+'px)');
+        particle.style.setProperty('--particle-y','calc('+(side==='hero'?'var(--hy,50%)':'var(--my,50%)')+' + '+Math.round(Math.random()*60-30)+'px)');
         particle.style.setProperty('--particle-dx',((side==='hero'?1:-1)*(70+Math.random()*190))+'px');
         particle.style.setProperty('--particle-dy',(-70+Math.random()*140)+'px');
         particle.style.setProperty('--particle-delay',(Math.random()*.18)+'s');
@@ -429,44 +438,7 @@ function clearCharacterCombatAnimation(){
             if(className.indexOf('hero-normal-')===0||className.indexOf('hero-skill-')===0)heroEl.classList.remove(className);
         });
     }
-    var layer=getCharacterCombatFxLayer();
-    if(layer)layer.querySelectorAll('.character-attack-visual,.character-skill-fx').forEach(function(effect){effect.remove();});
-}
-
-function createCharacterAttackVisual(charId){
-    var layer=getCharacterCombatFxLayer();
-    if(!layer)return null;
-    var visual=document.createElement('div');
-    visual.className='character-attack-visual attack-'+charId;
-    var templates={
-        scholar:'<i class="code-page"></i><i class="code-page trail"></i>',
-        wizard:'<i class="magic-orb"></i><i class="magic-spark one"></i><i class="magic-spark two"></i>',
-        knight:'<i class="sword-arc"></i><i class="shield-edge"></i>',
-        rogue:'<i class="hack-slash one"></i><i class="hack-slash two"></i><i class="hack-slash three"></i>',
-        healer:'<i class="light-cross"></i><i class="light-drop one"></i><i class="light-drop two"></i>',
-        pirate:'<i class="cannonball"></i><i class="powder-smoke one"></i><i class="powder-smoke two"></i>'
-    };
-    visual.innerHTML=templates[charId]||templates.scholar;
-    layer.appendChild(visual);
-    return visual;
-}
-
-function createCharacterSkillVisual(charId){
-    var layer=getCharacterCombatFxLayer();
-    if(!layer)return null;
-    var effect=document.createElement('div');
-    effect.className='character-skill-fx skill-'+charId;
-    var templates={
-        scholar:'<i class="time-ring outer"></i><i class="time-ring inner"></i><i class="time-clock"><b></b><em></em></i><i class="rewind-mark one">&lt;</i><i class="rewind-mark two">&lt;</i>',
-        wizard:'<i class="rune-ring outer"></i><i class="rune-ring inner"></i><i class="arcane-core"></i><i class="arcane-ray one"></i><i class="arcane-ray two"></i><i class="arcane-ray three"></i>',
-        knight:'<i class="aegis-shield"></i><i class="slam-column"></i><i class="slam-wave one"></i><i class="slam-wave two"></i>',
-        rogue:'<i class="glitch-line one"></i><i class="glitch-line two"></i><i class="glitch-line three"></i><i class="zero-slash one"></i><i class="zero-slash two"></i><i class="zero-slash three"></i>',
-        healer:'<i class="restore-ring one"></i><i class="restore-ring two"></i><i class="restore-cross main"></i><i class="restore-cross left"></i><i class="restore-cross right"></i><i class="restore-spark one"></i><i class="restore-spark two"></i>',
-        pirate:'<i class="bounty-cannon"></i><i class="bounty-ball"></i><i class="bounty-blast"></i><i class="bounty-coin one"></i><i class="bounty-coin two"></i><i class="bounty-coin three"></i><i class="bounty-coin four"></i>'
-    };
-    effect.innerHTML=templates[charId]||templates.scholar;
-    layer.appendChild(effect);
-    return effect;
+    if(typeof BattleFX!=='undefined')BattleFX.clear();
 }
 
 function playCharacterAttackAnimation(charId,damageValue,isCritical){
@@ -484,10 +456,11 @@ function playCharacterAttackAnimation(charId,damageValue,isCritical){
     heroEl.classList.add('hero-normal-'+id);
     var profile=getCharacterCombatProfile(id);
     beginCombatPresentation('hero','attack',CHARACTER_ATTACK_NAMES[id]||'HERO ATTACK','NORMAL ATTACK',profile,980);
-    var visual=createCharacterAttackVisual(id);
     var impactDelay=CHARACTER_ATTACK_TIMINGS[id]||330;
     var swing=CHARACTER_ATTACK_POSES[id]||CHARACTER_ATTACK_POSES.knight;
     SPR.pose('hero','attack',{dur:swing.dur,k:swing.k||impactDelay/swing.dur});
+    // the shot leaves the hand when the pose releases it (game/battle-fx.js)
+    if(typeof BattleFX!=='undefined')BattleFX.heroAttack(id,impactDelay,swing.k?Math.round(swing.dur*swing.k):null);
     var runId=combatRunId;
     setTimeout(function(){
         poseTargetHit('enemy',runId);
@@ -500,7 +473,6 @@ function playCharacterAttackAnimation(charId,damageValue,isCritical){
     setTimeout(function(){
         heroEl.classList.remove('hero-normal-'+id);
         monsterEl.classList.remove('monster-hit-anim');
-        if(visual)visual.remove();
     },900);
 }
 
@@ -520,9 +492,9 @@ function playCharacterSkillAnimation(charId,damageValue,skillName){
     var profile=getCharacterCombatProfile(id);
     var special=CHARACTER_SPECIALS[id]||null;
     beginCombatPresentation('hero','skill',skillName||(special?special.name:'HERO SKILL'),'ACTIVE SKILL',profile,1480);
-    var effect=createCharacterSkillVisual(id);
     var impactDelay=CHARACTER_SKILL_TIMINGS[id]||520;
     SPR.pose('hero','skill',{dur:1400,k:impactDelay/1400});
+    if(typeof BattleFX!=='undefined')BattleFX.heroSkill(id,impactDelay);
     var runId=combatRunId;
     setTimeout(function(){
         poseTargetHit('enemy',runId);
@@ -535,7 +507,6 @@ function playCharacterSkillAnimation(charId,damageValue,skillName){
     setTimeout(function(){
         heroEl.classList.remove('hero-skill-'+id);
         monsterEl.classList.remove('monster-hit-anim');
-        if(effect)effect.remove();
     },1450);
 }
 

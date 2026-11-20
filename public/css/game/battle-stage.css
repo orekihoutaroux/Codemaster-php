@@ -71,13 +71,54 @@
 .lex-battle-scene>.buff-indicators{position:absolute;top:8px;left:8px;z-index:12;display:flex;flex-wrap:wrap;gap:4px;max-width:44%;pointer-events:none;}
 .lex-battle-scene>.buff-indicators .buff-tag{font-family:var(--pixel-font);font-size:calc(9px * var(--text-scale,1));padding:3px 6px;line-height:1.35;white-space:nowrap;text-shadow:1px 1px 0 #000;background-color:rgba(5,13,24,.92);}
 
-/* ---- hit effects land on the fighters ---- */
-.lex-battle-scene .attack-spark{bottom:calc(var(--ground) + 40px);margin-left:-21px;right:auto;}
-#hero-attack-fx{left:var(--enemy-x);}
-#monster-attack-fx{left:var(--hero-x);}
+/* ---- hit effects land on the fighters ----
+   measureCombatDash() in js/game/battle.js measures, before every attack,
+   where the fighters really stand: --hx/--hy (hero body), --mx/--my (monster
+   body), --shot (distance between them) and --unit (one art pixel). */
+.lex-battle-scene .attack-spark{bottom:auto;top:var(--hy,60%);margin:-21px 0 0 -21px;right:auto;}
+#hero-attack-fx{display:none;} /* hero hits are drawn as pixel bursts by battle-fx.js */
+#monster-attack-fx{left:var(--hx,var(--hero-x));}
 .combat-impact-burst{top:calc(100% - var(--ground) - 42px);}
-.combat-impact-enemy{left:var(--enemy-x);}
-.combat-impact-hero{left:var(--hero-x);}
+.combat-impact-enemy{left:var(--mx,var(--enemy-x));top:var(--my,calc(100% - var(--ground) - 42px));}
+.combat-impact-hero{left:var(--hx,var(--hero-x));top:var(--hy,calc(100% - var(--ground) - 42px));}
+.combat-impact-enemy .combat-impact-ring,.combat-impact-enemy .combat-impact-shard{display:none;}
+
+/* ---- pixel-art hero attacks and special skills (js/game/battle-fx.js) ---- */
+.battle-fx-canvas{position:absolute;left:0;top:0;z-index:13;pointer-events:none;image-rendering:pixelated;image-rendering:crisp-edges;}
+.lex-battle-scene.fx-shake{animation:fxShake .26s steps(6,end);}
+.lex-battle-scene.fx-shake-big{animation:fxShakeBig .32s steps(8,end);}
+@keyframes fxShake{0%,100%{transform:translate(0,0);}25%{transform:translate(-3px,1px);}50%{transform:translate(3px,-1px);}75%{transform:translate(-2px,0);}}
+@keyframes fxShakeBig{0%,100%{transform:translate(0,0);}15%{transform:translate(-6px,2px);}30%{transform:translate(5px,-3px);}45%{transform:translate(-4px,2px);}60%{transform:translate(4px,-1px);}80%{transform:translate(-2px,1px);}}
+
+/* ---- monster shots fly from the monster to the hero ---- */
+.lex-battle-scene .enemy-attack-visual{right:auto;left:var(--mx,var(--enemy-x));top:var(--my,45%);}
+@keyframes enemyShotToHero{0%{opacity:0;transform:translate(-50%,-50%) translateX(calc(var(--unit,3px) * -10)) scale(.35);}18%{opacity:1;}55%{transform:translate(-50%,-50%) translate(calc(var(--shot,400px) * -.5),-18px) scale(1);}86%,100%{opacity:1;transform:translate(-50%,-50%) translateX(calc(var(--shot,400px) * -1 + var(--unit,3px) * 8)) scale(.9);}}
+
+/* ---- boss skills, pinned to where the hero and the boss stand ---- */
+.boss-skill-stack_overflow{background:radial-gradient(circle at var(--mx,80%) var(--my,48%),rgba(255,48,85,.38),transparent 37%);}
+.boss-skill-stack_overflow .stack-block{right:auto;left:calc(var(--mx) - 30px);top:calc(var(--my) - 80px);}
+.boss-skill-stack_overflow .stack-block.two{right:auto;left:calc(var(--mx) - 72px);top:calc(var(--my) - 45px);}
+.boss-skill-stack_overflow .stack-block.three{right:auto;left:calc(var(--mx) - 18px);top:calc(var(--my) - 10px);}
+.boss-skill-stack_overflow .stack-block.four{right:auto;left:calc(var(--mx) - 92px);top:calc(var(--my) + 16px);}
+.boss-skill-stack_overflow .recursive-ring{right:auto;left:calc(var(--mx) - 95px);top:calc(var(--my) - 75px);}
+.boss-skill-deadlock_dragon .thread-chain{top:calc(var(--hy) - 8px);}
+.boss-skill-deadlock_dragon .thread-lock{left:var(--hx);top:var(--hy);}
+.boss-skill-deadlock_dragon .lock-flash{left:calc(var(--hx) - 15px);top:calc(var(--hy) - 15px);}
+.boss-skill-memory_leak{background:radial-gradient(circle at var(--mx,82%) var(--my,48%),rgba(151,64,255,.38),transparent 36%);}
+.boss-skill-memory_leak .memory-orb{left:calc(var(--hx) - 12px);top:calc(var(--hy) - 32px);}
+.boss-skill-memory_leak .memory-orb.two{left:calc(var(--hx) + 10px);top:calc(var(--hy) - 2px);}
+.boss-skill-memory_leak .memory-orb.three{left:calc(var(--hx) + 26px);top:calc(var(--hy) - 48px);}
+.boss-skill-memory_leak .memory-orb.four{left:calc(var(--hx) - 32px);top:calc(var(--hy) + 16px);}
+@keyframes memoryOrbDrain{0%{opacity:0;transform:scale(.2);}25%{opacity:1;}88%,100%{left:calc(var(--mx) - 12px);top:calc(var(--my) - 12px);opacity:0;transform:scale(1.4) rotate(360deg);}}
+.boss-skill-memory_leak .leak-vortex{right:auto;left:calc(var(--mx) - 105px);top:calc(var(--my) - 82px);}
+.boss-skill-recursion_hydra .hydra-jaw{right:auto;left:calc(var(--mx) - 52px);top:calc(var(--my) - 64px);}
+.boss-skill-recursion_hydra .hydra-jaw.two{right:auto;left:calc(var(--mx) - 40px);top:calc(var(--my) - 24px);}
+.boss-skill-recursion_hydra .hydra-jaw.three{right:auto;left:calc(var(--mx) - 62px);top:calc(var(--my) + 12px);}
+@keyframes hydraJawStrike{0%{opacity:0;transform:translateX(40px) scale(.45);}24%{opacity:1;}78%,100%{left:calc(var(--hx) - 40px);opacity:0;transform:translateX(0) scale(1.25);}}
+.boss-skill-recursion_hydra .hydra-trail{right:auto;left:var(--hx);width:var(--shot);top:calc(var(--my) - 34px);}
+.boss-skill-recursion_hydra .hydra-trail.two{top:calc(var(--my) + 18px);}
+.boss-skill-fatal_error_titan .crash-beam{left:calc(var(--hx) - 47px);}
+.boss-skill-fatal_error_titan .crash-wave{left:var(--hx);bottom:calc(var(--ground) - var(--feet) - 19px);}
 .combat-atmosphere-hero{--combat-origin:36% 60%;}
 .combat-atmosphere-enemy{--combat-origin:64% 60%;}
 .combat-announcement-hero{left:max(8px,calc(var(--hero-x) - 80px));}
@@ -97,8 +138,6 @@
     .fighter-plate .lex-enemy-label{font-size:calc(11px * var(--text-scale,1));}
     .fighter-plate .hp-bar,.fighter-plate .lex-monster-hp-bar{height:18px;}
     .fighter-plate .hp-text,.fighter-plate .monster-hp-text{font-size:calc(12px * var(--text-scale,1));line-height:14px;}
-    .lex-battle-scene .attack-spark{bottom:calc(var(--ground) + 60px);}
-    .combat-impact-burst{top:calc(100% - var(--ground) - 60px);}
 }
 /* ---- short laptop screens: a slightly lower scene ---- */
 @media(max-height:700px) and (min-width:901px){
@@ -117,8 +156,6 @@
     .fighter-plate .hp-bar,.fighter-plate .lex-monster-hp-bar{height:14px;}
     .fighter-plate .hp-text,.fighter-plate .monster-hp-text{font-size:calc(10px * var(--text-scale,1));line-height:10px;}
     .lex-battle-scene .lex-speech-bubble{top:8px;left:calc(var(--hero-x) + 26px);max-width:min(170px,42vw);padding:6px 8px;}
-    .lex-battle-scene .attack-spark{bottom:calc(var(--ground) + 28px);}
-    .combat-impact-burst{top:calc(100% - var(--ground) - 30px);}
     .lex-enemy-side.is-boss .lex-enemy-label{font-size:calc(7px * var(--text-scale,1));}
 }
 @media(max-width:420px){
