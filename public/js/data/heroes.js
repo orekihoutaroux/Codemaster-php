@@ -45,7 +45,7 @@ const ATTACK_PER_LEVEL=2;
 // Little pixel icons for the skill button under the hero (10x10, one letter
 // per pixel, '.' is empty). The letters are colours from SKILL_ICON_COLORS.
 const SKILL_ICON_COLORS={g:'#f5c842',y:'#ffe98f',s:'#88ccff',w:'#ffffff',p:'#b78cff',v:'#7b4dff',
-    k:'#2a2a3a',r:'#e94560',o:'#c78a00',c:'#4ef0d0',e:'#2fd18a',l:'#cfd6e6'};
+    k:'#6a6a96',r:'#e94560',o:'#c78a00',c:'#4ef0d0',e:'#2fd18a',l:'#cfd6e6'};
 const CHARACTER_SKILL_ICONS={
     scholar:['gggggggggg','.g......g.','.gssssssg.','..gssssg..','...gssg...','...g..g...','..g.ss.g..','.g.ssss.g.','.gssssssg.','gggggggggg'], // hourglass
     wizard: ['....p.....','....p.....','...pwp....','.ppwwwpp..','ppwwwwwpp.','.ppwwwpp..','...pwp..w.','....p..wvw','....p...w.','..........'], // sparkle

@@ -31,6 +31,23 @@
                 <div class="lex-stat-box"><span class="val" id="floor-num">1</span><span class="lbl">FLOOR</span></div>
             </div>
         </div>
+        <!-- Two tabs hanging just under the header (css/game/hud.css). They are
+             children of .lex-hud, not of its left/right parts, which phones clip.
+             Special skill, under the player profile: charges +25% per correct
+             answer; glows and can be clicked when ready
+             (updateCharacterStatsUI() in js/game/battle.js). -->
+        <button type="button" class="hud-skill" id="character-special-btn" onclick="useCharacterSpecial()" disabled title="Answer correctly to charge your hero skill.">
+            <span class="hud-skill-icon" id="character-special-icon" aria-hidden="true"></span>
+            <span class="hud-skill-main">
+                <span class="hud-skill-top">
+                    <span class="hud-skill-name" id="character-special-name">SPECIAL</span>
+                    <span class="hud-skill-state" id="character-special-state">0%</span>
+                </span>
+                <span class="hud-skill-track"><span class="hud-skill-fill" id="character-special-charge-fill" style="width:0%"></span></span>
+            </span>
+        </button>
+        <!-- Shop, under PTS / GOLD / FLOOR: buy items and drink your potions (overlays/shop.html) -->
+        <button type="button" class="hud-shop-btn" id="shop-btn" onclick="openShop()" title="Open the shop (buy items, drink your potions)"><span class="hud-shop-coin" aria-hidden="true"></span>SHOP</button>
     </div>
 
     <!-- GAME AREA B: FLOOR-AWARE BATTLE SCENE
@@ -57,18 +74,6 @@
                         <div class="hp-text" id="hp-text">100/100</div>
                     </div>
                 </div>
-                <!-- Special skill: charges +25% per correct answer; glows and can be
-                     clicked when ready (updateCharacterStatsUI() in js/game/battle.js) -->
-                <button type="button" class="plate-skill" id="character-special-btn" onclick="useCharacterSpecial()" disabled title="Answer correctly to charge your hero skill.">
-                    <span class="plate-skill-icon" id="character-special-icon" aria-hidden="true"></span>
-                    <span class="plate-skill-main">
-                        <span class="plate-skill-top">
-                            <span class="plate-skill-name" id="character-special-name">SPECIAL</span>
-                            <span class="plate-skill-state" id="character-special-state">0%</span>
-                        </span>
-                        <span class="plate-skill-track"><span class="plate-skill-fill" id="character-special-charge-fill" style="width:0%"></span></span>
-                    </span>
-                </button>
             </div>
         </div>
 
@@ -105,8 +110,6 @@
         <!-- Left curtain panel -->
         <div class="lex-curtain lex-curtain-left">
             <div class="lex-panel-info">
-                <!-- Shop: buy items and drink your potions (overlays/shop.html) -->
-                <button type="button" class="lex-shop-btn" id="shop-btn" onclick="openShop()" title="Open the shop (buy items, drink your potions)"><span class="lex-shop-coin" aria-hidden="true"></span>SHOP</button>
                 <!-- streak and encounter side by side -->
                 <div class="lex-panel-pair">
                     <div class="streak-inline">

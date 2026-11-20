@@ -30,11 +30,6 @@
 :where(html.ui-fit.vh-820) .lex-panel-info{margin-top:10px;}
 :where(html.ui-fit.vh-820) .lex-curtain-left .lex-panel-row{padding-top:0;padding-bottom:2px;}
 :where(html.ui-fit.vh-820) .lex-curtain-left .diff-btn{padding-top:2px;padding-bottom:2px;}
-/* the monster's four stats two by two, like Character Stats on the left
-   (the battle scene is taller since the skill button moved under the hero) */
-:where(html.ui-fit.vh-820) .lex-monster-stats-card{display:grid;grid-template-columns:1fr 1fr;column-gap:8px;}
-:where(html.ui-fit.vh-820) .lex-monster-stats-card > :not(.lex-monster-stat-row){grid-column:1 / -1;}
-:where(html.ui-fit.vh-820) .lex-monster-stat-row{min-width:0;}
 /* boss fights add the BOSS SPECIAL box to the right panel: drop the two
    lines that repeat what is shown elsewhere and set Run Stats out two by two */
 :where(html.ui-fit.vh-820) .lex-curtain-right.boss-fight .lex-monster-stat-note,

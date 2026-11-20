@@ -550,3 +550,24 @@ the `/api/admin/*` routes remain unprotected on the server.
 - To keep 16:9 screens fitting with the taller scene, the right panel shows
   the monster's TYPE / HP / ATK / DEF two by two (`css/base/screen-fit.css`).
   All 125 questions still fit; the four longest use slightly smaller code.
+
+## Changelog — skill under the player profile, SHOP under PTS / GOLD / FLOOR
+
+- **The special skill moved from under the hero to a tab hanging under the
+  player profile** (top left of the header). It keeps the same look: the
+  skill's pixel icon, name, charge bar and percentage, gold READY when charged,
+  and a glowing USE! button when it can be used. Markup: `#character-special-btn`
+  inside `.lex-hud` in `pages/game.html`; styles: `.hud-skill` in
+  `css/game/hud.css`.
+- **SHOP moved from the left panel to a big gold tab hanging under
+  PTS / GOLD / FLOOR** (top right of the header): `#shop-btn`, `.hud-shop-btn`
+  in `css/game/hud.css`.
+- With the skill off the hero's plate, the battle floor and scene are back to
+  their earlier height (`--ground` 62px, scene 230px on 16:9), so questions get
+  their room back (no question needs smaller code on 16:9). The monster stats
+  in the right panel are back to one per row.
+- The buff tags moved down under the skill tab. On phones and tablets the
+  scene has 32px more sky so the tabs, the buff tags and the speech bubble
+  don't cover each other.
+- The tutorial says where the skill and the SHOP are now. The Debugger's bomb
+  icon is lighter so it shows on the dark tab.

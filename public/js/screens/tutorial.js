@@ -39,7 +39,7 @@ function tutorialHeroStep(){
         points:[
             '<b>Passive:</b> your hero\'s bonus works on every question, automatically.',
             special?'<b>Special skill &ndash; '+escapeHtml(special.name)+':</b> '+escapeHtml(special.desc):'<b>Special skill:</b> each hero has one powerful move.',
-            'Every correct answer charges the skill <b>+25%</b>. After <b>4 correct answers</b> it\'s ready &ndash; press the skill button under your hero before you answer.'
+            'Every correct answer charges the skill <b>+25%</b>. After <b>4 correct answers</b> it\'s ready &ndash; press the skill button under your name (top left) before you answer.'
         ]
     };
 }
@@ -56,7 +56,7 @@ function tutorialAllHeroesStep(){
         }).join('')+'</div>',
         points:[
             'You pick a hero after you enter the dungeon. Each one has a <b>passive</b> bonus that works on every question.',
-            'Each hero also has a <b>special skill</b>. Every correct answer charges it <b>+25%</b>; after <b>4 correct answers</b> it\'s ready &ndash; press the skill button under your hero before you answer.'
+            'Each hero also has a <b>special skill</b>. Every correct answer charges it <b>+25%</b>; after <b>4 correct answers</b> it\'s ready &ndash; press the skill button under your name (top left) before you answer.'
         ]
     };
 }
@@ -110,7 +110,7 @@ function getTutorialSteps(){
             title:'STAY ALIVE',
             visual:'<div class="tut-items" aria-hidden="true"><div><span class="tut-icon heal">&#9829;</span>POTION<small>+30 HP</small></div><div><span class="tut-icon shop">&#9733;</span>SHOP<small>Spend gold</small></div><div><span class="tut-icon dead">&#10006;</span>0 HP<small>Run over</small></div></div>',
             points:[
-                'Open the <b>SHOP</b> (the gold button at the top of the left panel) to drink a potion: it heals 30 HP. You start with 2 and earn one per boss.',
+                'Open the <b>SHOP</b> (the gold tab under PTS / GOLD / FLOOR, top right) to drink a potion: it heals 30 HP. You start with 2 and earn one per boss.',
                 'Open the <b>SHOP</b> to buy healing and buffs (defence, double gold, crits, extra time) that last <b>3 questions</b>.',
                 'If your HP hits <b>0</b> the run ends: your score goes on the <b>leaderboard</b> and you start again from floor 1.',
                 'Stuck on a topic? <b>STUDY MATERIALS</b> on the home screen covers everything the questions ask.'
