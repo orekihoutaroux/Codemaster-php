@@ -480,3 +480,35 @@ the `/api/admin/*` routes remain unprotected on the server.
   count in step everywhere the old button label used to be updated. The
   tutorial and the "no potions" message now point to the shop.
 - Removed the unused `.lex-panel-btns` and `.btn-potion` styles.
+
+## Changelog — the UI fits every computer screen (16:9 base, zoomed)
+
+- **Every screen is laid out at 1280x720 and zoomed to fill the window**
+  (`public/js/core/ui-fit.js`, loaded in `<head>` before anything is drawn).
+  A 1920x1080 monitor shows the same layout at 1.5x, a 1366x768 laptop at
+  about 1.07x, 2560x1440 at 2x. A window made shorter by the browser's tabs
+  and address bar zooms a little less, so nothing is cut off and nothing needs
+  scrolling. Ultrawide windows get more room at the sides; 16:10 and 4:3
+  screens get a bit more room at the bottom. Phones and portrait tablets
+  (narrower than 1024px, or taller than wide) keep their own layout.
+  Browser zoom (Ctrl +/-) no longer changes the size; the Settings text size
+  still does.
+- Stylesheets use `var(--app-w)` / `var(--app-h)` instead of `100vw` / `100vh`
+  (CSS zoom would scale viewport units twice). The few `max-height` media
+  queries became `html.vh-820` / `html.vh-700` classes, set from the zoomed
+  height. Scripts that place effects measure with `uiRect()` instead of
+  `getBoundingClientRect()`, so attacks still land on the fighters while zoomed
+  (`battle.js`, `battle-fx.js`, `battle-background.js`, `feedback.js`,
+  `home.js`).
+- **Fitting 1280x720** (`public/css/base/screen-fit.css`, loaded last):
+  - Pick a hero: tighter cards and a wider panel, so all six heroes and the
+    buttons fit without scrolling.
+  - Study: the title and lesson tabs stay put; only the lesson card scrolls.
+  - Battle: the side panels lost a few pixels of padding so they no longer
+    need their own scrollbar.
+  - Long code questions (11-14 lines) used to push the answers below the
+    question area. `fitQuestionToArea()` in `battle.js` now tightens such a
+    question step by step (spacing, then answers in one row, then smaller
+    code) until the answers are in sight. Short questions look the same as
+    before; on 16:9 only 15 of the 125 questions need it.
+

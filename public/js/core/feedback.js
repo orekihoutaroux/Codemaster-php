@@ -81,10 +81,10 @@ function showFloatingDmg(text){var el=document.createElement('div');el.className
 function showAbilityActivate(text){
     var el=document.createElement('div');el.className='ability-activate';el.textContent=text;
     document.body.appendChild(el);
-    var hero=document.getElementById('game-character'),r=hero&&hero.offsetParent!==null?hero.getBoundingClientRect():null;
+    var hero=document.getElementById('game-character'),r=hero&&hero.offsetParent!==null?uiRect(hero):null; // layout pixels (js/core/ui-fit.js)
     if(r&&r.width){
         var cx=r.left+r.width*28/64;
-        el.style.left=Math.max(6,Math.min(window.innerWidth-el.offsetWidth-6,cx-el.offsetWidth/2))+'px';
+        el.style.left=Math.max(6,Math.min(uiViewW()-el.offsetWidth-6,cx-el.offsetWidth/2))+'px';
         el.style.top=Math.max(6,r.bottom-r.height*0.32)+'px'; // starts at the legs and floats up (clear of the speech bubble)
     }else{el.style.left='20%';el.style.top='40%';}
     setTimeout(function(){el.remove();},1200);

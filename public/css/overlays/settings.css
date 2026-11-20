@@ -29,4 +29,4 @@
     .settings-row label{grid-column:1 / -1;}
     .settings-size-btn{min-height:58px;font-size:calc(11px * var(--text-scale,1));}
 }
-.settings-card{max-height:calc(100dvh - 24px);overflow-y:auto;}
+.settings-card{max-height:calc(var(--app-h,100dvh) - 24px);overflow-y:auto;}

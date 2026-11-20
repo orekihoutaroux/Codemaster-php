@@ -389,6 +389,7 @@ function showLearnTab(tab){
     card.classList.add('active');
     var screen=document.getElementById('learn-screen');
     if(screen)screen.scrollTop=0;
+    card.scrollTop=0; // on computers the lesson card scrolls on its own (css/base/screen-fit.css)
 }
 
 function applyLargeTextMode(){

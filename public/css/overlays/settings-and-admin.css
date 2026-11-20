@@ -1,8 +1,8 @@
 /* ===== SETTINGS AND ADMIN OVERLAYS ===== */
 .admin-overlay{position:fixed;inset:0;background:rgba(2,4,18,0.92);display:flex;align-items:center;justify-content:center;z-index:320;animation:fadeIn 0.2s;}
-.admin-panel{width:min(1120px,94vw);max-height:90vh;background:linear-gradient(180deg,#101028 0%,#171733 100%);border:3px solid var(--gold);box-shadow:0 0 0 3px #2d1600,0 26px 60px rgba(0,0,0,0.55);padding:16px;display:flex;flex-direction:column;gap:14px;overflow:hidden;}
+.admin-panel{width:min(1120px,calc(var(--app-w,100vw) * .94));max-height:calc(var(--app-h,100vh) * .9);background:linear-gradient(180deg,#101028 0%,#171733 100%);border:3px solid var(--gold);box-shadow:0 0 0 3px #2d1600,0 26px 60px rgba(0,0,0,0.55);padding:16px;display:flex;flex-direction:column;gap:14px;overflow:hidden;}
 .admin-login-overlay{position:fixed;inset:0;background:rgba(2,4,18,0.92);display:flex;align-items:center;justify-content:center;z-index:325;animation:fadeIn 0.2s;}
-.admin-login-card{width:min(430px,92vw);background:linear-gradient(180deg,#101028 0%,#171733 100%);border:3px solid var(--gold);box-shadow:0 0 0 3px #2d1600,0 22px 55px rgba(0,0,0,0.55);padding:18px;display:flex;flex-direction:column;gap:12px;}
+.admin-login-card{width:min(430px,calc(var(--app-w,100vw) * .92));background:linear-gradient(180deg,#101028 0%,#171733 100%);border:3px solid var(--gold);box-shadow:0 0 0 3px #2d1600,0 22px 55px rgba(0,0,0,0.55);padding:18px;display:flex;flex-direction:column;gap:12px;}
 .admin-login-title{font-family:var(--pixel-font);font-size:calc(14px * var(--text-scale,1));color:var(--gold);text-shadow:2px 2px 0 #886600;text-align:center;}
 .admin-login-subtitle{font-size:calc(12px * var(--text-scale,1));color:#c4c4e6;line-height:1.7;text-align:center;}
 .admin-login-field{display:flex;flex-direction:column;gap:6px;}
@@ -24,7 +24,7 @@
 .admin-btn:disabled:hover{transform:none;}
 .admin-btn:active{transform:translateY(2px);box-shadow:none;}
 .admin-confirm-overlay{position:fixed;inset:0;background:rgba(4,2,11,.84);display:flex;align-items:center;justify-content:center;z-index:350;padding:18px;animation:fadeIn .18s ease-out;backdrop-filter:blur(3px);}
-.admin-confirm-card{width:min(500px,94vw);background:linear-gradient(180deg,#201225 0%,#120b1c 100%);border:3px solid #ff5268;box-shadow:0 0 0 4px #4a111d,0 22px 60px rgba(0,0,0,.72),0 0 28px rgba(255,54,83,.2);padding:22px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:13px;}
+.admin-confirm-card{width:min(500px,calc(var(--app-w,100vw) * .94));background:linear-gradient(180deg,#201225 0%,#120b1c 100%);border:3px solid #ff5268;box-shadow:0 0 0 4px #4a111d,0 22px 60px rgba(0,0,0,.72),0 0 28px rgba(255,54,83,.2);padding:22px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:13px;}
 .admin-confirm-icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;font-family:var(--pixel-font);font-size:calc(23px * var(--text-scale,1));color:#170509;background:var(--gold);border:3px solid #fff0a1;box-shadow:0 0 0 4px #6e5010,0 0 18px rgba(245,200,66,.42);clip-path:polygon(50% 0,100% 100%,0 100%);padding-top:13px;}
 .admin-confirm-title{font-family:var(--pixel-font);font-size:calc(14px * var(--text-scale,1));color:#ff687b;text-shadow:2px 2px 0 #5e0e1c;line-height:1.6;}
 .admin-confirm-message{max-width:430px;font-size:calc(14px * var(--text-scale,1));line-height:1.75;color:#f2edf8;font-weight:600;}

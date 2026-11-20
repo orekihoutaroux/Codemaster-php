@@ -20,7 +20,7 @@ function setup(){
     scene=document.getElementById('battle-scene');
     canvas=document.getElementById('battle-fx-canvas');
     if(!scene||!canvas)return false;
-    var cs=getComputedStyle(scene),r=scene.getBoundingClientRect();
+    var cs=getComputedStyle(scene),r=uiRect(scene); // layout pixels (js/core/ui-fit.js)
     if(!r.width||!r.height)return false;
     P=Math.max(1,parseInt(cs.getPropertyValue('--px'),10)||3);
     var w=Math.ceil(r.width/P),h=Math.ceil(r.height/P);
@@ -37,7 +37,7 @@ function setup(){
 function at(side,col,row){
     var el=document.getElementById(side==='hero'?'game-character':'monster-canvas');
     if(!el||!scene)return {x:0,y:0};
-    var s=scene.getBoundingClientRect(),r=el.getBoundingClientRect();
+    var s=uiRect(scene),r=uiRect(el);
     return {x:(r.left-s.left+r.width*col/64)/P,y:(r.top-s.top+r.height*row/64)/P};
 }
 var HAND=[44,34],BODY=[28,38],MONSTER=[33,40];

@@ -59,7 +59,7 @@
     .lex-speech-bubble{font-size:calc(9px * var(--text-scale,1));}
     .q-text{font-size:calc(17px * var(--text-scale,1));}
     .choice-btn{font-size:calc(15px * var(--text-scale,1));}
-    .leaderboard-header h1{font-size:calc(clamp(22px,6vw,32px) * var(--text-scale,1));}
+    .leaderboard-header h1{font-size:calc(clamp(22px,calc(var(--app-w,100vw) * .06),32px) * var(--text-scale,1));}
 }
 
 .char-special-preview{font-size:calc(12px * var(--text-scale,1));line-height:1.6;}.char-special-preview strong{font-size:calc(12px * var(--text-scale,1));}
@@ -72,7 +72,7 @@
 .death-btn.restart{background:linear-gradient(180deg,#dc3d5b,#92203d);border-color:#ff8799;}
 .death-btn.leaderboard{background:linear-gradient(180deg,#87651c,#49330b);border-color:#f5c842;}
 .death-btn.home{background:linear-gradient(180deg,#245779,#153349);border-color:#6bd9ff;}
-@media(max-width:560px){.death-overlay .text{font-size:calc(clamp(19px,7vw,26px) * var(--text-scale,1));text-align:center;}.death-overlay .sub{font-size:calc(15px * var(--text-scale,1));text-align:center;}.death-actions{width:min(100%,360px);gap:10px;margin-top:20px;}.death-btn{width:100%;min-width:0;padding:12px;font-size:calc(10px * var(--text-scale,1));}}
+@media(max-width:560px){.death-overlay .text{font-size:calc(clamp(19px,calc(var(--app-w,100vw) * .07),26px) * var(--text-scale,1));text-align:center;}.death-overlay .sub{font-size:calc(15px * var(--text-scale,1));text-align:center;}.death-actions{width:min(100%,360px);gap:10px;margin-top:20px;}.death-btn{width:100%;min-width:0;padding:12px;font-size:calc(10px * var(--text-scale,1));}}
 
 .returning-player-prompt{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:2px;padding-top:14px;border-top:1px solid rgba(245,200,66,.22);color:#c8c8e2;font-size:calc(14px * var(--text-scale,1));}
 .returning-login-btn{padding:9px 16px;border:2px solid #79c8ff;background:linear-gradient(180deg,#174d79,#0d2a4a);color:#fff;font-family:var(--pixel-font);font-size:calc(10px * var(--text-scale,1));line-height:1.6;cursor:pointer;box-shadow:0 3px 0 #071d32;}

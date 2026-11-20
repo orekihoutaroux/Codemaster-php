@@ -15,7 +15,7 @@
     --gap:min(27%,300px);
     --hero-x:calc(50% - var(--gap));
     --enemy-x:calc(50% + var(--gap));
-    position:relative;width:100%;height:clamp(230px,31vh,300px);flex-shrink:0;overflow:hidden;isolation:isolate;
+    position:relative;width:100%;height:clamp(230px,calc(var(--app-h,100vh) * .31),300px);flex-shrink:0;overflow:hidden;isolation:isolate;
     background:#0b1020;box-shadow:none;
 }
 /* soft darkening at the edges so the fighters stand out */
@@ -65,7 +65,7 @@
 .lex-speech-bubble.combat-hidden{opacity:0;visibility:hidden;transform:translateY(-6px) scale(.88);transition:opacity .16s ease,transform .16s ease,visibility 0s linear .16s;}
 .lex-speech-bubble::after{content:'';position:absolute;bottom:-14px;left:26px;border:7px solid transparent;border-top:10px solid #222;}
 .lex-speech-bubble::before{content:'';position:absolute;bottom:-10px;left:28px;border:6px solid transparent;border-top:8px solid #fff;z-index:1;}
-.lex-battle-scene .lex-speech-bubble{top:12px;left:calc(var(--hero-x) + 36px);right:auto;max-width:min(210px,40vw);}
+.lex-battle-scene .lex-speech-bubble{top:12px;left:calc(var(--hero-x) + 36px);right:auto;max-width:min(210px,calc(var(--app-w,100vw) * .4));}
 
 /* ---- buffs: top-left corner of the scene, under the SHOP tab ---- */
 .lex-battle-scene>.buff-indicators{position:absolute;top:36px;left:8px;z-index:12;display:flex;flex-wrap:wrap;gap:4px;max-width:44%;pointer-events:none;}
@@ -128,34 +128,35 @@
 .lex-monster-stats-card .lex-monster-desc-panel{position:static;transform:none;width:auto;margin:0 0 6px;padding:5px 7px;background:rgba(5,13,24,.6);border:1px solid rgba(255,113,136,.45);
     color:#ffc1a8;font-size:calc(11px * var(--text-scale,1));font-style:italic;line-height:1.35;text-align:center;}
 
-/* ---- big screens: bigger fighters (4x) ---- */
+/* ---- big screens without the zoomed layout: bigger fighters (4x).
+   With the zoomed layout (js/core/ui-fit.js) the zoom already makes them big. */
 @media(min-width:1600px) and (min-height:940px){
-    .lex-battle-scene{--px:4;--ground:76px;--feet:18px;--gap:min(26%,380px);height:clamp(300px,31vh,340px);}
-    .fighter-plate{width:230px;padding:4px 7px 6px;gap:4px;}
-    .enemy-plate{width:250px;}
-    .fighter-plate-top{height:16px;}
-    .fighter-plate .lex-hero-label,.fighter-plate-name{font-size:calc(10px * var(--text-scale,1));}
-    .fighter-plate .lex-enemy-label{font-size:calc(11px * var(--text-scale,1));}
-    .fighter-plate .hp-bar,.fighter-plate .lex-monster-hp-bar{height:18px;}
-    .fighter-plate .hp-text,.fighter-plate .monster-hp-text{font-size:calc(12px * var(--text-scale,1));line-height:14px;}
+    :where(html:not(.ui-fit)) .lex-battle-scene{--px:4;--ground:76px;--feet:18px;--gap:min(26%,380px);height:clamp(300px,calc(var(--app-h,100vh) * .31),340px);}
+    :where(html:not(.ui-fit)) .fighter-plate{width:230px;padding:4px 7px 6px;gap:4px;}
+    :where(html:not(.ui-fit)) .enemy-plate{width:250px;}
+    :where(html:not(.ui-fit)) .fighter-plate-top{height:16px;}
+    :where(html:not(.ui-fit)) .fighter-plate .lex-hero-label,:where(html:not(.ui-fit)) .fighter-plate-name{font-size:calc(10px * var(--text-scale,1));}
+    :where(html:not(.ui-fit)) .fighter-plate .lex-enemy-label{font-size:calc(11px * var(--text-scale,1));}
+    :where(html:not(.ui-fit)) .fighter-plate .hp-bar,:where(html:not(.ui-fit)) .fighter-plate .lex-monster-hp-bar{height:18px;}
+    :where(html:not(.ui-fit)) .fighter-plate .hp-text,:where(html:not(.ui-fit)) .fighter-plate .monster-hp-text{font-size:calc(12px * var(--text-scale,1));line-height:14px;}
 }
-/* ---- short laptop screens: a slightly lower scene ---- */
-@media(max-height:700px) and (min-width:901px){
-    .lex-battle-scene{height:214px;}
-    .lex-battle-scene .lex-speech-bubble{top:6px;}
+/* ---- short screens (html.vh-700, js/core/ui-fit.js): a slightly lower scene ---- */
+@media(min-width:901px){
+    :where(html.vh-700) .lex-battle-scene{height:214px;}
+    :where(html.vh-700) .lex-battle-scene .lex-speech-bubble{top:6px;}
 }
 /* ---- tablets and phones: 2x pixels ---- */
 @media(max-width:900px){
     .lex-battle-scene{--px:2;--ground:56px;--feet:12px;--gap:min(26%,240px);height:218px;}
-    .fighter-plate{width:min(180px,44vw);padding:2px 4px 3px;gap:2px;}
-    .enemy-plate{width:min(190px,45vw);}
+    .fighter-plate{width:min(180px,calc(var(--app-w,100vw) * .44));padding:2px 4px 3px;gap:2px;}
+    .enemy-plate{width:min(190px,calc(var(--app-w,100vw) * .45));}
     .fighter-plate-top{height:12px;gap:4px;}
     .fighter-plate .lex-hero-label{font-size:calc(7px * var(--text-scale,1));padding:1px 3px;}
     .fighter-plate-name{font-size:calc(7px * var(--text-scale,1));}
     .fighter-plate .lex-enemy-label{font-size:calc(8px * var(--text-scale,1));}
     .fighter-plate .hp-bar,.fighter-plate .lex-monster-hp-bar{height:14px;}
     .fighter-plate .hp-text,.fighter-plate .monster-hp-text{font-size:calc(10px * var(--text-scale,1));line-height:10px;}
-    .lex-battle-scene .lex-speech-bubble{top:8px;left:calc(var(--hero-x) + 26px);max-width:min(170px,42vw);padding:6px 8px;}
+    .lex-battle-scene .lex-speech-bubble{top:8px;left:calc(var(--hero-x) + 26px);max-width:min(170px,calc(var(--app-w,100vw) * .42));padding:6px 8px;}
     .lex-enemy-side.is-boss .lex-enemy-label{font-size:calc(7px * var(--text-scale,1));}
 }
 @media(max-width:420px){

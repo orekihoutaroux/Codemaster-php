@@ -1,0 +1,40 @@
+/* ===== FITTING THE SCREEN =====
+   On computers and landscape tablets js/core/ui-fit.js lays every screen out
+   at 1280 layout pixels wide and about 720 tall (taller on 16:10 and 4:3
+   screens) and zooms it to fill the window. html.ui-fit is set while that
+   layout is on; html.vh-820 when the layout height is 820 or less (every
+   16:9 screen). These rules make each screen fit that height without the
+   page scrolling. Phones and portrait tablets are not affected.
+   Loaded last, so it wins over the files above it. */
+
+/* ---- Study: the title and lesson tabs stay put, only the lesson scrolls ---- */
+:where(html.ui-fit) #learn-screen{overflow:hidden;padding-bottom:12px;}
+:where(html.ui-fit) #learn-screen .learn-content{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;}
+:where(html.ui-fit) #learn-screen .learn-card.active{flex:0 1 auto;min-height:0;margin-bottom:0;overflow-y:auto;
+    scrollbar-width:thin;scrollbar-color:rgba(78,204,163,.55) transparent;}
+
+/* ---- Pick a hero: six cards and the buttons on one screen ---- */
+:where(html.ui-fit.vh-820) #select-screen{padding-top:10px;padding-bottom:10px;}
+:where(html.ui-fit.vh-820) .select-title{margin-bottom:0;}
+:where(html.ui-fit.vh-820) .select-subtitle{margin-bottom:8px;}
+:where(html.ui-fit.vh-820) .select-section{width:min(1120px,100%);padding:10px 12px 12px;margin-bottom:10px;}
+:where(html.ui-fit.vh-820) .characters-grid{gap:10px;}
+:where(html.ui-fit.vh-820) .char-card{padding:8px 12px 10px;}
+:where(html.ui-fit.vh-820) .char-canvas{width:72px;height:72px;margin-bottom:4px;}
+:where(html.ui-fit.vh-820) .char-card .char-name{margin-bottom:2px;}
+:where(html.ui-fit.vh-820) .char-card .char-stats{margin-top:2px;margin-bottom:6px;}
+:where(html.ui-fit.vh-820) .char-special-preview{padding:5px 8px;}
+
+/* ---- Battle: the side panels fit without their own scrollbar ---- */
+:where(html.ui-fit.vh-820) .lex-curtain{padding-top:4px;padding-bottom:4px;}
+
+/* ---- Battle: long code questions keep their answers in sight ----
+   fitQuestionToArea() in js/game/battle.js adds these one at a time, only
+   while the question and its answers are taller than the question area. */
+#question-card.qfit-1 .q-text{line-height:1.4;margin-bottom:4px;}
+#question-card.qfit-1 .code-block{line-height:1.38;padding:6px 12px;margin:4px 0 6px;}
+#question-card.qfit-1 .choices{gap:6px;margin-top:4px;}
+#question-card.qfit-1 .choice-btn{padding-top:6px;padding-bottom:6px;}
+#question-card.qfit-2 .choices{grid-template-columns:repeat(4,minmax(0,1fr));}
+#question-card.qfit-3 .code-block{font-size:calc(13px * var(--text-scale,1));line-height:1.32;}
+#question-card.qfit-4 .code-block{font-size:calc(12px * var(--text-scale,1));line-height:1.25;}

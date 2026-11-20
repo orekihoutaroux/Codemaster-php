@@ -44,7 +44,8 @@ function measureCombatDash(){
     var scene=document.getElementById('battle-scene');
     var heroEl=document.getElementById('game-character'),monsterEl=document.getElementById('monster-canvas');
     if(!scene||!heroEl||!monsterEl)return;
-    var h=heroEl.getBoundingClientRect(),m=monsterEl.getBoundingClientRect();
+    // uiRect (js/core/ui-fit.js): boxes in layout pixels, also while the UI is zoomed
+    var h=uiRect(heroEl),m=uiRect(monsterEl);
     if(!h.width||!m.width)return;
     var unit=h.width/64;
     var gap=(m.left+m.width*34/64)-(h.left+h.width*28/64);
@@ -56,7 +57,7 @@ function measureCombatDash(){
     // Where the fighters really are inside the scene, for the attack effects in
     // css/game/battle-stage.css: --hx/--hy hero body, --mx/--my monster body,
     // --shot the distance between them, --unit one art pixel.
-    var s=scene.getBoundingClientRect();
+    var s=uiRect(scene);
     var hx=h.left-s.left+h.width*28/64,hy=h.top-s.top+h.height*38/64;
     var mx=m.left-s.left+m.width*33/64,my=m.top-s.top+m.height*40/64;
     scene.style.setProperty('--hx',Math.round(hx)+'px');scene.style.setProperty('--hy',Math.round(hy)+'px');
@@ -235,9 +236,29 @@ function renderQuestion(q){
         btn.onclick=function(){selectAnswer(i);};choicesEl.appendChild(btn);});
     document.getElementById('exp-text').textContent=decodeEntities(q.explain);
     var questionArea=document.getElementById('question-card');if(questionArea)questionArea.scrollTop=0;
+    fitQuestionToArea();
     startTimer();
     updateCharacterStatsUI();
 }
+
+// A long code question must not push the answers out of sight on a 16:9
+// screen. If the question and its answers do not fit the question area, it is
+// tightened one step at a time until they do (css/base/screen-fit.css):
+//   qfit-1 tighter spacing, qfit-2 the four answers in one row,
+//   qfit-3 smaller code, qfit-4 smaller code still.
+// Short questions keep the normal look. Also re-run when the window resizes.
+var QFIT_STEPS=['qfit-1','qfit-2','qfit-3','qfit-4'];
+function fitQuestionToArea(){
+    var area=document.getElementById('question-card');
+    if(!area)return;
+    QFIT_STEPS.forEach(function(c){area.classList.remove(c);});
+    if(!area.clientHeight||getComputedStyle(area).overflowY==='visible')return; // phones: the page scrolls instead
+    for(var i=0;i<QFIT_STEPS.length&&area.scrollHeight>area.clientHeight+1;i++)area.classList.add(QFIT_STEPS[i]);
+}
+window.addEventListener('resize',function(){
+    var game=document.getElementById('game-screen');
+    if(game&&game.classList.contains('active')&&!answered)fitQuestionToArea();
+});
 
 // Single-pass PHP highlighter. Takes plain (already decoded) code and returns
 // escaped HTML. One regex walks the text so a later rule can never re-match

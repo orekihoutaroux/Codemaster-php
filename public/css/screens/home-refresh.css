@@ -1,7 +1,7 @@
 /* ===== HOME PAGE: BACKGROUND SCENE AND FINISHING TOUCHES =====
    Loaded after the other home styles. The animated scene itself is drawn by
    js/screens/home-background.js onto #home-bg-canvas. */
-#home-bg-canvas{position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;z-index:0;image-rendering:pixelated;image-rendering:crisp-edges;pointer-events:none;display:none;}
+#home-bg-canvas{position:fixed;inset:0;width:var(--app-w,100vw);height:var(--app-h,100vh);height:var(--app-h,100dvh);z-index:0;image-rendering:pixelated;image-rendering:crisp-edges;pointer-events:none;display:none;}
 body[data-scene-bg] #home-bg-canvas{display:block;}
 /* the old shared backdrop (stars, mist, dark castle-wall silhouette in index.html)
    would be drawn over the scene, so it is hidden while the scene is showing
@@ -68,11 +68,11 @@ body[data-scene-bg="dim"] #home-bg-canvas{filter:brightness(.78) saturate(.9);}
 
 .home-footer{margin-top:12px;font-size:calc(12px * var(--text-scale,1));color:#8f95c4;text-align:center;letter-spacing:.3px;text-shadow:0 1px 3px #000;}
 
-@media(max-height:820px) and (min-width:701px){
-    .home-footer{margin-top:8px;}
+@media(min-width:701px){
+    :where(html.vh-820) .home-footer{margin-top:8px;}
 }
-@media(max-height:700px) and (min-width:701px){
-    .home-footer{display:none;}
+@media(min-width:701px){
+    :where(html.vh-700) .home-footer{display:none;}
 }
 @media(max-width:700px){
     #title-screen::after{background:radial-gradient(ellipse 80% 50% at 50% 55%,rgba(4,4,16,.6) 0%,rgba(4,4,16,.3) 60%,transparent 85%);}

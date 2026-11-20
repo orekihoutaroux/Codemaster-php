@@ -37,10 +37,12 @@
 <link rel="stylesheet" href="css/overlays/settings.css">
 <link rel="stylesheet" href="css/screens/home-refresh.css">
 <link rel="stylesheet" href="css/game/battle-stage.css">
+<!-- FIT: makes every screen fit the zoomed 16:9 layout (js/core/ui-fit.js); keep last -->
+<link rel="stylesheet" href="css/base/screen-fit.css">
 
 <style>
     /* Shell-only: hidden until the page partials and game scripts finish loading. */
-    #app-root { width: 100%; min-height: 100vh; }
+    #app-root { width: 100%; min-height: var(--app-h, 100vh); }
     body.app-loading #app-root { visibility: hidden; }
     .app-boot-error {
         position: fixed; inset: 0; z-index: 9999;
@@ -50,6 +52,9 @@
     }
     .app-boot-error small { color: #9aa0c8; }
 </style>
+<!-- Fits the whole UI to the window (16:9 base, zoomed). Must run before the
+     page is drawn, so it is loaded here and not by js/loader.js. -->
+<script src="js/core/ui-fit.js"></script>
 </head>
 <body class="app-loading">
 <!--

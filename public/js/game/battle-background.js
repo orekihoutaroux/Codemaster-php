@@ -521,7 +521,7 @@ var THEMES={'sunlit-valley':valley,'crystal-cavern':cavern,'cyber-defense':cyber
 // ---------- drawing loop ----------
 function measure(){
     if(!scene||!canvas)return false;
-    var cs=getComputedStyle(scene),r=scene.getBoundingClientRect();
+    var cs=getComputedStyle(scene),r=uiRect(scene); // layout pixels (js/core/ui-fit.js)
     if(!r.width||!r.height)return false;
     P=Math.max(1,parseInt(cs.getPropertyValue('--px'),10)||3);
     var ground=parseFloat(cs.getPropertyValue('--ground'))||58;

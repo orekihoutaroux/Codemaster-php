@@ -157,7 +157,7 @@
 .death-overlay .sub{font-size:calc(16px * var(--text-scale,1));color:#888;margin-top:14px;font-weight:600;}
 .death-overlay .sub2{font-size:calc(14px * var(--text-scale,1));color:#666;margin-top:10px;font-weight:500;}
 
-.toast{position:fixed;top:18px;left:50%;transform:translateX(-50%);min-width:min(360px,calc(100vw - 32px));font-family:var(--ui-font);font-size:calc(16px * var(--text-scale,1));font-weight:700;letter-spacing:0.3px;text-align:center;padding:12px 24px;border:2px solid rgba(255,255,255,0.72);box-shadow:0 8px 0 rgba(0,0,0,0.38),0 14px 34px rgba(0,0,0,0.56);pointer-events:none;z-index:1000;animation:toastAnim 2s ease-out forwards;}
+.toast{position:fixed;top:18px;left:50%;transform:translateX(-50%);min-width:min(360px,calc(var(--app-w,100vw) - 32px));font-family:var(--ui-font);font-size:calc(16px * var(--text-scale,1));font-weight:700;letter-spacing:0.3px;text-align:center;padding:12px 24px;border:2px solid rgba(255,255,255,0.72);box-shadow:0 8px 0 rgba(0,0,0,0.38),0 14px 34px rgba(0,0,0,0.56);pointer-events:none;z-index:1000;animation:toastAnim 2s ease-out forwards;}
 .toast.error{background:var(--accent);color:#fff;}
 .toast.success{background:var(--green);color:#000;}
 .toast.info{background:var(--accent2);color:#fff;}

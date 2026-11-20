@@ -91,7 +91,7 @@ function addFx(stage,cls,html,x,y,size,life){
 }
 // Middle of a fighter's body, in px inside the stage. col = art column of the body.
 function bodyPoint(stage,canvas,col){
-    var s=stage.getBoundingClientRect(),r=canvas.getBoundingClientRect();
+    var s=uiRect(stage),r=uiRect(canvas); // layout pixels (js/core/ui-fit.js)
     return {x:r.left-s.left+r.width*col/64,y:r.top-s.top+r.height*40/64,unit:r.width/64};
 }
 function hitFx(stage,target,attacker,opts){
@@ -170,7 +170,7 @@ function frame(now){
     var heroBox=document.querySelector('.home-fighter-hero'),enemyBox=document.querySelector('.home-fighter-enemy');
     var stage=document.querySelector('.home-stage');
     if(heroBox&&enemyBox){
-        var gap=enemyBox.getBoundingClientRect().left-heroBox.getBoundingClientRect().left-heroBox.offsetWidth*0.55;
+        var gap=uiRect(enemyBox).left-uiRect(heroBox).left-heroBox.offsetWidth*0.55;
         // the knight and the hacker run across to the monster and back
         var heroDash=(!RANGED_HEROES[hero.id]&&p.hero&&p.hero.name==='attack')?dashAmount(p.hero.p,p.hero.k,gap):0;
         heroBox.style.transform='translateX('+Math.round(heroDash)+'px)';

@@ -165,6 +165,7 @@ codemaster-php/
 | A font size                                  | the CSS file for that screen; keep the form `calc(16px * var(--text-scale,1))` so the Text size setting still works |
 | The admin dashboard                          | `public/overlays/admin.html`, `public/js/admin/admin-panel.js` |
 | Phone layout                                 | `public/css/base/mobile.css` (plus the `@media` blocks in each file) |
+| Fitting computer screens (16:9 base, zoom)   | `public/js/core/ui-fit.js` (the zoom; loaded in `index.html`'s `<head>`) and `public/css/base/screen-fit.css` (what each screen does to fit 1280x720) |
 | An API endpoint                              | the matching file in `server/routes/`                        |
 
 ## How the page is put together
