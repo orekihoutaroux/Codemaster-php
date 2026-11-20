@@ -16,6 +16,11 @@
 // repainted about 8 times a second; the rest moves every frame (~30 fps,
 // only while the home page is shown).
 //
+// The same scene is the background of the login/register, choose-hero,
+// How to Play and Study Materials screens too, a little dimmer there
+// (SCENE_SCREENS below; the dimming is in css/screens/home-refresh.css).
+// The canvas is moved to <body> so it stays put while those screens change.
+//
 // For testing: setHomeTimeOfDay(0.5) pins noon (0 = midnight, 0.25 = sunrise,
 // 0.75 = sunset); setHomeTimeOfDay(null) lets the day run again.
 (function(){
@@ -26,6 +31,20 @@ var mouse={x:0,y:0,tx:0,ty:0};
 var reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // ---------- time of day ----------
+// Screens that show this scene: 'home' = full brightness, 'dim' = dimmer.
+var SCENE_SCREENS={'title-screen':'home','add-user-screen':'dim','select-screen':'dim','tutorial-screen':'dim','learn-screen':'dim'};
+var sceneMode='';
+function activeSceneMode(){
+    for(var id in SCENE_SCREENS){var el=document.getElementById(id);if(el&&el.classList.contains('active'))return SCENE_SCREENS[id];}
+    return '';
+}
+// body[data-scene-bg] shows the canvas (home or dim); no attribute hides it.
+function setSceneMode(mode){
+    if(mode===sceneMode)return;
+    sceneMode=mode;
+    if(mode)document.body.setAttribute('data-scene-bg',mode);else document.body.removeAttribute('data-scene-bg');
+}
+
 var clockStart=performance.now();
 var startPhase=(function(){var d=new Date();return (d.getHours()+d.getMinutes()/60)/24;})();
 var pinnedPhase=null;
@@ -558,9 +577,9 @@ function updatePageVeil(s){
     var v=amount(s,'veil');
     if(Math.abs(v-lastVeil)<0.02)return;
     lastVeil=v;
+    document.body.style.setProperty('--home-veil',v.toFixed(2));
     var screen=document.getElementById('title-screen');
     if(screen){
-        screen.style.setProperty('--home-veil',v.toFixed(2));
         screen.setAttribute('data-sky',amount(s,'light')>0.75?'day':amount(s,'light')<0.25?'night':'twilight');
     }
 }
@@ -611,17 +630,24 @@ function resize(){
 }
 
 function loop(now){
-    var screen=document.getElementById('title-screen');
-    if(!screen||!screen.classList.contains('active')){animId=null;return;}
+    var mode=activeSceneMode();
+    setSceneMode(mode);
+    if(!mode){animId=null;return;}
     animId=requestAnimationFrame(loop);
     if(document.hidden||now-(loop.prev||0)<33)return;
     loop.prev=now;
     render(now);
 }
 
+// Call after any screen change: starts the scene on the screens that use it
+// and hides it everywhere else (the battle has its own background).
 window.startHomeBackground=function(){
     canvas=document.getElementById('home-bg-canvas');
     if(!canvas)return;
+    if(canvas.parentNode!==document.body)document.body.insertBefore(canvas,document.body.firstChild);
+    var mode=activeSceneMode();
+    setSceneMode(mode);
+    if(!mode)return;
     if(!sets||canvas.width!==Math.ceil(window.innerWidth/P))resize();
     if(reduceMotion){slow.at=-1;render(performance.now());return;}
     if(!animId){last=0;animId=requestAnimationFrame(loop);}
@@ -643,7 +669,7 @@ window.getHomeTimeOfDay=function(){return currentPhase(performance.now());};
 
 window.addEventListener('resize',function(){
     clearTimeout(resize.timer);
-    resize.timer=setTimeout(function(){if(canvas&&document.getElementById('title-screen').classList.contains('active'))resize();},150);
+    resize.timer=setTimeout(function(){if(canvas&&activeSceneMode())resize();},150);
 });
 window.addEventListener('pointermove',function(e){
     if(e.pointerType==='touch')return;

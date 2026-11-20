@@ -399,3 +399,15 @@ the `/api/admin/*` routes remain unprotected on the server.
   behind the door when they attacked, and spells flew behind it.
 - The attacking hero is drawn in front of the monster too
   (`css/screens/home-stage.css`).
+
+## Changelog — home scene behind more screens
+
+- The animated day-and-night valley from the home page is now also the
+  background of **login / register**, **choose hero**, **How to Play** and
+  **Study Materials**, a little dimmer there (`body[data-scene-bg="dim"]`
+  in `css/screens/home-refresh.css`) with a soft dark centre so the panels
+  stay easy to read. It is one scene shared by all these screens, so the sky
+  and time of day carry on smoothly from page to page.
+- The battle and the leaderboard keep their own backgrounds.
+- Titles on hero select and Study Materials have a dark outline so the sun
+  or moon behind them does not wash them out.

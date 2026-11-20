@@ -146,6 +146,8 @@ var baseShowScreen=window.showScreen;
 window.showScreen=function(id){
     var result=baseShowScreen.apply(this,arguments);
     if(id==='title-screen')refreshHome();
+    // login, hero select, How to Play and Study Materials share the home scene
+    else if(typeof startHomeBackground==='function')startHomeBackground();
     return result;
 };
 
