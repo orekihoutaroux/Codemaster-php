@@ -271,7 +271,12 @@ function showScreen(id){
         if(monsterAnimId){cancelAnimationFrame(monsterAnimId);monsterAnimId=null;}
     }
     if(id==='game-screen'&&typeof startBattleBackground==='function')startBattleBackground();
-    if(id==='select-screen')renderCharacterSelect();
+    if(id==='select-screen'){
+        // start at the top (title and first heroes), not where the player
+        // scrolled to last time, e.g. the ENTER DUNGEON button on a phone
+        document.getElementById('select-screen').scrollTop=0;
+        renderCharacterSelect();
+    }
     if(id==='add-user-screen'||id==='title-screen'){
         if(typeof heroReselectMode!=='undefined'&&heroReselectMode&&typeof setHeroReselectMode==='function')setHeroReselectMode(false);
     }

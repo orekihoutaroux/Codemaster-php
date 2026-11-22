@@ -733,3 +733,20 @@ curve (it may be lower). Old leaderboard scores came from the old point rules.
   `#home-fx-canvas` (`public/pages/home.html`). There the whole-scene flash is
   left out and the canvas edges fade (`css/screens/home-stage.css`), so no box
   shows around the stage. Battles look the same as before.
+
+## Changelog — START NEW RUN after dying goes to hero select
+
+- On the **YOU DIED** screen, **START NEW RUN** now opens the hero select
+  screen (title "NEW RUN: PICK A HERO") instead of starting floor 1 straight
+  away with the same hero. The hero just played is already selected, so
+  pressing START NEW RUN there keeps it; picking another card switches hero.
+  It works like RESTART GAME in the settings (`restartAfterDeath()` in
+  `public/js/core/feedback.js`, which uses `setHeroReselectMode()` and
+  `startNewRunWithHero()`). The finished run still goes on the leaderboard
+  first.
+- The message from the hit that ended the run is cleared when hero select
+  opens, so it doesn't cover the title.
+- Hero select always opens scrolled to the top (`showScreen()` in
+  `public/js/core/navigation.js`). On phones it used to open where the player
+  last scrolled to (the ENTER DUNGEON button), hiding the title and the
+  selected hero.

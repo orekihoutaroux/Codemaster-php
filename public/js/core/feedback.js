@@ -152,16 +152,20 @@ function resetRuntimeEncounter(){
     if(typeof clearCharacterCombatAnimation==='function')clearCharacterCombatAnimation();
 }
 
+// START NEW RUN works like RESTART GAME in the settings: once the run is
+// reset, the player goes back to the hero select screen to pick a hero (the
+// one just played is already selected) and the new run starts from there
+// (startNewRunWithHero() in js/screens/account.js).
 function restartAfterDeath(){
     closeDeathScreen();
     whenDeathResetDone().then(function(){
         resetRuntimeEncounter();
         syncUiFromState();
         var progEl=document.getElementById('lex-progress-fill');if(progEl)progEl.style.width='5%';
-        updateSpeech('A new run begins at floor 1!');
-        saveState();
-        spawnMonster();
-        loadQuestion();
+        // the last battle message (the hit that ended the run) is stale now
+        document.querySelectorAll('.toast').forEach(function(t){t.remove();});
+        showScreen('select-screen');
+        setHeroReselectMode(true);
     });
 }
 
