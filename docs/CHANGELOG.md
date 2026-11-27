@@ -750,3 +750,12 @@ curve (it may be lower). Old leaderboard scores came from the old point rules.
   `public/js/core/navigation.js`). On phones it used to open where the player
   last scrolled to (the ENTER DUNGEON button), hiding the title and the
   selected hero.
+
+## Changelog — No second login after going back home
+
+- A player who is still logged in on the page (after dying and pressing
+  **BACK TO HOME**, or after **EXIT TO TITLE** in the settings) no longer has
+  to log in again: **ENTER DUNGEON** on the home page goes straight to hero
+  select for a new run ("NEW RUN: PICK A HERO"), with the last hero already
+  selected (`enterDungeon()` in `public/js/core/audio.js`).
+- Reloading the page still asks for the login, as before.

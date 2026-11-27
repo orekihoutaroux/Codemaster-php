@@ -411,8 +411,17 @@ function enterDungeon(){
     setTimeout(function(){
         if(button){button.disabled=false;button.textContent='ENTER DUNGEON';button.classList.remove('entering');}
         if(door)door.classList.remove('door-knocking');
-        showScreen('add-user-screen');
         enteringDungeon=false;
+        // Still logged in on this page (back home after dying or EXIT TO
+        // TITLE): no second login. The run was already reset, so go straight
+        // to hero select for a new run, with the last hero already selected.
+        if(playerUsername){
+            if(typeof resetRuntimeEncounter==='function')resetRuntimeEncounter();
+            showScreen('select-screen');
+            setHeroReselectMode(true);
+            return;
+        }
+        showScreen('add-user-screen');
     },690);
 }
 
